@@ -41,15 +41,10 @@ describe('contraste de los tonos de panel (WCAG 2.2 AA)', () => {
   for (const tone of TONES) {
     const bg = token(`--tone-${tone}-bg`);
 
-    it(`${tone}: texto, texto secundario y acento son legibles en cualquier tamaño`, () => {
-      for (const role of ['fg', 'fg2', 'acc']) {
+    it(`${tone}: texto, texto secundario y acentos son legibles en cualquier tamaño`, () => {
+      for (const role of ['fg', 'fg2', 'acc', 'acc2']) {
         expect(contrast(bg, token(`--tone-${tone}-${role}`)), role).toBeGreaterThanOrEqual(AA_TEXT);
       }
-    });
-
-    // acc2 solo se usa en texto grande (≥ 24 px, o 18.66 px en negrita), puntadas y adornos.
-    it(`${tone}: el acento 2 alcanza el mínimo para texto grande y elementos de interfaz`, () => {
-      expect(contrast(bg, token(`--tone-${tone}-acc2`))).toBeGreaterThanOrEqual(AA_LARGE_AND_UI);
     });
 
     it(`${tone}: el indicador de foco se distingue del fondo`, () => {
@@ -60,4 +55,13 @@ describe('contraste de los tonos de panel (WCAG 2.2 AA)', () => {
       expect(best).toBeGreaterThanOrEqual(AA_LARGE_AND_UI);
     });
   }
+});
+
+describe('naranja quemado decorativo', () => {
+  // --color-burnt se reserva para puntadas y adornos: basta el mínimo de elementos gráficos.
+  it('se distingue sobre papel y crema como elemento gráfico', () => {
+    for (const bg of ['--color-paper', '--color-cream']) {
+      expect(contrast(token(bg), token('--color-burnt'))).toBeGreaterThanOrEqual(AA_LARGE_AND_UI);
+    }
+  });
 });

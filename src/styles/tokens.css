@@ -8,6 +8,8 @@
     --color-gold: #f6cd1f;
     --color-gold-soft: #f7de7a;
     --color-burnt: #b8620f;
+    /* Naranja quemado oscurecido para texto sobre claros: ≥ 4.5:1 en papel, crema y arena. */
+    --color-burnt-text: #904c0c;
     --color-red: #9e2430;
     --color-ink: #151412;
     --color-muted: #5f5b53;
@@ -18,11 +20,7 @@
     --color-light: #f1eee7;
     --color-light-2: #c9cfe6;
 
-    /*
-     * Tonos de panel: fondo, texto, texto 2, acento y acento 2.
-     * acc2 sobre papel, arena y crema no llega a 4.5:1: úsalo solo en texto grande
-     * (≥ 24 px, o 18.66 px en negrita), puntadas y adornos (tests/unit/tokens.test.js).
-     */
+    /* Tonos de panel: fondo, texto, texto 2, acento y acento 2 (todos ≥ 4.5:1, ver tests/unit/tokens.test.js) */
     --tone-navy-bg: var(--color-navy);
     --tone-navy-fg: var(--color-light);
     --tone-navy-fg2: var(--color-light-2);
@@ -32,12 +30,12 @@
     --tone-paper-fg: var(--color-ink);
     --tone-paper-fg2: var(--color-muted);
     --tone-paper-acc: var(--color-navy);
-    --tone-paper-acc2: var(--color-burnt);
+    --tone-paper-acc2: var(--color-burnt-text);
     --tone-sand-bg: var(--color-sand);
     --tone-sand-fg: var(--color-ink);
     --tone-sand-fg2: #57504a;
     --tone-sand-acc: var(--color-navy);
-    --tone-sand-acc2: #9a4c0a;
+    --tone-sand-acc2: var(--color-burnt-text);
     --tone-red-bg: var(--color-red);
     --tone-red-fg: #f7efe3;
     --tone-red-fg2: #f0d6cc;
@@ -47,7 +45,7 @@
     --tone-cream-fg: var(--color-navy);
     --tone-cream-fg2: var(--color-muted);
     --tone-cream-acc: var(--color-navy);
-    --tone-cream-acc2: var(--color-burnt);
+    --tone-cream-acc2: var(--color-burnt-text);
 
     /* Foco: ámbar con anillo navy para que se vea sobre cualquier tono */
     --focus-color: var(--color-amber);

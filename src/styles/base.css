@@ -134,27 +134,6 @@
   }
   /* stylelint-enable declaration-no-important */
 
-  /* Enlace "saltar al contenido": aparece al recibir foco con el teclado. */
-  .skip-link {
-    position: fixed;
-    inset-block-start: 0.75rem;
-    inset-inline-start: 0.75rem;
-    z-index: var(--z-curtain);
-    padding: 0.75rem 1.25rem;
-    font-size: var(--text-label);
-    font-weight: 600;
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    color: var(--color-navy);
-    background: var(--color-letter);
-    border-radius: 3px;
-    transform: translateY(-200%);
-  }
-
-  .skip-link:focus-visible {
-    transform: none;
-  }
-
   /* Etiqueta en mayúsculas con tracking, recurrente en todo el diseño. */
   .label {
     font-family: var(--font-ui);
