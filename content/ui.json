@@ -1,5 +1,5 @@
 {
-  "$comment": "Textos de interfaz extraídos del prototipo v108 (Recorrido.dc.html). Textos NUEVOS que no existen en el prototipo y debe revisar Andrés: presence.listTitle, contact.fallback.label, contact.fallback.template. '{x}' se reemplaza con datos.",
+  "$comment": "Textos de interfaz extraídos del prototipo v108 (Recorrido.dc.html). Textos NUEVOS que no existen en el prototipo y debe revisar Andrés: presence.listTitle, contact.fallback.label, contact.fallback.template, contact.errors (excepto phone y phoneAbroad, que vienen del prototipo). '{x}' se reemplaza con datos.",
   "nav": {
     "label": "Secciones"
   },
@@ -15,7 +15,11 @@
   "members": {
     "directorLabel": "Director",
     "vocalists": {
-      "titleLines": ["Las voces", "de la", "Jarana"],
+      "titleLines": [
+        "Las voces",
+        "de la",
+        "Jarana"
+      ],
       "caption": "(V. Vocalistas · tres voces para cada jarana)",
       "groupTitle": "Las tres voces",
       "groupRole": "Vocalistas"
@@ -23,11 +27,26 @@
   },
   "presence": {
     "eyebrow": "Presencia · 2018 – 2026",
-    "titleLines": ["De Tizimín", "a toda la", "península"],
+    "titleLines": [
+      "De Tizimín",
+      "a toda la",
+      "península"
+    ],
     "counters": [
-      { "state": "Yucatán", "label": "municipios de Yucatán", "cap": 50 },
-      { "state": "Quintana Roo", "label": "de Quintana Roo", "cap": 5 },
-      { "state": "Campeche", "label": "de Campeche" }
+      {
+        "state": "Yucatán",
+        "label": "municipios de Yucatán",
+        "cap": 50
+      },
+      {
+        "state": "Quintana Roo",
+        "label": "de Quintana Roo",
+        "cap": 5
+      },
+      {
+        "state": "Campeche",
+        "label": "de Campeche"
+      }
     ],
     "tourPrefix": "Y de gira:",
     "hint": "Pasa el cursor por el mapa para ver cada pueblo y sus comisarías. ¿No ves el tuyo? Haz clic en él y nos invitas.",
@@ -64,6 +83,124 @@
     "fallback": {
       "label": "Escribe tu invitación",
       "template": "Hola, me llamo … y quiero invitar a la ROYAT a una vaquería (o evento privado: …) el … en …, …, …. Pueden escribirme al …."
+    },
+    "letter": {
+      "greeting": "Hola, me llamo",
+      "invite": "y quiero invitar a la ROYAT a",
+      "articleFeminine": "una",
+      "articleMasculine": "un",
+      "eventTypeLabel": "Tipo de evento",
+      "vaqueria": "vaquería",
+      "privado": "evento privado",
+      "on": "el",
+      "in": "en",
+      "countryPrefix": "en el país de",
+      "phonePrefix": "Pueden escribirme al",
+      "postscript": "P. D."
+    },
+    "placeholders": {
+      "name": "tu nombre",
+      "detail": "¿cuál? boda, XV…",
+      "locality": "localidad o comisaría",
+      "localityAbroad": "lugar o dirección",
+      "municipality": "municipio",
+      "alcaldia": "alcaldía",
+      "city": "ciudad",
+      "state": "estado",
+      "country": "país",
+      "phone": "999 123 4567",
+      "phoneAbroad": "+1 305 123 4567",
+      "message": "horario, invitados, dudas… (opcional)"
+    },
+    "labels": {
+      "name": "Nombre",
+      "detail": "Especifica el tipo de evento privado",
+      "date": "Fecha del evento",
+      "locality": "Localidad o comisaría (opcional)",
+      "localityAbroad": "Lugar o dirección (opcional)",
+      "municipality": "Municipio",
+      "alcaldia": "Alcaldía",
+      "city": "Ciudad",
+      "state": "Estado",
+      "country": "País",
+      "phone": "Número de teléfono",
+      "message": "Mensaje (opcional)"
+    },
+    "states": {
+      "peninsulaLabel": "Península de Yucatán",
+      "peninsula": [
+        "Campeche",
+        "Quintana Roo",
+        "Yucatán"
+      ],
+      "restLabel": "Resto de México",
+      "rest": [
+        "Aguascalientes",
+        "Baja California",
+        "Baja California Sur",
+        "Chiapas",
+        "Chihuahua",
+        "Ciudad de México",
+        "Coahuila",
+        "Colima",
+        "Durango",
+        "Estado de México",
+        "Guanajuato",
+        "Guerrero",
+        "Hidalgo",
+        "Jalisco",
+        "Michoacán",
+        "Morelos",
+        "Nayarit",
+        "Nuevo León",
+        "Oaxaca",
+        "Puebla",
+        "Querétaro",
+        "San Luis Potosí",
+        "Sinaloa",
+        "Sonora",
+        "Tabasco",
+        "Tamaulipas",
+        "Tlaxcala",
+        "Veracruz",
+        "Zacatecas"
+      ],
+      "otherLabel": "Otro",
+      "abroad": "Fuera de México",
+      "capital": "Ciudad de México"
+    },
+    "message": {
+      "intro": "¡Hola! Quiero solicitar información para un evento con la Real Orquesta Yucateca.",
+      "name": "Nombre",
+      "phone": "Teléfono",
+      "date": "Fecha",
+      "state": "Estado",
+      "country": "País",
+      "municipality": "Municipio",
+      "alcaldia": "Alcaldía",
+      "city": "Ciudad",
+      "locality": "Localidad",
+      "eventType": "Tipo de evento",
+      "vaqueria": "Vaquería",
+      "privado": "Evento privado",
+      "message": "Mensaje"
+    },
+    "sent": {
+      "ok": "¡Listo! Se abrió WhatsApp; solo presiona enviar. ¿No se abrió?",
+      "again": "Ábrelo aquí"
+    },
+    "errors": {
+      "name": "Escribe tu nombre.",
+      "detail": "Cuéntanos qué evento privado es.",
+      "date": "Elige la fecha del evento.",
+      "datePast": "La fecha del evento no puede ser anterior a hoy.",
+      "municipality": "Escribe el municipio.",
+      "alcaldia": "Escribe la alcaldía.",
+      "city": "Escribe la ciudad.",
+      "state": "Elige el estado.",
+      "country": "Escribe el país.",
+      "phone": "Escribe un número de al menos 10 dígitos.",
+      "phoneAbroad": "Escribe tu número con lada del país (al menos 8 dígitos)."
     }
   },
   "footer": {

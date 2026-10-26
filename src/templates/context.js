@@ -4,7 +4,8 @@
  * @typedef {{ width: number, format: 'avif' | 'webp', file: string }} ImageVariant
  * @typedef {{ width: number, height: number, variants: ImageVariant[] }} ImageEntry
  * @typedef {Record<string, any>} Content contenido de `content/*.json` por nombre de archivo
- * @typedef {{ pal: string[], logo: string[] } & Record<string, any>} StitchPatterns `assets-src/stitch/patterns.json`
+ * @typedef {{ pal: string[], logo: string[], bands: Record<string, string[]>, motifs: Record<string, string[]> } & Record<string, any>} StitchPatterns
+ *   `assets-src/stitch/patterns.json` más motivos y bandas de `motifs.json`
  * @typedef {{ content: Content, patterns: StitchPatterns, image: (src: string) => ImageEntry, ogImage: { src: string, width: number, height: number } }} RenderContext
  */
 

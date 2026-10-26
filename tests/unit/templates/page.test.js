@@ -7,7 +7,12 @@ import { createContext, renderPage, SECTIONS } from '../../../src/templates/inde
 import { placeText, presenceCount } from '../../../src/templates/places.js';
 
 const content = loadContent();
-const patterns = JSON.parse(readFileSync('assets-src/stitch/patterns.json', 'utf8'));
+const motifs = JSON.parse(readFileSync('assets-src/stitch/motifs.json', 'utf8'));
+const patterns = {
+  ...JSON.parse(readFileSync('assets-src/stitch/patterns.json', 'utf8')),
+  motifs: motifs.motifs,
+  bands: motifs.bands,
+};
 const template = readFileSync('index.html', 'utf8');
 
 /** Manifest falso: cada imagen tiene 2 anchos en AVIF y WebP (no requiere build:images). */

@@ -11,8 +11,14 @@ const MANIFEST = 'images-manifest.json';
 const TEMPLATES = '/src/templates/index.js';
 const MARKER = '<!-- @section:';
 const PATTERNS = 'assets-src/stitch/patterns.json';
+const MOTIFS = 'assets-src/stitch/motifs.json';
 
-const readPatterns = () => JSON.parse(readFileSync(PATTERNS, 'utf8'));
+/** @param {string} file */
+const readJson = (file) => JSON.parse(readFileSync(file, 'utf8'));
+const readPatterns = () => {
+  const { motifs, bands } = readJson(MOTIFS);
+  return { ...readJson(PATTERNS), motifs, bands };
+};
 
 function readManifest() {
   if (!existsSync(MANIFEST))
@@ -38,7 +44,7 @@ function contentPages() {
     name: 'royat-content',
     configureServer(devServer) {
       server = devServer;
-      devServer.watcher.add(['content', MANIFEST, PATTERNS]);
+      devServer.watcher.add(['content', MANIFEST, PATTERNS, MOTIFS]);
       devServer.watcher.on('change', (file) => {
         if (/[\\/](content|templates)[\\/]|images-manifest\.json$/.test(file)) {
           devServer.ws.send({ type: 'full-reload' });

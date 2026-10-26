@@ -1,20 +1,30 @@
 // @ts-check
-import { html } from './html.js';
+import { stitchBandSvg } from '../js/stitch/svg.js';
+import { html, raw } from './html.js';
 
 /** @typedef {import('./context.js').RenderContext} RenderContext */
 
 /**
- * Pie de página (FOO-1).
+ * Pie de página (FOO-1): banda de rombos bordada, nombre y crédito.
  * @param {RenderContext} ctx
  */
-export function footer({ content }) {
-  const { site, ui } = content;
+export function footer(ctx) {
+  const { site, ui } = ctx.content;
+  const { patterns } = ctx;
+  const band = stitchBandSvg(patterns.bands.rombos, patterns.pal, {
+    id: 'footer-band',
+    cell: 6,
+    className: 'site-footer__band',
+  });
   return html`<footer class="site-footer">
-    <p class="site-footer__line"><b>${ui.footer.brand}</b> · ${site.footer.line}</p>
-    <p class="site-footer__credit">
-      <a href="${site.footer.credit.url}" target="_blank" rel="noopener"
-        >${site.footer.credit.label} <span class="sr-only">${ui.contact.newTab}</span></a
-      >
-    </p>
+    ${raw(band)}
+    <div class="site-footer__body">
+      <p class="site-footer__line"><b class="site-footer__brand">${ui.footer.brand}</b> ${site.footer.line}</p>
+      <p class="site-footer__credit">
+        <a href="${site.footer.credit.url}" target="_blank" rel="noopener"
+          >${site.footer.credit.label} <span class="sr-only">${ui.contact.newTab}</span></a
+        >
+      </p>
+    </div>
   </footer>`;
 }

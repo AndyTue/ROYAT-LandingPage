@@ -1,6 +1,26 @@
 // @ts-check
 import { describe, expect, it } from 'vitest';
-import { colorRuns, stitchSvg } from '../../../src/js/stitch/svg.js';
+import { colorRuns, stitchBandSvg, stitchSvg } from '../../../src/js/stitch/svg.js';
+
+describe('stitchBandSvg', () => {
+  it('repite un periodo con un pattern del tamaño de la banda', () => {
+    const svg = stitchBandSvg(['a.', '.b'], ['#111111', '#222222'], {
+      id: 'b',
+      cell: 6,
+      className: 'band',
+    });
+    expect(svg).toMatch(/^<svg class="band"/);
+    expect(svg).toContain('height="12" aria-hidden="true"');
+    expect(svg).toContain('<pattern id="b" width="12" height="12" patternUnits="userSpaceOnUse">');
+    expect(svg).toContain('<path d="M0.16 0.84L0.84 0.16M0.16 0.16L0.84 0.84" stroke="#111111"/>');
+    expect(svg).toContain('stroke="#222222"');
+    expect(svg).toContain('fill="url(#b)"');
+  });
+
+  it('rechaza hilos fuera de la paleta', () => {
+    expect(() => stitchBandSvg(['z'], ['#111111'], { id: 'b', cell: 6 })).toThrow(/"z"/);
+  });
+});
 
 const PAL = ['#111111', '#222222'];
 
