@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dev · Bordado</title>
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="./stitch.css" />
+    <script type="module" src="./stitch.js"></script>
+  </head>
+  <body class="dev">
+    <header class="dev__bar">
+      <h1 class="dev__title">Bordado</h1>
+      <label class="dev__control">
+        Avance <output class="dev__value" for="progress">0.00</output>
+        <input
+          id="progress"
+          class="dev__range"
+          type="range"
+          min="0"
+          max="1"
+          step="0.005"
+          value="1"
+        />
+      </label>
+      <button class="dev__button" type="button" data-action="play">Animar intro</button>
+      <button class="dev__button" type="button" data-action="all">Todo (reduced-motion)</button>
+      <label class="dev__control">
+        Semilla <input class="dev__seed" type="number" value="2018" />
+      </label>
+    </header>
+    <main>
+      <section class="dev__hero" aria-label="Hero">
+        <canvas class="dev__rose" data-layer="left"></canvas>
+        <canvas class="dev__logo" data-layer="logo"></canvas>
+        <canvas class="dev__rose" data-layer="right"></canvas>
+      </section>
+      <section class="dev__band" aria-label="Dobladillo">
+        <canvas data-layer="hem"></canvas>
+      </section>
+      <section class="dev__motifs" aria-label="Motivos y bandas"></section>
+    </main>
+  </body>
+</html>
