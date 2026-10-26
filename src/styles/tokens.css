@@ -1,10 +1,90 @@
-/* Subconjunto mínimo para la página provisional; F2 lo completa desde DESIGN-TOKENS. */
+/* Fuente de verdad: docs/DESIGN-TOKENS.md (valores del prototipo v108). */
 @layer tokens {
   :root {
+    /* Color base */
     --color-navy: #1c2c55;
+    --color-orange: #e98b1e;
+    --color-amber: #f5a23a;
+    --color-gold: #f6cd1f;
+    --color-gold-soft: #f7de7a;
+    --color-burnt: #b8620f;
+    --color-red: #9e2430;
+    --color-ink: #151412;
+    --color-muted: #5f5b53;
+    --color-paper: #eceae4;
+    --color-sand: #e3d7bf;
+    --color-cream: #f4efe4;
+    --color-letter: #fbf7ee;
     --color-light: #f1eee7;
     --color-light-2: #c9cfe6;
-    --color-orange-on-navy: #e98b1e;
-    --font-ui: system-ui, sans-serif;
+
+    /*
+     * Tonos de panel: fondo, texto, texto 2, acento y acento 2.
+     * acc2 sobre papel, arena y crema no llega a 4.5:1: úsalo solo en texto grande
+     * (≥ 24 px, o 18.66 px en negrita), puntadas y adornos (tests/unit/tokens.test.js).
+     */
+    --tone-navy-bg: var(--color-navy);
+    --tone-navy-fg: var(--color-light);
+    --tone-navy-fg2: var(--color-light-2);
+    --tone-navy-acc: var(--color-light);
+    --tone-navy-acc2: var(--color-orange);
+    --tone-paper-bg: var(--color-paper);
+    --tone-paper-fg: var(--color-ink);
+    --tone-paper-fg2: var(--color-muted);
+    --tone-paper-acc: var(--color-navy);
+    --tone-paper-acc2: var(--color-burnt);
+    --tone-sand-bg: var(--color-sand);
+    --tone-sand-fg: var(--color-ink);
+    --tone-sand-fg2: #57504a;
+    --tone-sand-acc: var(--color-navy);
+    --tone-sand-acc2: #9a4c0a;
+    --tone-red-bg: var(--color-red);
+    --tone-red-fg: #f7efe3;
+    --tone-red-fg2: #f0d6cc;
+    --tone-red-acc: #f7efe3;
+    --tone-red-acc2: var(--color-gold);
+    --tone-cream-bg: var(--color-cream);
+    --tone-cream-fg: var(--color-navy);
+    --tone-cream-fg2: var(--color-muted);
+    --tone-cream-acc: var(--color-navy);
+    --tone-cream-acc2: var(--color-burnt);
+
+    /* Foco: ámbar con anillo navy para que se vea sobre cualquier tono */
+    --focus-color: var(--color-amber);
+    --focus-ring: var(--color-navy);
+
+    /* Tipografía */
+    --font-display: Cormorant, 'Cormorant Garamond', Georgia, serif;
+    --font-ui: Montserrat, 'Helvetica Neue', Arial, sans-serif;
+    --text-section: clamp(4.5rem, 16vw, 15.625rem);
+    --text-number: clamp(3.5rem, 7vw, 6rem);
+    --text-year: clamp(3.25rem, 6vw, 5.625rem);
+    --text-director: clamp(2.75rem, 5vw, 4.625rem);
+    --text-card-title: clamp(1.875rem, 3.2vw, 2.875rem);
+    --text-letter: clamp(1.375rem, 2vw, 1.75rem);
+    --text-body: 1rem;
+    --text-label: 0.75rem;
+    --leading-letter: 1.7;
+    --tracking-label: 0.12em;
+    --tracking-label-wide: 0.16em;
+
+    /* Bordado */
+    --stitch: 6px;
+
+    /* Movimiento */
+    --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-in-out: cubic-bezier(0.7, 0, 0.2, 1);
+    --ease-curtain: cubic-bezier(0.6, 0, 0.2, 1);
+    --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Capas */
+    --z-content: 1;
+    --z-detail: 45;
+    --z-mascot: 46;
+    --z-nav: 47;
+    --z-player: 48;
+    --z-bubble: 49;
+    --z-curtain: 50;
   }
 }

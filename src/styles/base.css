@@ -1,0 +1,166 @@
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    text-size-adjust: 100%;
+    /* stylelint-disable-next-line property-no-vendor-prefix -- Safari iOS aún lo exige con prefijo */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd,
+  ol,
+  ul {
+    margin: 0;
+  }
+
+  ol,
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  img,
+  picture,
+  svg,
+  canvas,
+  video {
+    display: block;
+    max-inline-size: 100%;
+  }
+
+  img {
+    block-size: auto;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-padding-block-start: 1rem;
+  }
+
+  body {
+    min-block-size: 100svh;
+    font-family: var(--font-ui);
+    font-size: var(--text-body);
+    line-height: 1.6;
+    color: var(--tone-paper-fg);
+    background: var(--tone-paper-bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 0.2em;
+  }
+
+  em {
+    font-family: var(--font-display);
+    font-style: italic;
+  }
+
+  /*
+   * Foco visible en cualquier tono: contorno ámbar con un anillo navy debajo.
+   * Solo con :focus-visible para no marcar los clics del ratón.
+   */
+  :focus-visible {
+    outline: 3px solid var(--focus-color);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px var(--focus-ring);
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+@layer utilities {
+  /* Oculto a la vista y disponible para lectores de pantalla. */
+  /* stylelint-disable declaration-no-important -- utilidad: debe ganar a cualquier componente */
+  .sr-only {
+    position: absolute !important;
+    inline-size: 1px !important;
+    block-size: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+  /* stylelint-enable declaration-no-important */
+
+  /* Enlace "saltar al contenido": aparece al recibir foco con el teclado. */
+  .skip-link {
+    position: fixed;
+    inset-block-start: 0.75rem;
+    inset-inline-start: 0.75rem;
+    z-index: var(--z-curtain);
+    padding: 0.75rem 1.25rem;
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-navy);
+    background: var(--color-letter);
+    border-radius: 3px;
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus-visible {
+    transform: none;
+  }
+
+  /* Etiqueta en mayúsculas con tracking, recurrente en todo el diseño. */
+  .label {
+    font-family: var(--font-ui);
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+}

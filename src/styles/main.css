@@ -1,28 +1,8 @@
 @layer reset, tokens, base, layout, components, sections, utilities;
 
+@import url('./fonts.css');
 @import url('./tokens.css');
-
-@layer reset {
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  body,
-  h1,
-  p {
-    margin: 0;
-  }
-}
-
-@layer base {
-  body {
-    font-family: var(--font-ui);
-    color: var(--color-light);
-    background: var(--color-navy);
-  }
-}
+@import url('./base.css');
 
 @layer sections {
   .construction {
@@ -32,26 +12,27 @@
     min-block-size: 100svh;
     padding-inline: 1rem;
     text-align: center;
+    color: var(--tone-navy-fg);
+    background: var(--tone-navy-bg);
   }
 
   .construction__title {
-    font-size: clamp(3rem, 12vw, 7rem);
-    letter-spacing: 0.12em;
+    font-size: clamp(4rem, 14vw, 8rem);
+    letter-spacing: 0.08em;
   }
 
   .construction__name {
-    font-size: 1.125rem;
+    font-family: var(--font-display);
+    font-size: var(--text-letter);
+    font-style: italic;
   }
 
   .construction__place {
-    color: var(--color-light-2);
+    color: var(--tone-navy-fg2);
   }
 
   .construction__status {
     margin-block-start: 1.5rem;
-    color: var(--color-orange-on-navy);
-    font-size: 0.875rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    color: var(--tone-navy-acc2);
   }
 }

@@ -5,11 +5,21 @@
     "declaration-no-important": true,
     "selector-class-pattern": [
       "^[a-z][a-z0-9]*(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?$",
-      { "message": "Usa bloque__elemento--modificador en kebab-case (ARCHITECTURE §5)" }
+      {
+        "message": "Usa bloque__elemento--modificador en kebab-case (ARCHITECTURE §5)"
+      }
     ],
     "unit-disallowed-list": [
       ["vh"],
-      { "message": "En móvil usa svh, dvh o lvh; vh cambia con la barra del navegador" }
+      {
+        "message": "En móvil usa svh, dvh o lvh; vh cambia con la barra del navegador"
+      }
+    ],
+    "value-keyword-case": [
+      "lower",
+      {
+        "ignoreProperties": ["font-family", "/^--font-/"]
+      }
     ]
   }
 }
