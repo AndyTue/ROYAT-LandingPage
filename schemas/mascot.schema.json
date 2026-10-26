@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "mascot.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "generic", "facts", "sprites"],
+  "properties": {
+    "$comment": {
+      "type": "string"
+    },
+    "name": {
+      "$ref": "#/$defs/text"
+    },
+    "generic": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "facts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "sprites": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sleep", "torso", "tail", "legs"],
+      "properties": {
+        "sleep": {
+          "$ref": "#/$defs/asset"
+        },
+        "torso": {
+          "$ref": "#/$defs/asset"
+        },
+        "tail": {
+          "$ref": "#/$defs/asset"
+        },
+        "legs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["frontFar", "frontNear", "hindFar", "hindNear"],
+          "properties": {
+            "frontFar": {
+              "$ref": "#/$defs/asset"
+            },
+            "frontNear": {
+              "$ref": "#/$defs/asset"
+            },
+            "hindFar": {
+              "$ref": "#/$defs/asset"
+            },
+            "hindNear": {
+              "$ref": "#/$defs/asset"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "asset": {
+      "type": "string",
+      "pattern": "^assets-src/[a-z0-9/_.-]+\\.(webp|png|jpg|svg)$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "image": {
+      "type": "object",
+      "required": ["src", "alt"],
+      "additionalProperties": false,
+      "properties": {
+        "src": {
+          "$ref": "#/$defs/asset"
+        },
+        "alt": {
+          "$ref": "#/$defs/text"
+        },
+        "caption": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    }
+  }
+}

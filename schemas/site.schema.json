@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "site.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "shortName",
+    "founded",
+    "hometown",
+    "lang",
+    "url",
+    "nav",
+    "contact",
+    "social",
+    "footer",
+    "heroPhoto"
+  ],
+  "properties": {
+    "$comment": {
+      "type": "string"
+    },
+    "name": {
+      "$ref": "#/$defs/text"
+    },
+    "shortName": {
+      "$ref": "#/$defs/text"
+    },
+    "founded": {
+      "type": "integer"
+    },
+    "hometown": {
+      "$ref": "#/$defs/text"
+    },
+    "lang": {
+      "const": "es-MX"
+    },
+    "url": {
+      "type": "string",
+      "pattern": "^https://"
+    },
+    "nav": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z]+$"
+          },
+          "label": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["whatsapp", "whatsappDisplay", "formTitle", "eyebrow"],
+      "properties": {
+        "whatsapp": {
+          "type": "string",
+          "pattern": "^52[0-9]{10}$"
+        },
+        "whatsappDisplay": {
+          "$ref": "#/$defs/text"
+        },
+        "formTitle": {
+          "$ref": "#/$defs/text"
+        },
+        "eyebrow": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "social": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "url", "icon"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z]+$"
+          },
+          "label": {
+            "$ref": "#/$defs/text"
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https://"
+          },
+          "icon": {
+            "$ref": "#/$defs/asset"
+          }
+        }
+      }
+    },
+    "footer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["line", "credit"],
+      "properties": {
+        "line": {
+          "$ref": "#/$defs/text"
+        },
+        "credit": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["label", "url"],
+          "properties": {
+            "label": {
+              "$ref": "#/$defs/text"
+            },
+            "url": {
+              "type": "string",
+              "pattern": "^https://"
+            }
+          }
+        }
+      }
+    },
+    "heroPhoto": {
+      "$ref": "#/$defs/image"
+    }
+  },
+  "$defs": {
+    "asset": {
+      "type": "string",
+      "pattern": "^assets-src/[a-z0-9/_.-]+\\.(webp|png|jpg|svg)$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "image": {
+      "type": "object",
+      "required": ["src", "alt"],
+      "additionalProperties": false,
+      "properties": {
+        "src": {
+          "$ref": "#/$defs/asset"
+        },
+        "alt": {
+          "$ref": "#/$defs/text"
+        },
+        "caption": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    }
+  }
+}

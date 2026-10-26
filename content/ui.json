@@ -1,0 +1,72 @@
+{
+  "$comment": "Textos de interfaz extraídos del prototipo v108 (Recorrido.dc.html). Textos NUEVOS que no existen en el prototipo y debe revisar Andrés: presence.listTitle, contact.fallback.label, contact.fallback.template. '{x}' se reemplaza con datos.",
+  "nav": {
+    "label": "Secciones"
+  },
+  "hero": {
+    "logoLabel": "ROYAT · Real Orquesta Yucateca de Arturo Turriza, logo bordado en punto de cruz",
+    "scrollCue": "Desliza",
+    "skipIntro": "Saltar intro"
+  },
+  "history": {
+    "timelineLabel": "Línea de tiempo",
+    "coverAlt": "Portada de {title}"
+  },
+  "members": {
+    "directorLabel": "Director",
+    "vocalists": {
+      "titleLines": ["Las voces", "de la", "Jarana"],
+      "caption": "(V. Vocalistas · tres voces para cada jarana)",
+      "groupTitle": "Las tres voces",
+      "groupRole": "Vocalistas"
+    }
+  },
+  "presence": {
+    "eyebrow": "Presencia · 2018 – 2026",
+    "titleLines": ["De Tizimín", "a toda la", "península"],
+    "counters": [
+      { "state": "Yucatán", "label": "municipios de Yucatán", "cap": 50 },
+      { "state": "Quintana Roo", "label": "de Quintana Roo", "cap": 5 },
+      { "state": "Campeche", "label": "de Campeche" }
+    ],
+    "tourPrefix": "Y de gira:",
+    "hint": "Pasa el cursor por el mapa para ver cada pueblo y sus comisarías. ¿No ves el tuyo? Haz clic en él y nos invitas.",
+    "listTitle": "Municipios donde ha tocado la ROYAT",
+    "comisariasLabel": "Comisarías"
+  },
+  "discography": {
+    "title": "Discografía",
+    "galleryLabel": "Discografía. Usa las flechas para recorrer y Enter para escuchar.",
+    "hint": "Desliza para cambiar de disco · clic en el vinilo para escucharlo",
+    "moreInfo": "Más información",
+    "meta": {
+      "firstTrack": "Primera pista",
+      "year": "Año",
+      "type": "Tipo",
+      "tracks": "Pistas",
+      "duration": "Duración",
+      "guests": "Invitados"
+    },
+    "back": "Regresar a la discografía",
+    "play": "Reproducir",
+    "spotify": "Escuchar en Spotify",
+    "prev": "Disco anterior",
+    "next": "Disco siguiente",
+    "coverAlt": "Portada de {title}"
+  },
+  "contact": {
+    "socialTitle": "Síguenos en redes",
+    "socialLabel": "{label} de la ROYAT",
+    "newTab": "(se abre en una pestaña nueva)",
+    "logoLabel": "Real Orquesta Yucateca de Arturo Turriza",
+    "send": "Enviar por WhatsApp",
+    "note": "Se abrirá WhatsApp con tu invitación lista para enviar.",
+    "fallback": {
+      "label": "Escribe tu invitación",
+      "template": "Hola, me llamo … y quiero invitar a la ROYAT a una vaquería (o evento privado: …) el … en …, …, …. Pueden escribirme al …."
+    }
+  },
+  "footer": {
+    "brand": "ROYAT"
+  }
+}

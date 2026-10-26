@@ -11,7 +11,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "npm run lint:js && npm run lint:css && npm run lint:html && npm run format:check",
+    "lint": "npm run lint:content && npm run lint:js && npm run lint:css && npm run lint:html && npm run format:check",
     "lint:js": "eslint .",
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:html": "html-validate index.html",
@@ -23,7 +23,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "lhci": "npx --yes @lhci/cli@0.15.1 autorun",
-    "check": "npm run lint && npm run typecheck && npm run test && npm run build && npm run lint:dist && npm run test:e2e"
+    "check": "npm run lint && npm run typecheck && npm run test && npm run build && npm run lint:dist && npm run test:e2e",
+    "lint:content": "node scripts/validate-content.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
@@ -31,10 +32,12 @@
     "@playwright/test": "1.64.1",
     "@types/node": "24.19.2",
     "@vitest/coverage-v8": "5.0.5",
+    "ajv": "8.20.0",
     "eslint": "10.13.0",
     "globals": "17.13.0",
     "html-validate": "11.17.0",
     "prettier": "3.9.10",
+    "sharp": "0.35.5",
     "stylelint": "17.16.0",
     "stylelint-config-standard": "40.0.0",
     "typescript": "7.0.2",

@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "places.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["states", "tours", "places"],
+  "properties": {
+    "$comment": {
+      "type": "string"
+    },
+    "states": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "tours": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "year"],
+        "properties": {
+          "label": {
+            "$ref": "#/$defs/text"
+          },
+          "year": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "places": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "i",
+          "municipio",
+          "label",
+          "state",
+          "presence",
+          "comisarias",
+          "colorFamily",
+          "labelPos",
+          "stitchOrder"
+        ],
+        "properties": {
+          "i": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "municipio": {
+            "$ref": "#/$defs/text"
+          },
+          "label": {
+            "$ref": "#/$defs/text"
+          },
+          "state": {
+            "$ref": "#/$defs/text"
+          },
+          "presence": {
+            "type": "boolean"
+          },
+          "comisarias": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/text"
+            }
+          },
+          "colorFamily": {
+            "type": "integer",
+            "minimum": -1
+          },
+          "labelPos": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "type": "number"
+            }
+          },
+          "stitchOrder": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "asset": {
+      "type": "string",
+      "pattern": "^assets-src/[a-z0-9/_.-]+\\.(webp|png|jpg|svg)$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "image": {
+      "type": "object",
+      "required": ["src", "alt"],
+      "additionalProperties": false,
+      "properties": {
+        "src": {
+          "$ref": "#/$defs/asset"
+        },
+        "alt": {
+          "$ref": "#/$defs/text"
+        },
+        "caption": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    }
+  }
+}

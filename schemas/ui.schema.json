@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ui.json",
+  "type": "object",
+  "required": ["nav", "hero", "history", "members", "presence", "discography", "contact", "footer"],
+  "properties": {
+    "$comment": {
+      "type": "string"
+    },
+    "nav": {
+      "$ref": "#/$defs/node"
+    },
+    "hero": {
+      "$ref": "#/$defs/node"
+    },
+    "history": {
+      "$ref": "#/$defs/node"
+    },
+    "members": {
+      "$ref": "#/$defs/node"
+    },
+    "presence": {
+      "$ref": "#/$defs/node"
+    },
+    "discography": {
+      "$ref": "#/$defs/node"
+    },
+    "contact": {
+      "$ref": "#/$defs/node"
+    },
+    "footer": {
+      "$ref": "#/$defs/node"
+    }
+  },
+  "$defs": {
+    "node": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/node"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/node"
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": {
+    "$ref": "#/$defs/node"
+  }
+}

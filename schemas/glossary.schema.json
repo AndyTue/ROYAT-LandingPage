@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "glossary.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["title", "items"],
+  "properties": {
+    "$comment": {
+      "type": "string"
+    },
+    "title": {
+      "$ref": "#/$defs/text"
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["term", "text"],
+        "properties": {
+          "term": {
+            "$ref": "#/$defs/text"
+          },
+          "text": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "asset": {
+      "type": "string",
+      "pattern": "^assets-src/[a-z0-9/_.-]+\\.(webp|png|jpg|svg)$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "image": {
+      "type": "object",
+      "required": ["src", "alt"],
+      "additionalProperties": false,
+      "properties": {
+        "src": {
+          "$ref": "#/$defs/asset"
+        },
+        "alt": {
+          "$ref": "#/$defs/text"
+        },
+        "caption": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    }
+  }
+}
