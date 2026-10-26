@@ -9,7 +9,7 @@ import { createCurtain } from './features/transition.js';
 import { find } from './lib/dom.js';
 import { initContact } from './sections/contact.js';
 import { createHero } from './sections/hero.js';
-import { createHistory } from './sections/history.js';
+import { createTrack } from './sections/track.js';
 import { loadMotifs, loadPatterns } from './stitch/data.js';
 
 // El CSS sin esta clase muestra el layout estático; con ella, las secciones pueden animarse.
@@ -95,14 +95,23 @@ Promise.all([loadPatterns(), loadMotifs()])
       engine.add(hero);
     });
     const ornamentData = { pal: patterns.pal, motifs: motifs.motifs, bands: motifs.bands };
-    /** @type {{ isTrack(): boolean } | null} */
-    let history = null;
-    guard('historia', () => {
-      const root = find(document, '[data-history]', HTMLElement);
-      const section = createHistory({ root, data: ornamentData, getMetrics, reduced });
-      history = section;
-      engine.add(section);
-    });
+    // Historia e Integrantes son pistas horizontales en escritorio.
+    /** @type {Map<Element, { isTrack(): boolean }>} */
+    const tracks = new Map();
+    for (const root of document.querySelectorAll('[data-track]')) {
+      guard(`pista ${/** @type {HTMLElement} */ (root).dataset.track}`, () => {
+        const id = /** @type {HTMLElement} */ (root).dataset.track ?? '';
+        const section = createTrack({
+          id,
+          root: /** @type {HTMLElement} */ (root),
+          data: ornamentData,
+          getMetrics,
+          reduced,
+        });
+        tracks.set(root, section);
+        engine.add(section);
+      });
+    }
     guard('ornaments', () => {
       engine.add(
         createOrnaments({
@@ -110,8 +119,11 @@ Promise.all([loadPatterns(), loadMotifs()])
           data: ornamentData,
           getMetrics,
           reduced,
-          // Los ornamentos de la pista horizontal los borda la propia sección de Historia.
-          skip: (slot) => Boolean(history?.isTrack() && slot.closest('[data-history]')),
+          // Los ornamentos dentro de una pista horizontal los borda la propia pista.
+          skip: (slot) => {
+            const root = slot.closest('[data-track]');
+            return Boolean(root && tracks.get(root)?.isTrack());
+          },
         }),
       );
     });

@@ -1,5 +1,5 @@
 // @ts-check
-import { range } from '../core/motion.js';
+import { clamp, range } from '../core/motion.js';
 import { applyLetters, scatterOf, splitLetters } from '../features/letters.js';
 import { cellFor, mountOrnament } from '../features/ornaments.js';
 import { find, findAll } from '../lib/dom.js';
@@ -12,15 +12,15 @@ import {
   TONE_BAND,
   toneAt,
   trackX,
-} from './history-math.js';
+} from './track-math.js';
 
 /**
  * @typedef {import('../core/engine.js').ScrollState} ScrollState
  * @typedef {import('../core/layout.js').Metrics} Metrics
  * @typedef {import('../features/ornaments.js').OrnamentData} OrnamentData
- * @typedef {import('./history-math.js').Panel} Panel
+ * @typedef {import('./track-math.js').Panel} Panel
  * @typedef {{ el: HTMLElement, k: number, cx: number, cy: number }} Drift
- * @typedef {{ bg: import('./history-math.js').Rgb, fg: import('./history-math.js').Rgb, fg2: import('./history-math.js').Rgb, acc: import('./history-math.js').Rgb, acc2: import('./history-math.js').Rgb }} Tone
+ * @typedef {{ bg: import('./track-math.js').Rgb, fg: import('./track-math.js').Rgb, fg2: import('./track-math.js').Rgb, acc: import('./track-math.js').Rgb, acc2: import('./track-math.js').Rgb }} Tone
  */
 
 /** Tonos de panel que usa la pista (DESIGN-TOKENS). */
@@ -29,9 +29,11 @@ const TONE_NAMES = ['navy', 'paper', 'sand', 'red', 'cream'];
 const SPIN = 0.18;
 
 /**
- * Historia: pista horizontal fija en escritorio (HIS-3) y línea de tiempo vertical en móvil
- * (HIS-4). Con reduced-motion o sin JS nunca hay pista ni movimiento.
+ * Pista horizontal fija (Historia e Integrantes): en escritorio con JS y movimiento, el escenario
+ * fija la pantalla y el contenido se recorre de lado; en móvil, sin JS o con reduced-motion
+ * queda en vertical (HIS-3, HIS-4, INT-*). Cada panel (`[data-tone]`) aporta su tono de fondo.
  * @param {{
+ *   id: string,
  *   root: HTMLElement,
  *   data: OrnamentData,
  *   getMetrics: () => Metrics,
@@ -39,9 +41,9 @@ const SPIN = 0.18;
  * }} options
  * @returns {import('../core/engine.js').Section & { isTrack(): boolean }}
  */
-export function createHistory({ root, data, getMetrics, reduced }) {
-  const stage = find(root, '[data-history-stage]', HTMLElement);
-  const track = find(root, '[data-history-track]', HTMLElement);
+export function createTrack({ id, root, data, getMetrics, reduced }) {
+  const stage = find(root, '[data-track-stage]', HTMLElement);
+  const track = find(root, '[data-track-rail]', HTMLElement);
   const panelEls = findAll(root, '[data-tone]', HTMLElement);
   const slots = findAll(root, '[data-ornament]', HTMLElement);
   const spinners = findAll(root, '[data-spin]', HTMLElement);
@@ -113,8 +115,8 @@ export function createHistory({ root, data, getMetrics, reduced }) {
     let changed = false;
     if (want !== trackMode) {
       trackMode = want;
-      root.classList.toggle('history--track', want);
-      root.style.removeProperty('--history-length');
+      root.classList.toggle('track--on', want);
+      root.style.removeProperty('--track-length');
       length = -1;
       changed = true;
     }
@@ -124,7 +126,7 @@ export function createHistory({ root, data, getMetrics, reduced }) {
       const wanted = Math.round(maxX + vh);
       if (wanted !== length) {
         length = wanted;
-        root.style.setProperty('--history-length', `${wanted}px`);
+        root.style.setProperty('--track-length', `${wanted}px`);
         changed = true;
       }
       const trackRect = track.getBoundingClientRect();
@@ -148,7 +150,7 @@ export function createHistory({ root, data, getMetrics, reduced }) {
       stitched = [];
     }
     measureDrifts();
-    const block = getMetrics().blocks.find((b) => b.id === 'historia');
+    const block = getMetrics().blocks.find((b) => b.id === id);
     section.start = block?.top ?? 0;
     section.end = block?.bottom ?? 0;
     const title = lineEls[0];
@@ -200,8 +202,39 @@ export function createHistory({ root, data, getMetrics, reduced }) {
     });
   }
 
+  /**
+   * Lleva el scroll vertical a donde la pista deja `el` a la vista. Sin esto, enfocar un
+   * elemento o seguir un ancla dentro de la pista desplazaría el escenario (`overflow: hidden`
+   * también se desplaza por código) y la pista quedaría desalineada.
+   * @param {HTMLElement} el
+   */
+  function reveal(el) {
+    stage.scrollLeft = 0;
+    const { vw } = getMetrics();
+    const trackRect = track.getBoundingClientRect();
+    const rect = el.getBoundingClientRect();
+    const center = rect.left - trackRect.left + rect.width / 2;
+    window.scrollTo({ top: section.start + clamp(center - vw / 2, 0, maxX) });
+  }
+
+  stage.addEventListener('scroll', () => {
+    if (trackMode && stage.scrollLeft) stage.scrollLeft = 0;
+  });
+  stage.addEventListener('focusin', (event) => {
+    if (trackMode && event.target instanceof HTMLElement) reveal(event.target);
+  });
+  root.addEventListener('click', (event) => {
+    if (!trackMode || !(event.target instanceof Element)) return;
+    const link = event.target.closest('a[href^="#"]');
+    const target = link && document.getElementById(link.getAttribute('href')?.slice(1) ?? '');
+    if (!target || !stage.contains(target)) return;
+    event.preventDefault();
+    reveal(target);
+    history.replaceState(null, '', link.getAttribute('href'));
+  });
+
   const section = {
-    id: 'historia',
+    id,
     start: 0,
     end: 0,
     measure,

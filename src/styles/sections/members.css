@@ -1,24 +1,70 @@
 @layer sections {
+  /* ---------- Vertical: móvil, sin JS y reduced-motion ---------- */
+  .members {
+    position: relative;
+  }
+
   .members__intro {
+    position: relative;
     display: grid;
     gap: 1.5rem;
     padding: clamp(3rem, 9vw, 6.5rem) clamp(1rem, 5vw, 4rem);
   }
 
-  .members__intro .section-kicker {
+  .members__title {
     margin: 0;
+    font-weight: 500;
+  }
+
+  .members__word {
+    display: grid;
+    font-family: var(--font-display);
+    font-size: clamp(4.5rem, 24vw, 8rem);
+    line-height: 0.82;
+    text-transform: uppercase;
+  }
+
+  .members__line {
+    white-space: nowrap;
+  }
+
+  .members__line:nth-child(2) {
+    padding-inline-start: 0.45em;
+  }
+
+  .members__line:nth-child(3) {
+    padding-inline-start: 0.2em;
+  }
+
+  .members__kicker {
+    color: var(--fg2);
   }
 
   .members__index {
     display: grid;
     gap: 0.5rem;
-    font-family: var(--font-display);
-    font-size: var(--text-letter);
-    font-style: italic;
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
   }
 
   .members__index a {
     text-decoration-color: var(--acc2);
+  }
+
+  .members__bird,
+  .members__corner,
+  .members__deco,
+  .band__deco,
+  .band__seam {
+    display: none;
+  }
+
+  .director {
+    display: grid;
+    justify-items: center;
+    padding: clamp(3rem, 8vw, 5rem) 1rem;
   }
 
   .member {
@@ -39,8 +85,9 @@
   .member__n {
     font-family: var(--font-display);
     font-size: 1.5rem;
+    font-style: italic;
     font-weight: 600;
-    color: var(--acc2, var(--color-burnt-text));
+    color: var(--acc2);
   }
 
   .member__name {
@@ -54,13 +101,7 @@
     font-size: var(--text-label);
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;
-    color: var(--fg2, var(--color-muted));
-  }
-
-  .director {
-    display: grid;
-    justify-items: center;
-    padding: clamp(3rem, 8vw, 5rem) 1rem;
+    color: var(--fg2);
   }
 
   .director .member {
@@ -71,44 +112,36 @@
     font-size: var(--text-director);
   }
 
-  /* Secciones de la orquesta alternan papel y arena; vocalistas en navy (prototipo). */
   .band {
-    --bg: var(--tone-paper-bg);
-    --fg: var(--tone-paper-fg);
-    --fg2: var(--tone-paper-fg2);
-    --acc2: var(--tone-paper-acc2);
-
+    position: relative;
     display: grid;
     gap: 2rem;
     padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 4rem);
-    color: var(--fg);
-    background: var(--bg);
   }
 
-  .band:nth-of-type(even) {
-    --bg: var(--tone-sand-bg);
-    --fg2: var(--tone-sand-fg2);
-    --acc2: var(--tone-sand-acc2);
-  }
-
-  .band:last-of-type {
-    --bg: var(--tone-navy-bg);
-    --fg: var(--tone-navy-fg);
-    --fg2: var(--tone-navy-fg2);
-    --acc2: var(--tone-navy-acc2);
+  .band__numeral {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-style: italic;
+    line-height: 1;
+    color: var(--acc2);
   }
 
   .band__title {
     font-size: var(--text-card-title);
   }
 
-  .band__numeral {
-    color: var(--acc2);
+  .band__display em {
+    font-style: italic;
   }
 
   .band__count {
     margin-block-start: 0.5rem;
     color: var(--fg2);
+  }
+
+  .band__sprig {
+    display: none;
   }
 
   .band__photo {
@@ -125,13 +158,18 @@
     gap: 2rem 1rem;
   }
 
+  .band__members li:nth-child(even) {
+    margin-block-start: 2rem;
+  }
+
   .glossary {
     padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 4rem);
   }
 
   .glossary__title {
-    font-size: var(--text-section);
+    font-size: clamp(3rem, 15vw, 6rem);
     font-style: italic;
+    font-weight: 500;
     line-height: 0.9;
     overflow-wrap: anywhere;
   }
@@ -153,19 +191,14 @@
     font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: 700;
+    color: var(--color-navy);
+  }
+
+  .glossary__item dd {
+    color: var(--color-muted);
   }
 
   @media (width >= 48em) {
-    .members__intro {
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      align-items: end;
-    }
-
-    .members__intro .section-title,
-    .members__intro .section-kicker {
-      grid-column: 1 / -1;
-    }
-
     .band {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
       align-items: start;
@@ -185,5 +218,292 @@
     .band__members {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
+  }
+
+  /* ---------- Pista horizontal fija ---------- */
+  .members.track--on .members__intro {
+    flex: none;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr;
+    gap: 1.5rem 4vw;
+    align-content: start;
+    inline-size: max(100vw, 64rem);
+    padding: 11svh 6vw 11svh 5vw;
+  }
+
+  .members.track--on .members__title {
+    grid-row: 1 / span 3;
+    align-self: center;
+  }
+
+  .members.track--on .members__word {
+    font-size: min(27svh, 13.2vw);
+  }
+
+  .members.track--on .members__kicker {
+    grid-column: 2;
+    max-inline-size: 16rem;
+  }
+
+  .members.track--on .members__photo {
+    grid-column: 2;
+    align-self: start;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .members.track--on .members__photo img {
+    max-block-size: 46svh;
+    object-fit: cover;
+  }
+
+  .members.track--on .members__photo .photo__caption {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--fg2);
+  }
+
+  .members.track--on .members__index {
+    grid-column: 2;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2rem;
+    color: var(--fg2);
+  }
+
+  .members.track--on .members__index a {
+    text-decoration: none;
+  }
+
+  .members.track--on .members__bird,
+  .members.track--on .members__corner,
+  .members.track--on .members__deco,
+  .members.track--on .band__deco,
+  .members.track--on .band__seam,
+  .members.track--on .band__sprig {
+    position: absolute;
+    display: block;
+  }
+
+  .members.track--on .members__bird {
+    inset-block-end: 14svh;
+    inset-inline-start: 43%;
+  }
+
+  .members.track--on .members__corner {
+    inset-block-end: 9svh;
+    inset-inline-end: 4vw;
+  }
+
+  .members.track--on .members__deco {
+    inset-block-start: 4svh;
+    inset-inline-start: 46%;
+  }
+
+  .members.track--on .band {
+    display: flex;
+    flex: none;
+    gap: clamp(2rem, 4vw, 5rem);
+    align-items: center;
+    block-size: 100%;
+    padding: 0 4vw 0 6vw;
+  }
+
+  .members.track--on .band__seam {
+    inset-block-start: 14svh;
+    inset-inline-start: 1.5vw;
+  }
+
+  .members.track--on .band__deco {
+    inset-block-start: 4svh;
+    inset-inline-start: 14%;
+  }
+
+  .members.track--on .band__header {
+    position: relative;
+    flex: none;
+    align-self: flex-start;
+    inline-size: clamp(15rem, 22vw, 22rem);
+    margin-block-start: 12svh;
+  }
+
+  .members.track--on .band__numeral {
+    font-size: clamp(4rem, 14svh, 7rem);
+  }
+
+  .members.track--on .band__title {
+    margin-block-start: 3svh;
+    font-size: clamp(2rem, 6.6svh, 3.5rem);
+    font-weight: 500;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .members.track--on .band__count {
+    padding-block-end: 1.25rem;
+    margin-block: 3svh 0;
+    border-block-end: 4px dotted var(--color-orange);
+    inline-size: fit-content;
+  }
+
+  .members.track--on .band__sprig {
+    position: relative;
+    margin-block-start: 3svh;
+  }
+
+  .members.track--on .band__photo {
+    flex: none;
+    inline-size: auto;
+  }
+
+  .members.track--on .band__photo img {
+    inline-size: auto;
+    max-inline-size: none;
+    block-size: 62svh;
+    box-shadow: 0 30px 50px -26px rgb(0 0 0 / 55%);
+  }
+
+  .members.track--on .band__members {
+    display: flex;
+    flex: none;
+    gap: clamp(2rem, 3.5vw, 4.5rem);
+    align-items: flex-start;
+  }
+
+  .members.track--on .band__members li:nth-child(even) {
+    margin-block-start: 0;
+  }
+
+  .members.track--on .band__members li:nth-child(3n + 1) {
+    margin-block-start: 3svh;
+  }
+
+  .members.track--on .band__members li:nth-child(3n + 3) {
+    margin-block-start: 11svh;
+  }
+
+  .members.track--on .member__photo img {
+    inline-size: auto;
+    block-size: 52svh;
+    max-inline-size: none;
+  }
+
+  .members.track--on .member__caption {
+    grid-template-columns: auto 1fr;
+    column-gap: 0.75rem;
+    align-items: center;
+    max-inline-size: 18rem;
+  }
+
+  .members.track--on .member__n {
+    grid-row: 1 / span 2;
+    font-size: 2.5rem;
+    font-weight: 400;
+  }
+
+  .members.track--on .member__name {
+    font-size: 1.375rem;
+    font-style: italic;
+  }
+
+  /* Director (panel rojo): retrato a la izquierda; número, nombre y cargo a la derecha. */
+  .members.track--on .director {
+    position: relative;
+    flex: none;
+    place-items: center;
+    padding: 8svh 7vw 8svh 8vw;
+  }
+
+  .members.track--on .director .member {
+    display: flex;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    inline-size: auto;
+  }
+
+  .members.track--on .director .member__photo img {
+    inline-size: auto;
+    block-size: 74svh;
+  }
+
+  .members.track--on .director .member__caption {
+    gap: 0.75rem;
+    max-inline-size: none;
+  }
+
+  .members.track--on .director .member__n {
+    font-size: clamp(4rem, 12svh, 6rem);
+    font-weight: 400;
+  }
+
+  .members.track--on .director .member__name {
+    font-size: clamp(3rem, 9.5svh, 4.75rem);
+    font-weight: 500;
+    line-height: 0.95;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Voces (panel navy): título decorado y las tres fotos escalonadas. */
+  .members.track--on .band--vocals .band__display {
+    display: grid;
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.05;
+    text-transform: none;
+  }
+
+  .members.track--on .band--vocals .band__display em:first-of-type {
+    padding-inline-start: 2.5rem;
+    font-size: 0.7em;
+  }
+
+  .members.track--on .band--vocals .band__display-big {
+    font-size: 1.55em;
+  }
+
+  /* Glosario: la palabra enorme y las tarjetas regadas, inclinadas, a su alrededor. */
+  .members.track--on .glossary {
+    position: relative;
+    display: flex;
+    flex: none;
+    gap: 5vw;
+    align-items: center;
+    block-size: 100%;
+    padding: 0 6vw;
+  }
+
+  .members.track--on .glossary__title {
+    flex: none;
+    font-size: min(36svh, 13vw);
+    white-space: nowrap;
+  }
+
+  .members.track--on .glossary__list {
+    display: flex;
+    flex: none;
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: center;
+    margin: 0;
+  }
+
+  .members.track--on .glossary__item {
+    inline-size: clamp(14rem, 22svh + 8rem, 18rem);
+    padding: 1.25rem 1.5rem;
+    background: var(--color-letter);
+  }
+
+  .members.track--on .glossary__item:nth-child(odd) {
+    margin-block-end: 24svh;
+    rotate: -7deg;
+  }
+
+  .members.track--on .glossary__item:nth-child(even) {
+    margin-block-start: 28svh;
+    rotate: 6deg;
   }
 }

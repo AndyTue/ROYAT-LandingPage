@@ -122,9 +122,9 @@ export function history(ctx) {
   const { history: data, ui } = ctx.content;
   const lines = /** @type {string[]} */ (ui.history.titleLines);
   const events = /** @type {HistoryEvent[]} */ (data.events);
-  return html`<section id="historia" class="history" aria-labelledby="historia-titulo" data-history>
-    <div class="history__stage" data-history-stage>
-      <div class="history__track" data-history-track>
+  return html`<section id="historia" class="history" aria-labelledby="historia-titulo" data-track="historia">
+    <div class="track__stage" data-track-stage>
+      <div class="track__rail" data-track-rail>
         <header class="history__intro" data-tone="navy">
           <h2 class="history__title" id="historia-titulo">
             <span class="sr-only">${data.title}</span>

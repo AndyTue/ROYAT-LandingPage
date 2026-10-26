@@ -34,7 +34,12 @@
       "caption": "(V. Vocalistas · tres voces para cada jarana)",
       "groupTitle": "Las tres voces",
       "groupRole": "Vocalistas"
-    }
+    },
+    "titleLines": [
+      "INTE",
+      "GRAN",
+      "TES"
+    ]
   },
   "presence": {
     "eyebrow": "Presencia · 2018 – 2026",

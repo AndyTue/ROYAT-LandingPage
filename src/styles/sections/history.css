@@ -204,49 +204,7 @@
   }
 
   /* ---------- Pista horizontal fija (escritorio con JS y movimiento) ---------- */
-  .history--track {
-    block-size: var(--history-length, 100svh);
-  }
-
-  .history--track .history__stage {
-    --bg: var(--tone-navy-bg);
-    --fg: var(--tone-navy-fg);
-    --fg2: var(--tone-navy-fg2);
-    --acc: var(--tone-navy-acc);
-    --acc2: var(--tone-navy-acc2);
-
-    position: sticky;
-    inset-block-start: 0;
-    block-size: 100svh;
-    overflow: hidden;
-    color: var(--fg);
-    background-color: var(--bg);
-    background-image:
-      linear-gradient(90deg, rgb(255 255 255 / 5%) 1px, transparent 1px),
-      linear-gradient(rgb(255 255 255 / 5%) 1px, transparent 1px);
-    background-size: var(--stitch) var(--stitch);
-  }
-
-  .history--track .history__track {
-    position: relative;
-    display: flex;
-    inline-size: max-content;
-    block-size: 100%;
-    will-change: transform;
-  }
-
-  /* Los paneles dejan de pintar su fondo: manda el del escenario, que cambia de tono. */
-  .history--track [data-tone] {
-    --bg: inherit;
-    --fg: inherit;
-    --fg2: inherit;
-    --acc: inherit;
-    --acc2: inherit;
-
-    background: transparent;
-  }
-
-  .history--track .history__intro {
+  .track--on .history__intro {
     flex: none;
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
     grid-template-rows: auto 1fr auto;
@@ -255,37 +213,37 @@
     padding: 9svh 5vw 11svh 3.5vw;
   }
 
-  .history--track .history__title {
+  .track--on .history__title {
     grid-row: 1 / span 3;
     align-self: center;
   }
 
-  .history--track .history__word {
+  .track--on .history__word {
     font-size: min(31svh, 17vw);
   }
 
-  .history--track .history__kicker {
+  .track--on .history__kicker {
     grid-column: 2;
   }
 
-  .history--track .history__photo {
+  .track--on .history__photo {
     grid-column: 2;
     align-self: start;
   }
 
-  .history--track .history__photo .photo {
+  .track--on .history__photo .photo {
     padding: 0;
     background: transparent;
     border: 0;
     box-shadow: none;
   }
 
-  .history--track .history__photo .photo__frame img {
+  .track--on .history__photo .photo__frame img {
     max-block-size: 46svh;
     object-fit: cover;
   }
 
-  .history--track .history__photo .photo__caption {
+  .track--on .history__photo .photo__caption {
     font-family: var(--font-display);
     font-size: 1.125rem;
     font-style: italic;
@@ -294,7 +252,7 @@
     color: var(--fg2);
   }
 
-  .history--track .history__paragraphs {
+  .track--on .history__paragraphs {
     grid-column: 2;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
@@ -302,14 +260,14 @@
     font-size: 0.875rem;
   }
 
-  .history--track .timeline {
+  .track--on .timeline {
     position: relative;
     display: flex;
     block-size: 100%;
   }
 
   /* El hilo: una línea que recorre la pista, con una X y el número de cada hito. */
-  .history--track .timeline::after {
+  .track--on .timeline::after {
     position: absolute;
     inset-block-end: 4.5rem;
     inset-inline: 0;
@@ -318,25 +276,25 @@
     background: rgb(128 128 128 / 40%);
   }
 
-  .history--track .event {
+  .track--on .event {
     flex: none;
     inline-size: clamp(46rem, 120svh, 80rem);
     block-size: 100%;
     padding: 0;
   }
 
-  .history--track .event::before {
+  .track--on .event::before {
     display: none;
   }
 
-  .history--track .event__body {
+  .track--on .event__body {
     position: absolute;
     inset: 0;
     display: block;
     max-inline-size: none;
   }
 
-  .history--track .event__marker {
+  .track--on .event__marker {
     inset-block: auto 4.5rem;
     inset-inline-start: 0;
     display: flex;
@@ -350,68 +308,68 @@
     transform: translateY(50%);
   }
 
-  .history--track .event__marker svg {
+  .track--on .event__marker svg {
     display: block;
   }
 
-  .history--track .event__marker path {
+  .track--on .event__marker path {
     fill: none;
     stroke: var(--color-orange);
     stroke-width: 4;
     stroke-linecap: round;
   }
 
-  .history--track .event__year,
-  .history--track .event__copy,
-  .history--track .event__photos,
-  .history--track .event__badge,
-  .history--track .event__discs,
-  .history--track .event__ornament {
+  .track--on .event__year,
+  .track--on .event__copy,
+  .track--on .event__photos,
+  .track--on .event__badge,
+  .track--on .event__discs,
+  .track--on .event__ornament {
     position: absolute;
   }
 
-  .history--track .event__year {
+  .track--on .event__year {
     font-size: clamp(4rem, 15svh, 8rem);
     white-space: nowrap;
   }
 
-  .history--track .event__copy {
+  .track--on .event__copy {
     inline-size: min(22rem, 30%);
   }
 
-  .history--track .event__tag {
+  .track--on .event__tag {
     inline-size: fit-content;
     padding: 0.25rem 0.625rem;
     color: var(--acc2);
     border: 1px solid currentcolor;
   }
 
-  .history--track .event__title {
+  .track--on .event__title {
     font-size: clamp(1.4rem, 3.6svh, 2.25rem);
     line-height: 1.05;
     text-transform: uppercase;
   }
 
-  .history--track .event__text {
+  .track--on .event__text {
     font-size: clamp(0.6875rem, 1.7svh, 0.8125rem);
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
 
-  .history--track .event__photos {
+  .track--on .event__photos {
     display: block;
     max-inline-size: none;
   }
 
-  .history--track .photo--landscape {
+  .track--on .photo--landscape {
     inline-size: min(52svh, 34rem);
   }
 
-  .history--track .photo--portrait {
+  .track--on .photo--portrait {
     inline-size: min(34svh, 22rem);
   }
 
-  .history--track .event__photos .photo:nth-child(n + 2) {
+  .track--on .event__photos .photo:nth-child(n + 2) {
     position: absolute;
     inset-block-end: -12%;
     inset-inline-end: -16%;
@@ -420,22 +378,22 @@
     rotate: -3deg;
   }
 
-  .history--track .event__badge {
+  .track--on .event__badge {
     inset-block-end: 22svh;
     inset-inline-start: 58%;
     rotate: -6deg;
   }
 
-  .history--track .event__discs {
+  .track--on .event__discs {
     flex-wrap: nowrap;
     gap: 1.5rem;
   }
 
-  .history--track .event__disc {
+  .track--on .event__disc {
     inline-size: clamp(8rem, 24svh, 15rem);
   }
 
-  .history--track .event__disc-label {
+  .track--on .event__disc-label {
     position: absolute;
     inline-size: 1px;
     block-size: 1px;
@@ -444,59 +402,59 @@
     white-space: nowrap;
   }
 
-  .history--track .event__ornament {
+  .track--on .event__ornament {
     padding: 0;
     background: none;
   }
 
   /* Disposición A (hitos impares): foto arriba a la izquierda, texto a la derecha, año abajo. */
-  .history--track .event--a .event__photos {
+  .track--on .event--a .event__photos {
     inset-block-start: 14svh;
     inset-inline-start: 7%;
   }
 
-  .history--track .event--a .event__copy {
+  .track--on .event--a .event__copy {
     inset-block-start: 17svh;
     inset-inline-start: 64%;
   }
 
-  .history--track .event--a .event__year {
+  .track--on .event--a .event__year {
     inset-block-start: 62svh;
     inset-inline-start: 7%;
   }
 
-  .history--track .event--a .event__discs {
+  .track--on .event--a .event__discs {
     inset-block-start: 52svh;
     inset-inline-start: 48%;
   }
 
-  .history--track .event--a .event__ornament {
+  .track--on .event--a .event__ornament {
     inset-block-end: 12svh;
     inset-inline-start: 58%;
   }
 
   /* Disposición B (hitos pares): año arriba, foto al centro y texto a la derecha, más abajo. */
-  .history--track .event--b .event__year {
+  .track--on .event--b .event__year {
     inset-block-start: 6svh;
     inset-inline-start: 8%;
   }
 
-  .history--track .event--b .event__photos {
+  .track--on .event--b .event__photos {
     inset-block-start: 30svh;
     inset-inline-start: 5%;
   }
 
-  .history--track .event--b .event__copy {
+  .track--on .event--b .event__copy {
     inset-block-start: 36svh;
     inset-inline-start: 60%;
   }
 
-  .history--track .event--b .event__discs {
+  .track--on .event--b .event__discs {
     inset-block-start: 8svh;
     inset-inline-start: 56%;
   }
 
-  .history--track .event--b .event__ornament {
+  .track--on .event--b .event__ornament {
     inset-block-end: 14svh;
     inset-inline-start: 44%;
   }
