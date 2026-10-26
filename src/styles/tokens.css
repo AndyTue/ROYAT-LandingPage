@@ -55,7 +55,7 @@
     /* Tipografía */
     --font-display: Cormorant, 'Cormorant Garamond', Georgia, serif;
     --font-ui: Montserrat, 'Helvetica Neue', Arial, sans-serif;
-    --text-section: clamp(4.5rem, 16vw, 15.625rem);
+    --text-section: clamp(3rem, 13vw, 15.625rem);
     --text-number: clamp(3.5rem, 7vw, 6rem);
     --text-year: clamp(3.25rem, 6vw, 5.625rem);
     --text-director: clamp(2.75rem, 5vw, 4.625rem);

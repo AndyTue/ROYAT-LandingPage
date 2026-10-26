@@ -1,0 +1,235 @@
+@layer sections {
+  .presence {
+    display: grid;
+    gap: 2.5rem;
+    padding: clamp(3rem, 9vw, 6.5rem) clamp(1rem, 5vw, 4rem);
+  }
+
+  .presence__eyebrow {
+    color: var(--acc2);
+  }
+
+  .presence__title {
+    margin-block: 1rem 2rem;
+    font-size: clamp(3rem, 9vw, 6.5rem);
+    font-weight: 500;
+    line-height: 0.95;
+  }
+
+  .presence__title em {
+    display: block;
+  }
+
+  .presence__counters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 2.5rem;
+  }
+
+  .counter {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .counter__n {
+    font-family: var(--font-display);
+    font-size: var(--text-number);
+    font-weight: 500;
+    font-variant-numeric: lining-nums;
+    line-height: 1;
+  }
+
+  .counter__label {
+    font-size: var(--text-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--fg2);
+  }
+
+  .presence__tour,
+  .presence__hint {
+    margin-block-start: 1.5rem;
+    color: var(--fg2);
+  }
+
+  .presence__tour em {
+    font-size: 1.25rem;
+    color: var(--fg);
+  }
+
+  .presence__list-title {
+    font-size: var(--text-card-title);
+  }
+
+  .presence__state {
+    margin-block: 1.5rem 0.5rem;
+    font-size: var(--text-label);
+    letter-spacing: var(--tracking-label-wide);
+    text-transform: uppercase;
+    color: var(--acc2);
+  }
+
+  .presence__places {
+    columns: 14rem auto;
+    column-gap: 2rem;
+    font-size: 0.9375rem;
+    color: var(--fg2);
+  }
+
+  .presence__places li {
+    break-inside: avoid;
+    padding-block: 0.125rem;
+  }
+
+  /* Con el mapa bordado (F8) la lista queda solo para lectores de pantalla (MAP-6). */
+  .js .presence__list[data-map-ready] {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .discography {
+    padding: clamp(3rem, 9vw, 6.5rem) clamp(1rem, 5vw, 4rem);
+  }
+
+  .discography__list {
+    display: grid;
+    gap: 2.5rem;
+    margin-block-start: 2.5rem;
+  }
+
+  .disc__body {
+    display: grid;
+    grid-template-columns: minmax(0, 8rem) minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .disc__cover img {
+    inline-size: 100%;
+    box-shadow: 0 18px 30px -16px rgb(0 0 0 / 55%);
+  }
+
+  .disc__info {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+    min-inline-size: 0;
+  }
+
+  .disc__eyebrow {
+    color: var(--acc2);
+  }
+
+  .disc__title {
+    font-size: var(--text-card-title);
+  }
+
+  .disc__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+  }
+
+  .disc__meta dt {
+    font-size: var(--text-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--fg2);
+  }
+
+  .disc__meta dd {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .disc__tracks {
+    grid-column: 1 / -1;
+    inline-size: 100%;
+  }
+
+  .disc__tracks summary {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  /* El summary es flex y pierde el triángulo nativo: se dibuja uno que gira al abrir. */
+  .disc__tracks summary::before {
+    inline-size: 0.5em;
+    block-size: 0.5em;
+    margin-inline-end: 0.75em;
+    content: '';
+    border-block-end: 2px solid currentcolor;
+    border-inline-end: 2px solid currentcolor;
+    transform: rotate(-45deg);
+  }
+
+  .disc__tracks[open] summary::before {
+    transform: rotate(45deg);
+  }
+
+  .disc__tracks summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .tracks {
+    display: grid;
+    counter-reset: track;
+  }
+
+  .track {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    gap: 0.75rem;
+    padding-block: 0.5rem;
+    border-block-end: 1px dashed rgb(28 44 85 / 20%);
+    counter-increment: track;
+  }
+
+  .track::before {
+    font-variant-numeric: tabular-nums;
+    color: var(--fg2);
+    content: counter(track, decimal-leading-zero);
+  }
+
+  .track__guest {
+    display: block;
+    color: var(--fg2);
+  }
+
+  .track__time {
+    font-variant-numeric: tabular-nums;
+    color: var(--fg2);
+  }
+
+  @media (width >= 48em) {
+    .presence {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+      align-items: start;
+    }
+
+    .presence__list {
+      grid-column: 1 / -1;
+    }
+
+    .disc__body {
+      grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+    }
+  }
+
+  @media (width >= 64em) {
+    .discography__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 3rem;
+    }
+  }
+}

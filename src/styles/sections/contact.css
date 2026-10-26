@@ -1,0 +1,125 @@
+@layer sections {
+  .contact {
+    display: grid;
+    gap: 3rem;
+    padding: clamp(3rem, 9vw, 6.5rem) clamp(1rem, 5vw, 4rem);
+  }
+
+  .contact__brand {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .contact__logo {
+    inline-size: min(100%, 26rem);
+    block-size: auto;
+    aspect-ratio: 220 / 122;
+  }
+
+  .contact__social-title {
+    color: var(--fg2);
+  }
+
+  .social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    justify-content: center;
+  }
+
+  .social__link {
+    display: grid;
+    gap: 0.375rem;
+    justify-items: center;
+    min-inline-size: 3.5rem;
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+  }
+
+  .social__icon {
+    inline-size: 3rem;
+    block-size: 3rem;
+    object-fit: contain;
+  }
+
+  /* La carta: tarjeta navy con textura de tela, como en el prototipo. */
+  .letter {
+    padding: clamp(1.75rem, 5vw, 3rem) clamp(1.25rem, 5vw, 3.5rem);
+    color: var(--color-light);
+    background:
+      linear-gradient(90deg, rgb(255 255 255 / 3.5%) 1px, transparent 1px) 0 0 / var(--stitch)
+        var(--stitch),
+      linear-gradient(rgb(255 255 255 / 3.5%) 1px, transparent 1px) 0 0 / var(--stitch)
+        var(--stitch),
+      var(--color-navy);
+    border-radius: 4px;
+    box-shadow: 0 34px 60px -30px rgb(20 18 14 / 60%);
+  }
+
+  .letter__eyebrow {
+    color: var(--color-orange);
+  }
+
+  .letter__title {
+    margin-block: 0.75rem 1.5rem;
+    font-size: var(--text-card-title);
+    font-weight: 500;
+  }
+
+  .letter__form {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .letter__label {
+    font-size: var(--text-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-light-2);
+  }
+
+  .letter__text {
+    inline-size: 100%;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-display);
+    font-size: var(--text-letter);
+    line-height: 1.5;
+    color: var(--color-gold-soft);
+    resize: vertical;
+    background: rgb(255 255 255 / 6%);
+    border: 1.5px dashed rgb(241 238 231 / 45%);
+    border-radius: 2px;
+  }
+
+  .letter__note {
+    font-size: 0.875rem;
+    color: var(--color-light-2);
+  }
+
+  .site-footer {
+    display: grid;
+    gap: 0.5rem;
+    padding: 2rem 1rem 2.5rem;
+    font-size: 0.875rem;
+    text-align: center;
+    color: var(--tone-cream-fg2);
+    background: var(--tone-cream-bg);
+    border-block-start: 3px dashed var(--color-orange);
+  }
+
+  .site-footer b {
+    color: var(--color-navy);
+    letter-spacing: 0.1em;
+  }
+
+  @media (width >= 64em) {
+    .contact {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+      align-items: center;
+    }
+  }
+}

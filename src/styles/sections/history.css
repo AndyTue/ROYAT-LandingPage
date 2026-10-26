@@ -1,0 +1,135 @@
+@layer sections {
+  .history__intro {
+    display: grid;
+    gap: 1.5rem;
+    padding: clamp(3rem, 9vw, 6.5rem) clamp(1rem, 5vw, 4rem);
+  }
+
+  .history__intro .section-kicker {
+    margin: 0;
+  }
+
+  .history__paragraphs {
+    display: grid;
+    gap: 1rem;
+    max-inline-size: 38rem;
+    font-size: 1.0625rem;
+  }
+
+  .timeline {
+    display: grid;
+    gap: clamp(3rem, 8vw, 5rem);
+    padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 4rem);
+    color: var(--tone-paper-fg);
+    background: var(--tone-paper-bg);
+  }
+
+  /* El hilo de la línea de tiempo: pespunte vertical a la izquierda. */
+  .event {
+    position: relative;
+    padding-inline-start: 2.5rem;
+    border-inline-start: 3px dashed var(--color-orange);
+  }
+
+  .event__body {
+    display: grid;
+    gap: 0.75rem;
+    max-inline-size: 72rem;
+  }
+
+  .event__marker {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: -1.25rem;
+    display: grid;
+    place-items: center;
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    font-size: var(--text-label);
+    font-weight: 700;
+    color: var(--color-light);
+    background: var(--color-navy);
+    border-radius: 50%;
+  }
+
+  .event__year {
+    font-family: var(--font-display);
+    font-size: var(--text-year);
+    font-weight: 500;
+    line-height: 0.9;
+    color: var(--tone-paper-acc);
+  }
+
+  .event__tag {
+    color: var(--tone-paper-acc2);
+  }
+
+  .event__title {
+    font-size: var(--text-card-title);
+  }
+
+  .event__text {
+    max-inline-size: 36rem;
+  }
+
+  .event__photos {
+    display: grid;
+    gap: 1.25rem;
+    max-inline-size: 40rem;
+  }
+
+  .event__badge {
+    inline-size: 9rem;
+  }
+
+  .event__badge img {
+    inline-size: 100%;
+  }
+
+  .event__discs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .event__disc {
+    display: grid;
+    gap: 0.5rem;
+    inline-size: 7rem;
+    font-size: var(--text-label);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .event__cover img {
+    inline-size: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px #0d0d0d;
+  }
+
+  @media (width >= 48em) {
+    .history__intro {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .history__intro .section-title,
+    .history__intro .section-kicker {
+      grid-column: 1 / -1;
+    }
+
+    .event__body {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+      column-gap: 3rem;
+    }
+
+    .event__body > :not(.event__photos, .event__marker) {
+      grid-column: 1;
+    }
+
+    .event__photos {
+      grid-column: 2;
+      grid-row: 1 / span 6;
+    }
+  }
+}

@@ -1,0 +1,189 @@
+@layer sections {
+  .members__intro {
+    display: grid;
+    gap: 1.5rem;
+    padding: clamp(3rem, 9vw, 6.5rem) clamp(1rem, 5vw, 4rem);
+  }
+
+  .members__intro .section-kicker {
+    margin: 0;
+  }
+
+  .members__index {
+    display: grid;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: var(--text-letter);
+    font-style: italic;
+  }
+
+  .members__index a {
+    text-decoration-color: var(--acc2);
+  }
+
+  .member {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .member__photo img {
+    inline-size: 100%;
+    box-shadow: 0 26px 40px -28px rgb(20 18 14 / 60%);
+  }
+
+  .member__caption {
+    display: grid;
+    gap: 0.125rem;
+  }
+
+  .member__n {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--acc2, var(--color-burnt-text));
+  }
+
+  .member__name {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  .member__role {
+    font-size: var(--text-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--fg2, var(--color-muted));
+  }
+
+  .director {
+    display: grid;
+    justify-items: center;
+    padding: clamp(3rem, 8vw, 5rem) 1rem;
+  }
+
+  .director .member {
+    inline-size: min(100%, 24rem);
+  }
+
+  .director .member__name {
+    font-size: var(--text-director);
+  }
+
+  /* Secciones de la orquesta alternan papel y arena; vocalistas en navy (prototipo). */
+  .band {
+    --bg: var(--tone-paper-bg);
+    --fg: var(--tone-paper-fg);
+    --fg2: var(--tone-paper-fg2);
+    --acc2: var(--tone-paper-acc2);
+
+    display: grid;
+    gap: 2rem;
+    padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 4rem);
+    color: var(--fg);
+    background: var(--bg);
+  }
+
+  .band:nth-of-type(even) {
+    --bg: var(--tone-sand-bg);
+    --fg2: var(--tone-sand-fg2);
+    --acc2: var(--tone-sand-acc2);
+  }
+
+  .band:last-of-type {
+    --bg: var(--tone-navy-bg);
+    --fg: var(--tone-navy-fg);
+    --fg2: var(--tone-navy-fg2);
+    --acc2: var(--tone-navy-acc2);
+  }
+
+  .band__title {
+    font-size: var(--text-card-title);
+  }
+
+  .band__numeral {
+    color: var(--acc2);
+  }
+
+  .band__count {
+    margin-block-start: 0.5rem;
+    color: var(--fg2);
+  }
+
+  .band__photo {
+    inline-size: min(100%, 36rem);
+  }
+
+  .band__photo img {
+    inline-size: 100%;
+  }
+
+  .band__members {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem 1rem;
+  }
+
+  .glossary {
+    padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 4rem);
+  }
+
+  .glossary__title {
+    font-size: var(--text-section);
+    font-style: italic;
+    line-height: 0.9;
+    overflow-wrap: anywhere;
+  }
+
+  .glossary__list {
+    display: grid;
+    gap: 1.25rem;
+    margin-block-start: 2rem;
+  }
+
+  .glossary__item {
+    padding: 1rem 1.25rem;
+    background: var(--color-letter);
+    border-radius: 2px;
+    box-shadow: 0 22px 32px -18px rgb(20 18 14 / 35%);
+  }
+
+  .glossary__item dt {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  @media (width >= 48em) {
+    .members__intro {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      align-items: end;
+    }
+
+    .members__intro .section-title,
+    .members__intro .section-kicker {
+      grid-column: 1 / -1;
+    }
+
+    .band {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+      align-items: start;
+    }
+
+    .band__members {
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .glossary__list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (width >= 64em) {
+    .band__members {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+}

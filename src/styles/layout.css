@@ -1,0 +1,69 @@
+@layer layout {
+  /* Tonos de panel (DESIGN-TOKENS): cada bloque fija fondo, texto y acentos. */
+  .tone {
+    color: var(--fg);
+    background: var(--bg);
+  }
+
+  .tone--navy {
+    --bg: var(--tone-navy-bg);
+    --fg: var(--tone-navy-fg);
+    --fg2: var(--tone-navy-fg2);
+    --acc: var(--tone-navy-acc);
+    --acc2: var(--tone-navy-acc2);
+  }
+
+  .tone--paper {
+    --bg: var(--tone-paper-bg);
+    --fg: var(--tone-paper-fg);
+    --fg2: var(--tone-paper-fg2);
+    --acc: var(--tone-paper-acc);
+    --acc2: var(--tone-paper-acc2);
+  }
+
+  .tone--sand {
+    --bg: var(--tone-sand-bg);
+    --fg: var(--tone-sand-fg);
+    --fg2: var(--tone-sand-fg2);
+    --acc: var(--tone-sand-acc);
+    --acc2: var(--tone-sand-acc2);
+  }
+
+  .tone--red {
+    --bg: var(--tone-red-bg);
+    --fg: var(--tone-red-fg);
+    --fg2: var(--tone-red-fg2);
+    --acc: var(--tone-red-acc);
+    --acc2: var(--tone-red-acc2);
+  }
+
+  .tone--cream {
+    --bg: var(--tone-cream-bg);
+    --fg: var(--tone-cream-fg);
+    --fg2: var(--tone-cream-fg2);
+    --acc: var(--tone-cream-acc);
+    --acc2: var(--tone-cream-acc2);
+  }
+
+  /* Tela de punto de cruz: rejilla tenue del tamaño de una puntada. */
+  .cloth {
+    background-image:
+      linear-gradient(90deg, rgb(0 0 0 / 3.5%) 1px, transparent 1px),
+      linear-gradient(rgb(0 0 0 / 3.5%) 1px, transparent 1px);
+    background-size: var(--stitch) var(--stitch);
+  }
+
+  .section-pad {
+    padding: clamp(3rem, 9vw, 6.5rem) clamp(1rem, 5vw, 4rem);
+  }
+
+  .measure {
+    inline-size: min(100%, 72rem);
+    margin-inline: auto;
+  }
+
+  /* Contenido que solo tiene sentido con JS (mapa, pistas de interacción). */
+  html:not(.js) .js-only {
+    display: none;
+  }
+}

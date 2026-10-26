@@ -1,0 +1,75 @@
+@layer sections {
+  /* Navegación estática; el listón flotante llega en F5. */
+  .site-header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--z-nav);
+    background: var(--color-letter);
+    box-shadow: 0 10px 24px -18px rgb(20 18 14 / 45%);
+  }
+
+  .nav__list {
+    display: flex;
+    gap: 0.25rem 1rem;
+    padding-inline: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav__link {
+    display: flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+    padding-inline: 0.25rem;
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--color-muted);
+  }
+
+  .nav__link:hover {
+    color: var(--color-navy);
+  }
+
+  /* Centrada solo cuando cabe: centrar dentro de un contenedor con scroll corta el inicio. */
+  @media (width >= 48em) {
+    .nav__list {
+      justify-content: center;
+    }
+  }
+
+  /* El Hero ocupa la primera pantalla (MOV-1): logo arriba y el grupo de pie abajo. */
+  .hero {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: clamp(1.5rem, 5vw, 3rem);
+    place-items: center;
+    min-block-size: calc(100svh - 2.75rem);
+    padding-block: clamp(2.5rem, 8vw, 5rem) 0;
+    padding-inline: 1rem;
+    overflow: hidden;
+    background-color: var(--color-paper);
+    background-image:
+      linear-gradient(90deg, rgb(0 0 0 / 3.5%) 1px, transparent 1px),
+      linear-gradient(rgb(0 0 0 / 3.5%) 1px, transparent 1px);
+    background-size: var(--stitch) var(--stitch);
+  }
+
+  .hero__logo {
+    inline-size: min(100%, 56rem);
+    block-size: auto;
+    aspect-ratio: 220 / 122;
+  }
+
+  .hero__photo {
+    align-self: end;
+    inline-size: min(100%, 90rem);
+  }
+
+  .hero__photo img {
+    inline-size: 100%;
+  }
+}

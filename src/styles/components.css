@@ -1,0 +1,73 @@
+@layer components {
+  .section-title {
+    font-size: var(--text-section);
+    font-weight: 500;
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    overflow-wrap: break-word;
+  }
+
+  .section-kicker {
+    margin-block: 1rem 2rem;
+    color: var(--fg2, var(--color-muted));
+  }
+
+  /* Foto sobre la tela: marco crema con borde cosido (pespunte naranja). */
+  .photo {
+    padding: 0.5rem;
+    background: var(--color-cream);
+    border: 2px dashed var(--color-orange);
+    box-shadow: 0 28px 44px -30px rgb(20 18 14 / 60%);
+  }
+
+  .photo__frame img {
+    inline-size: 100%;
+  }
+
+  .photo__caption {
+    padding-block-start: 0.5rem;
+    font-size: var(--text-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .button {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    min-block-size: 2.75rem;
+    padding: 0.625rem 1.25rem;
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-decoration: none;
+    text-transform: uppercase;
+    color: inherit;
+    background: transparent;
+    border: 1.5px solid currentcolor;
+    border-radius: 2px;
+  }
+
+  .button--whatsapp {
+    color: var(--color-navy);
+    background: var(--color-amber);
+    border-color: var(--color-amber);
+  }
+
+  @media (hover: hover) {
+    .button:hover {
+      color: var(--bg, var(--color-paper));
+      background: var(--fg, var(--color-navy));
+      border-color: var(--fg, var(--color-navy));
+    }
+
+    .button--whatsapp:hover {
+      color: var(--color-navy);
+      background: var(--color-gold);
+      border-color: var(--color-gold);
+    }
+  }
+}
