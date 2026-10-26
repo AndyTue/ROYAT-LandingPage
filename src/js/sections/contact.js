@@ -19,7 +19,8 @@ import { buildMessage, waUrl } from '../lib/whatsapp.js';
  *   sent: { ok: string, again: string },
  * }} LetterData
  * @typedef {'name' | 'detail' | 'date' | 'locality' | 'municipality' | 'state' | 'country' | 'phone' | 'message'} FieldName
- * @typedef {{ municipality?: string, state?: string }} Prefill
+ * @typedef {{ municipality?: string, state?: string, delay?: number }} Prefill `delay` espera a que
+ *   termine el desplazamiento antes de enfocar un campo (ms)
  */
 
 /** Campos obligatorios siempre (el detalle y el país dependen de otras respuestas). */
@@ -223,7 +224,7 @@ export function initContact(form, { now = () => new Date(), open = openInNewTab 
   }
 
   /** @param {Prefill} place */
-  function prefill({ municipality, state }) {
+  function prefill({ municipality, state, delay = 0 }) {
     if (municipality !== undefined) fields.municipality.value = municipality;
     if (state !== undefined) {
       fields.state.value = state;
@@ -231,7 +232,9 @@ export function initContact(form, { now = () => new Date(), open = openInNewTab 
     }
     updatePlace();
     const empty = FOCUS_ORDER.map((name) => fields[name]).find((el) => !el.value);
-    (empty ?? fields.name).focus({ preventScroll: true });
+    const focus = () => (empty ?? fields.name).focus({ preventScroll: true });
+    if (delay > 0) setTimeout(focus, delay);
+    else focus();
   }
 
   // La carta reemplaza al formulario de respaldo: se habilita y se valida con JS.

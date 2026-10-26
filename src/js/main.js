@@ -9,8 +9,9 @@ import { createCurtain } from './features/transition.js';
 import { find } from './lib/dom.js';
 import { initContact } from './sections/contact.js';
 import { createHero } from './sections/hero.js';
+import { createMap } from './sections/map.js';
 import { createTrack } from './sections/track.js';
-import { loadMotifs, loadPatterns } from './stitch/data.js';
+import { loadMap, loadMotifs, loadPatterns } from './stitch/data.js';
 
 // El CSS sin esta clase muestra el layout estático; con ella, las secciones pueden animarse.
 document.documentElement.classList.add('js');
@@ -87,8 +88,8 @@ engine.snap();
 engine.start();
 
 // 4. El bordado necesita sus datos: se piden aparte, sin retrasar el primer pintado.
-Promise.all([loadPatterns(), loadMotifs()])
-  .then(([patterns, motifs]) => {
+Promise.all([loadPatterns(), loadMotifs(), loadMap()])
+  .then(([patterns, motifs, map]) => {
     guard('hero', () => {
       const root = find(document, '[data-hero]', HTMLElement);
       const hero = createHero({ root, patterns, getMetrics, reduced });
@@ -112,6 +113,21 @@ Promise.all([loadPatterns(), loadMotifs()])
         engine.add(section);
       });
     }
+    guard('mapa', () => {
+      const root = find(document, '[data-presence]', HTMLElement);
+      const uiText = JSON.parse(root.dataset.mapText ?? '{}');
+      engine.add(
+        createMap({
+          root,
+          grid: map.grid,
+          places: map.places,
+          states: map.states,
+          text: uiText,
+          getMetrics,
+          reduced,
+        }),
+      );
+    });
     guard('ornaments', () => {
       engine.add(
         createOrnaments({

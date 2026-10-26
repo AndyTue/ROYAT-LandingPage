@@ -1,5 +1,5 @@
 {
-  "$comment": "Textos de interfaz extraídos del prototipo v108 (Recorrido.dc.html). Textos NUEVOS que no existen en el prototipo y debe revisar Andrés: presence.listTitle, contact.fallback.label, contact.fallback.template, contact.errors (excepto phone y phoneAbroad, que vienen del prototipo). '{x}' se reemplaza con datos. Textos NUEVOS de F5 que debe revisar Andrés: nav.menu, nav.announce, nav.close (el prototipo solo trae 'Ir a', 'Cerrar' e 'Inicio' en el menú móvil).",
+  "$comment": "Textos de interfaz extraídos del prototipo v108 (Recorrido.dc.html). Textos NUEVOS que no existen en el prototipo y debe revisar Andrés: presence.listTitle, contact.fallback.label, contact.fallback.template, contact.errors (excepto phone y phoneAbroad, que vienen del prototipo). '{x}' se reemplaza con datos. Textos NUEVOS de F5 que debe revisar Andrés: nav.menu, nav.announce, nav.close (el prototipo solo trae 'Ir a', 'Cerrar' e 'Inicio' en el menú móvil). Textos del mapa tomados de los prototipos de escritorio y móvil (Recorrido.dc.html y Recorrido-movil.dc.html); presence.map.close y presence.map.label son nuevos.",
   "nav": {
     "label": "Secciones",
     "menu": "Menú",
@@ -67,7 +67,25 @@
     "tourPrefix": "Y de gira:",
     "hint": "Pasa el cursor por el mapa para ver cada pueblo y sus comisarías. ¿No ves el tuyo? Haz clic en él y nos invitas.",
     "listTitle": "Municipios donde ha tocado la ROYAT",
-    "comisariasLabel": "Comisarías"
+    "comisariasLabel": "Comisarías",
+    "hintTouch": "Toca el mapa para ver cada pueblo y sus comisarías. ¿No ves el tuyo? Tócalo y nos invitas.",
+    "map": {
+      "label": "Mapa de la península de Yucatán con los municipios donde ha tocado la ROYAT",
+      "cradle": "Cuna · 2018",
+      "cradleSub": "Yucatán · Cuna de la ROYAT, 2018",
+      "comisarias": "Comisarías: {list}.",
+      "comisaria": "Comisaría: {list}.",
+      "port": "Y su puerto, {name}.",
+      "playedHere": "Aquí ya bailamos jarana.",
+      "inviteAgain": "Clic para invitarnos de nuevo.",
+      "notYet": "Aún no tocamos aquí. Haz clic y nos invitas.",
+      "notYetTouch": "Aún no tocamos aquí. ¡Invítanos!",
+      "reveal": "Desliza un poco más…",
+      "revealTouch": "Desliza un poco más para verlo bordado.",
+      "inviteHere": "Invitar a la ROYAT aquí",
+      "inviteAgainButton": "Invitarnos de nuevo",
+      "close": "Cerrar"
+    }
   },
   "discography": {
     "title": "Discografía",

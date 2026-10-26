@@ -9,5 +9,6 @@
 @import url('./sections/track.css');
 @import url('./sections/history.css');
 @import url('./sections/members.css');
-@import url('./sections/presence-discography.css');
+@import url('./sections/presence.css');
+@import url('./sections/discography.css');
 @import url('./sections/contact.css');

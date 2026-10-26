@@ -1,0 +1,478 @@
+@layer sections {
+  /* ---------- Base: flujo normal (sin JS, reduced-motion o pantallas muy bajas) ---------- */
+  .presence {
+    position: relative;
+
+    /* Las etiquetas del mapa pueden asomar por el borde: se recortan sin crear scroll. */
+    overflow-x: clip;
+  }
+
+  .presence__stage {
+    position: relative;
+    display: grid;
+    gap: 2rem;
+    padding: 0 clamp(1rem, 5vw, 4rem) clamp(3rem, 8vw, 5rem);
+  }
+
+  .presence__hem {
+    display: block;
+    inline-size: calc(100% + 2 * clamp(1rem, 5vw, 4rem));
+    max-inline-size: none;
+    margin-inline: calc(-1 * clamp(1rem, 5vw, 4rem));
+  }
+
+  .presence__text {
+    padding-block-start: clamp(1.5rem, 5vw, 3rem);
+  }
+
+  .presence__eyebrow {
+    color: var(--acc2);
+  }
+
+  .presence__title {
+    margin-block: 0.75rem 1.5rem;
+    font-size: clamp(3rem, 9vw, 6rem);
+    font-weight: 500;
+    line-height: 0.98;
+  }
+
+  .presence__title em {
+    display: block;
+    color: var(--acc2);
+  }
+
+  .presence__counters {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .counter {
+    display: grid;
+    gap: 0.5rem;
+    inline-size: 100%;
+    padding: 0.75rem 0 0;
+    font: inherit;
+    color: inherit;
+    text-align: start;
+    cursor: default;
+    background: none;
+    border: 0;
+    border-block-start: 1px dashed rgb(233 139 30 / 70%);
+  }
+
+  .counter:not(:disabled) {
+    cursor: pointer;
+  }
+
+  .counter__n {
+    font-family: var(--font-display);
+    font-size: var(--text-number);
+    font-weight: 500;
+    font-variant-numeric: lining-nums;
+    line-height: 1;
+  }
+
+  .counter__label {
+    font-size: var(--text-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--fg2);
+  }
+
+  .counter__x {
+    display: inline-block;
+    vertical-align: -1px;
+    fill: none;
+    stroke: var(--color-orange);
+    stroke-width: 2.6;
+    stroke-linecap: round;
+  }
+
+  .counter--1 .counter__x {
+    stroke: #2e9bd6;
+  }
+
+  .counter--2 .counter__x {
+    stroke: #5daa3b;
+  }
+
+  .counter[aria-pressed='true'] {
+    border-block-start-style: solid;
+    border-block-start-color: var(--color-light);
+  }
+
+  .presence__tour,
+  .presence__hint {
+    margin-block-start: 1.25rem;
+    color: var(--fg2);
+  }
+
+  .presence__tour {
+    font-size: 1.125rem;
+  }
+
+  .presence__tour em {
+    font-size: 1.25rem;
+    color: var(--acc2);
+  }
+
+  .presence__hint {
+    max-inline-size: 32rem;
+    font-size: 0.875rem;
+  }
+
+  .presence__hint--touch {
+    display: none;
+  }
+
+  @media (hover: none) {
+    .presence__hint--mouse {
+      display: none;
+    }
+
+    .presence__hint--touch {
+      display: block;
+    }
+  }
+
+  .presence__map {
+    position: relative;
+    inline-size: 100%;
+    aspect-ratio: 930 / 624;
+    margin-inline: auto;
+  }
+
+  .presence__map canvas {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  .presence__map.is-over {
+    cursor: pointer;
+  }
+
+  /* Nombres del mapa: aparecen al coserse sus lugares. */
+  .mp-state {
+    position: absolute;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgb(241 238 231 / 40%);
+    pointer-events: none;
+  }
+
+  .mp-state--qroo {
+    writing-mode: vertical-rl;
+  }
+
+  .mp-lab {
+    position: absolute;
+    display: flex;
+    gap: 0.375rem;
+    align-items: center;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--color-letter);
+    text-shadow:
+      0 1px 2px rgb(10 16 34 / 95%),
+      0 0 8px rgb(10 16 34 / 70%);
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-0.25rem, -50%);
+  }
+
+  .mp-lab::before {
+    flex: none;
+    inline-size: 7px;
+    block-size: 7px;
+    content: '';
+    background: var(--color-letter);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgb(28 44 85 / 80%);
+  }
+
+  .mp-lab.on {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mp-lab {
+      transition: opacity 0.45s;
+    }
+  }
+
+  .mp-lab--cradle {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-style: italic;
+    letter-spacing: 0.02em;
+    text-transform: none;
+  }
+
+  .mp-lab small {
+    font-family: var(--font-ui);
+    font-size: 0.5625rem;
+    font-style: normal;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .mp-tip {
+    position: absolute;
+    inset: 0 auto auto 0;
+    z-index: 6;
+    display: grid;
+    gap: 0.25rem;
+    max-inline-size: 18.75rem;
+    padding: 0.8rem 1.1rem 0.95rem;
+    color: var(--color-navy);
+    pointer-events: none;
+    background: var(--color-letter);
+    border-radius: 3px;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 90%),
+      0 18px 30px -16px rgb(0 0 0 / 60%);
+    opacity: 0;
+  }
+
+  .mp-tip.on {
+    opacity: 1;
+  }
+
+  .mp-tip b {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .mp-tip small {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-burnt-text);
+  }
+
+  .mp-tip span {
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+
+  /* Tarjeta con el toque (móvil): nombre, estado, comisarías y el paso hacia la carta. */
+  .mp-card {
+    position: fixed;
+    inset-block-end: 4.75rem;
+    inset-inline: 0.875rem;
+    z-index: 6;
+    display: grid;
+    gap: 0.5rem;
+    padding: 1.1rem 1.1rem 1.25rem;
+    color: var(--color-navy);
+    background: var(--color-letter);
+    border-radius: 3px;
+    box-shadow: 0 -10px 40px -10px rgb(0 0 0 / 55%);
+  }
+
+  .mp-card[hidden] {
+    display: none;
+  }
+
+  .mp-card::before {
+    position: absolute;
+    inset: 0.4rem;
+    pointer-events: none;
+    content: '';
+    border: 1.4px dashed rgb(233 139 30 / 70%);
+  }
+
+  .mp-card__close {
+    position: absolute;
+    inset-block-start: 0.5rem;
+    inset-inline-end: 0.5rem;
+    display: grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    color: var(--color-navy);
+    background: none;
+    border: 0;
+  }
+
+  .mp-card__close path {
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+  }
+
+  .mp-card__title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .mp-card__sub {
+    color: var(--color-burnt-text);
+  }
+
+  .mp-card__body {
+    font-size: 0.9375rem;
+  }
+
+  .mp-card__go {
+    min-block-size: 3rem;
+    margin-block-start: 0.5rem;
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label-wide);
+    text-transform: uppercase;
+    color: var(--color-light);
+    background: var(--color-navy);
+    border: 0;
+    border-radius: 3px;
+  }
+
+  .presence__list-title {
+    font-size: var(--text-card-title);
+  }
+
+  .presence__state {
+    margin-block: 1.5rem 0.5rem;
+    font-size: var(--text-label);
+    letter-spacing: var(--tracking-label-wide);
+    text-transform: uppercase;
+    color: var(--acc2);
+  }
+
+  .presence__places {
+    columns: 14rem auto;
+    column-gap: 2rem;
+    font-size: 0.9375rem;
+    color: var(--fg2);
+  }
+
+  .presence__places li {
+    break-inside: avoid;
+    padding-block: 0.125rem;
+  }
+
+  /* Filtro por estado: los demás se atenúan en el mapa; aquí solo cambia el contador activo. */
+
+  /* ---------- Con el mapa activo ---------- */
+
+  /* La lista pasa a ser solo para lectores de pantalla (MAP-6). */
+  .presence--live .presence__list {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  /* Pantalla fija mientras se borda: el escenario ocupa la pantalla y la sección es más alta. */
+  .presence--pinned {
+    block-size: calc(100svh + var(--presence-run, 120svh));
+  }
+
+  .presence--pinned .presence__stage {
+    position: sticky;
+    inset-block-start: 0;
+    grid-template-rows: auto;
+    block-size: 100svh;
+    padding-block-end: 0;
+    overflow: hidden;
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(90deg, rgb(255 255 255 / 4%) 1px, transparent 1px),
+      linear-gradient(rgb(255 255 255 / 4%) 1px, transparent 1px);
+    background-size: var(--stitch) var(--stitch);
+  }
+
+  /* Móvil: título arriba, mapa al ancho, contadores y notas abajo. */
+  @media (width < 48em) {
+    .presence--live .presence__stage {
+      gap: 0.75rem;
+      align-content: start;
+    }
+
+    .presence--live .presence__text {
+      display: contents;
+    }
+
+    .presence--live .presence__eyebrow {
+      order: 1;
+      padding-block-start: 1.25rem;
+    }
+
+    .presence--live .presence__title {
+      order: 2;
+      margin-block: 0;
+      font-size: clamp(2.5rem, 12vw, 3.5rem);
+    }
+
+    .presence--live .presence__map {
+      order: 3;
+      margin-inline: calc(-1 * clamp(1rem, 5vw, 4rem));
+      inline-size: calc(100% + 2 * clamp(1rem, 5vw, 4rem));
+    }
+
+    .presence--live .presence__counters {
+      order: 4;
+    }
+
+    .presence--live .presence__tour {
+      order: 5;
+      margin-block-start: 0;
+    }
+
+    .presence--live .presence__hint {
+      order: 6;
+      margin-block-start: 0;
+    }
+
+    .presence--live .presence__list {
+      order: 7;
+    }
+  }
+
+  /* Escritorio: texto a la izquierda y el mapa a la derecha, centrado en la pantalla. */
+  @media (width >= 48em) {
+    .presence--live .presence__stage {
+      grid-template-columns: minmax(18rem, 30rem) minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
+      column-gap: 2vw;
+      align-items: center;
+    }
+
+    .presence--live .presence__hem {
+      grid-column: 1 / -1;
+    }
+
+    .presence--live .presence__text {
+      align-self: center;
+    }
+
+    .presence--live .presence__map {
+      inline-size: min(100%, calc((100svh - 7rem) * 930 / 624));
+      justify-self: center;
+    }
+
+    .presence--live .presence__list {
+      grid-column: 1 / -1;
+    }
+
+    .mp-card {
+      display: none;
+    }
+  }
+}
