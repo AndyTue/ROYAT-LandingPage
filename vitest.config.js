@@ -14,7 +14,9 @@ export default defineConfig({
       thresholds: {
         'src/js/lib/**': { lines: 90, functions: 90, branches: 85 },
         'src/js/stitch/**': { lines: 90, functions: 90, branches: 85 },
-        'src/js/core/**': { lines: 90, functions: 90, branches: 85 },
+        // TODO(FT): activar cuando se escriban las pruebas de core/ (las pruebas de F5–F10
+        // se dejaron para la fase FT, decisión de Andrés del 2026-10-26).
+        // 'src/js/core/**': { lines: 90, functions: 90, branches: 85 },
       },
     },
   },

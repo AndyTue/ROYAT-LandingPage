@@ -48,6 +48,27 @@ export function parseColorMap(spec) {
 }
 
 /**
+ * Gira un patrón 90°: el borde izquierdo pasa arriba (`cw`) o abajo (`ccw`). Así las rosas
+ * del Hero de escritorio se vuelven las guirnaldas horizontales del móvil.
+ * @param {readonly string[]} rows
+ * @param {'cw' | 'ccw'} direction
+ * @returns {string[]}
+ */
+export function rotateRows(rows, direction) {
+  const { w, h } = gridSize(rows);
+  /** @type {string[]} */
+  const out = [];
+  for (let j = 0; j < w; j++) {
+    let row = '';
+    for (let i = 0; i < h; i++) {
+      row += direction === 'cw' ? rows[h - 1 - i][j] : rows[i][w - 1 - j];
+    }
+    out.push(row);
+  }
+  return out;
+}
+
+/**
  * Refleja las filas de un motivo: `x` en horizontal, `y` en vertical.
  * @param {readonly string[]} rows
  * @param {string} flip
