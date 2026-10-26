@@ -76,5 +76,8 @@
       "url": "https://www.instagram.com/andy_tue/"
     }
   },
-  "heroPhoto": "assets-src/photos/crew-hero.webp"
+  "heroPhoto": {
+    "src": "assets-src/photos/crew-hero.webp",
+    "alt": "Los integrantes de la ROYAT de pie, vestidos de blanco con guayabera de franja dorada y sombrero; al centro, una integrante con terno bordado"
+  }
 }
