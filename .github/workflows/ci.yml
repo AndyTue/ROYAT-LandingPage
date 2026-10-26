@@ -29,6 +29,13 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test
+
+      # Codificar AVIF/WebP desde cero tarda varios minutos; el hash del nombre hace segura la caché.
+      - uses: actions/cache@v4
+        with:
+          path: public/img
+          key: img-${{ hashFiles('assets-src/**', 'scripts/images/**', 'scripts/build-images.mjs') }}
+          restore-keys: img-
       - run: npm run build
       - run: npm run lint:dist
 

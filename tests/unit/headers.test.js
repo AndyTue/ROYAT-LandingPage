@@ -61,11 +61,11 @@ describe('public/_headers', () => {
     expect(csp).toContain('form-action https://wa.me');
   });
 
-  it('cachea para siempre los archivos con hash de /assets', () => {
-    const assets = headersFor(
-      parseHeaders(readFileSync('public/_headers', 'utf8')),
-      '/assets/x.js',
+  it('cachea para siempre los archivos con hash de /assets e /img', () => {
+    const rules = parseHeaders(readFileSync('public/_headers', 'utf8'));
+    expect(headersFor(rules, '/assets/x.js')['cache-control']).toContain('immutable');
+    expect(headersFor(rules, '/img/photos/g1-640.abcd1234.avif')['cache-control']).toContain(
+      'immutable',
     );
-    expect(assets['cache-control']).toContain('immutable');
   });
 });

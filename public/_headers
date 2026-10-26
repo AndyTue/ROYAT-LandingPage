@@ -9,6 +9,9 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()
   Cross-Origin-Opener-Policy: same-origin
 
-# Vite pone hash en el nombre de todo lo que emite en /assets, así que nunca cambia.
+# Vite y build-images.mjs ponen hash en el nombre de todo lo que emiten: esos archivos nunca cambian.
 /assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/img/*
   Cache-Control: public, max-age=31536000, immutable
