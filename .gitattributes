@@ -1,0 +1,11 @@
+# Finales de línea LF en todo el repo (Prettier y CI en Linux), aunque Windows use autocrlf.
+* text=auto eol=lf
+
+*.webp binary
+*.avif binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.mp3 binary
+*.m4a binary
+*.woff2 binary
