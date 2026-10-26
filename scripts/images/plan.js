@@ -19,8 +19,8 @@ export const FORMATS = /** @type {const} */ (['avif', 'webp']);
  * @type {Record<string, number[]>}
  */
 export const WIDTHS = {
-  photos: [640, 960, 1280, 1920, 2560],
-  history: [480, 800, 1200, 1600],
+  photos: [640, 800, 960, 1280, 1920, 2560],
+  history: [480, 640, 800, 1200, 1600],
   members: [320, 480, 800, 1200],
   covers: [240, 480, 800],
   brand: [160, 320, 640, 1200],

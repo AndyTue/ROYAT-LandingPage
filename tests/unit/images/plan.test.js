@@ -4,13 +4,13 @@ import { contentHash, planImage, widthsFor } from '../../../scripts/images/plan.
 
 describe('widthsFor', () => {
   it('no agranda: usa solo los candidatos que caben', () => {
-    expect(widthsFor('history', 1600)).toEqual([480, 800, 1200, 1600]);
+    expect(widthsFor('history', 1600)).toEqual([480, 640, 800, 1200, 1600]);
     expect(widthsFor('covers', 480)).toEqual([240, 480]);
   });
 
   it('agrega el ancho original si queda mucha resolución sin usar', () => {
-    expect(widthsFor('history', 1179)).toEqual([480, 800, 1179]);
-    expect(widthsFor('history', 1300)).toEqual([480, 800, 1200]);
+    expect(widthsFor('history', 1179)).toEqual([480, 640, 800, 1179]);
+    expect(widthsFor('history', 1300)).toEqual([480, 640, 800, 1200]);
   });
 
   it('una imagen más chica que todos los candidatos conserva su ancho', () => {
@@ -18,7 +18,7 @@ describe('widthsFor', () => {
   });
 
   it('una carpeta desconocida usa los anchos de historia', () => {
-    expect(widthsFor('otra', 800)).toEqual([480, 800]);
+    expect(widthsFor('otra', 800)).toEqual([480, 640, 800]);
   });
 });
 
