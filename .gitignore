@@ -17,6 +17,8 @@ node_modules/
 dist/
 dist-ssr/
 public/img/
+# Audio de la discografía (ADR-007): ~180 MB, se sube al bucket de audio, no a git.
+public/audio/
 images-manifest.json
 *.tsbuildinfo
 .vite/

@@ -25,6 +25,7 @@ const manifest = new Proxy(
         .replace(/^assets-src\//, '')
         .replace(/\.\w+$/, '');
       return {
+        src: `/img/${name}.test.svg`,
         width: 1000,
         height: 800,
         variants: [480, 1000].flatMap((w) =>

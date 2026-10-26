@@ -1,5 +1,5 @@
 {
-  "$comment": "Textos de interfaz extraídos del prototipo v108 (Recorrido.dc.html). Textos NUEVOS que no existen en el prototipo y debe revisar Andrés: presence.listTitle, contact.fallback.label, contact.fallback.template, contact.errors (excepto phone y phoneAbroad, que vienen del prototipo). '{x}' se reemplaza con datos. Textos NUEVOS de F5 que debe revisar Andrés: nav.menu, nav.announce, nav.close (el prototipo solo trae 'Ir a', 'Cerrar' e 'Inicio' en el menú móvil). Textos del mapa tomados de los prototipos de escritorio y móvil (Recorrido.dc.html y Recorrido-movil.dc.html); presence.map.close y presence.map.label son nuevos.",
+  "$comment": "Textos de interfaz extraídos del prototipo v108 (Recorrido.dc.html). Textos NUEVOS que no existen en el prototipo y debe revisar Andrés: presence.listTitle, contact.fallback.label, contact.fallback.template, contact.errors (excepto phone y phoneAbroad, que vienen del prototipo). '{x}' se reemplaza con datos. Textos NUEVOS de F5 que debe revisar Andrés: nav.menu, nav.announce, nav.close (el prototipo solo trae 'Ir a', 'Cerrar' e 'Inicio' en el menú móvil). Textos del mapa tomados de los prototipos de escritorio y móvil (Recorrido.dc.html y Recorrido-movil.dc.html); presence.map.close y presence.map.label son nuevos. Textos NUEVOS de F9 que debe revisar Andrés: discography.player.error, discography.player.loading, discography.detail.label (el resto viene del prototipo).",
   "nav": {
     "label": "Secciones",
     "menu": "Menú",
@@ -105,7 +105,38 @@
     "spotify": "Escuchar en Spotify",
     "prev": "Disco anterior",
     "next": "Disco siguiente",
-    "coverAlt": "Portada de {title}"
+    "coverAlt": "Portada de {title}",
+    "counter": "{n} / {total}",
+    "detail": {
+      "label": "Información del disco",
+      "facts": {
+        "tracks": "Pistas",
+        "duration": "Duración",
+        "year": "Año",
+        "guests": "Invitados"
+      },
+      "playSingle": "Reproducir sencillo",
+      "playAlbum": "Reproducir álbum",
+      "pause": "Pausar",
+      "prevDisc": "Disco anterior",
+      "nextDisc": "Disco siguiente",
+      "minutes": "{n} min",
+      "trackCount": "{n} pistas",
+      "oneTrack": "1 pista"
+    },
+    "player": {
+      "label": "Reproductor",
+      "prev": "Canción anterior",
+      "play": "Reproducir",
+      "pause": "Pausar",
+      "next": "Canción siguiente",
+      "close": "Cerrar reproductor",
+      "info": "Más información del disco que suena",
+      "goNow": "Ir al disco que suena",
+      "idle": "Real Orquesta Yucateca",
+      "error": "No se pudo cargar el audio. Intenta de nuevo.",
+      "loading": "Cargando…"
+    }
   },
   "contact": {
     "socialTitle": "Síguenos en redes",

@@ -30,3 +30,12 @@ export async function loadMap() {
   ]);
   return { grid: grid.default, places: places.default.places, states: places.default.states };
 }
+
+/**
+ * Discos con sus pistas (`content/discography.json`).
+ * @returns {Promise<import('../lib/disc.js').Disc[]>}
+ */
+export async function loadDiscs() {
+  const module = await import('../../../content/discography.json');
+  return module.default.discs;
+}

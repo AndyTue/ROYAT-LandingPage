@@ -186,4 +186,52 @@
       flex-direction: column;
     }
   }
+
+  /* Vinilo: surcos, borde y el arte del disco como etiqueta. */
+  .vinyl {
+    position: relative;
+    display: block;
+    inline-size: 100%;
+    aspect-ratio: 1;
+    background:
+      radial-gradient(
+        circle closest-side,
+        transparent 0 63.4%,
+        rgb(255 255 255 / 8%) 63.6% 64.4%,
+        #050505 64.6% 67.4%,
+        transparent 67.6%
+      ),
+      radial-gradient(
+        circle closest-side,
+        transparent 0 93.6%,
+        #070707 93.8% 94.8%,
+        transparent 95%
+      ),
+      repeating-radial-gradient(circle, #171716 0 1px, #0c0c0c 1px 2.4px), #0d0d0d;
+    border-radius: 50%;
+    box-shadow: 0 26px 34px -22px rgb(20 18 14 / 60%);
+  }
+
+  .event__cover {
+    position: absolute;
+    inset: 19%;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 50%);
+  }
+
+  .event__cover img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .vinyl::after {
+    position: absolute;
+    inset: 48.6%;
+    content: '';
+    background: var(--tone-paper-bg);
+    border-radius: 50%;
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 60%);
+  }
 }

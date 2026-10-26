@@ -4,14 +4,17 @@ import { bus } from './core/events.js';
 import { createLayout } from './core/layout.js';
 import { prefersReducedMotion } from './core/motion.js';
 import { createNav } from './features/nav.js';
+import { createPlayer } from './features/player.js';
+import { createPlayerBar } from './features/player-bar.js';
 import { createOrnaments } from './features/ornaments.js';
 import { createCurtain } from './features/transition.js';
 import { find } from './lib/dom.js';
 import { initContact } from './sections/contact.js';
+import { createDiscography } from './sections/discography.js';
 import { createHero } from './sections/hero.js';
 import { createMap } from './sections/map.js';
 import { createTrack } from './sections/track.js';
-import { loadMap, loadMotifs, loadPatterns } from './stitch/data.js';
+import { loadDiscs, loadMap, loadMotifs, loadPatterns } from './stitch/data.js';
 
 // El CSS sin esta clase muestra el layout estático; con ella, las secciones pueden animarse.
 document.documentElement.classList.add('js');
@@ -81,15 +84,17 @@ guard('nav', () => {
   });
   engine.watch((state) => nav.update(state));
 });
+/** @type {ReturnType<typeof createCurtain> | null} */
+let curtain = null;
 guard('curtain', () => {
-  createCurtain(find(document, '[data-curtain]', HTMLElement), { reduced });
+  curtain = createCurtain(find(document, '[data-curtain]', HTMLElement), { reduced });
 });
 engine.snap();
 engine.start();
 
 // 4. El bordado necesita sus datos: se piden aparte, sin retrasar el primer pintado.
-Promise.all([loadPatterns(), loadMotifs(), loadMap()])
-  .then(([patterns, motifs, map]) => {
+Promise.all([loadPatterns(), loadMotifs(), loadMap(), loadDiscs()])
+  .then(([patterns, motifs, map, discs]) => {
     guard('hero', () => {
       const root = find(document, '[data-hero]', HTMLElement);
       const hero = createHero({ root, patterns, getMetrics, reduced });
@@ -127,6 +132,39 @@ Promise.all([loadPatterns(), loadMotifs(), loadMap()])
           reduced,
         }),
       );
+    });
+    guard('discografia', () => {
+      const root = find(document, '[data-disco]', HTMLElement);
+      const text = JSON.parse(root.dataset.discoText ?? '{}');
+      const audio = new Audio();
+      const player = createPlayer({
+        audio,
+        baseUrl: root.dataset.audioBase ?? '/audio',
+        discs,
+        bus,
+      });
+      const section = createDiscography({
+        root,
+        discs,
+        player,
+        curtain: /** @type {NonNullable<typeof curtain>} */ (curtain),
+        text,
+        getMetrics,
+        reduced,
+      });
+      engine.add(section);
+      // La barra va en <body>: así sigue activa cuando la ficha de detalle inhabilita <main>.
+      const bar = find(document, '[data-player]', HTMLElement);
+      document.body.append(bar);
+      createPlayerBar({
+        root: bar,
+        player,
+        discs,
+        covers: section.covers,
+        text: text.player,
+        onInfo: (index) => section.openDetail(index),
+        onNow: (index) => section.goTo(index),
+      });
     });
     guard('ornaments', () => {
       engine.add(

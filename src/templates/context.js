@@ -6,7 +6,7 @@
  * @typedef {Record<string, any>} Content contenido de `content/*.json` por nombre de archivo
  * @typedef {{ pal: string[], logo: string[], bands: Record<string, string[]>, motifs: Record<string, string[]> } & Record<string, any>} StitchPatterns
  *   `assets-src/stitch/patterns.json` más motivos y bandas de `motifs.json`
- * @typedef {{ content: Content, patterns: StitchPatterns, image: (src: string) => ImageEntry, ogImage: { src: string, width: number, height: number } }} RenderContext
+ * @typedef {{ content: Content, patterns: StitchPatterns, image: (src: string) => ImageEntry, asset: (src: string) => string, ogImage: { src: string, width: number, height: number } }} RenderContext
  */
 
 /**
@@ -23,6 +23,11 @@ export function createContext(content, manifest, patterns) {
   return {
     content,
     patterns,
+    asset(src) {
+      const entry = manifest[src];
+      if (!entry?.src) throw new Error(`El archivo ${src} no está en images-manifest.json`);
+      return entry.src;
+    },
     image(src) {
       const entry = manifest[src];
       if (!entry?.variants?.length) {

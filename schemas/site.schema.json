@@ -14,7 +14,8 @@
     "contact",
     "social",
     "footer",
-    "heroPhoto"
+    "heroPhoto",
+    "audio"
   ],
   "properties": {
     "$comment": {
@@ -128,6 +129,17 @@
     },
     "heroPhoto": {
       "$ref": "#/$defs/image"
+    },
+    "audio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseUrl"],
+      "properties": {
+        "baseUrl": {
+          "type": "string",
+          "pattern": "^(/|https://)[^ ]*[^/]$"
+        }
+      }
     }
   },
   "$defs": {
