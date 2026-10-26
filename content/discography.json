@@ -1,0 +1,339 @@
+{
+  "$comment": "10 lanzamientos. durationSec en segundos; guest = invitado en la pista. El reproductor del prototipo SIMULA la reproducción.",
+  "artistSpotify": "https://open.spotify.com/artist/7p2sU1LyJUBYR4IirhtUem",
+  "discs": [
+    {
+      "spotifyId": "153Gq8QqOqAJEP3BtAie4M",
+      "title": "La Fiesta de Yucatán",
+      "type": "Álbum",
+      "year": 2026,
+      "color": "rgb(46,93,29)",
+      "cover": "assets-src/covers/fiesta.webp",
+      "tracks": [
+        {
+          "title": "Angaripola",
+          "durationSec": 67
+        },
+        {
+          "title": "Pregón de la Vaquería",
+          "guest": "Julio Ortiz",
+          "durationSec": 115
+        },
+        {
+          "title": "Aires Yucatecos",
+          "durationSec": 146
+        },
+        {
+          "title": "La Fiesta de Yucatán (Bomba)",
+          "durationSec": 26
+        },
+        {
+          "title": "Timbalero",
+          "guest": "Manuel Castillo",
+          "durationSec": 143
+        },
+        {
+          "title": "Mesticita Linda",
+          "durationSec": 135
+        },
+        {
+          "title": "El Burro",
+          "durationSec": 135
+        },
+        {
+          "title": "Boxito en España",
+          "durationSec": 130
+        },
+        {
+          "title": "Timbales (Interludio)",
+          "durationSec": 10
+        },
+        {
+          "title": "Mi Lindo Motul / Mi Yucateca",
+          "durationSec": 208
+        },
+        {
+          "title": "Bomba de los Municipios",
+          "guest": "Julio Ortiz",
+          "durationSec": 94
+        },
+        {
+          "title": "Linda Cansahcabeña",
+          "durationSec": 168
+        },
+        {
+          "title": "Bésame en la Boca",
+          "durationSec": 215
+        },
+        {
+          "title": "Canastas de Halachó",
+          "guest": "Felipe de la Cruz",
+          "durationSec": 229
+        },
+        {
+          "title": "Porque Te Quiero / Anhelo Campesino",
+          "guest": "Joss Novelo",
+          "durationSec": 212
+        },
+        {
+          "title": "El Orgullo de Yucatán (Bomba)",
+          "durationSec": 29
+        },
+        {
+          "title": "Chinito Koy Koy",
+          "guest": "Manuel Castillo",
+          "durationSec": 194
+        },
+        {
+          "title": "El Torito",
+          "durationSec": 79
+        },
+        {
+          "title": "Las Dianas",
+          "durationSec": 56
+        },
+        {
+          "title": "El Cable (La Hach)",
+          "durationSec": 297
+        }
+      ]
+    },
+    {
+      "spotifyId": "5KFPcIKV1ZwAgCyvj1WjuB",
+      "title": "El niño de San Felipe",
+      "type": "Sencillo",
+      "year": 2026,
+      "color": "rgb(28,85,136)",
+      "cover": "assets-src/covers/nino.webp",
+      "tracks": [
+        {
+          "title": "El niño de San Felipe",
+          "durationSec": 155
+        }
+      ]
+    },
+    {
+      "spotifyId": "0qp5SDDBLAmNVk8v6Xnra7",
+      "title": "Jubileo de Oro",
+      "type": "Álbum",
+      "year": 2025,
+      "color": "rgb(159,0,0)",
+      "cover": "assets-src/covers/jubileo.webp",
+      "tracks": [
+        {
+          "title": "Jubileo de Oro",
+          "guest": "Manuel Castillo",
+          "durationSec": 133
+        },
+        {
+          "title": "Emma Esther",
+          "durationSec": 193
+        },
+        {
+          "title": "María Eugenia",
+          "durationSec": 196
+        },
+        {
+          "title": "Hermanos Peralta",
+          "durationSec": 137
+        },
+        {
+          "title": "Rosalía de Chumayel",
+          "guest": "Irbin Castillo",
+          "durationSec": 164
+        },
+        {
+          "title": "Julia Esther",
+          "guest": "Irbin Castillo",
+          "durationSec": 272
+        },
+        {
+          "title": "Lilia María",
+          "durationSec": 166
+        },
+        {
+          "title": "X´Ki´ichpan X´pet · Linda Petrona",
+          "guest": "Manuel Castillo",
+          "durationSec": 231
+        },
+        {
+          "title": "Elaine y Félix",
+          "guest": "Joss Novelo",
+          "durationSec": 195
+        },
+        {
+          "title": "Jazmín",
+          "guest": "Manuel Castillo",
+          "durationSec": 131
+        },
+        {
+          "title": "Eldy",
+          "guest": "Irbin Castillo",
+          "durationSec": 233
+        },
+        {
+          "title": "La Última Jarana",
+          "durationSec": 140
+        }
+      ]
+    },
+    {
+      "spotifyId": "1Y2NwJSKMnWcKB6utukUFy",
+      "title": "Miguel Eduardo",
+      "type": "Sencillo",
+      "year": 2025,
+      "color": "rgb(16,80,128)",
+      "cover": "assets-src/covers/miguel.webp",
+      "tracks": [
+        {
+          "title": "Miguel Eduardo",
+          "durationSec": 223
+        }
+      ]
+    },
+    {
+      "spotifyId": "726FfmvO4DceME2LfDgBrG",
+      "title": "¡A Bailar en Tizimín!",
+      "type": "Álbum en vivo",
+      "year": 2025,
+      "color": "rgb(49,75,167)",
+      "cover": "assets-src/covers/vivo.webp",
+      "tracks": [
+        {
+          "title": "Homenaje a Rubén Darío (Intro)",
+          "durationSec": 363
+        },
+        {
+          "title": "Tizimín está de Fiesta",
+          "durationSec": 174
+        },
+        {
+          "title": "Fiesta del Pueblo / Guachapeo",
+          "durationSec": 349
+        },
+        {
+          "title": "Ferrocarril",
+          "durationSec": 248
+        },
+        {
+          "title": "Amauri Chan",
+          "durationSec": 243
+        },
+        {
+          "title": "Gonzalito",
+          "durationSec": 367
+        },
+        {
+          "title": "Carlos Castillo",
+          "durationSec": 508
+        },
+        {
+          "title": "Meridana",
+          "durationSec": 318
+        },
+        {
+          "title": "Ezequiel Bacab",
+          "durationSec": 289
+        },
+        {
+          "title": "Darelle",
+          "durationSec": 422
+        },
+        {
+          "title": "Héctor Rolando",
+          "guest": "Ángel Moo",
+          "durationSec": 292
+        },
+        {
+          "title": "Linda Mestiza del Oriente (Vianey)",
+          "durationSec": 350
+        },
+        {
+          "title": "Ana Mary",
+          "durationSec": 269
+        },
+        {
+          "title": "Rosalía Acosta",
+          "durationSec": 434
+        },
+        {
+          "title": "¡A Bailar en Tizimín! (Popurrí)",
+          "durationSec": 250
+        }
+      ]
+    },
+    {
+      "spotifyId": "55l6pViPSdMh8a9hrFcvU6",
+      "title": "¡A Bailar en Tizimín!",
+      "type": "Sencillo",
+      "year": 2025,
+      "color": "rgb(124,69,0)",
+      "cover": "assets-src/covers/bailar.webp",
+      "tracks": [
+        {
+          "title": "¡A Bailar en Tizimín!",
+          "durationSec": 201
+        }
+      ]
+    },
+    {
+      "spotifyId": "2kCqd6QaJN0O5vEvLvI2Hv",
+      "title": "La Flor del Oriente",
+      "type": "Sencillo",
+      "year": 2024,
+      "color": "rgb(48,72,96)",
+      "cover": "assets-src/covers/flor.webp",
+      "tracks": [
+        {
+          "title": "La Flor del Oriente",
+          "durationSec": 171
+        }
+      ]
+    },
+    {
+      "spotifyId": "1k31LoV1JmMEgVzccV8LMK",
+      "title": "Linda Elizabeth",
+      "type": "Sencillo",
+      "year": 2024,
+      "color": "rgb(48,48,80)",
+      "cover": "assets-src/covers/linda.webp",
+      "tracks": [
+        {
+          "title": "Linda Elizabeth",
+          "durationSec": 172
+        }
+      ]
+    },
+    {
+      "spotifyId": "66zHJzZYZzSMq2zMD18XX7",
+      "title": "Mi Lindo Sucilá",
+      "type": "Sencillo",
+      "year": null,
+      "color": "rgb(71,85,93)",
+      "cover": "assets-src/covers/sucila.webp",
+      "tracks": [
+        {
+          "title": "Mi Lindo Sucilá",
+          "durationSec": 211
+        }
+      ],
+      "TODO": "TODO(contenido): año de lanzamiento (en el prototipo no aparece)"
+    },
+    {
+      "spotifyId": "7hRhPsDcELmGcaI26wTQsI",
+      "title": "Britany Adriana",
+      "type": "Sencillo",
+      "year": null,
+      "color": "rgb(135,57,61)",
+      "cover": "assets-src/covers/britany.webp",
+      "tracks": [
+        {
+          "title": "Britany Adriana",
+          "guest": "Antonio Victorín",
+          "durationSec": 214
+        }
+      ],
+      "TODO": "TODO(contenido): año de lanzamiento (en el prototipo no aparece)"
+    }
+  ]
+}

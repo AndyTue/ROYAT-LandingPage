@@ -1,0 +1,64 @@
+{
+  "$comment": "Fovi Rodríguez, gato mascota. Frases por sección; clic → formulario de contacto.",
+  "name": "Fovi Rodríguez",
+  "generic": [
+    [
+      "Acaríciame"
+    ],
+    [
+      "Hazme clic y te llevo al formulario",
+      "Contrataciones"
+    ],
+    [
+      "El orgullo de Yucatán"
+    ],
+    [
+      "Soy el patrón"
+    ]
+  ],
+  "facts": {
+    "orquesta": [
+      "La ROYAT nació en Tizimín en 2018.",
+      "Nuestra primera vaquería fue en la Feria de Sucilá.",
+      "Somos dieciséis músicos en cinco secciones.",
+      "Arturo Turriza dirige… y toca el sax barítono.",
+      "En 2026 llegamos al Palacio de la Música.",
+      "Tenemos diez lanzamientos en Spotify.",
+      "Tres voces cantan cada jarana: Erik, Gabriel y Josué."
+    ],
+    "jarana": [
+      "La jarana se baila en 6×8 y en 3×4.",
+      "En la vaquería alguien grita ¡Bomba! y suelta un verso.",
+      "El terno es el traje de gala de la mestiza.",
+      "«El Torito» imita una corrida de toros."
+    ],
+    "mapa": [
+      "¡Más de 50 municipios de Yucatán!",
+      "Todo empezó en Tizimín, en 2018.",
+      "¿No ves tu pueblo? Dale clic y nos invitas.",
+      "También tocamos en Quintana Roo y Campeche."
+    ],
+    "contacto": [
+      "Síguenos en redes y no te pierdas ninguna vaquería.",
+      "Todos los discos están en Spotify y Apple Music.",
+      "Los videos están en TikTok y YouTube."
+    ],
+    "discos": [
+      "«La Fiesta de Yucatán» trae veinte piezas.",
+      "«¡A Bailar en Tizimín!» se grabó en vivo en la Vaquería de Tizimín 2024.",
+      "En «Jubileo de Oro» participan Manuel Castillo, Irbin Castillo y Joss Novelo.",
+      "Desliza y te enseño los discos. Clic en uno y suena."
+    ]
+  },
+  "sprites": {
+    "sleep": "assets-src/mascot/fv-sleep.webp",
+    "torso": "assets-src/mascot/fv-torso.webp",
+    "tail": "assets-src/mascot/fv-tail.webp",
+    "legs": {
+      "frontFar": "assets-src/mascot/fv-leg-ff.webp",
+      "frontNear": "assets-src/mascot/fv-leg-fn.webp",
+      "hindFar": "assets-src/mascot/fv-leg-hf.webp",
+      "hindNear": "assets-src/mascot/fv-leg-hn.webp"
+    }
+  }
+}

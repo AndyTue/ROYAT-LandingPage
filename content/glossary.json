@@ -1,0 +1,30 @@
+{
+  "$comment": "Panel '¡Preciosooo!' entre Integrantes y Vocalistas: vocabulario de la jarana.",
+  "title": "Preciosooooo",
+  "items": [
+    {
+      "term": "¡Bomba!",
+      "text": "La música se detiene y alguien grita ¡Bomba! para soltar un verso picaresco."
+    },
+    {
+      "term": "Jarana",
+      "text": "Se baila en compases de 6×8 y 3×4, con zapateado y vueltas."
+    },
+    {
+      "term": "Vaquería",
+      "text": "La gran fiesta del pueblo: jaranas de principio a fin."
+    },
+    {
+      "term": "Terno",
+      "text": "El traje de gala de la mestiza: hipil, fustán y doble."
+    },
+    {
+      "term": "El Torito",
+      "text": "La jarana que imita una corrida de toros. Suena en «La Fiesta de Yucatán»."
+    },
+    {
+      "term": "Tres voces",
+      "text": "Erik, Gabriel y Josué ponen la voz a cada jarana."
+    }
+  ]
+}

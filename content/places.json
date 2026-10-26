@@ -1,0 +1,1894 @@
+{
+  "$comment": "Municipios del mapa (índice i = valor de celda en map-grid.json). presence=true: la ROYAT ya tocó ahí. Los demás son clicables para invitar.",
+  "states": [
+    "Yucatán",
+    "Quintana Roo",
+    "Campeche"
+  ],
+  "tours": [
+    {
+      "label": "Hidalgo y Oaxaca",
+      "year": 2026
+    }
+  ],
+  "places": [
+    {
+      "i": 0,
+      "municipio": "Sinanché",
+      "label": "Sinanché",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        485.6,
+        71.6
+      ],
+      "stitchOrder": 198.7
+    },
+    {
+      "i": 1,
+      "municipio": "Santa Elena",
+      "label": "Santa Elena",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        407.8,
+        231.4
+      ],
+      "stitchOrder": 316.4
+    },
+    {
+      "i": 2,
+      "municipio": "Dzilam González",
+      "label": "Dzilam González",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        551.7,
+        65.9
+      ],
+      "stitchOrder": 133
+    },
+    {
+      "i": 3,
+      "municipio": "Abalá",
+      "label": "Abalá",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        418.4,
+        172.1
+      ],
+      "stitchOrder": 282.2
+    },
+    {
+      "i": 4,
+      "municipio": "Akil",
+      "label": "Akil",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        462.6,
+        232.2
+      ],
+      "stitchOrder": 270.3
+    },
+    {
+      "i": 5,
+      "municipio": "Baca",
+      "label": "Baca",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        455.4,
+        94.2
+      ],
+      "stitchOrder": 229.4
+    },
+    {
+      "i": 6,
+      "municipio": "Bokobá",
+      "label": "Bokobá",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        489,
+        117
+      ],
+      "stitchOrder": 199.2
+    },
+    {
+      "i": 7,
+      "municipio": "Tekom",
+      "label": "Tekom",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        602.2,
+        195.8
+      ],
+      "stitchOrder": 144
+    },
+    {
+      "i": 8,
+      "municipio": "Sanahcat",
+      "label": "Sanahcat",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        483,
+        153
+      ],
+      "stitchOrder": 214.9
+    },
+    {
+      "i": 9,
+      "municipio": "Peto",
+      "label": "Peto",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Tixhualatún"
+      ],
+      "colorFamily": 0,
+      "labelPos": [
+        539,
+        260.4
+      ],
+      "stitchOrder": 233.6
+    },
+    {
+      "i": 10,
+      "municipio": "Opichén",
+      "label": "Opichén",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        388.8,
+        187.2
+      ],
+      "stitchOrder": 315.1
+    },
+    {
+      "i": 11,
+      "municipio": "Cacalchén",
+      "label": "Cacalchén",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        477,
+        120
+      ],
+      "stitchOrder": 211.5
+    },
+    {
+      "i": 12,
+      "municipio": "Mayapán",
+      "label": "Mayapán",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        487.8,
+        193.8
+      ],
+      "stitchOrder": 228.3
+    },
+    {
+      "i": 13,
+      "municipio": "Cansahcab",
+      "label": "Cansahcab",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        503.6,
+        90.4
+      ],
+      "stitchOrder": 181.1
+    },
+    {
+      "i": 14,
+      "municipio": "Chumayel",
+      "label": "Chumayel",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 2,
+      "labelPos": [
+        473.4,
+        199.8
+      ],
+      "stitchOrder": 243.8
+    },
+    {
+      "i": 15,
+      "municipio": "Yobaín",
+      "label": "Yobaín",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        497,
+        72.3
+      ],
+      "stitchOrder": 187.3
+    },
+    {
+      "i": 16,
+      "municipio": "Chikindzonot",
+      "label": "Chikindzonot",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        583.2,
+        231.2
+      ],
+      "stitchOrder": 184
+    },
+    {
+      "i": 17,
+      "municipio": "Kanasín",
+      "label": "Kanasín",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        435,
+        132
+      ],
+      "stitchOrder": 255.1
+    },
+    {
+      "i": 18,
+      "municipio": "Hunucmá",
+      "label": "Hunucmá",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Puerto: Sisal"
+      ],
+      "colorFamily": 0,
+      "labelPos": [
+        370.1,
+        106.1
+      ],
+      "stitchOrder": 315.4
+    },
+    {
+      "i": 19,
+      "municipio": "Dzitás",
+      "label": "Dzitás",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 2,
+      "labelPos": [
+        582.4,
+        140.1
+      ],
+      "stitchOrder": 119.6
+    },
+    {
+      "i": 20,
+      "municipio": "Chichimilá",
+      "label": "Chichimilá",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 2,
+      "labelPos": [
+        633.2,
+        204.6
+      ],
+      "stitchOrder": 137
+    },
+    {
+      "i": 21,
+      "municipio": "Chapab",
+      "label": "Chapab",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        441.6,
+        195
+      ],
+      "stitchOrder": 269.6
+    },
+    {
+      "i": 22,
+      "municipio": "Chankom",
+      "label": "Chankom",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        577.4,
+        195.7
+      ],
+      "stitchOrder": 159.4
+    },
+    {
+      "i": 23,
+      "municipio": "Celestún",
+      "label": "Celestún",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        325.7,
+        134.2
+      ],
+      "stitchOrder": 363
+    },
+    {
+      "i": 24,
+      "municipio": "Calotmul",
+      "label": "Calotmul",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Pocoboch"
+      ],
+      "colorFamily": 3,
+      "labelPos": [
+        642.6,
+        114.6
+      ],
+      "stitchOrder": 55.8
+    },
+    {
+      "i": 25,
+      "municipio": "Valladolid",
+      "label": "Valladolid",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Yalcobá",
+        "Ebtún",
+        "Tahmuy",
+        "Xocén"
+      ],
+      "colorFamily": 0,
+      "labelPos": [
+        644.3,
+        173.1
+      ],
+      "stitchOrder": 103.7
+    },
+    {
+      "i": 26,
+      "municipio": "Umán",
+      "label": "Umán",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Oxholón",
+        "Yaxcopoil",
+        "Bolón"
+      ],
+      "colorFamily": 1,
+      "labelPos": [
+        402.3,
+        141.3
+      ],
+      "stitchOrder": 289.1
+    },
+    {
+      "i": 27,
+      "municipio": "Cantamayec",
+      "label": "Cantamayec",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        507.3,
+        206.1
+      ],
+      "stitchOrder": 218.8
+    },
+    {
+      "i": 28,
+      "municipio": "Cenotillo",
+      "label": "Cenotillo",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Tixbacab"
+      ],
+      "colorFamily": 0,
+      "labelPos": [
+        575.5,
+        111.4
+      ],
+      "stitchOrder": 113.9
+    },
+    {
+      "i": 29,
+      "municipio": "Conkal",
+      "label": "Conkal",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        439.5,
+        103.5
+      ],
+      "stitchOrder": 246.1
+    },
+    {
+      "i": 30,
+      "municipio": "Sudzal",
+      "label": "Sudzal",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        529.8,
+        147.4
+      ],
+      "stitchOrder": 169.5
+    },
+    {
+      "i": 31,
+      "municipio": "Sotuta",
+      "label": "Sotuta",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        517.3,
+        178.1
+      ],
+      "stitchOrder": 194.9
+    },
+    {
+      "i": 32,
+      "municipio": "Seyé",
+      "label": "Seyé",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        459,
+        142.2
+      ],
+      "stitchOrder": 234.3
+    },
+    {
+      "i": 33,
+      "municipio": "Cuzamá",
+      "label": "Cuzamá",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        462.6,
+        160.2
+      ],
+      "stitchOrder": 236.6
+    },
+    {
+      "i": 34,
+      "municipio": "Chacsinkín",
+      "label": "Chacsinkín",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        510.6,
+        244.2
+      ],
+      "stitchOrder": 240.7
+    },
+    {
+      "i": 35,
+      "municipio": "Chocholá",
+      "label": "Chocholá",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        390.6,
+        159
+      ],
+      "stitchOrder": 304.7
+    },
+    {
+      "i": 36,
+      "municipio": "Mérida",
+      "label": "Mérida",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Komchén",
+        "Caucel",
+        "Cheumán"
+      ],
+      "colorFamily": 0,
+      "labelPos": [
+        420.6,
+        121
+      ],
+      "stitchOrder": 267.2
+    },
+    {
+      "i": 37,
+      "municipio": "San Felipe",
+      "label": "San Felipe",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        614.2,
+        38.8
+      ],
+      "stitchOrder": 79.9
+    },
+    {
+      "i": 38,
+      "municipio": "Río Lagartos",
+      "label": "Río Lagartos",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Las Coloradas"
+      ],
+      "colorFamily": 2,
+      "labelPos": [
+        648.3,
+        31.3
+      ],
+      "stitchOrder": 58.4
+    },
+    {
+      "i": 39,
+      "municipio": "Tixcacalcupul",
+      "label": "Tixcacalcupul",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        612.9,
+        212.1
+      ],
+      "stitchOrder": 152.4
+    },
+    {
+      "i": 40,
+      "municipio": "Tixkokob",
+      "label": "Tixkokob",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        459,
+        119
+      ],
+      "stitchOrder": 229
+    },
+    {
+      "i": 41,
+      "municipio": "Progreso",
+      "label": "Progreso",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        416.2,
+        81.5
+      ],
+      "stitchOrder": 268
+    },
+    {
+      "i": 42,
+      "municipio": "Tixméhuac",
+      "label": "Tixméhuac",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        501.5,
+        235.6
+      ],
+      "stitchOrder": 241.7
+    },
+    {
+      "i": 43,
+      "municipio": "Panabá",
+      "label": "Panabá",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Loché",
+        "Yalsihón"
+      ],
+      "colorFamily": 1,
+      "labelPos": [
+        614,
+        61.5
+      ],
+      "stitchOrder": 72
+    },
+    {
+      "i": 44,
+      "municipio": "Oxkutzcab",
+      "label": "Oxkutzcab",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        439.2,
+        250.2
+      ],
+      "stitchOrder": 299.8
+    },
+    {
+      "i": 45,
+      "municipio": "Buctzotz",
+      "label": "Buctzotz",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        565.7,
+        82.6
+      ],
+      "stitchOrder": 118.6
+    },
+    {
+      "i": 46,
+      "municipio": "Dzan",
+      "label": "Dzan",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        447,
+        208.5
+      ],
+      "stitchOrder": 271
+    },
+    {
+      "i": 47,
+      "municipio": "Dzemul",
+      "label": "Dzemul",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        465,
+        78
+      ],
+      "stitchOrder": 219.2
+    },
+    {
+      "i": 48,
+      "municipio": "Dzidzantún",
+      "label": "Dzidzantún",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        511,
+        71
+      ],
+      "stitchOrder": 173.3
+    },
+    {
+      "i": 49,
+      "municipio": "Dzoncauich",
+      "label": "Dzoncauich",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Chacmay"
+      ],
+      "colorFamily": 2,
+      "labelPos": [
+        537,
+        105
+      ],
+      "stitchOrder": 149.8
+    },
+    {
+      "i": 50,
+      "municipio": "Halachó",
+      "label": "Halachó",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        335.9,
+        183
+      ],
+      "stitchOrder": 364
+    },
+    {
+      "i": 51,
+      "municipio": "Acanceh",
+      "label": "Acanceh",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        447.9,
+        142.7
+      ],
+      "stitchOrder": 245.2
+    },
+    {
+      "i": 52,
+      "municipio": "Dzilam de Bravo",
+      "label": "Dzilam de Bravo",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        559.1,
+        51
+      ],
+      "stitchOrder": 127.9
+    },
+    {
+      "i": 53,
+      "municipio": "Chemax",
+      "label": "Chemax",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Sisbichén"
+      ],
+      "colorFamily": 1,
+      "labelPos": [
+        687.1,
+        153.2
+      ],
+      "stitchOrder": 75.9
+    },
+    {
+      "i": 54,
+      "municipio": "Teabo",
+      "label": "Teabo",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        482.5,
+        214.4
+      ],
+      "stitchOrder": 243.8
+    },
+    {
+      "i": 55,
+      "municipio": "Hocabá",
+      "label": "Hocabá",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        477,
+        147
+      ],
+      "stitchOrder": 218.6
+    },
+    {
+      "i": 56,
+      "municipio": "Hoctún",
+      "label": "Hoctún",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        490.7,
+        136.7
+      ],
+      "stitchOrder": 202.4
+    },
+    {
+      "i": 57,
+      "municipio": "Sacalum",
+      "label": "Sacalum",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        421.7,
+        191
+      ],
+      "stitchOrder": 286
+    },
+    {
+      "i": 58,
+      "municipio": "Homún",
+      "label": "Homún",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        475.5,
+        167
+      ],
+      "stitchOrder": 227.1
+    },
+    {
+      "i": 59,
+      "municipio": "Kantunil",
+      "label": "Kantunil",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Holcá"
+      ],
+      "colorFamily": 1,
+      "labelPos": [
+        514.2,
+        154.2
+      ],
+      "stitchOrder": 186.5
+    },
+    {
+      "i": 60,
+      "municipio": "Tzucacab",
+      "label": "Tzucacab",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Dzi"
+      ],
+      "colorFamily": 1,
+      "labelPos": [
+        507,
+        282.5
+      ],
+      "stitchOrder": 271
+    },
+    {
+      "i": 61,
+      "municipio": "Tecoh",
+      "label": "Tecoh",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        446.7,
+        170.4
+      ],
+      "stitchOrder": 255.1
+    },
+    {
+      "i": 62,
+      "municipio": "Ticul",
+      "label": "Ticul",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        431.5,
+        216.5
+      ],
+      "stitchOrder": 288.5
+    },
+    {
+      "i": 63,
+      "municipio": "Temax",
+      "label": "Temax",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        531.9,
+        91.5
+      ],
+      "stitchOrder": 153
+    },
+    {
+      "i": 64,
+      "municipio": "Tekax",
+      "label": "Tekax",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Kancab",
+        "Xaya",
+        "Kinil"
+      ],
+      "colorFamily": 0,
+      "labelPos": [
+        470.2,
+        283.4
+      ],
+      "stitchOrder": 297
+    },
+    {
+      "i": 65,
+      "municipio": "Huhí",
+      "label": "Huhí",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        494,
+        164.5
+      ],
+      "stitchOrder": 209.2
+    },
+    {
+      "i": 66,
+      "municipio": "Ixil",
+      "label": "Ixil",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 2,
+      "labelPos": [
+        443.7,
+        80.3
+      ],
+      "stitchOrder": 240.5
+    },
+    {
+      "i": 67,
+      "municipio": "Chicxulub Pueblo",
+      "label": "Chicxulub Pueblo",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        435,
+        93
+      ],
+      "stitchOrder": 249.7
+    },
+    {
+      "i": 68,
+      "municipio": "Kaua",
+      "label": "Kaua",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        598,
+        180
+      ],
+      "stitchOrder": 134
+    },
+    {
+      "i": 69,
+      "municipio": "Kinchil",
+      "label": "Kinchil",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        356.7,
+        141.6
+      ],
+      "stitchOrder": 333.7
+    },
+    {
+      "i": 70,
+      "municipio": "Kopomá",
+      "label": "Kopomá",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "San Bernardo"
+      ],
+      "colorFamily": 1,
+      "labelPos": [
+        382.2,
+        172.8
+      ],
+      "stitchOrder": 316.7
+    },
+    {
+      "i": 71,
+      "municipio": "Mama",
+      "label": "Mama",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 3,
+      "labelPos": [
+        457.8,
+        196.2
+      ],
+      "stitchOrder": 255.7
+    },
+    {
+      "i": 72,
+      "municipio": "Maní",
+      "label": "Maní",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        460.7,
+        213
+      ],
+      "stitchOrder": 261.4
+    },
+    {
+      "i": 73,
+      "municipio": "Maxcanú",
+      "label": "Maxcanú",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Santa Teresa Coahuila"
+      ],
+      "colorFamily": 0,
+      "labelPos": [
+        358.1,
+        176.9
+      ],
+      "stitchOrder": 340.9
+    },
+    {
+      "i": 74,
+      "municipio": "Mocochá",
+      "label": "Mocochá",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        445,
+        95
+      ],
+      "stitchOrder": 239.8
+    },
+    {
+      "i": 75,
+      "municipio": "Motul",
+      "label": "Motul",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        472.9,
+        93.9
+      ],
+      "stitchOrder": 211.9
+    },
+    {
+      "i": 76,
+      "municipio": "Muna",
+      "label": "Muna",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        404.7,
+        202.6
+      ],
+      "stitchOrder": 306.3
+    },
+    {
+      "i": 77,
+      "municipio": "Muxupip",
+      "label": "Muxupip",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        465,
+        108
+      ],
+      "stitchOrder": 221.3
+    },
+    {
+      "i": 78,
+      "municipio": "Quintana Roo",
+      "label": "Quintana Roo",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 3,
+      "labelPos": [
+        567,
+        143.4
+      ],
+      "stitchOrder": 134.5
+    },
+    {
+      "i": 79,
+      "municipio": "Samahil",
+      "label": "Samahil",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 2,
+      "labelPos": [
+        379,
+        142.5
+      ],
+      "stitchOrder": 312.1
+    },
+    {
+      "i": 80,
+      "municipio": "Sucilá",
+      "label": "Sucilá",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 2,
+      "labelPos": [
+        604.9,
+        85.5
+      ],
+      "stitchOrder": 79.7
+    },
+    {
+      "i": 81,
+      "municipio": "Suma",
+      "label": "Suma",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        490,
+        100
+      ],
+      "stitchOrder": 195.5
+    },
+    {
+      "i": 82,
+      "municipio": "Tahdziú",
+      "label": "Tahdziú",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        526.4,
+        233.3
+      ],
+      "stitchOrder": 221.8
+    },
+    {
+      "i": 83,
+      "municipio": "Espita",
+      "label": "Espita",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        608.5,
+        113.8
+      ],
+      "stitchOrder": 84
+    },
+    {
+      "i": 84,
+      "municipio": "Tahmek",
+      "label": "Tahmek",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        472,
+        134
+      ],
+      "stitchOrder": 219.6
+    },
+    {
+      "i": 85,
+      "municipio": "Tekal de Venegas",
+      "label": "Tekal de Venegas",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        537.7,
+        113.7
+      ],
+      "stitchOrder": 150.9
+    },
+    {
+      "i": 86,
+      "municipio": "Tekantó",
+      "label": "Tekantó",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        497,
+        115
+      ],
+      "stitchOrder": 190.9
+    },
+    {
+      "i": 87,
+      "municipio": "Tekit",
+      "label": "Tekit",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        473,
+        184.6
+      ],
+      "stitchOrder": 236.8
+    },
+    {
+      "i": 88,
+      "municipio": "Telchac Pueblo",
+      "label": "Telchac Pueblo",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        477,
+        81
+      ],
+      "stitchOrder": 207.2
+    },
+    {
+      "i": 89,
+      "municipio": "Telchac Puerto",
+      "label": "Telchac Puerto",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        474,
+        69
+      ],
+      "stitchOrder": 210.4
+    },
+    {
+      "i": 90,
+      "municipio": "Cuncunul",
+      "label": "Cuncunul",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        608,
+        177
+      ],
+      "stitchOrder": 125.4
+    },
+    {
+      "i": 91,
+      "municipio": "Tepakán",
+      "label": "Tepakán",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        513,
+        105
+      ],
+      "stitchOrder": 173.4
+    },
+    {
+      "i": 92,
+      "municipio": "Tetiz",
+      "label": "Tetiz",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        359.2,
+        124.3
+      ],
+      "stitchOrder": 328.4
+    },
+    {
+      "i": 93,
+      "municipio": "Teya",
+      "label": "Teya",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        506,
+        109
+      ],
+      "stitchOrder": 181
+    },
+    {
+      "i": 94,
+      "municipio": "Timucuy",
+      "label": "Timucuy",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        436,
+        154
+      ],
+      "stitchOrder": 259.8
+    },
+    {
+      "i": 95,
+      "municipio": "Izamal",
+      "label": "Izamal",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        517.4,
+        129.9
+      ],
+      "stitchOrder": 174.9
+    },
+    {
+      "i": 96,
+      "municipio": "Temozón",
+      "label": "Temozón",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Hunukú",
+        "Nahbalam",
+        "Santa Rita"
+      ],
+      "colorFamily": 2,
+      "labelPos": [
+        651,
+        132.9
+      ],
+      "stitchOrder": 64.7
+    },
+    {
+      "i": 97,
+      "municipio": "Yaxcabá",
+      "label": "Yaxcabá",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        548.8,
+        197.8
+      ],
+      "stitchOrder": 181.2
+    },
+    {
+      "i": 98,
+      "municipio": "Tinum",
+      "label": "Tinum",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Pisté",
+        "Xcalakoop"
+      ],
+      "colorFamily": 1,
+      "labelPos": [
+        586.9,
+        158.8
+      ],
+      "stitchOrder": 126.9
+    },
+    {
+      "i": 99,
+      "municipio": "Tizimín",
+      "label": "Tizimín",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [
+        "Sucopo",
+        "Dzonot Carretero",
+        "El Cuyo",
+        "Colonia Yucatán",
+        "Chan Cenote",
+        "Popolnah"
+      ],
+      "colorFamily": 0,
+      "labelPos": [
+        684.2,
+        77.4
+      ],
+      "stitchOrder": 0
+    },
+    {
+      "i": 100,
+      "municipio": "Uayma",
+      "label": "Uayma",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 3,
+      "labelPos": [
+        607.5,
+        152
+      ],
+      "stitchOrder": 107
+    },
+    {
+      "i": 101,
+      "municipio": "Tixpéhual",
+      "label": "Tixpéhual",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        442.2,
+        121.8
+      ],
+      "stitchOrder": 246
+    },
+    {
+      "i": 102,
+      "municipio": "Tunkás",
+      "label": "Tunkás",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 2,
+      "labelPos": [
+        551.3,
+        134.7
+      ],
+      "stitchOrder": 144.7
+    },
+    {
+      "i": 103,
+      "municipio": "Xocchel",
+      "label": "Xocchel",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        496,
+        146
+      ],
+      "stitchOrder": 200.3
+    },
+    {
+      "i": 104,
+      "municipio": "Yaxkukul",
+      "label": "Yaxkukul",
+      "state": "Yucatán",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        450,
+        108
+      ],
+      "stitchOrder": 236.2
+    },
+    {
+      "i": 105,
+      "municipio": "Ucú",
+      "label": "Ucú",
+      "state": "Yucatán",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 2,
+      "labelPos": [
+        399,
+        105
+      ],
+      "stitchOrder": 286.5
+    },
+    {
+      "i": 106,
+      "municipio": "Othón P. Blanco",
+      "label": "Othón P. Blanco",
+      "state": "Quintana Roo",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        593.8,
+        505.3
+      ],
+      "stitchOrder": 437.3
+    },
+    {
+      "i": 107,
+      "municipio": "Bacalar",
+      "label": "Bacalar",
+      "state": "Quintana Roo",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        584.4,
+        432.7
+      ],
+      "stitchOrder": 369.1
+    },
+    {
+      "i": 108,
+      "municipio": "Lázaro Cárdenas",
+      "label": "Kantunilkín",
+      "state": "Quintana Roo",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        752.3,
+        107.9
+      ],
+      "stitchOrder": 74.6
+    },
+    {
+      "i": 109,
+      "municipio": "Benito Juárez",
+      "label": "Cancún",
+      "state": "Quintana Roo",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        817,
+        103.9
+      ],
+      "stitchOrder": 135.4
+    },
+    {
+      "i": 110,
+      "municipio": "José María Morelos",
+      "label": "José María Morelos",
+      "state": "Quintana Roo",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        540.7,
+        330.6
+      ],
+      "stitchOrder": 291
+    },
+    {
+      "i": 111,
+      "municipio": "Tulum",
+      "label": "Tulum",
+      "state": "Quintana Roo",
+      "presence": true,
+      "comisarias": [
+        "Chanchén Primero"
+      ],
+      "colorFamily": 2,
+      "labelPos": [
+        709.7,
+        226.3
+      ],
+      "stitchOrder": 151.1
+    },
+    {
+      "i": 112,
+      "municipio": "Cozumel",
+      "label": "Cozumel",
+      "state": "Quintana Roo",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        819,
+        202.9
+      ],
+      "stitchOrder": 184.2
+    },
+    {
+      "i": 113,
+      "municipio": "Felipe Carrillo Puerto",
+      "label": "Betania",
+      "state": "Quintana Roo",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        652.2,
+        323.7
+      ],
+      "stitchOrder": 248.4
+    },
+    {
+      "i": 114,
+      "municipio": "Isla Mujeres",
+      "label": "Isla Mujeres",
+      "state": "Quintana Roo",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 2,
+      "labelPos": [
+        808.5,
+        59.8
+      ],
+      "stitchOrder": 125.5
+    },
+    {
+      "i": 115,
+      "municipio": "Puerto Morelos",
+      "label": "Puerto Morelos",
+      "state": "Quintana Roo",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        789.5,
+        126.1
+      ],
+      "stitchOrder": 116
+    },
+    {
+      "i": 116,
+      "municipio": "Solidaridad",
+      "label": "Playa del Carmen",
+      "state": "Quintana Roo",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        749.5,
+        181.2
+      ],
+      "stitchOrder": 122.6
+    },
+    {
+      "i": 117,
+      "municipio": "Candelaria",
+      "label": "Candelaria",
+      "state": "Campeche",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        262.4,
+        568
+      ],
+      "stitchOrder": 647
+    },
+    {
+      "i": 118,
+      "municipio": "Carmen",
+      "label": "Carmen",
+      "state": "Campeche",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        148.7,
+        503.8
+      ],
+      "stitchOrder": 684.5
+    },
+    {
+      "i": 119,
+      "municipio": "Champotón",
+      "label": "Champotón",
+      "state": "Campeche",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        293.7,
+        411.6
+      ],
+      "stitchOrder": 514
+    },
+    {
+      "i": 120,
+      "municipio": "Campeche",
+      "label": "Campeche",
+      "state": "Campeche",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        328.8,
+        333.7
+      ],
+      "stitchOrder": 438.2
+    },
+    {
+      "i": 121,
+      "municipio": "Seybaplaya",
+      "label": "Seybaplaya",
+      "state": "Campeche",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        272.6,
+        335.2
+      ],
+      "stitchOrder": 485.7
+    },
+    {
+      "i": 122,
+      "municipio": "Hopelchén",
+      "label": "Hopelchén",
+      "state": "Campeche",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        424.3,
+        355.4
+      ],
+      "stitchOrder": 380.6
+    },
+    {
+      "i": 123,
+      "municipio": "Palizada",
+      "label": "Palizada",
+      "state": "Campeche",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        77.3,
+        542.8
+      ],
+      "stitchOrder": 764.8
+    },
+    {
+      "i": 124,
+      "municipio": "Tenabo",
+      "label": "Tenabo",
+      "state": "Campeche",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        330.6,
+        277.8
+      ],
+      "stitchOrder": 406.4
+    },
+    {
+      "i": 125,
+      "municipio": "Escárcega",
+      "label": "Escárcega",
+      "state": "Campeche",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        296.2,
+        498.7
+      ],
+      "stitchOrder": 572.7
+    },
+    {
+      "i": 126,
+      "municipio": "Dzitbalché",
+      "label": "Dzitbalché",
+      "state": "Campeche",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 1,
+      "labelPos": [
+        372.6,
+        237.6
+      ],
+      "stitchOrder": 350.4
+    },
+    {
+      "i": 127,
+      "municipio": "Hecelchakán",
+      "label": "Hecelchakán",
+      "state": "Campeche",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        346.9,
+        254.7
+      ],
+      "stitchOrder": 381.1
+    },
+    {
+      "i": 128,
+      "municipio": "Calakmul",
+      "label": "Calakmul",
+      "state": "Campeche",
+      "presence": false,
+      "comisarias": [],
+      "colorFamily": -1,
+      "labelPos": [
+        416.1,
+        521.8
+      ],
+      "stitchOrder": 519
+    },
+    {
+      "i": 129,
+      "municipio": "Calkiní",
+      "label": "Nunkiní",
+      "state": "Campeche",
+      "presence": true,
+      "comisarias": [],
+      "colorFamily": 0,
+      "labelPos": [
+        327.5,
+        207.9
+      ],
+      "stitchOrder": 379.8
+    }
+  ]
+}

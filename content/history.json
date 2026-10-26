@@ -1,0 +1,239 @@
+{
+  "$comment": "Historia y línea de tiempo (14 hitos). 'discs[].spotifyId' referencia discography.json. PENDIENTE: confirmar 'Eufrasio' vs 'Eufracio' (hito 2).",
+  "title": "Historia",
+  "kicker": "La orquesta a través del tiempo",
+  "intro": {
+    "photo": {
+      "src": "assets-src/photos/g1.webp",
+      "alt": "La orquesta completa posa frente a una catedral",
+      "caption": "Retrato de grupo"
+    },
+    "paragraphs": [
+      "De las vaquerías de pueblo a los grandes escenarios, la Real Orquesta Yucateca de Arturo Turriza lleva la jarana a cada fiesta.",
+      "Fundada en Tizimín en 2018 por Arturo Turriza y jóvenes músicos de Tizimín y de Espita. Hoy suena en más de 50 municipios de Yucatán, en Quintana Roo y en Campeche."
+    ]
+  },
+  "events": [
+    {
+      "n": 1,
+      "year": "2018",
+      "tag": "Fundación",
+      "title": "Nace la ROYAT",
+      "text": "Arturo Turriza funda la Real Orquesta Yucateca en Tizimín con jóvenes músicos de Tizimín y de Espita.",
+      "photos": [
+        {
+          "src": "assets-src/history/fundacion.webp",
+          "alt": "Los cuatro primeros músicos de la ROYAT con sus saxofones y trompeta junto a un cenote"
+        }
+      ],
+      "badge": {
+        "src": "assets-src/brand/sello-orgullo.png",
+        "alt": "Sello El Orgullo de Yucatán"
+      }
+    },
+    {
+      "n": 2,
+      "year": "2018",
+      "tag": "04 de septiembre",
+      "title": "La primera vaquería",
+      "text": "Primera vaquería de la orquesta, en la Feria de Sucilá. Su padrino: el maestro Eufrasio Pech Santana.",
+      "photos": [
+        {
+          "src": "assets-src/history/vaqueria1.webp",
+          "alt": "La orquesta tocando de noche en su primera vaquería, en la Feria de Sucilá"
+        },
+        {
+          "src": "assets-src/history/eufrasio.webp",
+          "alt": "Un joven integrante junto al maestro Eufrasio Pech, con sombrero",
+          "caption": "Con el maestro Eufrasio"
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "year": "2018–2020",
+      "tag": "Hasta la pandemia",
+      "title": "De pueblo en pueblo",
+      "text": "Vaquerías en Tinum, Valladolid, Sucilá y las comisarías de Tizimín.",
+      "photos": [
+        {
+          "src": "assets-src/history/pueblo.webp",
+          "alt": "Siete integrantes de la orquesta frente a un altar con papel picado"
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "year": "2022",
+      "tag": "30 de diciembre",
+      "title": "La Alborada de Tizimín",
+      "text": "Primera vez en la vaquería de la Alborada, con nueva imagen y nuevos integrantes junto a los fundadores.",
+      "photos": [
+        {
+          "src": "assets-src/history/alborada1.webp",
+          "alt": "La orquesta en el escenario de la Alborada de Tizimín, con sus atriles ROYAT"
+        },
+        {
+          "src": "assets-src/history/alborada2.webp",
+          "alt": "Un trompetista tras el atril con el logotipo de la orquesta"
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "year": "2023",
+      "tag": "Nuevos escenarios",
+      "title": "Más allá de la vaquería",
+      "text": "Llegan a Mocochá, San Felipe y Baca, y acompañan también a ballets folklóricos.",
+      "photos": [
+        {
+          "src": "assets-src/history/mococha.webp",
+          "alt": "La orquesta tocando frente a la iglesia de Mocochá, de noche"
+        },
+        {
+          "src": "assets-src/history/sanfelipe.webp",
+          "alt": "La orquesta en el escenario de la Alborada de San Felipe"
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "year": "2024",
+      "tag": "Yucatán · Q. Roo · Campeche",
+      "title": "Consolidación",
+      "text": "Vaquerías en Panabá, Cenotillo, Conkal, Chemax, Sanahcat, Río Lagartos y Espita, y en Quintana Roo y Campeche. Sus arreglistas y compositores ponen sus jaranas en el gusto del público.",
+      "photos": [
+        {
+          "src": "assets-src/history/chemax.webp",
+          "alt": "Integrantes de la orquesta de pie bajo banderines, en Chemax"
+        },
+        {
+          "src": "assets-src/history/consolidacion.webp",
+          "alt": "La orquesta en un gran escenario con fuegos artificiales"
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "year": "2024",
+      "tag": "Diciembre · En Spotify",
+      "title": "Primeros sencillos",
+      "text": "«La Flor del Oriente» y «Linda Elizabeth» llegan a las plataformas digitales.",
+      "photos": [],
+      "discs": [
+        {
+          "spotifyId": "2kCqd6QaJN0O5vEvLvI2Hv",
+          "label": "La Flor del Oriente"
+        },
+        {
+          "spotifyId": "1k31LoV1JmMEgVzccV8LMK",
+          "label": "Linda Elizabeth"
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "year": "2025",
+      "tag": "Enero · Sencillo",
+      "title": "¡A Bailar en Tizimín!",
+      "text": "El sencillo llega a las plataformas digitales.",
+      "photos": [],
+      "discs": [
+        {
+          "spotifyId": "55l6pViPSdMh8a9hrFcvU6",
+          "label": "¡A Bailar en Tizimín! (sencillo)"
+        }
+      ]
+    },
+    {
+      "n": 9,
+      "year": "2025",
+      "tag": "Febrero · Álbum en vivo",
+      "title": "Primer álbum",
+      "text": "«¡A Bailar en Tizimín!»: 15 jaranas grabadas en vivo en la vaquería de Tizimín 2024.",
+      "photos": [],
+      "discs": [
+        {
+          "spotifyId": "726FfmvO4DceME2LfDgBrG",
+          "label": "¡A Bailar en Tizimín! (en vivo)"
+        }
+      ]
+    },
+    {
+      "n": 10,
+      "year": "2025",
+      "tag": "Agosto · Álbum de estudio",
+      "title": "Jubileo de Oro",
+      "text": "Doce jaranas de antaño con la leyenda de los timbales Manuel Castillo, su hijo Irbin y Joss Novelo, de las Trovadoras del Mayab.",
+      "photos": [],
+      "discs": [
+        {
+          "spotifyId": "0qp5SDDBLAmNVk8v6Xnra7",
+          "label": "Jubileo de Oro"
+        }
+      ]
+    },
+    {
+      "n": 11,
+      "year": "2026",
+      "tag": "Abril · Álbum de estudio",
+      "title": "La Fiesta de Yucatán",
+      "text": "Veinte tracks con Felipe de la Cruz, Joss Novelo y Julio Ortiz. Se presentó con una vaquería en el Gran Museo del Mundo Maya, una de las más grandes de Mérida.",
+      "photos": [
+        {
+          "src": "assets-src/history/museo.webp",
+          "alt": "La orquesta y bailadores de jarana posando frente al Gran Museo del Mundo Maya"
+        }
+      ],
+      "discs": [
+        {
+          "spotifyId": "153Gq8QqOqAJEP3BtAie4M",
+          "label": "La Fiesta de Yucatán"
+        }
+      ]
+    },
+    {
+      "n": 12,
+      "year": "2026",
+      "tag": "Abril",
+      "title": "Palacio de la Música",
+      "text": "Primera presentación de la orquesta en el Palacio de la Música de Mérida.",
+      "photos": [
+        {
+          "src": "assets-src/history/palacio1.webp",
+          "alt": "Bailadores de jarana llenan el Palacio de la Música mientras la orquesta toca al fondo, bajo banderines de papel picado"
+        },
+        {
+          "src": "assets-src/history/palacio2.webp",
+          "alt": "Un cantante con micrófono frente a la orquesta y sus atriles ROYAT en el Palacio de la Música"
+        }
+      ]
+    },
+    {
+      "n": 13,
+      "year": "2026",
+      "tag": "Julio · De gira",
+      "title": "Hidalgo y Oaxaca",
+      "text": "La ROYAT viaja acompañando al Ensamble Folklórico de Quintana Roo.",
+      "photos": [
+        {
+          "src": "assets-src/history/flyer-hidalgo.webp",
+          "alt": "Cartel del Ensamble Folklórico Peninsular en Hidalgo y Oaxaca, con la ROYAT"
+        }
+      ]
+    },
+    {
+      "n": 14,
+      "year": "2026",
+      "tag": "Noviembre",
+      "title": "Parque Xcaret",
+      "text": "En el Festival de Tradiciones de Vida y Muerte del Parque Xcaret.",
+      "photos": [
+        {
+          "src": "assets-src/history/flyer-xcaret.webp",
+          "alt": "Invitación a la ROYAT al Festival de Tradiciones de Vida y Muerte 2026 en el Parque Xcaret"
+        }
+      ]
+    }
+  ]
+}

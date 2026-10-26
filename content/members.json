@@ -1,0 +1,163 @@
+{
+  "$comment": "16 músicos: director + 5 secciones. 'n' es el número que se muestra.",
+  "title": "Integrantes",
+  "kicker": "Dieciséis músicos, cinco secciones",
+  "groupPhoto": {
+    "src": "assets-src/photos/g3.webp",
+    "alt": "Integrantes de la orquesta en unas escalinatas",
+    "caption": "La orquesta completa"
+  },
+  "director": {
+    "n": 1,
+    "name": "Arturo Turriza Euan",
+    "role": "Director y saxofón barítono",
+    "photo": "assets-src/members/p-arturo-turriza-euan.webp"
+  },
+  "sections": [
+    {
+      "name": "Saxofones y clarinetes",
+      "numeral": "I.",
+      "count": "4 músicos",
+      "groupPhoto": {
+        "src": "assets-src/members/s-saxofones-y-clarinetes.webp",
+        "alt": "Sección de saxofones y clarinetes"
+      },
+      "members": [
+        {
+          "n": 2,
+          "name": "Jorge Canul Poot",
+          "role": "Saxofón alto y clarinete",
+          "photo": "assets-src/members/p-jorge-canul-poot.webp"
+        },
+        {
+          "n": 3,
+          "name": "Luis Lagunez Rodríguez",
+          "role": "Saxofón alto y clarinete",
+          "photo": "assets-src/members/p-luis-lagunez-rodriguez.webp"
+        },
+        {
+          "n": 4,
+          "name": "Jesús Emilio Chicmul Cordero",
+          "role": "Saxofón alto y clarinete",
+          "photo": "assets-src/members/p-jesus-emilio-chicmul-cordero.webp"
+        }
+      ]
+    },
+    {
+      "name": "Trompetas y trombón",
+      "numeral": "II.",
+      "count": "3 músicos",
+      "groupPhoto": {
+        "src": "assets-src/members/s-trompetas-y-trombon.webp",
+        "alt": "Sección de trompetas y trombón"
+      },
+      "members": [
+        {
+          "n": 5,
+          "name": "Cristián Polanco Pérez",
+          "role": "Trompeta",
+          "photo": "assets-src/members/p-cristian-polanco-perez.webp"
+        },
+        {
+          "n": 6,
+          "name": "William Canul Tuz",
+          "role": "Trompeta",
+          "photo": "assets-src/members/p-william-canul-tuz.webp"
+        },
+        {
+          "n": 7,
+          "name": "Sauli Cano Peniche",
+          "role": "Trombón",
+          "photo": "assets-src/members/p-sauli-cano-peniche.webp"
+        }
+      ]
+    },
+    {
+      "name": "Percusiones",
+      "numeral": "III.",
+      "count": "3 músicos",
+      "groupPhoto": {
+        "src": "assets-src/members/s-percusiones.webp",
+        "alt": "Sección de percusiones con timbales"
+      },
+      "members": [
+        {
+          "n": 8,
+          "name": "Anuar Pisté Ávila",
+          "role": "Percusiones",
+          "photo": "assets-src/members/p-anuar-piste-avila.webp"
+        },
+        {
+          "n": 9,
+          "name": "Daniel Sosa Ceballos",
+          "role": "Percusiones",
+          "photo": "assets-src/members/p-daniel-sosa-ceballos.webp"
+        },
+        {
+          "n": 10,
+          "name": "Miguel Aguilar Escamilla",
+          "role": "Percusiones",
+          "photo": "assets-src/members/p-miguel-aguilar-escamilla.webp"
+        }
+      ]
+    },
+    {
+      "name": "Armonías",
+      "numeral": "IV.",
+      "count": "3 músicos",
+      "groupPhoto": {
+        "src": "assets-src/members/s-armonias.webp",
+        "alt": "Sección de armonías: bajo, teclado y guitarra"
+      },
+      "members": [
+        {
+          "n": 11,
+          "name": "Marisol Nahuat Tamay",
+          "role": "Teclado",
+          "photo": "assets-src/members/p-marisol-nahuat-tamay.webp"
+        },
+        {
+          "n": 12,
+          "name": "Neftaly Nahuat Tamay",
+          "role": "Bajo",
+          "photo": "assets-src/members/p-neftaly-nahuat-tamay.webp"
+        },
+        {
+          "n": 13,
+          "name": "Jorge Herrera Flores",
+          "role": "Guitarra",
+          "photo": "assets-src/members/p-jorge-herrera-flores.webp"
+        }
+      ]
+    },
+    {
+      "name": "Vocalistas",
+      "numeral": "V.",
+      "count": null,
+      "groupPhoto": {
+        "src": "assets-src/members/s-vocalistas.webp",
+        "alt": "Las tres voces"
+      },
+      "members": [
+        {
+          "n": 14,
+          "name": "Erik Ojeda Novelo",
+          "role": "Vocalista",
+          "photo": "assets-src/members/p-erik-ojeda-novelo.webp"
+        },
+        {
+          "n": 15,
+          "name": "Gabriel Herrera Flores",
+          "role": "Vocalista",
+          "photo": "assets-src/members/p-gabriel-herrera-flores.webp"
+        },
+        {
+          "n": 16,
+          "name": "Josué Rivero Cocom",
+          "role": "Vocalista",
+          "photo": "assets-src/members/p-josue-rivero-cocom.webp"
+        }
+      ]
+    }
+  ]
+}

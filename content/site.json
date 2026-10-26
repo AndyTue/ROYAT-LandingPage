@@ -1,0 +1,80 @@
+{
+  "$comment": "Datos generales del sitio. Fuente: prototipo v108.",
+  "name": "Real Orquesta Yucateca de Arturo Turriza",
+  "shortName": "ROYAT",
+  "founded": 2018,
+  "hometown": "Tizimín, Yucatán",
+  "lang": "es-MX",
+  "nav": [
+    {
+      "id": "inicio",
+      "label": "ROYAT"
+    },
+    {
+      "id": "historia",
+      "label": "Historia"
+    },
+    {
+      "id": "integrantes",
+      "label": "Integrantes"
+    },
+    {
+      "id": "presencia",
+      "label": "Presencia"
+    },
+    {
+      "id": "discografia",
+      "label": "Discografía"
+    },
+    {
+      "id": "contacto",
+      "label": "Contacto"
+    }
+  ],
+  "contact": {
+    "whatsapp": "529995893559",
+    "whatsappDisplay": "999 589 3559",
+    "formTitle": "Lleva la jarana a tu fiesta",
+    "eyebrow": "Contacto · Contrataciones"
+  },
+  "social": [
+    {
+      "id": "facebook",
+      "label": "Facebook",
+      "url": "https://www.facebook.com/ROYAT.RealOrquestaYucateca",
+      "icon": "assets-src/social/so-facebook.webp"
+    },
+    {
+      "id": "spotify",
+      "label": "Spotify",
+      "url": "https://open.spotify.com/artist/7p2sU1LyJUBYR4IirhtUem",
+      "icon": "assets-src/social/so-spotify.webp"
+    },
+    {
+      "id": "applemusic",
+      "label": "Apple Music",
+      "url": "https://music.apple.com/es/artist/real-orquesta-yucateca/1785014870",
+      "icon": "assets-src/social/so-applemusic.webp"
+    },
+    {
+      "id": "tiktok",
+      "label": "TikTok",
+      "url": "https://www.tiktok.com/@la_royat",
+      "icon": "assets-src/social/so-tiktok.webp"
+    },
+    {
+      "id": "youtube",
+      "label": "YouTube",
+      "url": "https://youtube.com/channel/UCLc37vvdWgoxrm8o4ZWFFdg",
+      "icon": "assets-src/social/so-youtube.webp"
+    }
+  ],
+  "footer": {
+    "line": "Real Orquesta Yucateca de Arturo Turriza · Tizimín, Yucatán",
+    "credit": {
+      "label": "Diseñado por: Andrés Turriza",
+      "url": "https://www.instagram.com/andy_tue/"
+    }
+  },
+  "heroPhoto": "assets-src/photos/crew-hero.webp"
+}

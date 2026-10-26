@@ -1,0 +1,71 @@
+# --- Dependencias ---
+node_modules/
+.pnpm-store/
+
+# --- Build y generados (se reconstruyen con npm run build) ---
+dist/
+dist-ssr/
+public/img/
+images-manifest.json
+*.tsbuildinfo
+.vite/
+.cache/
+
+# --- Pruebas y reportes ---
+coverage/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+.lighthouseci/
+# Las capturas base de tests/visual/*-snapshots/ SÍ se versionan.
+
+# --- Masters pesados: viven fuera del repo (ver assets-src/README.md) ---
+# El audio de estudio (WAV) se codifica para web en F9; los masters no se suben.
+*.wav
+*.aif
+*.aiff
+*.flac
+*.asd
+*.psd
+*.ai
+*.afdesign
+*.raw
+*.cr2
+*.nef
+*.arw
+*.dng
+*.heic
+
+# --- Secretos y configuración local ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.dev.vars
+.wrangler/
+.claude/settings.local.json
+
+# --- Logs ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Sistema operativo ---
+.DS_Store
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- Editores ---
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*~
