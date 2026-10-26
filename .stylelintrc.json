@@ -1,0 +1,15 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "selector-max-id": 0,
+    "declaration-no-important": true,
+    "selector-class-pattern": [
+      "^[a-z][a-z0-9]*(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?$",
+      { "message": "Usa bloque__elemento--modificador en kebab-case (ARCHITECTURE §5)" }
+    ],
+    "unit-disallowed-list": [
+      ["vh"],
+      { "message": "En móvil usa svh, dvh o lvh; vh cambia con la barra del navegador" }
+    ]
+  }
+}

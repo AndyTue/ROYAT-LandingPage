@@ -1,0 +1,4 @@
+# Datos: se editan a mano o los generan herramientas; reformatearlos solo genera ruido en los diffs.
+content/
+assets-src/
+package-lock.json

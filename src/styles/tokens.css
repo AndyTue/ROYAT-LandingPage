@@ -1,0 +1,10 @@
+/* Subconjunto mínimo para la página provisional; F2 lo completa desde DESIGN-TOKENS. */
+@layer tokens {
+  :root {
+    --color-navy: #1c2c55;
+    --color-light: #f1eee7;
+    --color-light-2: #c9cfe6;
+    --color-orange-on-navy: #e98b1e;
+    --font-ui: system-ui, sans-serif;
+  }
+}

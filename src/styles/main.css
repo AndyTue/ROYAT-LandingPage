@@ -1,0 +1,57 @@
+@layer reset, tokens, base, layout, components, sections, utilities;
+
+@import url('./tokens.css');
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body,
+  h1,
+  p {
+    margin: 0;
+  }
+}
+
+@layer base {
+  body {
+    font-family: var(--font-ui);
+    color: var(--color-light);
+    background: var(--color-navy);
+  }
+}
+
+@layer sections {
+  .construction {
+    display: grid;
+    gap: 0.5rem;
+    place-content: center;
+    min-block-size: 100svh;
+    padding-inline: 1rem;
+    text-align: center;
+  }
+
+  .construction__title {
+    font-size: clamp(3rem, 12vw, 7rem);
+    letter-spacing: 0.12em;
+  }
+
+  .construction__name {
+    font-size: 1.125rem;
+  }
+
+  .construction__place {
+    color: var(--color-light-2);
+  }
+
+  .construction__status {
+    margin-block-start: 1.5rem;
+    color: var(--color-orange-on-navy);
+    font-size: 0.875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+}
