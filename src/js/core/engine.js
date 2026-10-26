@@ -21,10 +21,11 @@ import { smooth } from './motion.js';
  *   margin?: number,
  *   alwaysTick?: boolean,
  *   update(state: ScrollState): void,
- *   measure?(): void,
+ *   measure?(): boolean | void,
  *   destroy?(): void,
  * }} Section `start` y `end` son posiciones absolutas medidas fuera del loop. Con
- *   `alwaysTick` la sección recibe cada frame mientras es visible, aunque no haya scroll
+ *   `measure` devuelve `true` si cambió el layout de la página (p. ej. activó una pista
+ *   horizontal) y hay que volver a medir todo. Con `alwaysTick` la sección recibe cada frame mientras es visible, aunque no haya scroll
  *   (animaciones por tiempo, como la intro).
  * @typedef {{
  *   read: () => number,
@@ -113,10 +114,15 @@ export function createEngine({ read, viewport, schedule, cancel, reduced = false
       watchers.add(callback);
       return () => watchers.delete(callback);
     },
-    /** Vuelve a medir todas las secciones (cambió el tamaño o llegaron las fuentes). */
+    /**
+     * Vuelve a medir todas las secciones (cambió el tamaño o llegaron las fuentes).
+     * @returns {boolean} `true` si alguna sección cambió el layout y conviene medir otra vez
+     */
     measure() {
-      for (const section of sections.values()) section.measure?.();
+      let again = false;
+      for (const section of sections.values()) if (section.measure?.() === true) again = true;
       forceNext = true;
+      return again;
     },
     /** Fuerza que el siguiente frame reparta el estado aunque no haya scroll. */
     invalidate() {

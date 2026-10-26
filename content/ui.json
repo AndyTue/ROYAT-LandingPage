@@ -15,7 +15,13 @@
   },
   "history": {
     "timelineLabel": "Línea de tiempo",
-    "coverAlt": "Portada de {title}"
+    "coverAlt": "Portada de {title}",
+    "titleLines": [
+      "HIS",
+      "TO",
+      "RIA"
+    ],
+    "disc": "Disco: {title}"
   },
   "members": {
     "directorLabel": "Director",

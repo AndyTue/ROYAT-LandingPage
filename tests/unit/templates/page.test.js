@@ -65,7 +65,7 @@ describe('renderPage', () => {
   });
 
   it('incluye los 14 hitos, los 16 músicos, los 10 discos y todas las pistas', () => {
-    expect(count(/class="event" id="hito-/g)).toBe(content.history.events.length);
+    expect(count(/class="event event--[ab]" id="hito-/g)).toBe(content.history.events.length);
     expect(count(/class="member"/g)).toBe(16);
     expect(count(/class="disc" id="disco-/g)).toBe(content.discography.discs.length);
     const tracks = content.discography.discs.reduce(

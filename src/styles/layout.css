@@ -1,11 +1,13 @@
 @layer layout {
   /* Tonos de panel (DESIGN-TOKENS): cada bloque fija fondo, texto y acentos. */
-  .tone {
+  .tone,
+  [data-tone] {
     color: var(--fg);
     background: var(--bg);
   }
 
-  .tone--navy {
+  .tone--navy,
+  [data-tone='navy'] {
     --bg: var(--tone-navy-bg);
     --fg: var(--tone-navy-fg);
     --fg2: var(--tone-navy-fg2);
@@ -13,7 +15,8 @@
     --acc2: var(--tone-navy-acc2);
   }
 
-  .tone--paper {
+  .tone--paper,
+  [data-tone='paper'] {
     --bg: var(--tone-paper-bg);
     --fg: var(--tone-paper-fg);
     --fg2: var(--tone-paper-fg2);
@@ -21,7 +24,8 @@
     --acc2: var(--tone-paper-acc2);
   }
 
-  .tone--sand {
+  .tone--sand,
+  [data-tone='sand'] {
     --bg: var(--tone-sand-bg);
     --fg: var(--tone-sand-fg);
     --fg2: var(--tone-sand-fg2);
@@ -29,7 +33,8 @@
     --acc2: var(--tone-sand-acc2);
   }
 
-  .tone--red {
+  .tone--red,
+  [data-tone='red'] {
     --bg: var(--tone-red-bg);
     --fg: var(--tone-red-fg);
     --fg2: var(--tone-red-fg2);
@@ -37,7 +42,8 @@
     --acc2: var(--tone-red-acc2);
   }
 
-  .tone--cream {
+  .tone--cream,
+  [data-tone='cream'] {
     --bg: var(--tone-cream-bg);
     --fg: var(--tone-cream-fg);
     --fg2: var(--tone-cream-fg2);

@@ -85,7 +85,7 @@
     inset-block-end: 0.5rem;
     inset-inline-start: -1.1rem;
     padding-block: 0.375rem;
-    background: var(--tone-paper-bg);
+    background: var(--bg, var(--tone-paper-bg));
   }
 
   .contact__bird {

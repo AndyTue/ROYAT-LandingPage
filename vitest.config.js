@@ -8,7 +8,8 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['src/js/**/*.js', 'scripts/**/*.js'],
-      exclude: ['src/js/main.js', 'src/dev/**'],
+      // dom.js son ayudas de DOM: se cubren con las pruebas e2e, no con las unitarias.
+      exclude: ['src/js/main.js', 'src/dev/**', 'src/js/lib/dom.js'],
       reporter: ['text-summary', 'html'],
       // Lógica pura (STANDARDS §6): lib/, stitch/ y core/ con al menos 90 % de líneas.
       thresholds: {

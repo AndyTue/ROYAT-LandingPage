@@ -1,12 +1,39 @@
 @layer sections {
+  /* ---------- Vertical: móvil, sin JS y reduced-motion ---------- */
   .history__intro {
     display: grid;
     gap: 1.5rem;
     padding: clamp(3rem, 9vw, 6.5rem) clamp(1rem, 5vw, 4rem);
   }
 
-  .history__intro .section-kicker {
+  .history__title {
     margin: 0;
+    font-weight: 500;
+  }
+
+  .history__word {
+    display: grid;
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 27vw, 9rem);
+    line-height: 0.82;
+    text-transform: uppercase;
+  }
+
+  .history__line:nth-child(2) {
+    padding-inline-start: 0.9em;
+  }
+
+  .history__line:nth-child(3) {
+    padding-inline-start: 0.34em;
+  }
+
+  .ch {
+    display: inline-block;
+    white-space: pre;
+  }
+
+  .history__kicker {
+    color: var(--fg2);
   }
 
   .history__paragraphs {
@@ -16,22 +43,31 @@
     font-size: 1.0625rem;
   }
 
+  .history__paragraphs p {
+    color: var(--fg2);
+  }
+
   .timeline {
     display: grid;
-    gap: clamp(3rem, 8vw, 5rem);
-    padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 4rem);
-    color: var(--tone-paper-fg);
-    background: var(--tone-paper-bg);
+  }
+
+  .event {
+    position: relative;
+    padding: clamp(2.5rem, 7vw, 4.5rem) clamp(1rem, 5vw, 4rem) clamp(2.5rem, 7vw, 4.5rem)
+      calc(clamp(1rem, 5vw, 4rem) + 2.5rem);
   }
 
   /* El hilo de la línea de tiempo: pespunte vertical a la izquierda. */
-  .event {
-    position: relative;
-    padding-inline-start: 2.5rem;
+  .event::before {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: clamp(1rem, 5vw, 4rem);
+    content: '';
     border-inline-start: 3px dashed var(--color-orange);
   }
 
   .event__body {
+    position: relative;
     display: grid;
     gap: 0.75rem;
     max-inline-size: 72rem;
@@ -40,7 +76,7 @@
   .event__marker {
     position: absolute;
     inset-block-start: 0;
-    inset-inline-start: -1.25rem;
+    inset-inline-start: calc(-2.5rem - 1.25rem + 1.5px);
     display: grid;
     place-items: center;
     inline-size: 2.5rem;
@@ -52,16 +88,26 @@
     border-radius: 50%;
   }
 
+  .event__marker svg {
+    display: none;
+  }
+
   .event__year {
     font-family: var(--font-display);
     font-size: var(--text-year);
+    font-style: italic;
     font-weight: 500;
     line-height: 0.9;
-    color: var(--tone-paper-acc);
+    color: var(--acc);
+  }
+
+  .event__copy {
+    display: grid;
+    gap: 0.75rem;
   }
 
   .event__tag {
-    color: var(--tone-paper-acc2);
+    color: var(--acc2);
   }
 
   .event__title {
@@ -70,12 +116,18 @@
 
   .event__text {
     max-inline-size: 36rem;
+    color: var(--fg2);
   }
 
   .event__photos {
     display: grid;
     gap: 1.25rem;
     max-inline-size: 40rem;
+  }
+
+  .event__photos .photo:nth-child(n + 2) {
+    max-inline-size: 60%;
+    rotate: -3deg;
   }
 
   .event__badge {
@@ -95,41 +147,357 @@
   .event__disc {
     display: grid;
     gap: 0.5rem;
+    justify-items: center;
     inline-size: 7rem;
     font-size: var(--text-label);
     font-weight: 600;
+    text-align: center;
     text-decoration: none;
+  }
+
+  /* Vinilo: surcos, borde y el arte del disco como etiqueta. */
+  .vinyl {
+    position: relative;
+    display: block;
+    inline-size: 100%;
+    aspect-ratio: 1;
+    background:
+      radial-gradient(
+        circle closest-side,
+        transparent 0 63.4%,
+        rgb(255 255 255 / 8%) 63.6% 64.4%,
+        #050505 64.6% 67.4%,
+        transparent 67.6%
+      ),
+      radial-gradient(
+        circle closest-side,
+        transparent 0 93.6%,
+        #070707 93.8% 94.8%,
+        transparent 95%
+      ),
+      repeating-radial-gradient(circle, #171716 0 1px, #0c0c0c 1px 2.4px), #0d0d0d;
+    border-radius: 50%;
+    box-shadow: 0 26px 34px -22px rgb(20 18 14 / 60%);
+  }
+
+  .event__cover {
+    position: absolute;
+    inset: 19%;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 50%);
   }
 
   .event__cover img {
     inline-size: 100%;
-    border-radius: 50%;
-    box-shadow: 0 0 0 4px #0d0d0d;
+    block-size: 100%;
+    object-fit: cover;
   }
 
-  @media (width >= 48em) {
-    .history__intro {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      align-items: start;
-    }
+  .vinyl::after {
+    position: absolute;
+    inset: 48.6%;
+    content: '';
+    background: var(--tone-paper-bg);
+    border-radius: 50%;
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 60%);
+  }
 
-    .history__intro .section-title,
-    .history__intro .section-kicker {
-      grid-column: 1 / -1;
-    }
+  /* ---------- Pista horizontal fija (escritorio con JS y movimiento) ---------- */
+  .history--track {
+    block-size: var(--history-length, 100svh);
+  }
 
-    .event__body {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-      column-gap: 3rem;
-    }
+  .history--track .history__stage {
+    --bg: var(--tone-navy-bg);
+    --fg: var(--tone-navy-fg);
+    --fg2: var(--tone-navy-fg2);
+    --acc: var(--tone-navy-acc);
+    --acc2: var(--tone-navy-acc2);
 
-    .event__body > :not(.event__photos, .event__marker) {
-      grid-column: 1;
-    }
+    position: sticky;
+    inset-block-start: 0;
+    block-size: 100svh;
+    overflow: hidden;
+    color: var(--fg);
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(90deg, rgb(255 255 255 / 5%) 1px, transparent 1px),
+      linear-gradient(rgb(255 255 255 / 5%) 1px, transparent 1px);
+    background-size: var(--stitch) var(--stitch);
+  }
 
-    .event__photos {
-      grid-column: 2;
-      grid-row: 1 / span 6;
-    }
+  .history--track .history__track {
+    position: relative;
+    display: flex;
+    inline-size: max-content;
+    block-size: 100%;
+    will-change: transform;
+  }
+
+  /* Los paneles dejan de pintar su fondo: manda el del escenario, que cambia de tono. */
+  .history--track [data-tone] {
+    --bg: inherit;
+    --fg: inherit;
+    --fg2: inherit;
+    --acc: inherit;
+    --acc2: inherit;
+
+    background: transparent;
+  }
+
+  .history--track .history__intro {
+    flex: none;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
+    gap: 1.5rem 4vw;
+    inline-size: max(100vw, 62rem);
+    padding: 9svh 5vw 11svh 3.5vw;
+  }
+
+  .history--track .history__title {
+    grid-row: 1 / span 3;
+    align-self: center;
+  }
+
+  .history--track .history__word {
+    font-size: min(31svh, 17vw);
+  }
+
+  .history--track .history__kicker {
+    grid-column: 2;
+  }
+
+  .history--track .history__photo {
+    grid-column: 2;
+    align-self: start;
+  }
+
+  .history--track .history__photo .photo {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .history--track .history__photo .photo__frame img {
+    max-block-size: 46svh;
+    object-fit: cover;
+  }
+
+  .history--track .history__photo .photo__caption {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--fg2);
+  }
+
+  .history--track .history__paragraphs {
+    grid-column: 2;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-inline-size: none;
+    font-size: 0.875rem;
+  }
+
+  .history--track .timeline {
+    position: relative;
+    display: flex;
+    block-size: 100%;
+  }
+
+  /* El hilo: una línea que recorre la pista, con una X y el número de cada hito. */
+  .history--track .timeline::after {
+    position: absolute;
+    inset-block-end: 4.5rem;
+    inset-inline: 0;
+    block-size: 1px;
+    content: '';
+    background: rgb(128 128 128 / 40%);
+  }
+
+  .history--track .event {
+    flex: none;
+    inline-size: clamp(46rem, 120svh, 80rem);
+    block-size: 100%;
+    padding: 0;
+  }
+
+  .history--track .event::before {
+    display: none;
+  }
+
+  .history--track .event__body {
+    position: absolute;
+    inset: 0;
+    display: block;
+    max-inline-size: none;
+  }
+
+  .history--track .event__marker {
+    inset-block: auto 4.5rem;
+    inset-inline-start: 0;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    inline-size: auto;
+    block-size: auto;
+    color: var(--fg2);
+    background: none;
+    border-radius: 0;
+    transform: translateY(50%);
+  }
+
+  .history--track .event__marker svg {
+    display: block;
+  }
+
+  .history--track .event__marker path {
+    fill: none;
+    stroke: var(--color-orange);
+    stroke-width: 4;
+    stroke-linecap: round;
+  }
+
+  .history--track .event__year,
+  .history--track .event__copy,
+  .history--track .event__photos,
+  .history--track .event__badge,
+  .history--track .event__discs,
+  .history--track .event__ornament {
+    position: absolute;
+  }
+
+  .history--track .event__year {
+    font-size: clamp(4rem, 15svh, 8rem);
+    white-space: nowrap;
+  }
+
+  .history--track .event__copy {
+    inline-size: min(22rem, 30%);
+  }
+
+  .history--track .event__tag {
+    inline-size: fit-content;
+    padding: 0.25rem 0.625rem;
+    color: var(--acc2);
+    border: 1px solid currentcolor;
+  }
+
+  .history--track .event__title {
+    font-size: clamp(1.4rem, 3.6svh, 2.25rem);
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  .history--track .event__text {
+    font-size: clamp(0.6875rem, 1.7svh, 0.8125rem);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .history--track .event__photos {
+    display: block;
+    max-inline-size: none;
+  }
+
+  .history--track .photo--landscape {
+    inline-size: min(52svh, 34rem);
+  }
+
+  .history--track .photo--portrait {
+    inline-size: min(34svh, 22rem);
+  }
+
+  .history--track .event__photos .photo:nth-child(n + 2) {
+    position: absolute;
+    inset-block-end: -12%;
+    inset-inline-end: -16%;
+    inline-size: min(22svh, 14rem);
+    max-inline-size: none;
+    rotate: -3deg;
+  }
+
+  .history--track .event__badge {
+    inset-block-end: 22svh;
+    inset-inline-start: 58%;
+    rotate: -6deg;
+  }
+
+  .history--track .event__discs {
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+  }
+
+  .history--track .event__disc {
+    inline-size: clamp(8rem, 24svh, 15rem);
+  }
+
+  .history--track .event__disc-label {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .history--track .event__ornament {
+    padding: 0;
+    background: none;
+  }
+
+  /* Disposición A (hitos impares): foto arriba a la izquierda, texto a la derecha, año abajo. */
+  .history--track .event--a .event__photos {
+    inset-block-start: 14svh;
+    inset-inline-start: 7%;
+  }
+
+  .history--track .event--a .event__copy {
+    inset-block-start: 17svh;
+    inset-inline-start: 64%;
+  }
+
+  .history--track .event--a .event__year {
+    inset-block-start: 62svh;
+    inset-inline-start: 7%;
+  }
+
+  .history--track .event--a .event__discs {
+    inset-block-start: 52svh;
+    inset-inline-start: 48%;
+  }
+
+  .history--track .event--a .event__ornament {
+    inset-block-end: 12svh;
+    inset-inline-start: 58%;
+  }
+
+  /* Disposición B (hitos pares): año arriba, foto al centro y texto a la derecha, más abajo. */
+  .history--track .event--b .event__year {
+    inset-block-start: 6svh;
+    inset-inline-start: 8%;
+  }
+
+  .history--track .event--b .event__photos {
+    inset-block-start: 30svh;
+    inset-inline-start: 5%;
+  }
+
+  .history--track .event--b .event__copy {
+    inset-block-start: 36svh;
+    inset-inline-start: 60%;
+  }
+
+  .history--track .event--b .event__discs {
+    inset-block-start: 8svh;
+    inset-inline-start: 56%;
+  }
+
+  .history--track .event--b .event__ornament {
+    inset-block-end: 14svh;
+    inset-inline-start: 44%;
   }
 }

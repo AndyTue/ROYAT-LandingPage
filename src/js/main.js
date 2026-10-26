@@ -9,6 +9,7 @@ import { createCurtain } from './features/transition.js';
 import { find } from './lib/dom.js';
 import { initContact } from './sections/contact.js';
 import { createHero } from './sections/hero.js';
+import { createHistory } from './sections/history.js';
 import { loadMotifs, loadPatterns } from './stitch/data.js';
 
 // El CSS sin esta clase muestra el layout estático; con ella, las secciones pueden animarse.
@@ -59,7 +60,10 @@ const layout = createLayout({
   win: window,
   doc: document,
   ids,
-  onChange: () => engine.measure(),
+  // Una sección puede cambiar el layout al medirse (pista horizontal): se mide una vez más.
+  onChange: () => {
+    if (engine.measure()) layout.measure();
+  },
 });
 const getMetrics = () => layout.metrics;
 layout.measure();
@@ -90,13 +94,24 @@ Promise.all([loadPatterns(), loadMotifs()])
       const hero = createHero({ root, patterns, getMetrics, reduced });
       engine.add(hero);
     });
+    const ornamentData = { pal: patterns.pal, motifs: motifs.motifs, bands: motifs.bands };
+    /** @type {{ isTrack(): boolean } | null} */
+    let history = null;
+    guard('historia', () => {
+      const root = find(document, '[data-history]', HTMLElement);
+      const section = createHistory({ root, data: ornamentData, getMetrics, reduced });
+      history = section;
+      engine.add(section);
+    });
     guard('ornaments', () => {
       engine.add(
         createOrnaments({
           root: document,
-          data: { pal: patterns.pal, motifs: motifs.motifs, bands: motifs.bands },
+          data: ornamentData,
           getMetrics,
           reduced,
+          // Los ornamentos de la pista horizontal los borda la propia sección de Historia.
+          skip: (slot) => Boolean(history?.isTrack() && slot.closest('[data-history]')),
         }),
       );
     });
