@@ -1,3 +1,13 @@
+# --- Diseño, arquitectura y flujo de trabajo con Claude (solo locales) ---
+# El repositorio contiene únicamente código funcional y lo que el build necesita.
+CLAUDE.md
+CLAUDE.local.md
+.claude/
+.mcp.json
+docs/
+reference/
+assets-src/README.md
+
 # --- Dependencias ---
 node_modules/
 .pnpm-store/
