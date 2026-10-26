@@ -14,7 +14,7 @@
     "lint": "npm run lint:content && npm run lint:js && npm run lint:css && npm run lint:html && npm run format:check",
     "lint:js": "eslint .",
     "lint:css": "stylelint \"src/**/*.css\"",
-    "lint:html": "html-validate index.html",
+    "lint:html": "html-validate src/dev/stitch.html",
     "lint:dist": "html-validate dist/index.html",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

@@ -11,8 +11,9 @@
   <body class="dev">
     <header class="dev__bar">
       <h1 class="dev__title">Bordado</h1>
-      <label class="dev__control">
-        Avance <output class="dev__value" for="progress">0.00</output>
+      <div class="dev__control">
+        <label for="progress">Avance</label>
+        <output class="dev__value" for="progress">0.00</output>
         <input
           id="progress"
           class="dev__range"
@@ -22,7 +23,7 @@
           step="0.005"
           value="1"
         />
-      </label>
+      </div>
       <button class="dev__button" type="button" data-action="play">Animar intro</button>
       <button class="dev__button" type="button" data-action="all">Todo (reduced-motion)</button>
       <label class="dev__control">

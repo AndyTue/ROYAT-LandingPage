@@ -49,4 +49,9 @@ export default [
     files: ['*.js', 'scripts/**/*.{js,mjs}', 'tests/**/*.js'],
     languageOptions: { globals: globals.node },
   },
+  {
+    // page.evaluate() corre en el navegador.
+    files: ['tests/e2e/**/*.js', 'tests/a11y/**/*.js', 'tests/visual/**/*.js'],
+    languageOptions: { globals: { ...globals.node, ...globals.browser } },
+  },
 ];
