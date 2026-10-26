@@ -1,4 +1,5 @@
 // @ts-check
+import { bus } from '../core/events.js';
 import { clamp, range } from '../core/motion.js';
 import { find } from '../lib/dom.js';
 import { createRng } from '../lib/random.js';
@@ -107,7 +108,6 @@ export function createHero({ root, patterns, getMetrics, reduced }) {
     }
     crew.style.width = `${geo.crew.w}px`;
     crew.style.bottom = `${geo.crew.bottom}px`;
-    staticLogo.setAttribute('hidden', '');
     logoCanvas.setAttribute('aria-label', staticLogo.getAttribute('aria-label') ?? '');
     render();
   }
@@ -144,6 +144,7 @@ export function createHero({ root, patterns, getMetrics, reduced }) {
     for (const type of ['wheel', 'touchstart', 'pointerdown', 'keydown']) {
       window.removeEventListener(type, requestSkip);
     }
+    bus.emit('intro:done');
   }
 
   /** @param {Event} event */
@@ -166,7 +167,7 @@ export function createHero({ root, patterns, getMetrics, reduced }) {
     /** @param {ScrollState} state */
     update(state) {
       const length = Math.max(1, section.end - section.start - state.vh);
-      scrollProgress = range(state.y, section.start, section.start + length);
+      scrollProgress = reduced ? 1 : range(state.y, section.start, section.start + length);
       if (!intro.done) {
         if (intro.t0 === null) intro.t0 = state.now;
         intro.t = state.now - intro.t0;
@@ -198,5 +199,6 @@ export function createHero({ root, patterns, getMetrics, reduced }) {
     skip.hidden = true;
   }
   root.classList.add('hero--live');
+  if (intro.done) queueMicrotask(() => bus.emit('intro:done'));
   return section;
 }

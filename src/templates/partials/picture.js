@@ -24,9 +24,9 @@ function srcset(entry, format) {
  * `<picture>` con AVIF y WebP responsivos, `width`/`height` para reservar el espacio (CLS 0) y
  * carga diferida salvo que la imagen sea del primer pantallazo (`eager`).
  * @param {RenderContext} ctx
- * @param {{ src: string, alt: string, sizes: string, eager?: boolean, className?: string }} options
+ * @param {{ src: string, alt: string, sizes: string, eager?: boolean, className?: string, data?: Record<string, string> }} options
  */
-export function picture(ctx, { src, alt, sizes, eager = false, className }) {
+export function picture(ctx, { src, alt, sizes, eager = false, className, data = {} }) {
   const entry = ctx.image(src);
   const webp = entry.variants.filter((v) => v.format === 'webp');
   const fallback = webp.find((v) => v.width >= FALLBACK_WIDTH) ?? webp[webp.length - 1];
@@ -41,7 +41,7 @@ export function picture(ctx, { src, alt, sizes, eager = false, className }) {
   });
   const avif = attrs({ type: 'image/avif', srcset: srcset(entry, 'avif'), sizes });
   const webpSource = attrs({ type: 'image/webp', srcset: srcset(entry, 'webp'), sizes });
-  return html`<picture${attrs({ class: className })}><source${avif}><source${webpSource}><img${img}></picture>`;
+  return html`<picture${attrs({ class: className, ...data })}><source${avif}><source${webpSource}><img${img}></picture>`;
 }
 
 /**

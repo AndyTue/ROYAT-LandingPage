@@ -1,5 +1,6 @@
 // @ts-check
 import { contact } from './contact.js';
+import { curtain } from './curtain.js';
 import { discography } from './discography.js';
 import { footer } from './footer.js';
 import { head } from './head.js';
@@ -25,6 +26,7 @@ export const SECTIONS = /** @type {const} */ ({
   discography,
   contact,
   footer,
+  curtain,
 });
 
 /**

@@ -1,7 +1,12 @@
 {
-  "$comment": "Textos de interfaz extraídos del prototipo v108 (Recorrido.dc.html). Textos NUEVOS que no existen en el prototipo y debe revisar Andrés: presence.listTitle, contact.fallback.label, contact.fallback.template, contact.errors (excepto phone y phoneAbroad, que vienen del prototipo). '{x}' se reemplaza con datos.",
+  "$comment": "Textos de interfaz extraídos del prototipo v108 (Recorrido.dc.html). Textos NUEVOS que no existen en el prototipo y debe revisar Andrés: presence.listTitle, contact.fallback.label, contact.fallback.template, contact.errors (excepto phone y phoneAbroad, que vienen del prototipo). '{x}' se reemplaza con datos. Textos NUEVOS de F5 que debe revisar Andrés: nav.menu, nav.announce, nav.close (el prototipo solo trae 'Ir a', 'Cerrar' e 'Inicio' en el menú móvil).",
   "nav": {
-    "label": "Secciones"
+    "label": "Secciones",
+    "menu": "Menú",
+    "goTo": "Ir a",
+    "close": "Cerrar",
+    "home": "Inicio",
+    "announce": "Sección actual: {label}"
   },
   "hero": {
     "logoLabel": "ROYAT · Real Orquesta Yucateca de Arturo Turriza, logo bordado en punto de cruz",

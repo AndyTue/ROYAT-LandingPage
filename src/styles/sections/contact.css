@@ -2,7 +2,9 @@
   .contact {
     display: grid;
     gap: 3rem;
-    padding: clamp(3rem, 9vw, 6.5rem) clamp(1rem, 5vw, 4rem);
+
+    /* Arriba queda espacio para el listón, que sube en esta sección. */
+    padding: clamp(4.5rem, 9vw, 7rem) clamp(1rem, 5vw, 4rem) clamp(3rem, 9vw, 6.5rem);
     background-image:
       linear-gradient(90deg, rgb(0 0 0 / 3%) 1px, transparent 1px),
       linear-gradient(rgb(0 0 0 / 3%) 1px, transparent 1px);
@@ -10,6 +12,7 @@
   }
 
   .contact__brand {
+    position: relative;
     display: grid;
     gap: 1.5rem;
     justify-items: center;

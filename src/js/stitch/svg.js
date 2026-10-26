@@ -72,11 +72,11 @@ const escapeAttribute = (text) =>
 /**
  * @param {readonly string[]} rows
  * @param {readonly string[]} palette
- * @param {{ id: string, label?: string, className?: string }} options
+ * @param {{ id: string, label?: string, className?: string, extra?: string }} options
  *   `id` hace únicos los patrones si hay varios SVG en la página. Sin `label` el SVG es decorativo.
  * @returns {string}
  */
-export function stitchSvg(rows, palette, { id, label, className }) {
+export function stitchSvg(rows, palette, { id, label, className, extra = '' }) {
   const h = rows.length;
   const w = h ? rows[0].length : 0;
   const defs = [];
@@ -97,7 +97,7 @@ export function stitchSvg(rows, palette, { id, label, className }) {
   const a11y = label ? `role="img" aria-label="${escapeAttribute(label)}"` : 'aria-hidden="true"';
   const cls = className ? ` class="${className}"` : '';
   return (
-    `<svg${cls} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" ${a11y} focusable="false">` +
+    `<svg${cls}${extra} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" ${a11y} focusable="false">` +
     `<defs>${defs.join('')}</defs>${paths.join('')}</svg>`
   );
 }

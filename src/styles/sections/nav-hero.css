@@ -1,5 +1,7 @@
 @layer sections {
-  /* Navegación estática; el listón flotante llega en F5. */
+  /* ---------- Navegación ----------
+   * Sin JS: barra fija arriba con enlaces reales. Con JS: listón flotante (escritorio) o menú
+   * en hoja inferior (móvil). */
   .site-header {
     position: sticky;
     inset-block-start: 0;
@@ -17,59 +19,443 @@
   }
 
   .nav__link {
+    position: relative;
     display: flex;
+    gap: 0.75rem;
     align-items: center;
     min-block-size: 2.75rem;
-    padding-inline: 0.25rem;
+    padding-inline: 0.375rem;
     font-size: var(--text-label);
     font-weight: 600;
-    letter-spacing: var(--tracking-label);
+    letter-spacing: 0.1em;
     text-decoration: none;
     text-transform: uppercase;
     white-space: nowrap;
     color: var(--color-muted);
   }
 
-  .nav__link:hover {
+  .nav__link:hover,
+  .nav__link.is-active {
     color: var(--color-navy);
   }
 
-  /* Centrada solo cuando cabe: centrar dentro de un contenedor con scroll corta el inicio. */
+  .nav__brand {
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--color-navy);
+  }
+
+  .nav__num,
+  .nav__title,
+  .nav__home,
+  .nav__close,
+  .nav__toggle,
+  .nav__thread {
+    display: none;
+  }
+
+  .nav__fill {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    background: repeating-linear-gradient(90deg, var(--color-orange) 0 5px, transparent 5px 8px);
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  /* Con JS la navegación aparece cuando termina la intro. */
+  .js .site-header {
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s var(--ease-out);
+  }
+
+  .js .site-header.nav--ready {
+    pointer-events: auto;
+    opacity: 1;
+  }
+
+  /* ---------- Escritorio: listón flotante, abajo y arriba en Discografía y Contacto ---------- */
   @media (width >= 48em) {
-    .nav__list {
-      justify-content: center;
+    .js .site-header {
+      position: fixed;
+      inset-block-start: 1rem;
+      inset-inline: 0;
+      inline-size: min(100% - 2rem, 50rem);
+      margin-inline: auto;
+      border-radius: 3px;
+      box-shadow: 0 10px 24px -12px rgb(20 18 14 / 45%);
+      transform: translate3d(0, calc(100svh - 100% - 2rem), 0);
+    }
+
+    .js .site-header.nav--top {
+      transform: translate3d(0, 0, 0);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .js .site-header {
+        transition:
+          opacity 0.6s var(--ease-out),
+          transform 0.95s var(--ease-in-out);
+      }
+    }
+
+    .js .site-header::before {
+      position: absolute;
+      inset: 0.25rem;
+      pointer-events: none;
+      content: '';
+      border: 1.4px dashed rgb(233 139 30 / 75%);
+      border-radius: 2px;
+    }
+
+    .js .nav__list {
+      justify-content: space-between;
+      padding-inline: 1.375rem;
+      overflow: visible;
+    }
+
+    .js .nav__link.is-active::before {
+      position: absolute;
+      inset-block-start: 0.5rem;
+      inset-inline-start: 50%;
+      inline-size: 4px;
+      block-size: 4px;
+      margin-inline-start: -2px;
+      content: '';
+      background: var(--color-orange);
+      transform: rotate(45deg);
+    }
+
+    .js .nav__thread {
+      position: absolute;
+      inset-block-end: 0.5rem;
+      inset-inline: 1.375rem;
+      display: block;
+      block-size: 2px;
+      overflow: hidden;
+      background: rgb(21 20 18 / 14%);
     }
   }
 
-  /* El Hero ocupa la primera pantalla (MOV-1): logo arriba y el grupo de pie abajo. */
+  /* ---------- Móvil: hilo de progreso y botón de menú; la lista es una hoja inferior ---------- */
+  @media (width < 48em) {
+    .js .site-header {
+      position: fixed;
+      inset: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .js .site-header.nav--ready {
+      pointer-events: none;
+    }
+
+    .js .nav__thread {
+      position: fixed;
+      inset-block-end: 0;
+      inset-inline: 0;
+      display: block;
+      block-size: 2px;
+      overflow: hidden;
+    }
+
+    .js .nav__toggle {
+      position: fixed;
+      inset-block-end: 1rem;
+      inset-inline-end: 1rem;
+      display: grid;
+      place-items: center;
+      inline-size: 3rem;
+      block-size: 3rem;
+      padding: 0;
+      color: var(--color-navy);
+      pointer-events: auto;
+      background: rgb(251 247 238 / 82%);
+      backdrop-filter: blur(6px);
+      border: 1.5px solid rgb(28 44 85 / 25%);
+      border-radius: 50%;
+    }
+
+    .js .nav--open .nav__toggle {
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .js .nav__toggle path {
+      fill: none;
+      stroke: currentcolor;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    .js .site-header.nav--open {
+      pointer-events: auto;
+      background: rgb(21 20 18 / 45%);
+    }
+
+    .js .nav {
+      position: fixed;
+      inset-block-end: 0;
+      inset-inline: 0;
+      padding: 1.5rem 1.25rem 1.25rem;
+      visibility: hidden;
+      background:
+        linear-gradient(90deg, rgb(0 0 0 / 3.5%) 1px, transparent 1px) 0 0 / var(--stitch)
+          var(--stitch),
+        linear-gradient(rgb(0 0 0 / 3.5%) 1px, transparent 1px) 0 0 / var(--stitch) var(--stitch),
+        var(--color-cream);
+      border-block-start: 3px dashed var(--color-orange);
+      border-start-start-radius: 0.75rem;
+      border-start-end-radius: 0.75rem;
+      transform: translate3d(0, 100%, 0);
+      transition:
+        transform 0.5s var(--ease-in-out),
+        visibility 0s linear 0.5s;
+    }
+
+    .js .nav--open .nav {
+      visibility: visible;
+      transform: translate3d(0, 0, 0);
+      transition: transform 0.5s var(--ease-in-out);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .js .nav,
+      .js .nav--open .nav {
+        transition: none;
+      }
+    }
+
+    .js .nav__title {
+      display: block;
+      margin-block-end: 0.75rem;
+      font-size: var(--text-label);
+      font-weight: 600;
+      letter-spacing: var(--tracking-label-wide);
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .js .nav__list {
+      display: grid;
+      gap: 0;
+      padding: 0;
+      overflow: visible;
+    }
+
+    .js .nav__list li + li {
+      border-block-start: 1.4px dashed rgb(233 139 30 / 55%);
+    }
+
+    .js .nav__link {
+      gap: 1.25rem;
+      min-block-size: 3.5rem;
+      padding-inline: 0.25rem;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 500;
+      letter-spacing: 0;
+      color: var(--color-navy);
+    }
+
+    .js .nav__num {
+      display: block;
+      inline-size: 2.25rem;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--color-burnt-text);
+    }
+
+    .js .nav__link.is-active {
+      color: var(--color-burnt-text);
+    }
+
+    .js .nav__link.is-active::after {
+      position: absolute;
+      inset-inline-end: 0.5rem;
+      inline-size: 0.5rem;
+      block-size: 0.5rem;
+      content: '';
+      background: var(--color-orange);
+      transform: rotate(45deg);
+    }
+
+    .js .nav__brand {
+      display: none;
+    }
+
+    .js .nav__home {
+      display: inline;
+    }
+
+    .js .nav__close {
+      display: flex;
+      gap: 0.625rem;
+      align-items: center;
+      justify-content: center;
+      inline-size: 100%;
+      min-block-size: 3rem;
+      margin-block-start: 1rem;
+      font-size: var(--text-label);
+      font-weight: 600;
+      letter-spacing: var(--tracking-label-wide);
+      text-transform: uppercase;
+      color: var(--color-navy);
+      background: transparent;
+      border: 1.5px solid var(--color-navy);
+      border-radius: 3px;
+    }
+
+    .js .nav__close path {
+      fill: none;
+      stroke: currentcolor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+    }
+  }
+
+  /* ---------- Hero ----------
+   * La escena fija (logo y grupo) ocupa la primera pantalla más un tramo de scroll. El HTML ya
+   * trae la composición final; con JS los canvases la bordan y la mueven. */
+  :root {
+    --hero-scroll: 0px;
+    --hero-pre: 1;
+  }
+
+  @media (scripting: enabled) {
+    :root {
+      --hero-scroll: 85svh;
+      --hero-pre: 0;
+    }
+  }
+
+  .js {
+    --hero-scroll: 85svh;
+    --hero-pre: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root,
+    .js {
+      --hero-scroll: 0px;
+    }
+  }
+
   .hero {
-    display: grid;
-    grid-template-rows: 1fr auto;
-    gap: clamp(1.5rem, 5vw, 3rem);
-    place-items: center;
-    min-block-size: calc(100svh - 2.75rem);
-    padding-block: clamp(2.5rem, 8vw, 5rem) 0;
-    padding-inline: 1rem;
-    overflow: hidden;
+    position: relative;
+    block-size: calc(100svh + var(--hero-scroll));
     background-color: var(--color-paper);
     background-image:
-      linear-gradient(90deg, rgb(0 0 0 / 3.5%) 1px, transparent 1px),
-      linear-gradient(rgb(0 0 0 / 3.5%) 1px, transparent 1px);
+      linear-gradient(90deg, rgb(255 255 255 / 38%) 1px, transparent 1px),
+      linear-gradient(rgb(255 255 255 / 38%) 1px, transparent 1px);
     background-size: var(--stitch) var(--stitch);
   }
 
-  .hero__logo {
-    inline-size: min(100%, 56rem);
+  .hero__stage {
+    position: sticky;
+    inset-block-start: 0;
+    block-size: 100svh;
+    overflow: hidden;
+  }
+
+  .hero__static {
+    position: absolute;
+    inset-block-start: 4.5%;
+    inset-inline: 0;
+    inline-size: min(90vw, 56rem);
     block-size: auto;
     aspect-ratio: 220 / 122;
+    margin-inline: auto;
+    opacity: var(--hero-pre);
   }
 
-  .hero__photo {
-    align-self: end;
-    inline-size: min(100%, 90rem);
+  .hero--live .hero__static {
+    display: none;
   }
 
-  .hero__photo img {
+  .hero__canvas {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    max-inline-size: none;
+    transform-origin: 50% 0;
+    will-change: transform, opacity;
+  }
+
+  .hero__crew {
+    position: absolute;
+    inset-block-end: 1.5%;
+    inset-inline: 0;
+    inline-size: min(90vw, 93svh);
+    margin-inline: auto;
+    pointer-events: none;
+    opacity: var(--hero-pre);
+    will-change: transform, opacity;
+  }
+
+  .hero__crew img {
     inline-size: 100%;
+  }
+
+  .hero__cue {
+    position: absolute;
+    inset-block-end: 1.25rem;
+    inset-inline: 0;
+    display: grid;
+    gap: 0.5rem;
+    justify-items: center;
+    font-size: var(--text-label);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .hero__cue i {
+    display: block;
+    inline-size: 1.5px;
+    block-size: 2.5rem;
+    background: linear-gradient(var(--color-orange), transparent);
+    transform-origin: top;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__cue i {
+      animation: hero-thread 1.8s var(--ease-curtain) infinite;
+    }
+  }
+
+  @keyframes hero-thread {
+    0% {
+      transform: scaleY(0);
+    }
+
+    60%,
+    100% {
+      opacity: 0;
+      transform: scaleY(1);
+    }
+  }
+
+  .hero__skip {
+    position: absolute;
+    inset-block-start: 0.75rem;
+    inset-inline-end: 1.25rem;
+    z-index: 2;
+    min-block-size: 2.75rem;
+    padding-inline: 0.5rem;
+    font-size: var(--text-label);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    background: transparent;
+    border: 0;
+  }
+
+  .hero__skip:hover {
+    color: var(--color-ink);
   }
 }

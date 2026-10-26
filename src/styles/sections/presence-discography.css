@@ -91,7 +91,7 @@
   }
 
   .discography {
-    padding: clamp(3rem, 9vw, 6.5rem) clamp(1rem, 5vw, 4rem);
+    padding: clamp(4.5rem, 9vw, 7rem) clamp(1rem, 5vw, 4rem) clamp(3rem, 9vw, 6.5rem);
   }
 
   .discography__list {

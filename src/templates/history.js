@@ -49,15 +49,20 @@ function discList(ctx, discs) {
   </ul>`;
 }
 
+/** Motivos bordados sobre el hilo de la línea de tiempo, uno por hito. */
+const ORNAMENTS = ['flor5', 'star5', 'rombo'];
+
 /**
  * @param {RenderContext} ctx
  * @param {HistoryEvent} event
  */
 function timelineEvent(ctx, event) {
   const titleId = `hito-${event.n}-titulo`;
+  const motif = ORNAMENTS[(event.n - 1) % ORNAMENTS.length];
   return html`<li class="event" id="hito-${event.n}">
     <article class="event__body" aria-labelledby="${titleId}">
       <p class="event__marker" aria-hidden="true">${pad2(event.n)}</p>
+      <span class="ornament event__ornament" data-ornament data-motif="${motif}" data-order="out" aria-hidden="true"></span>
       <p class="event__year">${event.year}</p>
       <p class="event__tag label">${event.tag}</p>
       <h3 class="event__title" id="${titleId}">${event.title}</h3>

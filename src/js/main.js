@@ -1,11 +1,36 @@
 // @ts-check
+import { createEngine } from './core/engine.js';
+import { bus } from './core/events.js';
+import { createLayout } from './core/layout.js';
+import { prefersReducedMotion } from './core/motion.js';
+import { createNav } from './features/nav.js';
+import { createOrnaments } from './features/ornaments.js';
+import { createCurtain } from './features/transition.js';
+import { find } from './lib/dom.js';
 import { initContact } from './sections/contact.js';
+import { createHero } from './sections/hero.js';
+import { loadMotifs, loadPatterns } from './stitch/data.js';
 
 // El CSS sin esta clase muestra el layout estático; con ella, las secciones pueden animarse.
 document.documentElement.classList.add('js');
 
-// El formulario es lo más importante para el cliente: se activa de inmediato. Si algo falla,
-// se queda el formulario de respaldo y el sitio sigue funcionando (STANDARDS §3).
+/**
+ * Cada módulo se inicia dentro de su propio `try`: si uno falla, la página se queda en su
+ * versión estática y el resto sigue funcionando (STANDARDS §3).
+ * @param {string} name
+ * @param {() => void} start
+ */
+function guard(name, start) {
+  try {
+    start();
+  } catch (error) {
+    if (import.meta.env.DEV) console.error(`[${name}]`, error);
+  }
+}
+
+const reduced = prefersReducedMotion();
+
+// 1. El formulario es lo más importante para el cliente: se activa de inmediato.
 const form = document.querySelector('[data-contact-form]');
 if (form instanceof HTMLFormElement) {
   try {
@@ -18,3 +43,65 @@ if (form instanceof HTMLFormElement) {
     if (import.meta.env.DEV) console.error(error);
   }
 }
+
+// 2. Motor y medición: un solo loop para toda la página.
+const engine = createEngine({
+  read: () => window.scrollY,
+  viewport: () => window.innerHeight,
+  schedule: (callback) => window.requestAnimationFrame(callback),
+  cancel: (handle) => window.cancelAnimationFrame(handle),
+  reduced,
+});
+const ids = [...document.querySelectorAll('[data-nav-link]')].map(
+  (link) => /** @type {HTMLElement} */ (link).dataset.navLink ?? '',
+);
+const layout = createLayout({
+  win: window,
+  doc: document,
+  ids,
+  onChange: () => engine.measure(),
+});
+const getMetrics = () => layout.metrics;
+layout.measure();
+
+// 3. Navegación y cortina: no necesitan los patrones de bordado.
+guard('nav', () => {
+  const root = find(document, '[data-nav]', HTMLElement);
+  const text = /** @type {HTMLElement} */ (find(root, '[data-nav-status]', HTMLElement));
+  const nav = createNav({
+    root,
+    bus,
+    getMetrics,
+    announce: text.dataset.announce ?? '{label}',
+  });
+  engine.watch((state) => nav.update(state));
+});
+guard('curtain', () => {
+  createCurtain(find(document, '[data-curtain]', HTMLElement), { reduced });
+});
+engine.snap();
+engine.start();
+
+// 4. El bordado necesita sus datos: se piden aparte, sin retrasar el primer pintado.
+Promise.all([loadPatterns(), loadMotifs()])
+  .then(([patterns, motifs]) => {
+    guard('hero', () => {
+      const root = find(document, '[data-hero]', HTMLElement);
+      const hero = createHero({ root, patterns, getMetrics, reduced });
+      engine.add(hero);
+    });
+    guard('ornaments', () => {
+      engine.add(
+        createOrnaments({
+          root: document,
+          data: { pal: patterns.pal, motifs: motifs.motifs, bands: motifs.bands },
+          getMetrics,
+          reduced,
+        }),
+      );
+    });
+    layout.measure();
+  })
+  .catch((error) => {
+    if (import.meta.env.DEV) console.error('[bordado]', error);
+  });

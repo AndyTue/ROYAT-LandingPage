@@ -1,6 +1,5 @@
 // @ts-check
-import { transitionEnd } from '../lib/dom.js';
-import { find } from '../lib/dom.js';
+import { find, transitionEnd } from '../lib/dom.js';
 
 /**
  * @typedef {{ title?: string, cover?: { src: string } | null }} CurtainOptions
@@ -21,7 +20,6 @@ const HOLD_MS = 380;
 export function createCurtain(root, { reduced }) {
   const title = find(root, '[data-curtain-title]', HTMLElement);
   const cover = find(root, '[data-curtain-cover]', HTMLElement);
-  const image = find(cover, 'img', HTMLImageElement);
   let busy = false;
 
   return {
@@ -42,7 +40,13 @@ export function createCurtain(root, { reduced }) {
         }
         title.textContent = text;
         cover.hidden = !art;
-        if (art) image.src = art.src;
+        if (art) {
+          // La portada se crea al usarse: en el HTML no hay una imagen sin origen.
+          const image = new Image(320, 320);
+          image.alt = '';
+          image.src = art.src;
+          cover.replaceChildren(image);
+        }
         root.classList.toggle('curtain--cover', Boolean(art));
         root.classList.add('curtain--in');
         await transitionEnd(root, SLIDE_MS + 120);

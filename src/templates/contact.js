@@ -150,6 +150,7 @@ export function contact(ctx) {
     aria-labelledby="contacto-titulo"
   >
     <div class="contact__brand">
+      <span class="ornament contact__bird" data-ornament data-motif="bird" data-order="out" aria-hidden="true"></span>
       ${raw(logo)}
       <p class="contact__social-title label">${t.socialTitle}</p>
       <ul class="social">
@@ -171,6 +172,9 @@ export function contact(ctx) {
       </ul>
     </div>
     <div class="letter">
+      <span class="ornament letter__ornament letter__ornament--tl" data-ornament data-motif="star5" data-order="out" aria-hidden="true"></span>
+      <span class="ornament letter__ornament letter__ornament--tr" data-ornament data-motif="star5" data-order="out" aria-hidden="true"></span>
+      <span class="ornament letter__ornament letter__ornament--br" data-ornament data-motif="flor5" data-order="out" aria-hidden="true"></span>
       <p class="letter__eyebrow label">${site.contact.eyebrow}</p>
       <h2 class="letter__title" id="contacto-titulo">${emphasizeLast(site.contact.formTitle)}</h2>
       <form
