@@ -1,5 +1,5 @@
 {
-  "$comment": "Historia y línea de tiempo (14 hitos). 'discs[].spotifyId' referencia discography.json. PENDIENTE: confirmar 'Eufrasio' vs 'Eufracio' (hito 2).",
+  "$comment": "Historia y línea de tiempo (14 hitos). 'discs[].spotifyId' referencia discography.json.",
   "title": "Historia",
   "kicker": "La orquesta a través del tiempo",
   "intro": {

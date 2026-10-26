@@ -308,7 +308,7 @@
       "spotifyId": "66zHJzZYZzSMq2zMD18XX7",
       "title": "Mi Lindo Sucilá",
       "type": "Sencillo",
-      "year": null,
+      "year": 2025,
       "color": "rgb(71,85,93)",
       "cover": "assets-src/covers/sucila.webp",
       "tracks": [
@@ -316,14 +316,13 @@
           "title": "Mi Lindo Sucilá",
           "durationSec": 211
         }
-      ],
-      "TODO": "TODO(contenido): año de lanzamiento (en el prototipo no aparece)"
+      ]
     },
     {
       "spotifyId": "7hRhPsDcELmGcaI26wTQsI",
       "title": "Britany Adriana",
       "type": "Sencillo",
-      "year": null,
+      "year": 2025,
       "color": "rgb(135,57,61)",
       "cover": "assets-src/covers/britany.webp",
       "tracks": [
@@ -332,8 +331,7 @@
           "guest": "Antonio Victorín",
           "durationSec": 214
         }
-      ],
-      "TODO": "TODO(contenido): año de lanzamiento (en el prototipo no aparece)"
+      ]
     }
   ]
 }
