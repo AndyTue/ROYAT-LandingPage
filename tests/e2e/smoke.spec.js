@@ -2,13 +2,42 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-test('la página carga sin errores de consola ni bloqueos de la CSP', async ({ page }) => {
+/**
+ * WebKit (el motor de Playwright) aplica un estilo interno a todo `<select>` y lo reporta como
+ * violación de `style-src-attr`, aunque el HTML no tenga ningún atributo `style`. Es del motor,
+ * no del sitio: se ignora solo esa combinación exacta. Revisar en Safari real (F11).
+ * @param {string} browserName
+ * @param {{ directive: string, target: string }} violation
+ */
+const isEngineQuirk = (browserName, { directive, target }) =>
+  browserName === 'webkit' && directive === 'style-src-attr' && target === 'SELECT';
+
+const CSP_CONSOLE = /Content Security Policy/;
+
+test('la página carga sin errores de consola ni bloqueos de la CSP', async ({
+  page,
+  browserName,
+}) => {
   /** @type {string[]} */
   const errors = [];
   page.on('console', (message) => {
-    if (message.type() === 'error') errors.push(message.text());
+    // Las violaciones de CSP se revisan abajo con su detalle (directiva y elemento).
+    if (message.type() === 'error' && !CSP_CONSOLE.test(message.text()))
+      errors.push(message.text());
   });
   page.on('pageerror', (error) => errors.push(error.message));
+  await page.addInitScript(() => {
+    /** @type {{ directive: string, target: string, uri: string }[]} */
+    const found = [];
+    Object.assign(window, { __cspViolations: found });
+    document.addEventListener('securitypolicyviolation', (event) =>
+      found.push({
+        directive: event.violatedDirective,
+        target: /** @type {Element | null} */ (event.target)?.nodeName ?? '',
+        uri: event.blockedURI,
+      }),
+    );
+  });
 
   await page.goto('/');
 
@@ -17,6 +46,9 @@ test('la página carga sin errores de consola ni bloqueos de la CSP', async ({ p
   // Si la CSP bloqueara el módulo, main.js no agregaría la clase.
   await expect(page.locator('html')).toHaveClass(/\bjs\b/);
   expect(errors).toEqual([]);
+  /** @type {{ directive: string, target: string, uri: string }[]} */
+  const violations = await page.evaluate(() => /** @type {any} */ (window).__cspViolations);
+  expect(violations.filter((v) => !isEngineQuirk(browserName, v))).toEqual([]);
 });
 
 test('el preview sirve los encabezados de seguridad de producción', async ({ request }) => {
