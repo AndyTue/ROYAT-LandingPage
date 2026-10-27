@@ -166,12 +166,37 @@
     padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 4rem);
   }
 
+  .glossary__orn {
+    display: none;
+  }
+
   .glossary__title {
     font-size: clamp(3rem, 15vw, 6rem);
-    font-style: italic;
     font-weight: 500;
     line-height: 0.9;
-    overflow-wrap: anywhere;
+  }
+
+  .glossary__word {
+    white-space: nowrap;
+  }
+
+  .glossary__o {
+    display: inline-block;
+  }
+
+  .glossary__symbol {
+    display: inline-block;
+    inline-size: 0.48em;
+    block-size: 0.48em;
+    margin-inline-start: 0.02em;
+    vertical-align: -0.012em;
+  }
+
+  .glossary__symbol img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: contain;
   }
 
   .glossary__list {
@@ -180,22 +205,133 @@
     margin-block-start: 2rem;
   }
 
+  /* Cada término es un sobre: crema, navy o naranja, con la solapa marcada en diagonal. */
   .glossary__item {
-    padding: 1rem 1.25rem;
-    background: var(--color-letter);
+    position: relative;
+    min-block-size: 9.5rem;
+    padding: 1rem 1.1rem;
+    color: var(--env-fg);
+    background: var(--env-bg);
     border-radius: 2px;
-    box-shadow: 0 22px 32px -18px rgb(20 18 14 / 35%);
+    box-shadow: 0 22px 32px -18px rgb(20 18 14 / 50%);
+  }
+
+  .glossary__item::after {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    content: '';
+    background: linear-gradient(
+      to top right,
+      transparent calc(50% - 0.5px),
+      currentcolor calc(50% - 0.5px),
+      currentcolor calc(50% + 0.5px),
+      transparent calc(50% + 0.5px)
+    );
+    opacity: 0.3;
+  }
+
+  .glossary__item--w {
+    --env-bg: var(--color-letter);
+    --env-fg: var(--color-navy);
+  }
+
+  .glossary__item--n {
+    --env-bg: var(--color-navy);
+    --env-fg: #f1eee7;
+  }
+
+  .glossary__item--o {
+    --env-bg: var(--color-orange);
+    --env-fg: #151412;
   }
 
   .glossary__item dt {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-navy);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-align: end;
+    text-transform: uppercase;
+  }
+
+  .glossary__item dt::after {
+    display: block;
+    inline-size: 18px;
+    block-size: 1.5px;
+    margin: 9px 0 0 auto;
+    content: '';
+    background: currentcolor;
   }
 
   .glossary__item dd {
-    color: var(--color-muted);
+    margin-block-start: 1.25rem;
+    font-size: 0.75rem;
+    line-height: 1.45;
+    color: inherit;
+  }
+
+  /* Móvil (MOV-3b): la palabra corre en vertical por el centro y se queda fija mientras los
+     sobres pasan a los costados, alternando izquierda y derecha. */
+  @media (width < 48em) {
+    .glossary {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 1.75rem 0.5rem;
+      align-items: start;
+      padding-inline: 0.75rem;
+    }
+
+    .glossary__title {
+      position: sticky;
+      inset-block-start: 0;
+      grid-row: 1 / span 6;
+      grid-column: 2;
+
+      /* En vertical el eje en línea es la altura: llena la pantalla y centra la palabra. */
+      inline-size: 100svh;
+      font-size: min(24vw, 12svh);
+      line-height: 1;
+      text-align: center;
+      writing-mode: vertical-rl;
+    }
+
+    .glossary__list {
+      display: contents;
+    }
+
+    .glossary__item:nth-child(odd) {
+      grid-column: 1;
+      rotate: -5deg;
+    }
+
+    .glossary__item:nth-child(even) {
+      grid-column: 3;
+      rotate: 6deg;
+    }
+
+    .glossary__item:nth-child(1) {
+      grid-row: 1;
+    }
+
+    .glossary__item:nth-child(2) {
+      grid-row: 2;
+    }
+
+    .glossary__item:nth-child(3) {
+      grid-row: 3;
+    }
+
+    .glossary__item:nth-child(4) {
+      grid-row: 4;
+    }
+
+    .glossary__item:nth-child(5) {
+      grid-row: 5;
+    }
+
+    .glossary__item:nth-child(6) {
+      grid-row: 6;
+    }
   }
 
   @media (width >= 48em) {
@@ -466,44 +602,163 @@
     font-size: 1.55em;
   }
 
-  /* Glosario: la palabra enorme y las tarjetas regadas, inclinadas, a su alrededor. */
+  /* Glosario: la palabra enorme (600 px a 800 de alto) con los sobres inclinados a su paso. */
   .members.track--on .glossary {
     position: relative;
-    display: flex;
+    display: block;
     flex: none;
-    gap: 5vw;
-    align-items: center;
+    inline-size: 570svh;
     block-size: 100%;
-    padding: 0 6vw;
+    padding: 0;
+  }
+
+  .members.track--on .glossary__orn {
+    position: absolute;
+    display: block;
   }
 
   .members.track--on .glossary__title {
-    flex: none;
-    font-size: min(36svh, 13vw);
+    position: absolute;
+    inset-block-start: 7.5svh;
+    inset-inline-start: 32.5svh;
+    z-index: 2;
+    margin: 0;
+    font-size: 75svh;
+    line-height: 1;
+    letter-spacing: -0.02em;
     white-space: nowrap;
   }
 
   .members.track--on .glossary__list {
-    display: flex;
-    flex: none;
-    gap: clamp(3rem, 6vw, 6rem);
-    align-items: center;
+    display: block;
     margin: 0;
   }
 
   .members.track--on .glossary__item {
-    inline-size: clamp(14rem, 22svh + 8rem, 18rem);
-    padding: 1.25rem 1.5rem;
-    background: var(--color-letter);
+    position: absolute;
+    z-index: 3;
+    inline-size: clamp(15rem, 31.25svh, 24rem);
+    block-size: clamp(9.5rem, 20svh, 15rem);
+    padding: 1rem 1.1rem;
   }
 
-  .members.track--on .glossary__item:nth-child(odd) {
-    margin-block-end: 24svh;
-    rotate: -7deg;
+  .members.track--on .glossary__item dd {
+    position: absolute;
+    inset-block-end: 0.9rem;
+    inset-inline-start: 1.1rem;
+    inline-size: 64%;
+    margin: 0;
   }
 
-  .members.track--on .glossary__item:nth-child(even) {
-    margin-block-start: 28svh;
-    rotate: 6deg;
+  .members.track--on .glossary__item:nth-child(1) {
+    inset-block-start: 12svh;
+    inset-inline-start: 70svh;
+    rotate: -11deg;
+  }
+
+  .members.track--on .glossary__item:nth-child(2) {
+    inset-block-start: 62.5svh;
+    inset-inline-start: 152.5svh;
+    rotate: 9deg;
+  }
+
+  .members.track--on .glossary__item:nth-child(3) {
+    inset-block-start: 13.75svh;
+    inset-inline-start: 237.5svh;
+    rotate: -6deg;
+    z-index: 1;
+  }
+
+  .members.track--on .glossary__item:nth-child(4) {
+    inset-block-start: 65svh;
+    inset-inline-start: 320svh;
+    rotate: 13deg;
+  }
+
+  .members.track--on .glossary__item:nth-child(5) {
+    inset-block-start: 11.25svh;
+    inset-inline-start: 405svh;
+    rotate: -9deg;
+  }
+
+  .members.track--on .glossary__item:nth-child(6) {
+    inset-block-start: 58.75svh;
+    inset-inline-start: 521.25svh;
+    rotate: 7deg;
+  }
+
+  .members.track--on .go-1 {
+    inset-block-start: 12.75svh;
+    inset-inline-start: 3.75svh;
+  }
+
+  .members.track--on .go-2 {
+    inset-block-start: 3.75svh;
+    inset-inline-start: 37.5svh;
+  }
+
+  .members.track--on .go-3 {
+    inset-block-end: 1svh;
+    inset-inline-start: 93.75svh;
+  }
+
+  .members.track--on .go-4 {
+    inset-block-start: 3.75svh;
+    inset-inline-start: 150svh;
+  }
+
+  .members.track--on .go-5 {
+    inset-block-end: 1svh;
+    inset-inline-start: 206.25svh;
+  }
+
+  .members.track--on .go-6 {
+    inset-block-start: 3.75svh;
+    inset-inline-start: 270svh;
+  }
+
+  .members.track--on .go-7 {
+    inset-block-end: 1svh;
+    inset-inline-start: 326.25svh;
+  }
+
+  .members.track--on .go-8 {
+    inset-block-start: 3.75svh;
+    inset-inline-start: 375svh;
+  }
+
+  .members.track--on .go-9 {
+    inset-block-end: 1svh;
+    inset-inline-start: 431.25svh;
+  }
+
+  .members.track--on .go-10 {
+    inset-block-start: 3.75svh;
+    inset-inline-start: 487.5svh;
+  }
+
+  .members.track--on .go-11 {
+    inset-block-start: 18.75svh;
+    inset-inline-start: 206.25svh;
+  }
+
+  .members.track--on .go-12 {
+    inset-block-start: 21svh;
+    inset-inline-start: 315svh;
+  }
+
+  .members.track--on .go-13 {
+    inset-block-start: 81svh;
+    inset-inline-start: 88.5svh;
+  }
+
+  .members.track--on .go-14 {
+    inset-block-start: 82.5svh;
+    inset-inline-start: 251.25svh;
+  }
+
+  .members.track--on .go-15 {
+    inset-block-start: 81svh;
+    inset-inline-start: 402svh;
   }
 }

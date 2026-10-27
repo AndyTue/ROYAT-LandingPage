@@ -27,6 +27,8 @@ import {
 const TONE_NAMES = ['navy', 'paper', 'sand', 'red', 'cream'];
 /** Grados de giro de un vinilo por px de recorrido. */
 const SPIN = 0.18;
+/** Grados que rueda cada «o» del glosario por px de recorrido. */
+const ROLL = 0.25;
 
 /**
  * Pista horizontal fija (Historia e Integrantes): en escritorio con JS y movimiento, el escenario
@@ -47,6 +49,8 @@ export function createTrack({ id, root, data, getMetrics, reduced }) {
   const panelEls = findAll(root, '[data-tone]', HTMLElement);
   const slots = findAll(root, '[data-ornament]', HTMLElement);
   const spinners = findAll(root, '[data-spin]', HTMLElement);
+  const rollers = findAll(root, '[data-roll]', HTMLElement);
+  const glossaryEl = root.querySelector('.glossary');
   const lineEls = findAll(root, '[data-letters]', HTMLElement);
   const letters = reduced ? [] : splitLetters(lineEls);
   const offsets = letters.map((_, i) => scatterOf(i));
@@ -60,6 +64,10 @@ export function createTrack({ id, root, data, getMetrics, reduced }) {
   /** @type {{ ornament: NonNullable<ReturnType<typeof mountOrnament>>, cx: number }[]} */
   let stitched = [];
   let lettersTop = 0;
+  /** Centro de cada «o» rodante respecto a la pista, y tramo vertical del glosario (móvil). */
+  let rollerX = /** @type {number[]} */ ([]);
+  let glossaryTop = 0;
+  let glossaryRun = 1;
   let maxX = 0;
   let lastTone = '';
   /** @type {Record<string, Tone>} */
@@ -150,6 +158,17 @@ export function createTrack({ id, root, data, getMetrics, reduced }) {
       stitched = [];
     }
     measureDrifts();
+    rollers.forEach((el) => (el.style.rotate = ''));
+    const trackLeft = track.getBoundingClientRect().left;
+    rollerX = rollers.map((el) => {
+      const rect = el.getBoundingClientRect();
+      return rect.left - trackLeft + rect.width / 2;
+    });
+    if (glossaryEl) {
+      const rect = glossaryEl.getBoundingClientRect();
+      glossaryTop = rect.top + window.scrollY;
+      glossaryRun = Math.max(1, rect.height - vh);
+    }
     const block = getMetrics().blocks.find((b) => b.id === id);
     section.start = block?.top ?? 0;
     section.end = block?.bottom ?? 0;
@@ -182,6 +201,13 @@ export function createTrack({ id, root, data, getMetrics, reduced }) {
         s.ornament.layer.advance(p);
       }
     }
+    // Las «o» de ¡Preciosooo! ruedan con el recorrido y el símbolo ROYAT llega derecho.
+    rollers.forEach((el, i) => {
+      el.style.rotate =
+        el.dataset.roll === 'symbol'
+          ? `${(clamp((rollerX[i] - x - vw / 2) / vw, 0, 2) * 360).toFixed(1)}deg`
+          : `${((rollerX[i] - x) * ROLL).toFixed(1)}deg`;
+    });
     // Las letras del título se juntan al llegar a la sección.
     applyLetters(letters, offsets, range(state.y, section.start - state.vh * 0.85, section.start));
   }
@@ -199,6 +225,12 @@ export function createTrack({ id, root, data, getMetrics, reduced }) {
     }
     spinners.forEach((el, i) => {
       el.style.rotate = `${((state.y * SPIN * 0.7 * (i % 2 ? -1 : 1)) % 360).toFixed(1)}deg`;
+    });
+    rollers.forEach((el) => {
+      el.style.rotate =
+        el.dataset.roll === 'symbol'
+          ? `${((1 - range(state.y, glossaryTop, glossaryTop + glossaryRun)) * 360).toFixed(1)}deg`
+          : `${(state.y * ROLL).toFixed(1)}deg`;
     });
   }
 

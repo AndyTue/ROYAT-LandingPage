@@ -29,9 +29,10 @@ const DECO = ['dflor', 'dzig', 'drombos'];
  * @param {string} motif
  * @param {string} order
  * @param {string} className
+ * @param {string} [map]
  */
-const ornament = (motif, order, className) =>
-  html`<span class="ornament ${className}" data-ornament data-motif="${motif}" data-order="${order}" aria-hidden="true"></span>`;
+const ornament = (motif, order, className, map = '') =>
+  html`<span class="ornament ${className}" data-ornament data-motif="${motif}" data-order="${order}"${map ? html` data-map="${map}"` : ''} aria-hidden="true"></span>`;
 
 /**
  * Tarjeta de músico: número, nombre y rol. El retrato usa el nombre como `alt`, igual que el
@@ -51,18 +52,50 @@ function memberCard(ctx, member, sizes) {
   </figure>`;
 }
 
+/** Color de cada sobre del glosario, en el orden del prototipo (crema, navy, naranja). */
+const ENVELOPES = ['w', 'n', 'o', 'w', 'n', 'o'];
+
+/**
+ * Motivos bordados de la pista del glosario, `[motivo, orden, posición (go-N)]`. Las posiciones
+ * viven en `members.css`.
+ * @type {readonly (readonly [string, string])[]}
+ */
+const GLOSSARY_ORNAMENTS = [
+  ['seam', 'down'],
+  ['dzig', 'lr'],
+  ['drombos', 'lr'],
+  ['dflor', 'lr'],
+  ['flor5', 'lr'],
+  ['dzig', 'lr'],
+  ['drombos', 'lr'],
+  ['dflor', 'lr'],
+  ['flor5', 'lr'],
+  ['dzig', 'lr'],
+  ['mari', 'out'],
+  ['bird', 'out'],
+  ['birdl', 'out'],
+  ['rombo', 'out'],
+  ['mari', 'out'],
+];
+
 /** @param {RenderContext} ctx */
 function glossary(ctx) {
   const { glossary: data } = ctx.content;
+  // "Preciosooooo": la palabra y sus «o», que ruedan con el scroll, y el símbolo ROYAT al final.
+  const head = String(data.title).replace(/o+$/, '');
+  const tail = [...String(data.title).slice(head.length)];
   return html`<aside class="glossary" data-tone="cream" aria-labelledby="glosario-titulo">
+    ${GLOSSARY_ORNAMENTS.map(([motif, order], i) => ornament(motif, order, `glossary__orn go-${i + 1}`, i === 14 ? 'eg,gj' : ''))}
     <h3 class="glossary__title" id="glosario-titulo">
       <span class="sr-only">${data.title}</span>
-      <span aria-hidden="true" data-letters>${data.title}</span>
+      <span class="glossary__word" aria-hidden="true">
+        <span data-letters>${head}</span>${tail.map(() => html`<span class="glossary__o" data-roll>o</span>`)}${picture(ctx, { src: 'assets-src/brand/simbolo.png', alt: '', sizes: '(width >= 48em) 40svh, 25vw', className: 'glossary__symbol', data: { 'data-roll': 'symbol' } })}
+      </span>
     </h3>
     <dl class="glossary__list">
       ${data.items.map(
-        (/** @type {{ term: string, text: string }} */ item) =>
-          html`<div class="glossary__item" data-parallax="0.1"><dt>${item.term}</dt><dd>${item.text}</dd></div>`,
+        (/** @type {{ term: string, text: string }} */ item, /** @type {number} */ i) =>
+          html`<div class="glossary__item glossary__item--${ENVELOPES[i % ENVELOPES.length]}" data-parallax="0.1"><dt>${item.term}</dt><dd>${item.text}</dd></div>`,
       )}
     </dl>
   </aside>`;
