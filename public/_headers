@@ -8,6 +8,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()
   Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
 
 # Vite y build-images.mjs ponen hash en el nombre de todo lo que emiten: esos archivos nunca cambian.
 /assets/*

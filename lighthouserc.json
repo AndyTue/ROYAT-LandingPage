@@ -13,6 +13,7 @@
         "largest-contentful-paint": ["error", { "maxNumericValue": 2500 }],
         "cumulative-layout-shift": ["error", { "maxNumericValue": 0.05 }],
         "total-blocking-time": ["error", { "maxNumericValue": 200 }],
+        "resource-summary:script:size": ["error", { "maxNumericValue": 71680 }],
         "total-byte-weight": ["error", { "maxNumericValue": 1258291 }]
       }
     },
