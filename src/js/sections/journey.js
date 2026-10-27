@@ -305,11 +305,10 @@ export function createJourney({ root, patterns, data, getMetrics, reduced }) {
   /** Medidas de la pista (prototipo `layout()`): sin transformaciones, en px de la pista. */
   function measureTrack() {
     if (pre && word)
-      // El panel mide lo que la palabra más 760 px, y nunca menos que el ancho declarado en el
-      // prototipo (4560 px): con la tipografía real la palabra mide menos y el último sobre
-      // («Tres voces», a 4170 px) quedaría fuera del panel, recortado.
+      // La palabra con el mismo margen a cada lado (260 px): sin el remanente en blanco que dejaba
+      // el sexto sobre antes de Vocalistas.
       /** @type {HTMLElement} */ (pre).style.width =
-        `${Math.max(word.getBoundingClientRect().width + 760 * U, 4560 * U)}px`;
+        `${word.getBoundingClientRect().width + 2 * 260 * U}px`;
     track.style.transform = 'none';
     if (vtw instanceof HTMLElement) vtw.style.transform = 'none';
     const motion = findAll(track, '[data-k],[data-vy],[data-spin]', HTMLElement);
