@@ -157,7 +157,7 @@
       margin-inline-end: calc(6 * var(--um));
       font-size: calc(10 * var(--um));
       letter-spacing: 0.1em;
-      color: #b8620f;
+      color: #9a4c0a; /* el #B8620F del prototipo no llega a AA (3.6:1) */
     }
 
     .gal__cue dd {
