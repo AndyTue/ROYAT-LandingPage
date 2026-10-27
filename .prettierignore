@@ -2,3 +2,7 @@
 content/
 assets-src/
 package-lock.json
+
+# Local y generados
+reference-check/
+src/js/journey/layout-*.js

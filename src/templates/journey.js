@@ -55,7 +55,16 @@ function stitch(/** @type {any} */ p) {
 function lines(/** @type {string} */ text, /** @type {string[] | undefined} */ hint) {
   const flat = (/** @type {string} */ s) => s.replace(/-\s*/g, '').replace(/\s+/g, ' ').trim();
   if (!hint || flat(hint.join(' ')).toLowerCase() !== flat(text).toLowerCase()) return text;
-  return raw(hint.map((l) => html`${l}`).join('<br>'));
+  // Un renglón partido con guion («Percu-») lo marca para que el móvil pueda unirlo de nuevo.
+  return raw(
+    hint
+      .map((l) =>
+        l.endsWith('-')
+          ? `${html`${l.slice(0, -1)}`}<span class="j-hy">-</span>`
+          : String(html`${l}`),
+      )
+      .join('<br>'),
+  );
 }
 
 /** Título dividido en renglones con letras que se juntan (`data-lt`). */
@@ -81,7 +90,7 @@ function frame(ctx, p, photo, sizes, caption = '') {
   const mods = /** @type {string[]} */ (
     fr.cls?.replace('frame', '').trim().split(/\s+/).filter(Boolean) ?? []
   );
-  return html`<figure class="j-${kind}${p.cls.includes('sm') ? ' j-pf--sm' : ''}"${at(p)}>
+  return html`<figure class="j-${kind}${p.cls.includes('sm') ? ' j-pf--sm' : ' j-rv'}"${at(p)}>
     <div class="j-frame${mods.map((/** @type {string} */ m) => ` j-frame--${m}`).join('')}"${at({ h: fr.h })}>
       ${picture(ctx, { src: photo.src, alt: photo.alt, sizes, className: 'j-frame__img', data: img.k !== undefined ? { 'data-k': String(img.k) } : {} })}
     </div>
@@ -110,7 +119,7 @@ function historyIntro(ctx, panel) {
     if (kind === 'split')
       return html`<h2 class="j-split" id="historia-titulo"${at(p)}><span class="sr-only">${data.title}</span>${split(ui.history.titleLines, p)}</h2>`;
     if (kind === 'klab')
-      return html`<p class="j-klab j-klab--fg2"${at(p)}>${lines(data.kicker, p.lines)}</p>`;
+      return html`<p class="j-klab j-klab--fg2 j-rv"${at(p)}>${lines(data.kicker, p.lines)}</p>`;
     if (kind === 'fig')
       return frame(
         ctx,
@@ -120,7 +129,7 @@ function historyIntro(ctx, panel) {
         html`<figcaption class="j-fcap">${data.intro.photo.caption}</figcaption>`,
       );
     if (kind === 'cols')
-      return html`<div class="j-cols"${at(p)}>${data.intro.paragraphs.map((/** @type {string} */ t) => html`<p>${t}</p>`)}</div>`;
+      return html`<div class="j-cols j-rv"${at(p)}>${data.intro.paragraphs.map((/** @type {string} */ t) => html`<p>${t}</p>`)}</div>`;
     return '';
   });
 }
@@ -182,7 +191,7 @@ function timeline(ctx, panel) {
         );
     } else if (kind === 'tt') {
       out.push(
-        html`<div class="j-tt"${at(p)}><p class="j-tag j-tag--${ev.discs?.length ? 'sp' : 'dt'}">${ev.tag}</p><h3 id="hito-${ev.n}-titulo">${ev.title}</h3><p>${ev.text}</p></div>`,
+        html`<div class="j-tt j-rv"${at(p)}><p class="j-tag j-tag--${ev.discs?.length ? 'sp' : 'dt'}">${ev.tag}</p><h3 id="hito-${ev.n}-titulo">${ev.title}</h3><p>${ev.text}</p></div>`,
       );
     } else if (kind === 'mk') {
       out.push(marker(p, ev.n));
@@ -205,7 +214,7 @@ function membersIntro(ctx, panel) {
     if (kind === 'split')
       return html`<h2 class="j-split" id="integrantes-titulo"${at(p)}><span class="sr-only">${data.title}</span>${split(ui.members.titleLines, p)}</h2>`;
     if (kind === 'klab')
-      return html`<p class="j-klab j-klab--fg2"${at(p)}>${lines(data.kicker, p.lines)}</p>`;
+      return html`<p class="j-klab j-klab--fg2 j-rv"${at(p)}>${lines(data.kicker, p.lines)}</p>`;
     if (kind === 'fig')
       return frame(
         ctx,
@@ -215,7 +224,7 @@ function membersIntro(ctx, panel) {
         html`<figcaption class="j-fcap">${data.groupPhoto.caption}</figcaption>`,
       );
     if (p.tag === 'ol')
-      return html`<ol class="j-index"${at(p)}>${data.sections.map((/** @type {any} */ s) => html`<li><a href="#seccion-${slug(s.name)}">${s.numeral} ${s.name}</a></li>`)}</ol>`;
+      return html`<ol class="j-index j-rv"${at(p)}>${data.sections.map((/** @type {any} */ s) => html`<li>${s.numeral} ${s.name}</li>`)}</ol>`;
     return '';
   });
 }
@@ -299,13 +308,15 @@ function glossary(ctx, panel) {
       if (!item) return '';
       const tone = p.cls.split(' ')[1].slice(1);
       cards.push(
-        html`<div class="j-card j-card--${tone}${p.cls.includes('back') ? ' j-card--back' : ''}"${at(p)}><dt>${item.term}</dt><dd>${item.text}</dd></div>`,
+        html`<div class="j-card j-rv j-card--${tone}${p.cls.includes('back') ? ' j-card--back' : ''}"${at(p)}><dt>${item.term}</dt><dd>${item.text}</dd></div>`,
       );
       return '';
     }
     return '';
   });
-  return html`${out}<dl class="j-glossary">${cards}</dl>`;
+  // Dos listas (columnas del móvil: impares a la izquierda, pares a la derecha); en escritorio cada
+  // sobre va en su lugar absoluto y las listas no se ven.
+  return html`${out}<dl class="j-glossary j-glossary--l">${cards.filter((_, i) => i % 2 === 0)}</dl><dl class="j-glossary j-glossary--r">${cards.filter((_, i) => i % 2 === 1)}</dl>`;
 }
 
 /** @param {RenderContext} ctx @param {Panel} panel @param {any} section */
@@ -331,7 +342,7 @@ function vocalists(ctx, panel, section) {
         ? section.groupPhoto
         : { src: member?.photo ?? '', alt: member?.name ?? '' };
       if (!photo.src) return '';
-      return html`<figure class="j-vfig" data-vfig data-vfig-y="${p.vy0 ?? 0}"${at({ x: p.x, w: p.w })}>
+      return html`<figure class="j-vfig j-rv" data-vfig data-vfig-y="${p.vy0 ?? 0}"${at({ x: p.x, w: p.w })}>
         <div class="j-vframe"${at({ h: fr.h })}>${picture(ctx, { src: photo.src, alt: photo.alt, sizes: '(width >= 48em) 20svh, 46vw' })}</div>
         ${isGroup ? memberCap(section.numeral, v.groupTitle, v.groupRole) : memberCap(pad2(member?.n ?? 0), member?.name ?? '', member?.role ?? '')}
       </figure>`;
@@ -402,9 +413,9 @@ export function journey(ctx) {
     <div class="journey__stick" data-journey-stick>
       ${hero(ctx)}
       <div class="j-track" data-journey-track>
-        ${wrap(panel(0), historyIntro(ctx, panel(0)), { id: 'historia', labelledby: 'historia-titulo' })}
+        ${wrap(panel(0), html`<canvas class="j-mhem" data-hem-m aria-hidden="true" hidden></canvas>${historyIntro(ctx, panel(0))}`, { id: 'historia', labelledby: 'historia-titulo' })}
         ${wrap(panel(1), timeline(ctx, panel(1)))}
-        ${wrap(panel(2), membersIntro(ctx, panel(2)), { id: 'integrantes', labelledby: 'integrantes-titulo' })}
+        ${wrap(panel(2), html`<canvas class="j-mhem" data-hem-m aria-hidden="true" hidden></canvas>${membersIntro(ctx, panel(2))}`, { id: 'integrantes', labelledby: 'integrantes-titulo' })}
         ${wrap(panel(3), director(ctx, panel(3)), { tag: 'article' })}
         ${bands}
         ${wrap(panel(8), glossary(ctx, panel(8)), { tag: 'aside', labelledby: 'glosario-titulo' })}

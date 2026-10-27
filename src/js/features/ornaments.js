@@ -15,7 +15,7 @@ import { createStitchLayer, setupCanvas } from '../stitch/renderer.js';
  */
 
 /** Celda del bordado en escritorio y en móvil (px). */
-const CELL = { desktop: 6, compact: 4.5 };
+const CELL = { desktop: 6, compact: 4 };
 /**
  * Cuánto de la pantalla recorre un ornamento mientras se borda: empieza cuando su borde
  * superior está al 88 % de la altura y termina cuando llega al 43 %.
@@ -32,11 +32,14 @@ export const cellFor = (/** @type {boolean} */ compact) => (compact ? CELL.compa
  * @param {number} index
  * @param {OrnamentData} data
  * @param {number} cell
+ * @param {boolean} [compact] en móvil el factor de celda es `data-cell-m` (si lo hay)
  * @returns {Ornament | null}
  */
-export function mountOrnament(slot, index, data, cell) {
-  const { motif, band, order = 'out', flip = '', map = '', pattern: named = '', cell: scale = '' } = slot.dataset;
-  // `data-cell` es un factor sobre la celda (el logo de Contacto se borda a 0.4 de la celda).
+export function mountOrnament(slot, index, data, cell, compact = false) {
+  const { motif, band, order = 'out', flip = '', map = '', pattern: named = '' } = slot.dataset;
+  // `data-cell` es un factor sobre la celda (el logo de Contacto se borda a 0.4 de la celda);
+  // en móvil manda `data-cell-m`.
+  const scale = compact ? (slot.dataset.cellM ?? slot.dataset.cell) : slot.dataset.cell;
   if (scale) cell *= Number(scale);
   /** @type {import('../stitch/patterns.js').Pattern | undefined} */
   let pattern;
@@ -80,11 +83,12 @@ export function mountOrnament(slot, index, data, cell) {
  * @returns {import('../core/engine.js').Section}
  */
 export function createOrnaments({ root, data, getMetrics, reduced, skip = () => false }) {
-  const slots = findAll(root, '[data-ornament]', HTMLElement);
   /** @type {(Ornament & { startY: number, endY: number })[]} */
   let items = [];
 
   function measure() {
+    // Se buscan en cada medida: el recorrido móvil agrega sus propios huecos al medirse.
+    const slots = findAll(root, '[data-ornament]', HTMLElement);
     const { compact, vh, total } = getMetrics();
     const scroll = window.scrollY;
     // En escritorio la celda escala con la pantalla como el resto del prototipo (6 px a 1536×800).
@@ -92,7 +96,15 @@ export function createOrnaments({ root, data, getMetrics, reduced, skip = () => 
     const cell = compact ? cellFor(true) : cellFor(false) * Math.min(vh / 800, vw / 1100);
     items = slots.flatMap((slot, index) => {
       if (skip(slot)) return [];
-      const ornament = mountOrnament(slot, index, data, cell);
+      // Las piezas ocultas (de la otra versión del diseño) no se bordan.
+      if (!slot.offsetParent && getComputedStyle(slot).position !== 'fixed') return [];
+      const ornament = mountOrnament(
+        slot,
+        index,
+        data,
+        compact ? cell * Math.min(vw / 390, 1.5) : cell,
+        compact,
+      );
       if (!ornament) return [];
       const top = slot.getBoundingClientRect().top + scroll;
       const startY = top - vh * START;

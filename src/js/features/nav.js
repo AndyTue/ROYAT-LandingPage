@@ -30,7 +30,14 @@ const BACKGROUND = 'main, footer';
  *   `announce` es la plantilla del aviso a lectores de pantalla (`{label}`). `yFor` da el
  *   scroll de un destino que no se alcanza con su ancla (Historia e Integrantes en la pista).
  */
-export function createNav({ root, bus, getMetrics, announce, yFor = () => null, topFrom = () => null }) {
+export function createNav({
+  root,
+  bus,
+  getMetrics,
+  announce,
+  yFor = () => null,
+  topFrom = () => null,
+}) {
   const list = find(root, '[data-nav-list]', HTMLElement);
   const toggle = find(root, '[data-nav-toggle]', HTMLButtonElement);
   const close = find(root, '[data-nav-close]', HTMLButtonElement);

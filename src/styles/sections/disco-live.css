@@ -1,3 +1,5 @@
+/* stylelint-disable no-descending-specificity -- Port del prototipo (ADR-010): las reglas siguen
+   el orden de su hoja; los pares que marca la regla apuntan a elementos distintos. */
 @layer sections {
   /* ---------- Galería (prototipo `.disco` / `.gal`, ADR-010). Medidas = N × --u. ---------- */
   .disco__hem {
@@ -41,6 +43,14 @@
     position: sticky;
     inset-block-start: var(--disco-top, 0);
     z-index: 10;
+  }
+
+  /* Escritorio: la guirnalda sube media altura sobre el borde (prototipo `drawHem`); el escenario
+     no la recorta (los vinilos ya los recorta `.gal`). */
+  @media (width >= 48em) {
+    .disco--pinned .disco__stage {
+      overflow: visible;
+    }
   }
 
   .disco--live .disco__hem[data-hem]:not([hidden]) {
@@ -158,6 +168,20 @@
     color: #5f5b53;
   }
 
+  .gal__hint--touch {
+    display: none;
+  }
+
+  @media (hover: none) {
+    .gal__hint--mouse {
+      display: none;
+    }
+
+    .gal__hint--touch {
+      display: inline;
+    }
+  }
+
   .gal__side {
     display: flex;
     flex-direction: column;
@@ -255,7 +279,7 @@
   }
 
   .g-disc {
-    --D: calc(412 * var(--u));
+    --dsize: calc(412 * var(--u));
 
     position: absolute;
     inset: 0;
@@ -338,10 +362,19 @@
         #050505 64.6% 67.4%,
         transparent 67.6%
       ),
-      radial-gradient(circle closest-side, transparent 0 79.2%, #070707 79.4% 80.6%, transparent 80.8%),
-      radial-gradient(circle closest-side, transparent 0 93.6%, #070707 93.8% 94.8%, transparent 95%),
-      repeating-radial-gradient(circle, #171716 0 1px, #0c0c0c 1px 2.4px),
-      #0d0d0d;
+      radial-gradient(
+        circle closest-side,
+        transparent 0 79.2%,
+        #070707 79.4% 80.6%,
+        transparent 80.8%
+      ),
+      radial-gradient(
+        circle closest-side,
+        transparent 0 93.6%,
+        #070707 93.8% 94.8%,
+        transparent 95%
+      ),
+      repeating-radial-gradient(circle, #171716 0 1px, #0c0c0c 1px 2.4px), #0d0d0d;
   }
 
   .g-face::after {
@@ -421,7 +454,7 @@
       animation: w-spin 1.8s linear infinite;
     }
 
-    .g-deckL.playing .turntable__dots {
+    .g-deck-layer.playing .turntable__dots {
       animation: w-spin 1.8s linear infinite;
     }
   }
@@ -433,30 +466,30 @@
   }
 
   /* Tocadiscos y brazo de la galería: aparecen bajo el disco central al reproducir. */
-  .g-deckL {
+  .g-deck-layer {
     z-index: 199;
     pointer-events: none;
   }
 
-  .g-deckL .g-deck {
-    --d: var(--D);
+  .g-deck-layer .g-deck {
+    --d: var(--dsize);
 
     position: absolute;
     inset: auto;
     inset-block-start: calc(-36.2 * var(--u));
     inset-inline-start: calc(-44.5 * var(--u));
-    inline-size: calc(var(--D) * 1.32);
-    block-size: calc(var(--D) * 1.12);
+    inline-size: calc(var(--dsize) * 1.32);
+    block-size: calc(var(--dsize) * 1.12);
     opacity: 0;
     transform: translateZ(calc(-6 * var(--u))) scale(0.9);
   }
 
-  .g-deckL.on .g-deck {
+  .g-deck-layer.on .g-deck {
     opacity: 1;
     transform: translateZ(calc(-6 * var(--u))) scale(1);
   }
 
-  .g-armL {
+  .g-arm-layer {
     z-index: 201;
     pointer-events: none;
   }
@@ -474,16 +507,16 @@
     transform-origin: 50% 21.5686%;
   }
 
-  .g-armL.on .g-arm {
+  .g-arm-layer.on .g-arm {
     opacity: 1;
   }
 
-  .g-armL.on.playing .g-arm {
+  .g-arm-layer.on.playing .g-arm {
     transform: translateZ(calc(14 * var(--u))) rotate(27deg);
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .g-deckL .g-deck {
+    .g-deck-layer .g-deck {
       transition:
         opacity 0.45s,
         transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -495,7 +528,7 @@
         transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .g-armL.on.playing .g-arm {
+    .g-arm-layer.on.playing .g-arm {
       transition:
         opacity 0.4s,
         transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s;
@@ -737,7 +770,7 @@
     box-shadow: 0 calc(10 * var(--u)) calc(16 * var(--u)) calc(-8 * var(--u)) rgb(20 18 14 / 40%);
   }
 
-  /* Tocadiscos en perspectiva (prototipo `.persp` 566×300, `.tilt` --D 350). */
+  /* Tocadiscos en perspectiva (prototipo `.persp` 566×300, `.tilt` --dsize 350). */
   .turntable {
     --d: calc(350 * var(--u));
 
@@ -1414,8 +1447,7 @@
       line-height: normal;
       color: #1c2c55;
       background:
-        repeating-linear-gradient(45deg, rgb(28 44 85 / 3%) 0 1px, transparent 1px 3px),
-        #fbf7ee;
+        repeating-linear-gradient(45deg, rgb(28 44 85 / 3%) 0 1px, transparent 1px 3px), #fbf7ee;
       box-shadow:
         inset 0 1px 0 rgb(255 255 255 / 90%),
         0 1px 0 #d9d2c2,

@@ -156,13 +156,13 @@ export function contact(ctx) {
   >
     ${raw(hem)}
     <canvas class="contact__hem" data-hem aria-hidden="true" hidden></canvas>
-    <span class="ornament contact__orn contact__orn--a" data-ornament data-motif="flor5" data-order="out" aria-hidden="true"></span>
+    <span class="ornament contact__orn contact__orn--a" data-ornament data-motif="flor5" data-order="out" data-cell-m="1" aria-hidden="true"></span>
     <span class="ornament contact__orn contact__orn--b" data-ornament data-motif="star5" data-order="out" aria-hidden="true"></span>
     <span class="ornament contact__orn contact__orn--c" data-ornament data-motif="rombo" data-order="out" aria-hidden="true"></span>
     <div class="contact__brand">
-      <span class="ornament contact__bird" data-ornament data-motif="bird" data-order="out" aria-hidden="true"></span>
+      <span class="ornament contact__bird" data-ornament data-motif="bird" data-order="out" data-cell-m="0.85" aria-hidden="true"></span>
       ${raw(logo)}
-      <span class="ornament contact__stitched" data-ornament data-pattern="logo" data-cell="0.4" data-order="lr" aria-hidden="true"></span>
+      <span class="ornament contact__stitched" data-ornament data-pattern="logo" data-cell="0.4" data-cell-m="0.375" data-order="lr" aria-hidden="true"></span>
       <p class="contact__social-title">${t.socialTitle}</p>
       <ul class="social">
         ${site.social.map(
@@ -183,8 +183,8 @@ export function contact(ctx) {
       </ul>
     </div>
     <div class="letter">
-      <span class="ornament letter__ornament letter__ornament--tl" data-ornament data-motif="star5" data-order="out" aria-hidden="true"></span>
-      <span class="ornament letter__ornament letter__ornament--tr" data-ornament data-motif="star5" data-order="out" aria-hidden="true"></span>
+      <span class="ornament letter__ornament letter__ornament--tl" data-ornament data-motif="star5" data-order="out" data-cell-m="0.85" aria-hidden="true"></span>
+      <span class="ornament letter__ornament letter__ornament--tr" data-ornament data-motif="star5" data-order="out" data-cell-m="0.85" aria-hidden="true"></span>
       <span class="ornament letter__ornament letter__ornament--br" data-ornament data-motif="flor5" data-order="out" aria-hidden="true"></span>
       <p class="letter__eyebrow">${site.contact.eyebrow}</p>
       <h2 class="letter__title" id="contacto-titulo">${emphasizeLast(site.contact.formTitle)}</h2>

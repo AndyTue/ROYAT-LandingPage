@@ -184,7 +184,7 @@ export function discography(ctx) {
             <p class="gal__eyebrow">${fill(t.eyebrow, { n: discs.length })}</p>
             <p class="gal__title" data-g-title aria-live="polite"></p>
             <button class="btnl" type="button" data-g-more>${t.moreInfo}</button>
-            <p class="gal__hint">${t.hint}</p>
+            <p class="gal__hint"><span class="gal__hint--mouse">${t.hint}</span><span class="gal__hint--touch">${t.hintTouch}</span></p>
           </div>
           <div class="gal__side">
             <p class="gal__count"><b data-g-n>01</b> / ${discs.length}</p>
@@ -199,9 +199,9 @@ export function discography(ctx) {
           </div>
         </div>
         <div class="gal__stage" data-g-discs>
-          <div class="g-disc g-deckL" data-g-deck aria-hidden="true"><span class="g-lift"><span class="turntable__deck g-deck">${deckParts()}</span></span></div>
+          <div class="g-disc g-deck-layer" data-g-deck aria-hidden="true"><span class="g-lift"><span class="turntable__deck g-deck">${deckParts()}</span></span></div>
           ${discs.map((d, i) => galleryDisc(ctx, d, i))}
-          <div class="g-disc g-armL" data-g-arm aria-hidden="true"><span class="g-lift"><img class="g-arm" alt="" width="20" height="102" src="${ctx.asset('assets-src/ui/tonearm.svg')}"></span></div>
+          <div class="g-disc g-arm-layer" data-g-arm aria-hidden="true"><span class="g-lift"><img class="g-arm" alt="" width="20" height="102" src="${ctx.asset('assets-src/ui/tonearm.svg')}"></span></div>
         </div>
         <button class="gal__arrow gal__arrow--prev" type="button" data-g-prev aria-label="${t.prev}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">${raw(ARROW.prev)}</svg></button>
         <button class="gal__arrow gal__arrow--next" type="button" data-g-next aria-label="${t.next}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">${raw(ARROW.next)}</svg></button>

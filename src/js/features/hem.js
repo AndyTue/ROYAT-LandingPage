@@ -1,5 +1,5 @@
 // @ts-check
-import { drawLeg, MAX_DPR, shade } from './renderer.js';
+import { drawLeg, MAX_DPR, shade } from '../stitch/renderer.js';
 
 /**
  * Celda de las guirnaldas del prototipo: la misma que la del Hero (`S` de `layout()`), que

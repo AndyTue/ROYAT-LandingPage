@@ -11,6 +11,7 @@ import { orderStitches } from '../stitch/order.js';
 import { findComponents, parsePattern } from '../stitch/patterns.js';
 import { HERO_JITTER, HERO_ORDERS } from '../stitch/presets.js';
 import { createStitchLayer, setupCanvas } from '../stitch/renderer.js';
+import { createMobileJourney } from './journey-mobile.js';
 
 /**
  * @typedef {import('../core/engine.js').ScrollState} ScrollState
@@ -133,6 +134,8 @@ export function createJourney({ root, patterns, data, getMetrics, reduced }) {
   for (const el of findAll(track, '[data-lt]', HTMLElement)) splitChars(el);
 
   let live = false;
+  /** @type {ReturnType<typeof createMobileJourney> | null} */
+  let mobile = null;
   let U = 1;
   let W = REF.w;
   let H = REF.h;
@@ -415,7 +418,19 @@ export function createJourney({ root, patterns, data, getMetrics, reduced }) {
       root.style.height = '';
       root.style.removeProperty('--u');
       track.style.transform = '';
+      // Columna del prototipo móvil (también la usa el zoom en pantallas anchas).
+      root.classList.add('journey--m');
+      mobile ??= createMobileJourney({ root, track, hero, patterns, tones: TONES, reduced, intro });
+      mobile.measure(W, H);
+      const block = getMetrics().blocks.find((b) => b.id === 'inicio');
+      section.start = block?.top ?? 0;
+      section.end = section.start + root.offsetHeight;
+      mobile.render(window.scrollY, window.scrollY);
       return changed;
+    }
+    if (root.classList.contains('journey--m')) {
+      root.classList.remove('journey--m');
+      mobile?.reset();
     }
     U = Math.min(H / REF.h, W / 1100);
     root.style.setProperty('--u', `${U}px`);
@@ -560,7 +575,8 @@ export function createJourney({ root, patterns, data, getMetrics, reduced }) {
         intro.t = state.now - intro.t0;
         if (state.target - section.start > 4 || intro.t >= INTRO.end) finishIntro();
       }
-      render(state.y);
+      if (live) render(state.y);
+      else mobile?.render(state.y, state.target);
     },
     /**
      * Scroll de cada destino de la navegación (prototipo `yFor`).
@@ -615,16 +631,24 @@ function splitChars(el) {
   for (const node of nodes) {
     const text = node.data;
     if (!text.trim()) continue;
+    // Cada palabra va en un `.wd` que no se parte: las letras sueltas (inline-block) no deben
+    // repartirse en renglones distintos.
     const frag = document.createDocumentFragment();
-    for (const c of text) {
-      if (c === ' ' || c === '\n') {
-        frag.append(c === '\n' ? ' ' : c);
+    for (const part of text.split(/(\s+)/)) {
+      if (!part) continue;
+      if (/^\s+$/.test(part)) {
+        frag.append(' ');
         continue;
       }
-      const span = document.createElement('span');
-      span.className = 'ch';
-      span.textContent = c;
-      frag.append(span);
+      const wd = document.createElement('span');
+      wd.className = 'wd';
+      for (const c of part) {
+        const span = document.createElement('span');
+        span.className = 'ch';
+        span.textContent = c;
+        wd.append(span);
+      }
+      frag.append(wd);
     }
     node.replaceWith(frag);
   }

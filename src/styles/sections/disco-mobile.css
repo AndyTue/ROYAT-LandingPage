@@ -1,0 +1,484 @@
+/* stylelint-disable no-descending-specificity -- Port del prototipo (ADR-010): las reglas siguen
+   el orden de su hoja; los pares que marca la regla apuntan a elementos distintos. */
+
+/*
+ * Discografía en móvil: copia del prototipo (`movil.html` `.disco`, ADR-010). Medidas = N × --um
+ * (1px a 390 de ancho). La ficha, el reproductor y la cortina móviles también van aquí.
+ */
+@layer sections {
+  @media (width < 48em) {
+    .disco--live .disco__stage {
+      block-size: 100svh;
+      padding: 0;
+      background:
+        radial-gradient(circle at 50% 50%, rgb(80 70 50 / 9%) 0 0.8px, transparent 1.1px) 0 0 /
+          calc(5 * var(--um)) calc(5 * var(--um)),
+        linear-gradient(90deg, rgb(255 255 255 / 38%) 1px, transparent 1px) 0 0 /
+          calc(5 * var(--um)) calc(5 * var(--um)),
+        linear-gradient(rgb(255 255 255 / 38%) 1px, transparent 1px) 0 0 / calc(5 * var(--um))
+          calc(5 * var(--um)),
+        #eceae4;
+    }
+
+    .disco--live .disco__hem[data-hem]:not([hidden]) {
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      z-index: 3;
+      display: block;
+      inline-size: auto;
+    }
+
+    .disco--live.discography {
+      font-size: calc(13 * var(--um));
+    }
+
+    .gal {
+      position: absolute;
+      inset: 0;
+      block-size: auto;
+      overflow: hidden;
+    }
+
+    .gal__head {
+      position: absolute;
+      inset-block-start: calc(48 * var(--um));
+      inset-inline: calc(18 * var(--um));
+      display: block;
+      pointer-events: none;
+    }
+
+    .gal__left,
+    .gal__side {
+      display: contents;
+    }
+
+    .gal__eyebrow {
+      display: block;
+      margin: 0;
+      font-size: calc(11 * var(--um));
+      letter-spacing: 0.16em;
+      color: #5f5b53;
+      text-transform: uppercase;
+    }
+
+    .gal__title {
+      max-inline-size: none;
+      min-block-size: 1.84em;
+      margin: calc(10 * var(--um)) 0 0;
+      font-size: calc(42 * var(--um));
+      color: #151412;
+    }
+
+    /* Fila: contador + hilo a la izquierda, «Más información» a la derecha. */
+    .gal__count {
+      display: inline-block;
+      margin-block-start: calc(14 * var(--um));
+      font-size: calc(13 * var(--um));
+      vertical-align: top;
+    }
+
+    .gal__count b {
+      font-size: calc(26 * var(--um));
+    }
+
+    .gal__timer {
+      position: absolute;
+      inset-block-start: calc(
+        10 * var(--um) + 1.84 * 42 * var(--um) + 14 * var(--um) + 11 * var(--um) + 30 * var(--um)
+      );
+      inline-size: calc(64 * var(--um));
+    }
+
+    .gal__head .btnl {
+      position: absolute;
+      inset-block-start: calc(
+        11 * var(--um) * 1.22 + 10 * var(--um) + 1.84 * 42 * var(--um) + 14 * var(--um)
+      );
+      inset-inline-end: 0;
+      justify-content: center;
+      block-size: calc(44 * var(--um));
+      margin: 0;
+      font-size: calc(13 * var(--um));
+    }
+
+    .gal__meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      inline-size: auto;
+      margin: calc(14 * var(--um)) 0 0;
+      border-block: 1px solid #cdc8bd;
+      border-block-start-color: #151412;
+    }
+
+    /* «Primera pista» va debajo, como línea propia (`.gnow`). */
+    .gal__meta .gal__cue {
+      display: flex;
+      grid-row: 2;
+      grid-column: 1 / -1;
+      gap: 0;
+      align-items: baseline;
+      padding: calc(10 * var(--um)) 0 0;
+      margin-block-end: -1px;
+      background: #eceae4;
+      border: 0;
+    }
+
+    .gal__meta div:not(.gal__cue) {
+      display: block;
+      min-inline-size: 0;
+      padding: calc(7 * var(--um)) calc(6 * var(--um)) calc(7 * var(--um)) 0;
+      border: 0;
+    }
+
+    .gal__meta div:not(.gal__cue) + div {
+      padding-inline-start: calc(8 * var(--um));
+      border-inline-start: 1px solid #cdc8bd;
+    }
+
+    .gal__meta dt {
+      font-size: calc(9.5 * var(--um));
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .gal__meta dd {
+      margin: calc(3 * var(--um)) 0 0;
+      overflow: hidden;
+      font-family: var(--font-display);
+      font-size: calc(19 * var(--um));
+      font-weight: 500;
+      text-align: start;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .gal__cue dt {
+      margin-inline-end: calc(6 * var(--um));
+      font-size: calc(10 * var(--um));
+      letter-spacing: 0.1em;
+      color: #b8620f;
+    }
+
+    .gal__cue dd {
+      margin: 0;
+      font-size: calc(16 * var(--um));
+    }
+
+    .gal__hint {
+      position: absolute;
+      inset-block-start: calc(612 * var(--um));
+      inset-inline: calc(18 * var(--um));
+      margin: 0;
+      font-size: calc(11 * var(--um));
+      text-align: center;
+    }
+
+    /* Escenario: el central de 236 px a 452 del borde; los vecinos a los lados (`discPoseMobile`). */
+    .gal__stage {
+      inset-block-start: calc(452 * var(--um));
+      inset-inline-start: 50%;
+      inline-size: 0;
+      block-size: 0;
+      perspective: none;
+      touch-action: pan-y;
+      transform: none;
+    }
+
+    .g-disc {
+      inset: auto;
+      inset-block-start: calc(-118 * var(--um));
+      inset-inline-start: calc(-118 * var(--um));
+      inline-size: calc(236 * var(--um));
+      block-size: calc(236 * var(--um));
+      transform-style: flat;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .g-disc {
+        transition:
+          transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+          opacity 0.5s;
+      }
+    }
+
+    .g-cast,
+    .g-edge {
+      display: none;
+    }
+
+    .g-vinyl {
+      box-shadow: 0 calc(26 * var(--um)) calc(34 * var(--um)) calc(-20 * var(--um))
+        rgb(20 18 14 / 55%);
+    }
+
+    .g-disc.deck-on .g-vinyl {
+      transform: scale(1.03);
+    }
+
+    .g-disc.deck-on .g-vwrap {
+      transform: none;
+    }
+
+    /* Tocadiscos plano bajo el disco central y brazo (prototipo `.gdeck` / `.garm`). */
+    .g-deck-layer,
+    .g-arm-layer {
+      inset: auto;
+      inline-size: 0;
+      block-size: 0;
+      transform: none;
+    }
+
+    .g-deck-layer {
+      z-index: 95;
+    }
+
+    .g-deck-layer .g-deck {
+      --dsize: calc(236 * var(--um));
+      --d: var(--dsize);
+
+      inset-block-start: calc(-132.2 * var(--um));
+      inset-inline-start: calc(-136.9 * var(--um));
+      transform: scale(0.9);
+    }
+
+    .g-deck-layer.on .g-deck {
+      transform: none;
+    }
+
+    .g-deck-layer .turntable__seam,
+    .g-deck-layer .turntable__dots,
+    .g-deck-layer .turntable__pitch,
+    .g-deck-layer .turntable__ctrl,
+    .g-deck-layer .turntable__rest {
+      display: none;
+    }
+
+    .g-arm-layer {
+      z-index: 150;
+    }
+
+    .g-arm {
+      inset-block-start: calc(-132.2 * var(--um));
+      inset-inline-start: calc(120.3 * var(--um));
+      inline-size: calc(47.2 * var(--um));
+      block-size: calc(240.7 * var(--um));
+      filter: drop-shadow(4px 7px 4px rgb(20 18 14 / 28%));
+      transform: rotate(0deg);
+    }
+
+    .g-arm-layer.on.playing .g-arm {
+      transform: rotate(27deg);
+    }
+
+    .gal__arrow {
+      inset-block-start: calc(430 * var(--um));
+      inline-size: calc(44 * var(--um));
+      block-size: calc(44 * var(--um));
+      background: rgb(251 247 238 / 75%);
+      opacity: 1;
+      backdrop-filter: none;
+    }
+
+    .gal__arrow--prev {
+      inset-inline-start: calc(8 * var(--um));
+    }
+
+    .gal__arrow--next {
+      inset-inline-end: calc(8 * var(--um));
+    }
+
+    .gal__arrow svg {
+      inline-size: calc(18 * var(--um));
+      block-size: calc(18 * var(--um));
+    }
+
+    /* ---------- Ficha del disco a pantalla completa (prototipo `.dview` móvil) ---------- */
+    .detail {
+      font-size: calc(13 * var(--um));
+      scrollbar-width: none;
+    }
+
+    .detail__head {
+      block-size: calc(56 * var(--um));
+      padding: 0 calc(12 * var(--um)) 0 calc(8 * var(--um));
+      background: rgb(236 234 228 / 92%);
+    }
+
+    .detail__back {
+      gap: calc(10 * var(--um));
+      block-size: calc(48 * var(--um));
+      font-size: calc(11 * var(--um));
+      letter-spacing: 0.14em;
+    }
+
+    .detail__back-icon {
+      inline-size: calc(38 * var(--um));
+      block-size: calc(38 * var(--um));
+    }
+
+    .detail__spacer {
+      display: none;
+    }
+
+    .detail__body {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-inline-size: none;
+      padding: calc(22 * var(--um)) calc(18 * var(--um)) 0;
+    }
+
+    /* El título va arriba y la funda con el tocadiscos debajo. */
+    .detail__info {
+      display: contents;
+    }
+
+    .detail__eyebrow {
+      order: 1;
+      font-size: calc(11 * var(--um));
+    }
+
+    .detail__title {
+      order: 2;
+      margin: calc(8 * var(--um)) 0 0;
+      font-size: calc(44 * var(--um));
+    }
+
+    .detail__left {
+      order: 3;
+      margin-block-start: calc(22 * var(--um));
+      padding: 0;
+    }
+
+    .detail__facts {
+      order: 4;
+      grid-template-columns: 1fr 1fr;
+      margin: calc(22 * var(--um)) 0 0;
+      border-block-end: 0;
+    }
+
+    .detail__facts div {
+      padding: calc(10 * var(--um)) 0;
+      border-block-end: 1px solid #cdc8bd;
+    }
+
+    .detail__facts div + div {
+      padding-inline-start: 0;
+      border-inline-start: 0;
+    }
+
+    .detail__facts div:nth-child(2n) {
+      padding-inline-start: calc(12 * var(--um));
+      border-inline-start: 1px solid #cdc8bd;
+    }
+
+    .detail__facts dt {
+      font-size: calc(10.5 * var(--um));
+    }
+
+    .detail__facts dd {
+      font-size: calc(22 * var(--um));
+    }
+
+    .detail__acts {
+      display: grid;
+      order: 5;
+      gap: calc(8 * var(--um));
+      margin: calc(18 * var(--um)) 0 calc(24 * var(--um));
+    }
+
+    .detail__acts .btnl {
+      justify-content: center;
+      inline-size: 100%;
+      block-size: calc(44 * var(--um));
+    }
+
+    .detail__tracks {
+      order: 6;
+    }
+
+    .trk {
+      grid-template-columns: calc(30 * var(--um)) minmax(0, 1fr) auto;
+      gap: calc(10 * var(--um));
+      padding: calc(12 * var(--um)) 2px;
+    }
+
+    .detail__sleeve {
+      inline-size: calc(262 * var(--um));
+      block-size: calc(262 * var(--um));
+    }
+
+    .detail__ledge {
+      inline-size: calc(320 * var(--um));
+      block-size: calc(5 * var(--um));
+    }
+
+    .turntable {
+      --d: calc(212 * var(--um));
+
+      inline-size: calc(340 * var(--um));
+      block-size: calc(196 * var(--um));
+      margin-block-start: calc(-14 * var(--um));
+      perspective: calc(1600 * var(--um));
+    }
+
+    .detail__nav {
+      grid-template-columns: 1fr;
+      gap: calc(18 * var(--um));
+      max-inline-size: none;
+      padding: calc(22 * var(--um)) 0 calc(170 * var(--um));
+      margin: calc(30 * var(--um)) calc(18 * var(--um)) 0;
+    }
+
+    .detail__nav b {
+      font-size: calc(32 * var(--um));
+    }
+
+    .detail__nav small {
+      font-size: calc(10.5 * var(--um));
+    }
+
+    /* Reproductor móvil (prototipo `.pbar`, 62 px sobre el hilo del menú). */
+    .pbar {
+      inset: auto calc(10 * var(--um)) calc(60 * var(--um));
+      gap: calc(8 * var(--um));
+      inline-size: auto;
+      min-block-size: 0;
+      block-size: calc(62 * var(--um));
+      padding: 0 calc(8 * var(--um)) 0 calc(6 * var(--um));
+      background:
+        repeating-linear-gradient(45deg, rgb(28 44 85 / 3%) 0 1px, transparent 1px 3px), #fbf7ee;
+    }
+
+    .pbar::before {
+      position: absolute;
+      inset: 4px;
+      pointer-events: none;
+      content: '';
+      border: 1.5px dashed var(--color-orange);
+      border-radius: 2px;
+    }
+
+    /* Cortina móvil (prototipo `.wipe`). */
+    .curtain {
+      gap: calc(34 * var(--um));
+      padding: 0 calc(22 * var(--um));
+    }
+
+    .curtain__title,
+    .curtain--cover .curtain__title {
+      font-size: calc(60 * var(--um));
+      text-align: center;
+    }
+
+    .curtain__cover {
+      padding: calc(8 * var(--um));
+    }
+
+    .curtain__cover img {
+      inline-size: calc(200 * var(--um));
+      block-size: calc(200 * var(--um));
+    }
+  }
+}

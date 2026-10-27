@@ -158,7 +158,10 @@ export function initContact(form, { now = () => new Date(), open = openInNewTab 
   function fitPlace() {
     const select = /** @type {HTMLSelectElement} */ (fields.state);
     const mun = input('municipality');
-    if (!window.matchMedia('(width >= 48em)').matches || !document.documentElement.classList.contains('js')) {
+    if (
+      !window.matchMedia('(width >= 48em)').matches ||
+      !document.documentElement.classList.contains('js')
+    ) {
       select.style.width = '';
       mun.style.width = '';
       return;
@@ -168,7 +171,8 @@ export function initContact(form, { now = () => new Date(), open = openInNewTab 
     const ctx = document.createElement('canvas').getContext('2d');
     if (!ctx) return;
     ctx.font = `italic 600 ${cs.fontSize} ${cs.fontFamily}`;
-    const option = select.selectedIndex > 0 ? select.options[select.selectedIndex].text : select.options[0].text;
+    const option =
+      select.selectedIndex > 0 ? select.options[select.selectedIndex].text : select.options[0].text;
     const sw = Math.ceil(ctx.measureText(option).width) + 48 * u;
     select.style.width = `${sw}px`;
     const pw = mun.parentElement?.clientWidth ?? 0;

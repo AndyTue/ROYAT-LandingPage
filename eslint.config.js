@@ -15,6 +15,9 @@ export default [
       '.claude/',
       'docs/',
       'reference/',
+      'reference-check/',
+      // Tablas generadas desde el prototipo (reference-check/tools).
+      'src/js/journey/layout-*.js',
     ],
   },
   js.configs.recommended,

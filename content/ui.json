@@ -91,6 +91,7 @@
     "title": "Discografía",
     "galleryLabel": "Discografía. Usa las flechas para recorrer y Enter para escuchar.",
     "hint": "Desliza para cambiar de disco · clic en el vinilo para escucharlo",
+    "hintTouch": "Desliza para cambiar de disco · toca el vinilo para escucharlo",
     "moreInfo": "Más información",
     "eyebrow": "Discografía · {n} lanzamientos",
     "meta": {

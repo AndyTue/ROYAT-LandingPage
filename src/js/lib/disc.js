@@ -76,7 +76,19 @@ export function arcSlot(d, { spacing, size }) {
 }
 
 /** Altura (en discos) de cada vinilo según su distancia al centro (prototipo `pose`). */
-const POSE_Y = { '-5': 0.55, '-4': 0.44, '-3': 0.33, '-2': 0.22, '-1': 0.12, 0: 0, 1: -0.09, 2: 0.02, 3: 0.14, 4: 0.27, 5: 0.4 };
+const POSE_Y = {
+  '-5': 0.55,
+  '-4': 0.44,
+  '-3': 0.33,
+  '-2': 0.22,
+  '-1': 0.12,
+  0: 0,
+  1: -0.09,
+  2: 0.02,
+  3: 0.14,
+  4: 0.27,
+  5: 0.4,
+};
 
 /**
  * Distancia circular de un disco al actual: de −n/2 a n/2.
@@ -128,6 +140,32 @@ export function discPose(dx, deckOn, { V, W }) {
     transform: `translate3d(${(x * V).toFixed(1)}px,${(y * V).toFixed(1)}px,${(z * V).toFixed(1)}px) rotateZ(-6deg) rotateY(${yaw}deg) rotateX(${rx}deg)`,
     z: zi,
     opacity,
+  };
+}
+
+/**
+ * Pose de un vinilo de la galería móvil (prototipo móvil `pose`): el central grande y los
+ * vecinos a los lados, más chicos y girados. Medidas en px a 390 de ancho (× `um`).
+ * @param {number} dx distancia al disco actual (entero)
+ * @param {boolean} deckOn
+ * @param {number} um px por unidad del prototipo
+ * @returns {{ transform: string, z: number, opacity: number }}
+ */
+export function discPoseMobile(dx, deckOn, um) {
+  const P = deckOn
+    ? { 0: [0, 0, 1, 0], 1: [212, 70, 0.52, 16], 2: [300, 150, 0.36, 26] }
+    : { 0: [0, 0, 1, 0], 1: [150, 40, 0.6, 12], 2: [236, 104, 0.4, 22] };
+  const ad = Math.abs(dx);
+  const q = P[/** @type {0 | 1 | 2} */ (ad)] ?? [300, 150, 0.3, 30];
+  const sg = dx < 0 ? -1 : 1;
+  const x = (q[0] * sg * um).toFixed(1);
+  const y = (q[1] * um).toFixed(1);
+  if (deckOn && ad === 2)
+    return { transform: `translate3d(${x}px,${y}px,0) scale(${q[2]})`, z: 60, opacity: 0 };
+  return {
+    transform: `translate3d(${x}px,${y}px,0) rotate(${q[3] * sg}deg) scale(${q[2]})`,
+    z: 100 - ad * 10,
+    opacity: ad === 0 ? 1 : ad === 1 ? 0.95 : ad === 2 ? 0.55 : 0,
   };
 }
 

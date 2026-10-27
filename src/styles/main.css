@@ -7,8 +7,10 @@
 @import url('./components.css');
 @import url('./sections/nav-hero.css');
 @import url('./sections/journey.css');
+@import url('./sections/journey-mobile.css');
 @import url('./sections/presence.css');
 @import url('./sections/discography.css');
 @import url('./sections/disco-live.css');
+@import url('./sections/disco-mobile.css');
 @import url('./sections/contact.css');
 @import url('./sections/fovi.css');

@@ -66,8 +66,10 @@ describe('renderPage', () => {
   });
 
   it('incluye los 14 hitos, los 16 músicos, los 10 discos y todas las pistas', () => {
-    expect(count(/class="event event--[ab]" id="hito-/g)).toBe(content.history.events.length);
-    expect(count(/class="member"/g)).toBe(16);
+    expect(count(/class="j-event" id="hito-/g)).toBe(content.history.events.length);
+    // Cada músico (director incluido) lleva su pie con número, nombre y rol.
+    expect(count(/class="j-cap"><span class="j-num">\d\d</g)).toBe(15);
+    expect(count(/class="sr-only">[^<]*: Arturo Turriza Euan</g)).toBe(1);
     expect(count(/class="disc" id="disco-/g)).toBe(content.discography.discs.length);
     const tracks = content.discography.discs.reduce(
       (/** @type {number} */ n, /** @type {any} */ d) => n + d.tracks.length,

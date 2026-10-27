@@ -61,7 +61,7 @@ export function places(ctx) {
       <div class="presence__text">
         <p class="presence__eyebrow">${t.eyebrow}</p>
         <h2 class="presence__title" id="presencia-titulo">
-          ${t.titleLines[0]} <em>${t.titleLines.slice(1).join(' ')}</em>
+          ${t.titleLines[0]} <em>${t.titleLines.slice(1).map((/** @type {string} */ l) => html`<span class="presence__line">${l}</span>`)}</em>
         </h2>
         <ul class="presence__counters">
           ${t.counters.map(
@@ -74,7 +74,7 @@ export function places(ctx) {
                   <b class="counter__n" data-count>${presenceCount(list, c.state, c.cap)}</b>
                   <span class="counter__label">
                     <svg class="counter__x" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false"><path d="M2.2 2.2l7.6 7.6M9.8 2.2l-7.6 7.6"/></svg>
-                    <span>${c.label.split(' ')[0]}<br>${c.label.split(' ').slice(1).join(' ')}</span>
+                    <span>${c.label.split(' ')[0]}<br> ${c.label.split(' ').slice(1).join(' ')}</span>
                   </span>
                 </button>
               </li>`,

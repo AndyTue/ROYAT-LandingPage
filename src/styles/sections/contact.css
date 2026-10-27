@@ -1,3 +1,5 @@
+/* stylelint-disable no-descending-specificity -- Port del prototipo (ADR-010): las reglas siguen
+   el orden de su hoja; los pares que marca la regla apuntan a elementos distintos. */
 @layer sections {
   .contact {
     position: relative;
@@ -457,8 +459,8 @@
       background:
         radial-gradient(circle at 50% 50%, rgb(80 70 50 / 10%) 0 0.9px, transparent 1.3px) 0 0 /
           calc(6 * var(--u)) calc(6 * var(--u)),
-        linear-gradient(90deg, rgb(255 255 255 / 38%) 1px, transparent 1px) 0 0 /
-          calc(6 * var(--u)) calc(6 * var(--u)),
+        linear-gradient(90deg, rgb(255 255 255 / 38%) 1px, transparent 1px) 0 0 / calc(6 * var(--u))
+          calc(6 * var(--u)),
         linear-gradient(rgb(255 255 255 / 38%) 1px, transparent 1px) 0 0 / calc(6 * var(--u))
           calc(6 * var(--u)),
         #eceae4;
@@ -480,6 +482,7 @@
 
     .js .contact__orn {
       position: absolute;
+      display: block;
       inset-inline-start: calc(1476 * var(--u));
     }
 
@@ -824,6 +827,337 @@
       padding-block-end: 2px;
       color: #f1eee7;
       border-block-end: calc(1.5 * var(--u)) dashed #f5a23a;
+    }
+  }
+
+  /* ---------- Móvil: copia del prototipo (`movil.html` `.contacto`). N × --um ---------- */
+  @media (width < 48em) {
+    .js .contact {
+      position: relative;
+      display: block;
+      padding: calc(58 * var(--um)) 0 0;
+      font-size: calc(13 * var(--um));
+      font-weight: 500;
+      line-height: normal;
+      color: #1c2c55;
+      background:
+        radial-gradient(circle at 50% 50%, rgb(80 70 50 / 9%) 0 0.8px, transparent 1.1px) 0 0 /
+          calc(5 * var(--um)) calc(5 * var(--um)),
+        linear-gradient(90deg, rgb(255 255 255 / 38%) 1px, transparent 1px) 0 0 /
+          calc(5 * var(--um)) calc(5 * var(--um)),
+        linear-gradient(rgb(255 255 255 / 38%) 1px, transparent 1px) 0 0 / calc(5 * var(--um))
+          calc(5 * var(--um)),
+        #eceae4;
+    }
+
+    .js .contact__hem[data-hem] {
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      z-index: 3;
+      display: block;
+    }
+
+    /* De los motivos del costado derecho, en móvil solo queda la flor junto al logo. */
+    .js .contact__orn {
+      display: none;
+    }
+
+    .js .contact__orn--a {
+      position: absolute;
+      inset-block-start: calc(92 * var(--um));
+      inset-inline-start: calc(336 * var(--um));
+      display: block;
+    }
+
+    .js .contact__brand {
+      position: static;
+      display: block;
+      text-align: center;
+    }
+
+    .js .contact__bird {
+      position: absolute;
+      inset-block-start: calc(74 * var(--um));
+      inset-inline-start: calc(20 * var(--um));
+    }
+
+    .js .contact__logo {
+      display: none;
+    }
+
+    .js .contact__stitched {
+      display: block;
+      inline-size: fit-content;
+      margin: calc(30 * var(--um)) auto 0;
+      line-height: 0;
+    }
+
+    .js .contact__social-title {
+      margin: calc(26 * var(--um)) 0 calc(12 * var(--um));
+      font-size: calc(11 * var(--um));
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      color: #6b675f;
+    }
+
+    .js .social {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: calc(8 * var(--um));
+      justify-content: center;
+      padding: 0 calc(10 * var(--um));
+      margin: 0;
+    }
+
+    .js .social__link {
+      display: flex;
+      flex-direction: column;
+      gap: calc(5 * var(--um));
+      align-items: center;
+      min-inline-size: 0;
+      font-size: calc(8.5 * var(--um));
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: #5b5750;
+    }
+
+    .js .social__icon {
+      inline-size: calc(58 * var(--um));
+      block-size: calc(58 * var(--um));
+      margin: calc(2 * var(--um));
+      filter: drop-shadow(0 2px 1px rgb(60 40 20 / 18%));
+    }
+
+    .js .letter {
+      position: relative;
+      padding: calc(34 * var(--um)) calc(22 * var(--um)) calc(30 * var(--um));
+      margin: calc(34 * var(--um)) calc(12 * var(--um)) 0;
+      color: #f1eee7;
+      background:
+        radial-gradient(circle at 50% 50%, rgb(0 0 0 / 10%) 0 0.8px, transparent 1.1px) 0 0 /
+          calc(5 * var(--um)) calc(5 * var(--um)),
+        linear-gradient(90deg, rgb(255 255 255 / 3.5%) 1px, transparent 1px) 0 0 /
+          calc(5 * var(--um)) calc(5 * var(--um)),
+        linear-gradient(rgb(255 255 255 / 3.5%) 1px, transparent 1px) 0 0 / calc(5 * var(--um))
+          calc(5 * var(--um)),
+        #1c2c55;
+    }
+
+    .js .letter::before {
+      inset: calc(8 * var(--um));
+      border-width: 1.5px;
+    }
+
+    .js .letter__ornament--tl {
+      inset-block-start: calc(14 * var(--um));
+      inset-inline-start: calc(14 * var(--um));
+    }
+
+    .js .letter__ornament--tr {
+      inset-block-start: calc(14 * var(--um));
+      inset-inline: auto calc(14 * var(--um));
+    }
+
+    .js .letter__ornament--br {
+      display: none;
+    }
+
+    .js .letter__eyebrow {
+      margin: 0 0 calc(10 * var(--um));
+      font-size: calc(10.5 * var(--um));
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      color: #c9cfe6;
+    }
+
+    .js .letter__title {
+      margin: 0;
+      font-size: calc(38 * var(--um));
+      text-wrap: wrap;
+      font-weight: 500;
+      line-height: 0.98;
+      letter-spacing: -0.01em;
+    }
+
+    .js .letter__title em {
+      color: #f5a23a;
+    }
+
+    .js .letter__form {
+      display: block;
+    }
+
+    .js .letter__body {
+      margin: calc(18 * var(--um)) 0 0;
+      font-size: calc(22 * var(--um));
+      font-weight: 500;
+      line-height: calc(44 * var(--um));
+    }
+
+    .js .letter__line {
+      display: block;
+      padding: 0;
+      margin: 0;
+    }
+
+    .js .letter__line[hidden] {
+      display: none;
+    }
+
+    /* La especificación del evento privado va en su propio renglón, como en el prototipo. */
+    .js .letter__detail,
+    .js .letter__detail[hidden] {
+      display: block;
+    }
+
+    .js .field {
+      display: inline-block;
+      inline-size: auto;
+      max-inline-size: 100%;
+      block-size: calc(36 * var(--um));
+      padding: 0 calc(5 * var(--um));
+      margin: 0 2px;
+      font: italic 600 calc(22 * var(--um)) / 1 var(--font-display);
+      letter-spacing: 0.01em;
+      color: #f7de7a;
+      vertical-align: baseline;
+      border-block-end: 2px dashed var(--color-orange);
+    }
+
+    .js .field::placeholder,
+    .js .field--state:has(option[value='']:checked) {
+      font-weight: 500;
+      color: rgb(241 238 231 / 36%);
+    }
+
+    .js .field--name {
+      inline-size: calc(178 * var(--um));
+    }
+
+    .js .field--date {
+      inline-size: calc(178 * var(--um));
+      font-size: calc(20 * var(--um));
+    }
+
+    .js .field--phone {
+      inline-size: calc(150 * var(--um));
+    }
+
+    .js .field--country {
+      inline-size: calc(170 * var(--um));
+    }
+
+    .js .field--detail,
+    .js .field--locality,
+    .js .field--municipality,
+    .js .field--message {
+      inline-size: calc(100% - 12 * var(--um));
+    }
+
+    .js .field--state {
+      padding-inline-end: calc(26 * var(--um));
+    }
+
+    .js .segment {
+      display: inline-flex;
+      gap: 2px;
+      align-items: baseline;
+    }
+
+    .js .segment__label {
+      padding: 0 calc(8 * var(--um));
+      font-family: var(--font-display);
+      font-size: calc(22 * var(--um));
+      font-style: italic;
+      font-weight: 600;
+      line-height: calc(34 * var(--um));
+      color: rgb(241 238 231 / 45%);
+      border-radius: 2px;
+    }
+
+    .js .segment__input:checked + .segment__label {
+      color: #1c2c55;
+      background: #f6cd1f;
+    }
+
+    .js .segment__sep {
+      color: rgb(241 238 231 / 35%);
+    }
+
+    .js .letter__send {
+      display: block;
+      margin-block-start: calc(24 * var(--um));
+    }
+
+    .js .letter__button {
+      display: flex;
+      gap: calc(10 * var(--um));
+      align-items: center;
+      justify-content: center;
+      inline-size: 100%;
+      block-size: calc(52 * var(--um));
+      font-size: calc(12 * var(--um));
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: #1c2c55;
+      background: #f5a23a;
+      border: 0;
+      border-radius: 3px;
+    }
+
+    .js .letter__note {
+      margin: calc(12 * var(--um)) 0 0;
+      font-size: calc(11.5 * var(--um));
+      line-height: 1.5;
+      color: #c9cfe6;
+      text-align: center;
+    }
+
+    /* Pie (prototipo `.ct-foot` móvil). */
+    .js .site-footer {
+      position: relative;
+      padding: calc(34 * var(--um)) calc(20 * var(--um)) calc(64 * var(--um));
+      margin-block-start: 0;
+      font-size: calc(12 * var(--um));
+      font-weight: 500;
+      line-height: 1.6;
+      letter-spacing: 0.04em;
+      color: #c9cfe6;
+      background: #1c2c55;
+      border-block-start: 1.5px dashed rgb(233 139 30 / 70%);
+    }
+
+    .js .site-footer__band--canvas:not([hidden]) {
+      position: absolute;
+      inset-block-start: calc(6 * var(--um));
+      inset-inline-start: 0;
+      display: block;
+      margin: 0;
+    }
+
+    .js .site-footer__body {
+      display: block;
+      padding: 0;
+      font-size: inherit;
+      letter-spacing: inherit;
+    }
+
+    .js .site-footer__body p {
+      margin: 0;
+    }
+
+    .js .site-footer__body p + p {
+      margin-block-start: calc(10 * var(--um));
+    }
+
+    .js .site-footer__brand {
+      display: block;
+      margin: 0;
+      font-size: calc(18 * var(--um));
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: #f1eee7;
     }
   }
 }

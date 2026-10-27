@@ -13,7 +13,8 @@ import { find } from './lib/dom.js';
 import { initContact } from './sections/contact.js';
 import { createDiscography } from './sections/discography.js';
 import { createJourney } from './sections/journey.js';
-import { drawHem, hemCell } from './stitch/hem.js';
+import { drawMobileHem } from './sections/journey-mobile.js';
+import { drawHem, hemCell } from './features/hem.js';
 import { createMap } from './sections/map.js';
 import { loadDiscs, loadMap, loadMotifs, loadPatterns } from './stitch/data.js';
 
@@ -122,16 +123,30 @@ Promise.all([loadPatterns(), loadMotifs(), loadMap(), loadDiscs()])
     // Guirnaldas de Presencia, Discografía y Contacto: en escritorio, bordadas como en el prototipo.
     guard('guirnaldas', () => {
       const hems = [...document.querySelectorAll('canvas[data-hem]')];
+      const mobileHems = [...document.querySelectorAll('canvas[data-hem-m]')];
       engine.add({
         id: 'guirnaldas',
         start: 0,
         end: 0,
         measure() {
           const { vw, vh, compact } = getMetrics();
+          const um = Math.min(vw / 390, 1.5);
+          for (const c of mobileHems) {
+            const canvas = /** @type {HTMLCanvasElement} */ (c);
+            canvas.hidden = !compact;
+            if (compact) drawMobileHem(canvas, patterns.hem, patterns.pal, 3 * um);
+          }
           for (const c of hems) {
             const canvas = /** @type {HTMLCanvasElement} */ (c);
-            canvas.hidden = compact;
-            if (compact) continue;
+            canvas.hidden = false;
+            canvas.style.marginTop = '';
+            if (compact) {
+              // Móvil (prototipo): guirnaldas de 3 px sin estirar; la banda del pie a 4 px.
+              const band = canvas.dataset.hem ? motifs.bands[canvas.dataset.hem] : null;
+              if (band) drawHem(canvas, band, patterns.pal, 4 * um, { exact: true });
+              else drawMobileHem(canvas, patterns.hem, patterns.pal, 3 * um);
+              continue;
+            }
             // `data-hem="rombos"` es la banda del pie (celda fija de 6 px a 1536×800).
             const band = canvas.dataset.hem ? motifs.bands[canvas.dataset.hem] : null;
             const cell = band ? 6 * Math.min(vh / 800, vw / 1100) : hemCell(vw, vh);

@@ -5,6 +5,9 @@
        angosta, con el ancho. Las medidas de escritorio son `N * var(--u)`. */
     --u: min(calc(100svh / 800), calc(100vw / 1100));
 
+    /* Unidad del prototipo móvil: 1px a 390 de ancho (con tope para pantallas anchas). */
+    --um: min(calc(100vw / 390), 1.5px);
+
     /* Color base */
     --color-navy: #1c2c55;
     --color-orange: #e98b1e;

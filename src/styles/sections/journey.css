@@ -1,3 +1,6 @@
+/* stylelint-disable no-descending-specificity -- Port del prototipo (ADR-010): las reglas siguen
+   el orden de su hoja; los pares que marca la regla apuntan a elementos distintos. */
+
 /*
  * Recorrido del prototipo (ADR-010): Hero + pista horizontal (Historia, Integrantes,
  * ¡Preciosooo! y Vocalistas). Con `.journey--live` (escritorio con JS) es una copia del
@@ -407,11 +410,6 @@
     overflow: hidden;
   }
 
-  .journey--live .hero {
-    position: absolute;
-    inset: 0;
-  }
-
   .journey--live .j-track {
     --bg: #1c2c55;
     --fg: #f1eee7;
@@ -488,6 +486,10 @@
 
   .journey--live .j-glossary {
     margin: 0;
+  }
+
+  .wd {
+    white-space: nowrap;
   }
 
   .journey--live .ch {
@@ -902,7 +904,7 @@
     object-fit: cover;
   }
 
-  /* Hero dentro de la escena fija (prototipo `.heroWrap`). */
+  /* Hero dentro de la escena fija (prototipo `.hero-wrap`). */
   .journey--live .hero,
   .journey--live .hero__stage {
     position: absolute;

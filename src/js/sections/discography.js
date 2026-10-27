@@ -2,8 +2,8 @@
 import { find, findAll } from '../lib/dom.js';
 import { fill, formatDuration, pad2 } from '../lib/format.js';
 import {
-  arcSlot,
   discPose,
+  discPoseMobile,
   discSeconds,
   guestCount,
   minutesLabel,
@@ -69,13 +69,17 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
     duration: find(root, '[data-g-duration]', HTMLElement),
   };
   const covers = buttons.map((b) => find(b, 'picture', HTMLElement));
-  for (const lab of findAll(root, '[data-color]', HTMLElement)) lab.style.background = lab.dataset.color ?? '';
+  for (const lab of findAll(root, '[data-color]', HTMLElement))
+    lab.style.background = lab.dataset.color ?? '';
   const count = discs.length;
 
   let live = false;
+  let measured = false;
   let cur = START;
   let shownTitle = '';
   let U = 1;
+  /** Unidad del prototipo móvil (1 a 390 de ancho). */
+  let UM = 1;
   let W = 1536;
   let yDisco = 0;
   let dIdx = -1;
@@ -90,7 +94,6 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
   /** @type {HTMLElement | null} */
   let opener = null;
   let lastTimer = '';
-  let compactPos = START;
 
   /** Disco en el tocadiscos (sonando o en pausa) o null. */
   const onDeck = () => (player.state.disc === null ? null : player.state.disc);
@@ -131,9 +134,9 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
     const frame = { V: 389 * U, W };
     buttons.forEach((el, i) => {
       const here = i === cur;
-      if (live) {
+      {
         const dx = ringOffset(i, cur, count);
-        const p = discPose(dx, deckOn, frame);
+        const p = live ? discPose(dx, deckOn, frame) : discPoseMobile(dx, deckOn, UM);
         el.style.transform = p.transform;
         el.style.zIndex = String(p.z);
         el.style.opacity = String(p.opacity);
@@ -147,11 +150,9 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
       if (here) el.setAttribute('aria-current', 'true');
       else el.removeAttribute('aria-current');
     });
-    if (live) {
-      const center = discPose(0, true, frame).transform;
-      deck.style.transform = center;
-      arm.style.transform = center;
-    }
+    const center = live ? discPose(0, true, frame).transform : '';
+    deck.style.transform = center;
+    arm.style.transform = center;
     deck.classList.toggle('on', deckOn);
     deck.classList.toggle('playing', playing);
     arm.classList.toggle('on', deckOn);
@@ -165,10 +166,15 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
     meta.type.textContent = disc.type;
     meta.duration.textContent = formatDuration(discSeconds(disc));
     if (deckOn) {
-      meta.firstK.textContent = state.playing ? text.player.playing ?? '' : text.player.paused ?? '';
+      meta.firstK.textContent = state.playing
+        ? (text.player.playing ?? '')
+        : (text.player.paused ?? '');
       meta.first.textContent = `“${disc.tracks[state.track]?.title ?? ''}”`;
       meta.tracksK.textContent = text.player.track ?? '';
-      meta.tracks.textContent = fill(text.player.trackOf ?? '{n} / {total}', { n: state.track + 1, total: disc.tracks.length });
+      meta.tracks.textContent = fill(text.player.trackOf ?? '{n} / {total}', {
+        n: state.track + 1,
+        total: disc.tracks.length,
+      });
     } else {
       meta.firstK.textContent = text.meta?.firstTrack ?? meta.firstK.textContent;
       meta.first.textContent = `“${disc.tracks[0].title}”`;
@@ -188,16 +194,22 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
       pause = PAUSE;
     }
     cur = ((i % count) + count) % count;
-    compactPos = cur;
     apply();
   }
 
   /** Avance automático mientras la sección está a la vista y nada suena en el disco actual. */
   function galAuto(/** @type {number} */ dt, /** @type {number} */ y) {
     const d = Math.min(dt, 0.25);
-    const seen = live && y > yDisco - 420 * U;
+    const seen = y > yDisco - 420 * (live ? U : UM);
     if (pause > 0) pause -= d;
-    const run = !reduced && seen && !isOpen && onDeck() !== cur && !pointerDown && !(pause > 0) && !curtain.busy;
+    const run =
+      !reduced &&
+      seen &&
+      !isOpen &&
+      onDeck() !== cur &&
+      !pointerDown &&
+      !(pause > 0) &&
+      !curtain.busy;
     if (run) {
       idle += d;
       if (idle >= EVERY) {
@@ -424,19 +436,6 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
   // La galería ya no es una lista estática: se activa (la lista queda para lectores de pantalla).
   root.classList.add('disco--live');
 
-  /** Móvil: arco plano (se porta con el recorrido móvil). */
-  function renderCompact() {
-    const { vw, vh } = getMetrics();
-    const size = Math.min(vw * 0.78, vh * 0.36);
-    gallery.style.setProperty('--disc-size', `${size.toFixed(0)}px`);
-    buttons.forEach((button, i) => {
-      const slot = arcSlot(ringOffset(i, Math.round(compactPos), count), { size, spacing: size * 0.88 });
-      button.style.transform = `translate3d(${slot.x.toFixed(1)}px, ${slot.y.toFixed(1)}px, 0) scale(${slot.scale.toFixed(3)}) rotate(${slot.rotate.toFixed(2)}deg)`;
-      button.style.opacity = slot.opacity.toFixed(2);
-      button.style.zIndex = String(slot.z);
-    });
-  }
-
   const section = {
     id: 'discografia',
     start: 0,
@@ -453,7 +452,11 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
       live = !compact;
       W = vw;
       U = Math.min(vh / 800, vw / 1100);
-      root.classList.toggle('disco--pinned', live);
+      UM = Math.min(vw / 390, 1.5);
+      // El prototipo abre en el disco 02 en escritorio y en el 01 en móvil.
+      if (dIdx < 0 && (!measured || before !== live)) cur = live ? START : 0;
+      measured = true;
+      root.classList.toggle('disco--pinned', true);
       section.start = block?.top ?? 0;
       let changed = before !== live;
       if (live) {
@@ -468,12 +471,15 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
         if (y0 !== yDisco) dIdx = -1;
         yDisco = y0;
       } else {
-        root.style.height = '';
-        stage.style.removeProperty('--disco-top');
+        // Móvil: la galería se fija arriba y cada paso de 240 px gira un disco.
+        stage.style.setProperty('--disco-top', '0px');
+        const height = `${Math.round(vh + 240 * UM * (count - 1) + 120 * UM)}px`;
+        if (root.style.height !== height) changed = true;
+        root.style.height = height;
+        yDisco = section.start;
       }
       section.end = section.start + root.offsetHeight;
       apply(true);
-      if (!live) renderCompact();
       return changed;
     },
     alwaysTick: true,
@@ -481,9 +487,9 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
     update(state) {
       const dt = last ? (state.now - last) / 1000 : 0;
       last = state.now;
-      if (live) {
+      {
         // Dentro de la sección fija, cada paso de scroll gira un disco.
-        const step = DSTEP * U;
+        const step = live ? DSTEP * U : 240 * UM;
         const di = state.y >= yDisco - 1 ? Math.floor((state.y - yDisco + step / 2) / step) : -1;
         if (di !== dIdx) {
           if (di >= 0 && dIdx >= 0 && !isOpen) galGo(cur + (di - dIdx));

@@ -194,7 +194,8 @@ test('se puede llenar solo con el teclado', async ({ page }) => {
   await page.keyboard.press('Shift+Tab');
   await page.keyboard.press('ArrowLeft');
   await expect(page.locator('#ct-vaqueria')).toBeChecked();
-  await expect(page.getByLabel('Especifica el tipo de evento privado')).toBeHidden();
+  // Como en el prototipo (ADR-010) el renglón queda a la vista, pero deshabilitado y fuera del Tab.
+  await expect(page.getByLabel('Especifica el tipo de evento privado')).toBeDisabled();
 });
 
 test('el mapa o Fovi pueden llenar el lugar y enfocar el primer campo vacío (CON-8)', async ({
