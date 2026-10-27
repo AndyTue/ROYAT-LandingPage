@@ -60,5 +60,40 @@
       "hindFar": "assets-src/mascot/fv-leg-hf.webp",
       "hindNear": "assets-src/mascot/fv-leg-hn.webp"
     }
+  },
+  "lines": {
+    "greeting": [
+      "¡Hola! Soy Fovi Rodríguez"
+    ],
+    "greetingTouch": [
+      "¡Hola! Soy Fovi Rodríguez",
+      "Tócame y te llevo a Contrataciones"
+    ],
+    "followUp": [
+      "Digo… miau."
+    ],
+    "wake": [
+      "Miau… ¿me extrañaste?"
+    ],
+    "hover": [
+      "Hazme clic y te llevo al formulario",
+      "Contrataciones"
+    ],
+    "click": [
+      "¡Vamos al formulario!"
+    ],
+    "pet": [
+      "Purrr… ♡",
+      "Ahí, ahí… ♡",
+      "¡Más, más! ♡"
+    ],
+    "discs": [
+      "Desliza y te enseño los discos.",
+      "Clic en uno y suena"
+    ],
+    "playing": [
+      "¡Esta me la sé!",
+      "Sonando: {title}"
+    ]
   }
 }

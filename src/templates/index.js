@@ -4,6 +4,7 @@ import { curtain } from './curtain.js';
 import { discography } from './discography.js';
 import { footer } from './footer.js';
 import { head } from './head.js';
+import { mascot } from './mascot.js';
 import { hero } from './hero.js';
 import { history } from './history.js';
 import { members } from './members.js';
@@ -26,6 +27,7 @@ export const SECTIONS = /** @type {const} */ ({
   discography,
   contact,
   footer,
+  mascot,
   curtain,
 });
 

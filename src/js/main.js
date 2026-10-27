@@ -3,6 +3,7 @@ import { createEngine } from './core/engine.js';
 import { bus } from './core/events.js';
 import { createLayout } from './core/layout.js';
 import { prefersReducedMotion } from './core/motion.js';
+import { createFovi } from './features/fovi.js';
 import { createNav } from './features/nav.js';
 import { createPlayer } from './features/player.js';
 import { createPlayerBar } from './features/player-bar.js';
@@ -86,6 +87,8 @@ guard('nav', () => {
 });
 /** @type {ReturnType<typeof createCurtain> | null} */
 let curtain = null;
+/** @type {ReturnType<typeof createPlayer> | null} */
+let player = null;
 guard('curtain', () => {
   curtain = createCurtain(find(document, '[data-curtain]', HTMLElement), { reduced });
 });
@@ -137,7 +140,7 @@ Promise.all([loadPatterns(), loadMotifs(), loadMap(), loadDiscs()])
       const root = find(document, '[data-disco]', HTMLElement);
       const text = JSON.parse(root.dataset.discoText ?? '{}');
       const audio = new Audio();
-      const player = createPlayer({
+      player = createPlayer({
         audio,
         baseUrl: root.dataset.audioBase ?? '/audio',
         discs,
@@ -165,6 +168,28 @@ Promise.all([loadPatterns(), loadMotifs(), loadMap(), loadDiscs()])
         onInfo: (index) => section.openDetail(index),
         onNow: (index) => section.goTo(index),
       });
+    });
+    guard('fovi', () => {
+      const root = find(document, '[data-fovi]', HTMLElement);
+      const nowPlaying = () => {
+        const state = player?.state;
+        if (!state || state.disc === null || !state.playing) return null;
+        return discs[state.disc].tracks[state.track].title;
+      };
+      engine.add(
+        createFovi({
+          root,
+          bubble: find(document, '[data-fovi-bubble]', HTMLElement),
+          fx: find(document, '[data-fovi-fx]', HTMLElement),
+          live: find(document, '[data-fovi-live]', HTMLElement),
+          data: JSON.parse(root.dataset.foviLines ?? '{}'),
+          bus,
+          doc: document,
+          getMetrics,
+          nowPlaying,
+          reduced,
+        }),
+      );
     });
     guard('ornaments', () => {
       engine.add(

@@ -2,7 +2,17 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "ui.json",
   "type": "object",
-  "required": ["nav", "hero", "history", "members", "presence", "discography", "contact", "footer"],
+  "required": [
+    "nav",
+    "hero",
+    "history",
+    "members",
+    "presence",
+    "discography",
+    "contact",
+    "footer",
+    "mascot"
+  ],
   "properties": {
     "$comment": {
       "type": "string"
@@ -20,6 +30,9 @@
       "$ref": "#/$defs/node"
     },
     "presence": {
+      "$ref": "#/$defs/node"
+    },
+    "mascot": {
       "$ref": "#/$defs/node"
     },
     "discography": {
