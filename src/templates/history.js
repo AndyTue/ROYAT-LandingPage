@@ -14,6 +14,41 @@ import { picture } from './partials/picture.js';
 /** Motivos bordados sobre el hilo de la línea de tiempo, uno por hito. */
 const ORNAMENTS = ['flor5', 'star5', 'rombo'];
 
+/** Decoración de borde que acompaña a cada hito: una arriba y otra abajo, alternando. */
+const EDGE_TOP = ['dflor', 'dzig'];
+const EDGE_BOTTOM = ['flor5', 'drombos'];
+
+/**
+ * Motivos sueltos (pájaros, mariposas, esquinas) que salpican la pista, por hito. `at` es una
+ * de las posiciones de `history.css` (`x-1`…`x-5`).
+ * @type {Record<number, { motif: string, at: number, flip?: string, map?: string }[]>}
+ */
+const EXTRAS = {
+  1: [{ motif: 'corner', at: 5, flip: 'xy' }],
+  2: [
+    { motif: 'mari', at: 1 },
+    { motif: 'corner', at: 2, flip: 'xy', map: 'be,cg,jc' },
+  ],
+  4: [
+    { motif: 'bird', at: 3 },
+    { motif: 'corner', at: 2, flip: 'xy', map: 'bl,cf' },
+  ],
+  6: [{ motif: 'birdl', at: 1 }],
+  8: [{ motif: 'rombo', at: 4 }],
+  10: [{ motif: 'birdl', at: 4 }],
+  11: [{ motif: 'mari', at: 1 }],
+  12: [{ motif: 'mari', at: 3, map: 'eg,gj' }],
+};
+
+/**
+ * Hueco de ornamento bordado (`features/ornaments.js`).
+ * @param {string} motif
+ * @param {string} className
+ * @param {{ order?: string, flip?: string, map?: string }} [opts]
+ */
+const stitch = (motif, className, { order = 'out', flip = '', map = '' } = {}) =>
+  html`<span class="ornament ${className}" data-ornament data-motif="${motif}" data-order="${order}"${flip ? html` data-flip="${flip}"` : ''}${map ? html` data-map="${map}"` : ''} aria-hidden="true"></span>`;
+
 /**
  * Tono de fondo de cada hito en la pista horizontal (HIS-5): papel y arena se alternan y el
  * último hito (la gira) cierra en rojo.
@@ -76,7 +111,9 @@ function discList(ctx, discs) {
 function timelineEvent(ctx, event, total) {
   const titleId = `hito-${event.n}-titulo`;
   const motif = ORNAMENTS[(event.n - 1) % ORNAMENTS.length];
+  // A (impares): año arriba y foto debajo. B (pares): foto arriba y año abajo (como el prototipo).
   const variant = event.n % 2 ? 'a' : 'b';
+  const edgeIndex = event.n % 2;
   const [first, ...rest] = event.photos;
   return html`<li class="event event--${variant}" id="hito-${event.n}" data-tone="${toneOf(event.n, total)}">
     <article class="event__body" aria-labelledby="${titleId}">
@@ -85,7 +122,10 @@ function timelineEvent(ctx, event, total) {
         <span>${pad2(event.n)}</span>
       </p>
       <span class="ornament event__ornament" data-ornament data-motif="${motif}" data-order="out" aria-hidden="true"></span>
-      <p class="event__year" data-parallax="0.16">${event.year}</p>
+      ${stitch(EDGE_TOP[edgeIndex], 'event__edge event__edge--top', { order: 'lr' })}
+      ${stitch(EDGE_BOTTOM[edgeIndex], 'event__edge event__edge--bottom', { order: 'lr' })}
+      ${(EXTRAS[event.n] ?? []).map((x) => stitch(x.motif, `event__extra x-${x.at}`, x))}
+      <p class="event__year${event.year.length > 4 ? ' event__year--long' : ''}" data-parallax="0.16">${event.year}</p>
       <div class="event__copy" data-parallax="0.06">
         <p class="event__tag label">${event.tag}</p>
         <h3 class="event__title" id="${titleId}">${event.title}</h3>
@@ -132,6 +172,12 @@ export function history(ctx) {
               ${lines.map((line) => html`<span class="history__line" data-letters>${line}</span>`)}
             </span>
           </h2>
+          ${stitch('seam', 'history__orn history__seam', { order: 'down' })}
+          ${stitch('dzig', 'history__orn history__edge-a', { order: 'lr' })}
+          ${stitch('drombos', 'history__orn history__edge-b', { order: 'lr' })}
+          ${stitch('dflor', 'history__orn history__edge-c', { order: 'lr' })}
+          ${stitch('corner', 'history__orn history__corner', { map: 'be,cg,jc' })}
+          ${stitch('bird', 'history__orn history__bird')}
           <p class="history__kicker label">${data.kicker}</p>
           <div class="history__photo" data-parallax="0.08">${figure(ctx, data.intro.photo, '(width >= 48em) 50vw, calc(100vw - 3rem)')}</div>
           <div class="history__paragraphs">

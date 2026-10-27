@@ -51,6 +51,13 @@
     display: grid;
   }
 
+  /* Decoración de la pista horizontal: en vertical (móvil, sin JS) no se muestra. */
+  .history__orn,
+  .event__edge,
+  .event__extra {
+    display: none;
+  }
+
   .event {
     position: relative;
     padding: clamp(2.5rem, 7vw, 4.5rem) clamp(1rem, 5vw, 4rem) clamp(2.5rem, 7vw, 4.5rem)
@@ -157,25 +164,29 @@
 
   /* ---------- Pista horizontal fija (escritorio con JS y movimiento) ---------- */
   .track--on .history__intro {
+    position: relative;
     flex: none;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    grid-template-rows: auto 1fr auto;
-    gap: 1.5rem 4vw;
+    grid-template-columns: 46vw 36.5vw;
+    grid-template-rows: auto auto 1fr;
+    gap: 1.75rem 0;
+    align-content: start;
     inline-size: max(100vw, 62rem);
-    padding: 9svh 5vw 11svh 3.5vw;
+    padding: 13svh 5vw 12svh 5.9vw;
   }
 
   .track--on .history__title {
     grid-row: 1 / span 3;
-    align-self: center;
+    align-self: start;
+    margin-block-start: 1rem;
   }
 
   .track--on .history__word {
-    font-size: min(31svh, 17vw);
+    font-size: min(31svh, 16.3vw);
   }
 
   .track--on .history__kicker {
     grid-column: 2;
+    max-inline-size: 14rem;
   }
 
   .track--on .history__photo {
@@ -184,6 +195,7 @@
   }
 
   .track--on .history__photo .photo {
+    inline-size: 100%;
     padding: 0;
     background: transparent;
     border: 0;
@@ -191,7 +203,9 @@
   }
 
   .track--on .history__photo .photo__frame img {
-    max-block-size: 46svh;
+    inline-size: 100%;
+    block-size: auto;
+    aspect-ratio: 3 / 2;
     object-fit: cover;
   }
 
@@ -207,6 +221,7 @@
   .track--on .history__paragraphs {
     grid-column: 2;
     grid-template-columns: 1fr 1fr;
+    align-self: end;
     gap: 2rem;
     max-inline-size: none;
     font-size: 0.875rem;
@@ -230,7 +245,7 @@
 
   .track--on .event {
     flex: none;
-    inline-size: clamp(46rem, 120svh, 80rem);
+    inline-size: clamp(46rem, 97svh, 72rem);
     block-size: 100%;
     padding: 0;
   }
@@ -276,17 +291,33 @@
   .track--on .event__photos,
   .track--on .event__badge,
   .track--on .event__discs,
-  .track--on .event__ornament {
+  .track--on .event__ornament,
+  .track--on .event__edge,
+  .track--on .event__extra {
+    position: absolute;
+  }
+
+  .track--on .history__orn,
+  .track--on .event__edge,
+  .track--on .event__extra {
+    display: block;
+  }
+
+  .track--on .history__orn {
     position: absolute;
   }
 
   .track--on .event__year {
-    font-size: clamp(4rem, 15svh, 8rem);
+    font-size: clamp(4rem, 15.5svh, 8rem);
     white-space: nowrap;
   }
 
+  .track--on .event__year--long {
+    font-size: clamp(3rem, 10.5svh, 5.25rem);
+  }
+
   .track--on .event__copy {
-    inline-size: min(22rem, 30%);
+    inline-size: min(17rem, 33%);
   }
 
   .track--on .event__tag {
@@ -323,26 +354,33 @@
 
   .track--on .event__photos .photo:nth-child(n + 2) {
     position: absolute;
-    inset-block-end: -12%;
-    inset-inline-end: -16%;
-    inline-size: min(22svh, 14rem);
+    inset-block-end: -10%;
+    inset-inline-end: -38%;
+    inline-size: min(27svh, 14rem);
     max-inline-size: none;
     rotate: -3deg;
   }
 
   .track--on .event__badge {
-    inset-block-end: 22svh;
-    inset-inline-start: 58%;
+    inset-block-start: 59svh;
+    inset-inline-start: 61%;
+    inline-size: clamp(7rem, 23.75svh, 12rem);
     rotate: -6deg;
   }
 
   .track--on .event__discs {
-    flex-wrap: nowrap;
-    gap: 1.5rem;
+    inset-block: 0;
+    inset-inline: 0;
+    pointer-events: none;
+  }
+
+  .track--on .event__discs li {
+    position: absolute;
+    pointer-events: auto;
   }
 
   .track--on .event__disc {
-    inline-size: clamp(8rem, 24svh, 15rem);
+    inline-size: clamp(8rem, 28svh, 15rem);
   }
 
   .track--on .event__disc-label {
@@ -359,25 +397,28 @@
     background: none;
   }
 
-  /* Disposición A (hitos impares): foto arriba a la izquierda, texto a la derecha, año abajo. */
+  .track--on .event__edge--top {
+    inset-block-start: 3.75svh;
+  }
+
+  .track--on .event__edge--bottom {
+    inset-block-end: 1svh;
+  }
+
+  /* Disposición A (hitos impares): año arriba, foto debajo y texto a la derecha. */
+  .track--on .event--a .event__year {
+    inset-block-start: 12svh;
+    inset-inline-start: 0;
+  }
+
   .track--on .event--a .event__photos {
-    inset-block-start: 14svh;
-    inset-inline-start: 7%;
+    inset-block-start: 29.5svh;
+    inset-inline-start: 0;
   }
 
   .track--on .event--a .event__copy {
-    inset-block-start: 17svh;
-    inset-inline-start: 64%;
-  }
-
-  .track--on .event--a .event__year {
-    inset-block-start: 62svh;
-    inset-inline-start: 7%;
-  }
-
-  .track--on .event--a .event__discs {
-    inset-block-start: 52svh;
-    inset-inline-start: 48%;
+    inset-block-start: 31svh;
+    inset-inline-start: 59%;
   }
 
   .track--on .event--a .event__ornament {
@@ -385,29 +426,160 @@
     inset-inline-start: 58%;
   }
 
-  /* Disposición B (hitos pares): año arriba, foto al centro y texto a la derecha, más abajo. */
-  .track--on .event--b .event__year {
-    inset-block-start: 6svh;
-    inset-inline-start: 8%;
+  .track--on .event--a .event__edge--top {
+    inset-inline-start: 13%;
   }
 
+  .track--on .event--a .event__edge--bottom {
+    inset-inline-start: 70%;
+  }
+
+  /* Disposición B (hitos pares): foto arriba, texto a la derecha y año abajo. */
   .track--on .event--b .event__photos {
-    inset-block-start: 30svh;
-    inset-inline-start: 5%;
+    inset-block-start: 13.75svh;
+    inset-inline-start: 0;
   }
 
   .track--on .event--b .event__copy {
-    inset-block-start: 36svh;
-    inset-inline-start: 60%;
+    inset-block-start: 16svh;
+    inset-inline-start: 61%;
   }
 
-  .track--on .event--b .event__discs {
-    inset-block-start: 8svh;
-    inset-inline-start: 56%;
+  .track--on .event--b .event__year {
+    inset-block-start: 61svh;
+    inset-inline-start: 0;
   }
 
   .track--on .event--b .event__ornament {
     inset-block-end: 14svh;
     inset-inline-start: 44%;
+  }
+
+  .track--on .event--b .event__edge--top {
+    inset-inline-start: 33%;
+  }
+
+  .track--on .event--b .event__edge--bottom {
+    inset-inline-start: 22%;
+  }
+
+  /* Posiciones de los motivos sueltos (relativas al hito). */
+  .track--on .x-1 {
+    inset-block-start: 65svh;
+    inset-inline-start: 82%;
+  }
+
+  .track--on .x-2 {
+    inset-block-start: 64svh;
+    inset-inline-start: 92%;
+  }
+
+  .track--on .x-3 {
+    inset-block-start: 56svh;
+    inset-inline-start: 78%;
+  }
+
+  .track--on .x-4 {
+    inset-block-start: 72svh;
+    inset-inline-start: 41%;
+  }
+
+  .track--on .x-5 {
+    inset-block-start: 64svh;
+    inset-inline-start: -8%;
+  }
+
+  /* Hitos con vinilos: tamaños, giros y texto como en el prototipo. */
+  .track--on [id='hito-7'] .event__copy {
+    inset-inline-start: 39%;
+  }
+
+  .track--on [id='hito-7'] li:nth-child(1) {
+    inset-block-start: 31svh;
+    inset-inline-start: 0;
+    inline-size: 28.75svh;
+    rotate: -18deg;
+  }
+
+  .track--on [id='hito-7'] li:nth-child(2) {
+    inset-block-start: 50svh;
+    inset-inline-start: 11.5%;
+    inline-size: 23.75svh;
+    rotate: 24deg;
+  }
+
+  .track--on [id='hito-8'] .event__discs li {
+    inset-block-start: 15svh;
+    inset-inline-start: 0;
+    inline-size: 37.5svh;
+    rotate: 12deg;
+  }
+
+  .track--on [id='hito-9'] .event__discs li {
+    inset-block-start: 32.5svh;
+    inset-inline-start: 0;
+    inline-size: 36.25svh;
+    rotate: -8deg;
+  }
+
+  .track--on [id='hito-10'] .event__discs li {
+    inset-block-start: 15svh;
+    inset-inline-start: 0;
+    inline-size: 38.75svh;
+    rotate: 16deg;
+  }
+
+  .track--on [id='hito-11'] .event__discs li {
+    inset-block-start: 59svh;
+    inset-inline-start: 34.8%;
+    inline-size: 24.5svh;
+    rotate: -14deg;
+  }
+
+  .track--on [id='hito-9'] .event__copy {
+    inset-inline-start: 41%;
+  }
+
+  .track--on [id='hito-8'] .event__copy {
+    inset-inline-start: 42%;
+  }
+
+  .track--on [id='hito-10'] .event__copy {
+    inset-inline-start: 43%;
+  }
+
+  .track--on [id='hito-13'] .event__copy {
+    inset-inline-start: 39%;
+  }
+
+  /* Ornamentos de la apertura (posiciones del prototipo a 1536×800). */
+  .track--on .history__seam {
+    inset-block-start: 12.75svh;
+    inset-inline-start: 2%;
+  }
+
+  .track--on .history__edge-a {
+    inset-block-start: 3.75svh;
+    inset-inline-start: 12%;
+  }
+
+  .track--on .history__edge-b {
+    inset-block-end: 1svh;
+    inset-inline-start: 41%;
+  }
+
+  .track--on .history__edge-c {
+    inset-block-start: 3.75svh;
+    inset-inline-start: 66%;
+  }
+
+  .track--on .history__corner {
+    inset-block-start: 11svh;
+    inset-inline-start: 83%;
+  }
+
+  .track--on .history__bird {
+    inset-block-start: 30.75svh;
+    inset-inline-start: 43%;
   }
 }
