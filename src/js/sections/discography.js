@@ -3,6 +3,7 @@ import { find, findAll } from '../lib/dom.js';
 import { fill, formatDuration, pad2 } from '../lib/format.js';
 import {
   arcPosition,
+  arcPose,
   arcSlot,
   discSeconds,
   guestCount,
@@ -65,7 +66,7 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
   let pos = 0;
   let current = -1;
   let drawnPos = NaN;
-  let frame = { spacing: 280, size: 320 };
+  let frame = { spacing: 280, size: 320, vw: 1536, compact: false };
   let lastInput = performance.now();
   let autoDone = false;
   let dragFrom = 0;
@@ -94,6 +95,13 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
 
   function renderDiscs() {
     buttons.forEach((button, i) => {
+      if (!frame.compact) {
+        const pose = arcPose(i - pos, frame);
+        button.style.transform = pose.transform;
+        button.style.opacity = pose.opacity.toFixed(2);
+        button.style.zIndex = String(pose.z);
+        return;
+      }
       const slot = arcSlot(i - pos, frame);
       button.style.transform = `translate3d(${slot.x.toFixed(1)}px, ${slot.y.toFixed(1)}px, 0) scale(${slot.scale.toFixed(3)}) rotate(${slot.rotate.toFixed(2)}deg)`;
       button.style.opacity = slot.opacity.toFixed(2);
@@ -377,8 +385,10 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
       section.start = block?.top ?? 0;
       section.end = block?.bottom ?? 0;
       step = Math.max(1, (section.end - section.start - vh) / Math.max(1, count - 1));
-      const size = Math.min(vh * 0.4, vw * 0.36);
-      frame = { size, spacing: size * (vw < 768 ? 0.62 : 0.86) };
+      const compact = vw < 768;
+      // Escritorio: el vinilo central mide 389 px a 800 de alto (el prototipo).
+      const size = compact ? Math.min(vh * 0.4, vw * 0.36) : Math.min(vh * 0.486, vw * 0.253);
+      frame = { size, spacing: size * (compact ? 0.62 : 0.86), vw, compact };
       gallery.style.setProperty('--disc-size', `${size.toFixed(0)}px`);
       drawnPos = NaN;
       render();

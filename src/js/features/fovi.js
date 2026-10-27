@@ -280,9 +280,13 @@ export function createFovi({
     return false;
   }
 
-  /** ¿Algo de la interfaz pide que Fovi se aparte? (ficha de disco, menú, tarjeta del mapa) */
-  const stepsAside = () =>
-    html.classList.contains('detail-open') ||
+  /**
+   * ¿Algo de la interfaz pide que Fovi se aparte? (ficha de disco en móvil, menú, tarjeta del
+   * mapa). En escritorio se queda sobre la ficha, como en el prototipo.
+   * @param {boolean} compact
+   */
+  const stepsAside = (compact) =>
+    (compact && html.classList.contains('detail-open')) ||
     Boolean(header?.classList.contains('nav--open')) ||
     Boolean(doc.querySelector('.mp-card:not([hidden])'));
 
@@ -304,7 +308,7 @@ export function createFovi({
     const groundY = compact ? H - (hasPlayer ? MOBILE_PLAYER : MOBILE_GROUND) : H;
     const visible =
       f.introDone &&
-      !stepsAside() &&
+      !stepsAside(compact) &&
       (!compact || (y > heroHeight * 0.55 && y + H * 0.7 < letterTop));
     if (visible !== f.visible) {
       f.visible = visible;

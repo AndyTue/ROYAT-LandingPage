@@ -119,10 +119,26 @@ function detailTemplate(ctx) {
     <div class="detail__body">
       <div class="detail__left">
         <div class="detail__sleeve" data-d-sleeve></div>
+        <span class="detail__ledge" aria-hidden="true"></span>
         <div class="turntable" data-d-deck aria-hidden="true">
-          <span class="turntable__brand">ROYAT</span>
-          <span class="turntable__platter"><span class="vinyl" data-d-vinyl></span></span>
-          <img class="turntable__arm" data-d-arm alt="" width="20" height="102" src="${ctx.asset('assets-src/ui/tonearm.svg')}">
+          <div class="turntable__tilt">
+            <div class="turntable__body">
+              <span class="turntable__deck">
+                <span class="turntable__ground"></span>
+                <span class="turntable__side"></span>
+                <span class="turntable__seam"></span>
+                <span class="turntable__brand">ROYAT</span>
+                <span class="turntable__platter"><span class="turntable__dots"></span><span class="turntable__mat"></span></span>
+                <span class="turntable__pitch"><span class="turntable__knob"></span></span>
+                <span class="turntable__ctrl turntable__ctrl--start"><span class="turntable__key"></span><span class="turntable__led"></span></span>
+                <span class="turntable__ctrl turntable__ctrl--speed"><span class="turntable__key is-on">33</span><span class="turntable__key">45</span></span>
+                <span class="turntable__pivot"></span>
+                <span class="turntable__rest"></span>
+              </span>
+              <span class="turntable__rec"><span class="vinyl" data-d-vinyl></span></span>
+              <img class="turntable__arm" data-d-arm alt="" width="20" height="102" src="${ctx.asset('assets-src/ui/tonearm.svg')}">
+            </div>
+          </div>
         </div>
       </div>
       <article class="detail__info">

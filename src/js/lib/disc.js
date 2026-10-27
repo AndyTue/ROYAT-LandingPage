@@ -75,6 +75,44 @@ export function arcSlot(d, { spacing, size }) {
   };
 }
 
+/** Altura (en discos) de cada vinilo del arco de escritorio según su distancia al centro. */
+const ARC_Y = [0.55, 0.44, 0.33, 0.22, 0.12, 0, -0.09, 0.02, 0.14, 0.27, 0.4];
+
+/**
+ * Tabla interpolada: `d` va de −5 a 5 y entre enteros se mezclan los dos vecinos.
+ * @param {readonly number[]} table once valores, de d = −5 a d = 5
+ * @param {number} d
+ */
+function lookup(table, d) {
+  const x = clamp(d, -5, 5) + 5;
+  const i = Math.min(table.length - 2, Math.floor(x));
+  return table[i] + (table[i + 1] - table[i]) * (x - i);
+}
+
+/**
+ * Pose en perspectiva de un vinilo del arco de escritorio (DIS-1), como en el prototipo: la
+ * hilera cruza la pantalla de lado a lado, los vecinos se inclinan sobre su eje y se traslapan.
+ * Se compone con `perspective` en el contenedor.
+ * @param {number} d disco − posición (negativo a la izquierda)
+ * @param {{ size: number, vw: number }} frame `size` px del vinilo central; `vw` ancho de la pantalla
+ * @returns {{ transform: string, opacity: number, z: number }}
+ */
+export function arcPose(d, { size, vw }) {
+  const x = d * 0.74;
+  const y = lookup(ARC_Y, d);
+  const z = d <= 0 ? d * 0.3 : d <= 1 ? 0.12 * d : 0.12 - 0.18 * Math.min(1, d - 1);
+  const yaw = 22 - 9 * d;
+  // El centro del escenario está al 45 % del ancho; se muestra todo disco que aún toca la pantalla.
+  const cx = vw * 0.45 + x * size;
+  const reach = size * 0.59;
+  const opacity = clamp(Math.min(cx + reach, vw + reach - cx) / (size * 0.3));
+  return {
+    transform: `translate3d(${(x * size).toFixed(1)}px, ${(y * size).toFixed(1)}px, ${(z * size).toFixed(1)}px) rotateZ(-6deg) rotateY(${yaw.toFixed(1)}deg) rotateX(8deg)`,
+    opacity,
+    z: Math.round(100 + d * 10),
+  };
+}
+
 /**
  * Siguiente disco con vuelta al principio.
  * @param {number} index
