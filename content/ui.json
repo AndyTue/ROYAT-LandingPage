@@ -136,7 +136,11 @@
       "goNow": "Ir al disco que suena",
       "idle": "Real Orquesta Yucateca",
       "error": "No se pudo cargar el audio. Intenta de nuevo.",
-      "loading": "Cargando…"
+      "loading": "Cargando…",
+      "playing": "Sonando",
+      "paused": "En pausa",
+      "track": "Pista",
+      "trackOf": "{n} de {total}"
     }
   },
   "contact": {

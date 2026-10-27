@@ -25,6 +25,7 @@ export function createPlayerBar({ root, player, discs, covers, text, onInfo, onN
   const sub = find(root, '[data-p-sub]', HTMLElement);
   const time = find(root, '[data-p-time]', HTMLElement);
   const seek = find(root, '[data-p-seek]', HTMLInputElement);
+  const prog = find(root, '[data-p-prog]', HTMLElement);
   const toggle = find(root, '[data-p-toggle]', HTMLButtonElement);
   const vinyl = find(root, '[data-p-vinyl]', HTMLElement);
   const errorEl = find(root, '[data-p-error]', HTMLElement);
@@ -65,14 +66,13 @@ export function createPlayerBar({ root, player, discs, covers, text, onInfo, onN
     const track = disc.tracks[state.track];
     showCover(state.disc);
     title.textContent = track.title;
-    sub.textContent =
-      disc.tracks.length > 1
-        ? `${disc.title} · ${state.track + 1}/${disc.tracks.length}`
-        : disc.title;
+    // Como en el prototipo: la orquesta y, si lo hay, el invitado de la pista.
+    sub.textContent = track.guest ? `${text.idle} · ${track.guest}` : text.idle;
     time.textContent = clock(state.current, state.duration || track.durationSec);
-    if (document.activeElement !== seek) {
-      seek.value = String(state.duration ? Math.round((state.current / state.duration) * 1000) : 0);
-    }
+    const total = state.duration || track.durationSec;
+    const ratio = total ? Math.min(1, state.current / total) : 0;
+    prog.style.width = `${(ratio * 100).toFixed(2)}%`;
+    if (document.activeElement !== seek) seek.value = String(Math.round(ratio * 1000));
     toggle.setAttribute('aria-label', state.playing ? text.pause : text.play);
     toggle.setAttribute('aria-busy', String(state.loading));
   });

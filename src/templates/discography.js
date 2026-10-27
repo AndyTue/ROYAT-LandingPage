@@ -60,22 +60,27 @@ function discCard(ctx, disc) {
   </li>`;
 }
 
+/** Base del tocadiscos (prototipo `.deck`), compartida por la galería y la ficha. */
+export const deckParts = () =>
+  raw(
+    '<span class="turntable__ground"></span><span class="turntable__side"></span><span class="turntable__seam"></span>' +
+      '<span class="turntable__brand">ROYAT</span><span class="turntable__platter"><span class="turntable__dots"></span><span class="turntable__mat"></span></span>' +
+      '<span class="turntable__pitch"><span class="turntable__knob"></span></span>' +
+      '<span class="turntable__ctrl turntable__ctrl--start"><span class="turntable__key"></span><span class="turntable__led"></span></span>' +
+      '<span class="turntable__ctrl turntable__ctrl--speed"><span class="turntable__key is-on">33</span><span class="turntable__key">45</span></span>' +
+      '<span class="turntable__pivot"></span><span class="turntable__rest"></span>',
+  );
+
 /**
- * Vinilo de la galería: botón con la portada como etiqueta.
+ * Vinilo de la galería (prototipo `.disc`): sombra, canto, la cara con surcos y la portada como
+ * etiqueta, y el brillo. `g-roll` gira la etiqueta según la distancia al centro.
  * @param {RenderContext} ctx
  * @param {Disc} disc
  * @param {number} index
  */
 function galleryDisc(ctx, disc, index) {
-  return html`<button class="gal__disc" type="button" data-i="${index}" aria-label="${disc.title}${disc.type === 'Sencillo' ? '' : ` · ${disc.type}`}">
-    <span class="vinyl" data-vinyl>
-      ${picture(ctx, {
-        src: disc.cover,
-        alt: '',
-        sizes: '(width >= 48em) 22svh, 36vw',
-        className: 'event__cover',
-      })}
-    </span>
+  return html`<button class="g-disc" type="button" data-i="${index}" aria-label="${disc.title}${disc.type === 'Sencillo' ? '' : ` · ${disc.type}`}">
+    <span class="g-lift"><span class="g-cast"></span><span class="g-edge"></span><span class="g-vwrap"><span class="g-vinyl"><span class="g-roll" data-g-roll><span class="g-spin"><span class="g-face"><span class="g-label" data-color="${disc.color}">${picture(ctx, { src: disc.cover, alt: '', sizes: '(width >= 48em) 22svh, 36vw', className: 'g-cover' })}</span><span class="g-hole"></span></span></span></span><span class="g-sheen"></span></span></span></span>
   </button>`;
 }
 
@@ -95,8 +100,9 @@ function playerBar(ctx) {
       <button class="pbtn pbtn--main" type="button" data-p-toggle aria-label="${p.play}"><svg class="i-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8.5 5.5v13M15.5 5.5v13"/></svg></button>
       <button class="pbtn" type="button" data-p-next aria-label="${p.next}"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 6.5l8.5 5.5L6 17.5z"/><path d="M17.5 6v12"/></svg></button>
     </div>
-    <div class="pbar__time"><span data-p-time>0:00 / 0:00</span><label class="pbar__seek"><span class="sr-only">${p.label}</span><input type="range" min="0" max="1000" value="0" step="1" data-p-seek></label></div>
+    <div class="pbar__time"><span data-p-time>0:00 / 0:00</span><label class="pbar__seek"><span class="sr-only">${p.label}</span><span class="pbar__thread" aria-hidden="true"><i data-p-prog></i></span><input type="range" min="0" max="1000" value="0" step="1" data-p-seek></label></div>
     <button class="pbtn" type="button" data-p-info aria-label="${p.info}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+    <span class="pbar__sep" aria-hidden="true"></span>
     <button class="pbtn pbtn--close" type="button" data-p-close aria-label="${p.close}"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     <p class="pbar__error" role="status" data-p-error hidden>${p.error}</p>
   </section>`;
@@ -123,26 +129,15 @@ function detailTemplate(ctx) {
         <div class="turntable" data-d-deck aria-hidden="true">
           <div class="turntable__tilt">
             <div class="turntable__body">
-              <span class="turntable__deck">
-                <span class="turntable__ground"></span>
-                <span class="turntable__side"></span>
-                <span class="turntable__seam"></span>
-                <span class="turntable__brand">ROYAT</span>
-                <span class="turntable__platter"><span class="turntable__dots"></span><span class="turntable__mat"></span></span>
-                <span class="turntable__pitch"><span class="turntable__knob"></span></span>
-                <span class="turntable__ctrl turntable__ctrl--start"><span class="turntable__key"></span><span class="turntable__led"></span></span>
-                <span class="turntable__ctrl turntable__ctrl--speed"><span class="turntable__key is-on">33</span><span class="turntable__key">45</span></span>
-                <span class="turntable__pivot"></span>
-                <span class="turntable__rest"></span>
-              </span>
-              <span class="turntable__rec"><span class="vinyl" data-d-vinyl></span></span>
+              <span class="turntable__deck">${deckParts()}</span>
+              <span class="turntable__rec"><span class="g-vinyl"><span class="g-spin"><span class="g-face"><span class="g-label" data-d-label></span><span class="g-hole"></span></span></span><span class="g-sheen"></span></span></span>
               <img class="turntable__arm" data-d-arm alt="" width="20" height="102" src="${ctx.asset('assets-src/ui/tonearm.svg')}">
             </div>
           </div>
         </div>
       </div>
       <article class="detail__info">
-        <p class="detail__eyebrow label" data-d-eyebrow></p>
+        <p class="detail__eyebrow" data-d-eyebrow></p>
         <h3 class="detail__title" data-d-title>…</h3>
         <dl class="detail__facts">
           <div><dt>${t.detail.facts.tracks}</dt><dd data-d-tracks-n></dd></div>
@@ -151,8 +146,8 @@ function detailTemplate(ctx) {
           <div><dt>${t.detail.facts.guests}</dt><dd data-d-guests></dd></div>
         </dl>
         <div class="detail__acts">
-          <button class="button button--solid" type="button" data-d-play>…</button>
-          <a class="button" href="#" data-d-spotify target="_blank" rel="noopener">${t.spotify} <span aria-hidden="true">↗</span></a>
+          <button class="btnl btnl--solid" type="button" data-d-play>…</button>
+          <a class="btnl" href="#" data-d-spotify target="_blank" rel="noopener">${t.spotify} <span aria-hidden="true">↗</span></a>
         </div>
         <ol class="detail__tracks" data-d-tracks></ol>
       </article>
@@ -176,34 +171,37 @@ export function discography(ctx) {
   const hem = stitchBandSvg(ctx.patterns.hem, ctx.patterns.pal, {
     id: 'disco-hem',
     cell: 6,
-    className: 'disco__hem',
+    className: 'disco__hem disco__hem--svg',
   });
-  return html`<section id="discografia" class="discography" data-tone="paper" aria-labelledby="discografia-titulo" data-disco data-audio-base="${site.audio.baseUrl}" data-disco-text="${JSON.stringify({ detail: t.detail, coverAlt: t.coverAlt, player: t.player })}">
+  return html`<section id="discografia" class="discography" data-tone="paper" aria-labelledby="discografia-titulo" data-disco data-audio-base="${site.audio.baseUrl}" data-disco-text="${JSON.stringify({ detail: t.detail, coverAlt: t.coverAlt, player: t.player, meta: t.meta })}">
     <div class="disco__stage" data-disco-stage>
       ${raw(hem)}
       <h2 class="section-title disco__title" id="discografia-titulo">${t.title}</h2>
+      <canvas class="disco__hem" data-hem aria-hidden="true" hidden></canvas>
       <div class="gal js-only" data-gallery role="group" tabindex="0" aria-label="${t.galleryLabel}">
         <div class="gal__head">
-          <p class="gal__eyebrow label">${fill(t.eyebrow, { n: discs.length })}</p>
-          <p class="gal__title" data-g-title aria-live="polite"></p>
-          <button class="button" type="button" data-g-more>${t.moreInfo}</button>
-          <p class="gal__hint">${t.hint}</p>
+          <div class="gal__left">
+            <p class="gal__eyebrow">${fill(t.eyebrow, { n: discs.length })}</p>
+            <p class="gal__title" data-g-title aria-live="polite"></p>
+            <button class="btnl" type="button" data-g-more>${t.moreInfo}</button>
+            <p class="gal__hint">${t.hint}</p>
+          </div>
+          <div class="gal__side">
+            <p class="gal__count"><b data-g-n>01</b> / ${discs.length}</p>
+            <span class="gal__timer" aria-hidden="true"><i data-g-timer></i></span>
+            <dl class="gal__meta" data-g-meta>
+              <div class="gal__cue"><dt data-g-first-k>${t.meta.firstTrack}</dt><dd data-g-first></dd></div>
+              <div><dt>${t.meta.year}</dt><dd data-g-year></dd></div>
+              <div><dt>${t.meta.type}</dt><dd data-g-type></dd></div>
+              <div><dt data-g-tracks-k>${t.meta.tracks}</dt><dd data-g-tracks></dd></div>
+              <div><dt>${t.meta.duration}</dt><dd data-g-duration></dd></div>
+            </dl>
+          </div>
         </div>
-        <div class="gal__side">
-          <p class="gal__count"><b data-g-n>01</b> / ${discs.length}</p>
-          <span class="gal__timer" aria-hidden="true"><i data-g-timer></i></span>
-          <dl class="gal__meta" data-g-meta>
-            <div><dt data-g-first-k>${t.meta.firstTrack}</dt><dd data-g-first></dd></div>
-            <div><dt>${t.meta.year}</dt><dd data-g-year></dd></div>
-            <div><dt>${t.meta.type}</dt><dd data-g-type></dd></div>
-            <div><dt data-g-tracks-k>${t.meta.tracks}</dt><dd data-g-tracks></dd></div>
-            <div><dt>${t.meta.duration}</dt><dd data-g-duration></dd></div>
-          </dl>
-        </div>
-        <div class="gal__discs" data-g-discs>
-          <span class="gal__layer gal__layer--under" data-g-layer aria-hidden="true"><span class="gal__deck"><span class="gal__deck-brand">ROYAT</span></span></span>
-          <span class="gal__layer gal__layer--over" data-g-layer aria-hidden="true"><img class="gal__arm" alt="" width="20" height="102" src="${ctx.asset('assets-src/ui/tonearm.svg')}"></span>
+        <div class="gal__stage" data-g-discs>
+          <div class="g-disc g-deckL" data-g-deck aria-hidden="true"><span class="g-lift"><span class="turntable__deck g-deck">${deckParts()}</span></span></div>
           ${discs.map((d, i) => galleryDisc(ctx, d, i))}
+          <div class="g-disc g-armL" data-g-arm aria-hidden="true"><span class="g-lift"><img class="g-arm" alt="" width="20" height="102" src="${ctx.asset('assets-src/ui/tonearm.svg')}"></span></div>
         </div>
         <button class="gal__arrow gal__arrow--prev" type="button" data-g-prev aria-label="${t.prev}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">${raw(ARROW.prev)}</svg></button>
         <button class="gal__arrow gal__arrow--next" type="button" data-g-next aria-label="${t.next}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">${raw(ARROW.next)}</svg></button>

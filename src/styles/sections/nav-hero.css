@@ -76,53 +76,99 @@
     opacity: 1;
   }
 
-  /* ---------- Escritorio: listón flotante, abajo y arriba en Discografía y Contacto ---------- */
+  /* ---------- Escritorio: listón del prototipo (`.rail`), abajo y arriba en Discografía ---------- */
   @media (width >= 48em) {
     .js .site-header {
       position: fixed;
-      inset-block-start: 1rem;
-      inset-inline: 0;
-      inline-size: min(100% - 2rem, 50rem);
-      margin-inline: auto;
+      inset-block-start: 0;
+      inset-inline-start: 50%;
+      inline-size: calc(800 * var(--u));
+      block-size: calc(40 * var(--u));
+      padding: 0 calc(22 * var(--u));
+      margin-inline-start: calc(-400 * var(--u));
+      background: #fbf7ee;
       border-radius: 3px;
-      box-shadow: 0 10px 24px -12px rgb(20 18 14 / 45%);
-      transform: translate3d(0, calc(100svh - 100% - 2rem), 0);
+      box-shadow: 0 calc(10 * var(--u)) calc(24 * var(--u)) calc(-12 * var(--u)) rgb(20 18 14 / 45%);
+      transform: translate3d(0, calc(100svh - 54 * var(--u)), 0);
+    }
+
+    /* Aparece al salir del Hero (opacidad por scroll); con el teclado, al recibir el foco. */
+    .js .site-header.nav--ready {
+      opacity: var(--nav-reveal, 1);
+    }
+
+    .js .site-header.nav--hidden {
+      pointer-events: none;
+    }
+
+    .js .site-header.nav--ready:focus-within {
+      pointer-events: auto;
+      opacity: 1;
     }
 
     .js .site-header.nav--top {
-      transform: translate3d(0, 0, 0);
+      transform: translate3d(0, calc(14 * var(--u)), 0);
+    }
+
+    .js.has-player .site-header:not(.nav--top) {
+      transform: translate3d(0, calc(100svh - 140 * var(--u)), 0);
     }
 
     @media (prefers-reduced-motion: no-preference) {
       .js .site-header {
-        transition:
-          opacity 0.6s var(--ease-out),
-          transform 0.95s var(--ease-in-out);
+        transition: transform 0.95s cubic-bezier(0.7, 0, 0.2, 1);
       }
     }
 
     .js .site-header::before {
       position: absolute;
-      inset: 0.25rem;
+      inset: calc(4 * var(--u));
       pointer-events: none;
       content: '';
-      border: 1.4px dashed rgb(233 139 30 / 75%);
+      border: calc(1.4 * var(--u)) dashed rgb(233 139 30 / 75%);
       border-radius: 2px;
     }
 
+    .js .nav,
     .js .nav__list {
+      block-size: 100%;
+    }
+
+    .js .nav__list {
+      align-items: center;
       justify-content: space-between;
-      padding-inline: 1.375rem;
+      padding: 0;
       overflow: visible;
+    }
+
+    .js .nav__link {
+      block-size: calc(40 * var(--u));
+      min-block-size: 0;
+      padding: 0 calc(6 * var(--u));
+      font-size: calc(11 * var(--u));
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: #5f5b53;
+      transition: color 0.2s;
+    }
+
+    .js .nav__link:hover,
+    .js .nav__link:focus-visible,
+    .js .nav__link.is-active {
+      color: var(--color-navy);
+    }
+
+    .js .nav__brand {
+      font-size: calc(13 * var(--u));
     }
 
     .js .nav__link.is-active::before {
       position: absolute;
-      inset-block-start: 0.5rem;
+      inset-block-start: calc(9 * var(--u));
       inset-inline-start: 50%;
-      inline-size: 4px;
-      block-size: 4px;
-      margin-inline-start: -2px;
+      inline-size: calc(4 * var(--u));
+      block-size: calc(4 * var(--u));
+      margin-inline-start: calc(-2 * var(--u));
       content: '';
       background: var(--color-orange);
       transform: rotate(45deg);
@@ -130,12 +176,12 @@
 
     .js .nav__thread {
       position: absolute;
-      inset-block-end: 0.5rem;
-      inset-inline: 1.375rem;
+      inset-block-end: calc(8 * var(--u));
+      inset-inline: calc(22 * var(--u));
       display: block;
       block-size: 2px;
       overflow: hidden;
-      background: rgb(21 20 18 / 14%);
+      background: linear-gradient(to top, rgb(21 20 18 / 14%) 1px, transparent 1px);
     }
   }
 
@@ -433,7 +479,10 @@
       transform: scaleY(0);
     }
 
-    60%,
+    50% {
+      transform: scaleY(1);
+    }
+
     100% {
       opacity: 0;
       transform: scaleY(1);

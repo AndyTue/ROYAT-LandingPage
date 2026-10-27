@@ -19,10 +19,18 @@ const BACKGROUND = 'main, footer';
 /**
  * Navegación en listón (NAV-1…3, MOV-7): marca la sección activa, muestra el progreso del
  * recorrido, cambia de posición y, en móvil, se vuelve un menú en hoja inferior.
- * @param {{ root: HTMLElement, bus: Bus, getMetrics: () => Metrics, announce: string }} options
- *   `announce` es la plantilla del aviso a lectores de pantalla (`{label}`).
+ * @param {{
+ *   root: HTMLElement,
+ *   bus: Bus,
+ *   getMetrics: () => Metrics,
+ *   announce: string,
+ *   yFor?: (id: string) => number | null,
+ *   topFrom?: () => number | null,
+ * }} options
+ *   `announce` es la plantilla del aviso a lectores de pantalla (`{label}`). `yFor` da el
+ *   scroll de un destino que no se alcanza con su ancla (Historia e Integrantes en la pista).
  */
-export function createNav({ root, bus, getMetrics, announce }) {
+export function createNav({ root, bus, getMetrics, announce, yFor = () => null, topFrom = () => null }) {
   const list = find(root, '[data-nav-list]', HTMLElement);
   const toggle = find(root, '[data-nav-toggle]', HTMLButtonElement);
   const close = find(root, '[data-nav-close]', HTMLButtonElement);
@@ -34,6 +42,7 @@ export function createNav({ root, bus, getMetrics, announce }) {
   /** @type {string | null} */
   let active = null;
   let progress = -1;
+  let reveal = -1;
   let ready = false;
   let isOpen = false;
 
@@ -46,7 +55,7 @@ export function createNav({ root, bus, getMetrics, announce }) {
       if (current) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     }
-    root.classList.toggle('nav--top', TOP_SECTIONS.has(id));
+    if (topFrom() === null) root.classList.toggle('nav--top', TOP_SECTIONS.has(id));
     const label = links.find((l) => l.dataset.navLink === id)?.dataset.label ?? id;
     status.textContent = fill(announce, { label });
     bus.emit('section:change', { id });
@@ -79,8 +88,16 @@ export function createNav({ root, bus, getMetrics, announce }) {
   });
   // Al elegir una sección el navegador salta al ancla; el menú se cierra sin robar el foco.
   list.addEventListener('click', (event) => {
-    if (event.target instanceof Element && event.target.closest('a'))
-      closeMenu({ restoreFocus: false });
+    const link = event.target instanceof Element ? event.target.closest('a') : null;
+    if (!link) return;
+    closeMenu({ restoreFocus: false });
+    const id = /** @type {HTMLElement} */ (link).dataset.navLink ?? '';
+    const top = yFor(id);
+    if (top === null) return;
+    event.preventDefault();
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
+    history.replaceState(null, '', `#${id}`);
   });
   root.addEventListener('keydown', (event) => {
     if (!isOpen) return;
@@ -113,11 +130,22 @@ export function createNav({ root, bus, getMetrics, announce }) {
   return {
     /** @param {ScrollState} state */
     update(state) {
-      const { blocks, total, vh } = getMetrics();
+      const { blocks, total, vh, compact } = getMetrics();
       if (!ready && state.y > 8) {
         ready = true;
         root.classList.add('nav--ready');
       }
+      // El listón aparece al salir del Hero (prototipo: de 360 a 520 px de scroll a 1536×800).
+      const u = vh / 800;
+      const shown = compact ? 1 : clamp((state.y - 360 * u) / (160 * u));
+      if (shown !== reveal) {
+        reveal = shown;
+        root.style.setProperty('--nav-reveal', shown.toFixed(3));
+        root.classList.toggle('nav--hidden', shown < 0.5);
+      }
+      // El listón sube al llegar a la galería de discos (prototipo: yDisco − 45 % de la pantalla).
+      const top = topFrom();
+      if (top !== null) root.classList.toggle('nav--top', state.y >= top - vh * 0.45);
       const id = activeSection(blocks, state.y, vh);
       if (id && id !== active) setActive(id);
       const max = Math.max(1, total - vh);

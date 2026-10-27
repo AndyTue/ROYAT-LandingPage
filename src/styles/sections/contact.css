@@ -36,7 +36,12 @@
     aspect-ratio: 220 / 122;
   }
 
-  .contact__social-title {
+  .contact__social-title,
+  .letter__eyebrow {
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
     color: var(--fg2);
   }
 
@@ -432,6 +437,393 @@
 
     .social {
       justify-content: start;
+    }
+  }
+
+  /* ---------- Escritorio: copia del prototipo (`.contacto`, ADR-010). N × --u. ----------
+   * La sección y el pie miden juntos una pantalla (el pie del prototipo va dentro de ella). */
+  @media (width >= 48em) {
+    .js .contact {
+      position: relative;
+      display: block;
+      block-size: calc(100svh - 86 * var(--u));
+      min-block-size: 0;
+      padding: 0;
+      overflow: clip;
+      font-size: calc(13 * var(--u));
+      font-weight: 500;
+      line-height: normal;
+      color: #1c2c55;
+      background:
+        radial-gradient(circle at 50% 50%, rgb(80 70 50 / 10%) 0 0.9px, transparent 1.3px) 0 0 /
+          calc(6 * var(--u)) calc(6 * var(--u)),
+        linear-gradient(90deg, rgb(255 255 255 / 38%) 1px, transparent 1px) 0 0 /
+          calc(6 * var(--u)) calc(6 * var(--u)),
+        linear-gradient(rgb(255 255 255 / 38%) 1px, transparent 1px) 0 0 / calc(6 * var(--u))
+          calc(6 * var(--u)),
+        #eceae4;
+    }
+
+    .js .contact__hem--svg {
+      display: none;
+    }
+
+    .js .contact__hem[data-hem] {
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      z-index: 2;
+      display: block;
+      inline-size: 100%;
+      filter: drop-shadow(0 calc(8 * var(--u)) calc(10 * var(--u)) rgb(6 12 30 / 45%));
+    }
+
+    .js .contact__orn {
+      position: absolute;
+      inset-inline-start: calc(1476 * var(--u));
+    }
+
+    .js .contact__orn--a {
+      inset-block-start: calc(150 * var(--u));
+    }
+
+    .js .contact__orn--b {
+      inset-block-start: calc(360 * var(--u));
+    }
+
+    .js .contact__orn--c {
+      inset-block-start: calc(560 * var(--u));
+      inset-inline-start: calc(1470 * var(--u));
+    }
+
+    .js .contact__bird {
+      position: absolute;
+      inset-block-start: calc(-8 * var(--u));
+      inset-inline: calc(522 * var(--u)) auto;
+    }
+
+    .js .contact__brand {
+      position: absolute;
+      inset-block-start: calc(104 * var(--u));
+      inset-inline-start: calc(96 * var(--u));
+      display: block;
+      inline-size: calc(600 * var(--u));
+      text-align: start;
+    }
+
+    .js .contact__logo {
+      display: none;
+    }
+
+    .js .contact__stitched {
+      display: block;
+      line-height: 0;
+    }
+
+    .js .contact__social-title {
+      margin: calc(34 * var(--u)) 0 calc(14 * var(--u));
+      font-size: calc(11 * var(--u));
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      color: #6b675f;
+    }
+
+    .js .social {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: calc(22 * var(--u));
+      justify-content: start;
+      padding: 0;
+      margin: 0;
+    }
+
+    .js .social__link {
+      display: flex;
+      flex-direction: column;
+      gap: calc(8 * var(--u));
+      align-items: center;
+      min-inline-size: 0;
+      font-size: calc(10 * var(--u));
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: #5b5750;
+    }
+
+    .js .social__link:hover,
+    .js .social__link:focus-visible {
+      color: #b8620f;
+    }
+
+    .js .social__icon {
+      inline-size: calc(80 * var(--u));
+      block-size: calc(80 * var(--u));
+      margin: calc(3 * var(--u));
+      filter: drop-shadow(0 2px 1px rgb(60 40 20 / 18%));
+    }
+
+    .js .letter {
+      position: absolute;
+      inset-block-start: calc(94 * var(--u));
+      inset-inline: calc(744 * var(--u)) calc(96 * var(--u));
+      block-size: calc(608 * var(--u));
+      padding: calc(46 * var(--u)) calc(54 * var(--u)) 0;
+      color: #f1eee7;
+      background:
+        radial-gradient(circle at 50% 50%, rgb(0 0 0 / 10%) 0 0.9px, transparent 1.3px) 0 0 /
+          calc(6 * var(--u)) calc(6 * var(--u)),
+        linear-gradient(90deg, rgb(255 255 255 / 3.5%) 1px, transparent 1px) 0 0 /
+          calc(6 * var(--u)) calc(6 * var(--u)),
+        linear-gradient(rgb(255 255 255 / 3.5%) 1px, transparent 1px) 0 0 / calc(6 * var(--u))
+          calc(6 * var(--u)),
+        #1c2c55;
+      border-radius: 4px;
+      box-shadow:
+        0 calc(34 * var(--u)) calc(60 * var(--u)) calc(-30 * var(--u)) rgb(20 18 14 / 60%),
+        0 2px 0 rgb(255 255 255 / 6%) inset;
+    }
+
+    .js .letter::before {
+      inset: calc(10 * var(--u));
+      border: calc(1.6 * var(--u)) dashed rgb(233 139 30 / 80%);
+    }
+
+    .js .letter__ornament--tl {
+      inset-block-start: calc(22 * var(--u));
+      inset-inline-start: calc(22 * var(--u));
+    }
+
+    .js .letter__ornament--tr {
+      inset-block-start: calc(22 * var(--u));
+      inset-inline-end: calc(22 * var(--u));
+    }
+
+    .js .letter__ornament--br {
+      inset-block-end: calc(22 * var(--u));
+      inset-inline-end: calc(22 * var(--u));
+    }
+
+    .js .letter__eyebrow {
+      margin: 0 0 calc(10 * var(--u));
+      font-size: calc(11 * var(--u));
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      color: #c9cfe6;
+    }
+
+    .js .letter__title {
+      margin: 0;
+      font-size: calc(46 * var(--u));
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      text-wrap: wrap;
+    }
+
+    .js .letter__title em {
+      color: #f5a23a;
+    }
+
+    .js .letter__form {
+      display: block;
+    }
+
+    .js .letter__body {
+      margin: calc(20 * var(--u)) 0 0;
+      font-size: calc(28 * var(--u));
+      font-weight: 500;
+      line-height: calc(48 * var(--u));
+      color: #f1eee7;
+    }
+
+    .js .letter__line {
+      display: block;
+      padding: 0;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .js .letter__line[hidden] {
+      display: none;
+    }
+
+    /* Como en el prototipo, la especificación del evento privado se ve siempre en escritorio;
+       queda deshabilitada hasta elegir «evento privado». */
+    .js .letter__detail,
+    .js .letter__detail[hidden] {
+      display: inline;
+    }
+
+    .js .field {
+      display: inline-block;
+      flex: none;
+      block-size: calc(40 * var(--u));
+      padding: 0 calc(6 * var(--u));
+      margin: 0 2px;
+      font: italic 600 calc(28 * var(--u)) / 1 var(--font-display);
+      letter-spacing: 0.01em;
+      color: #f7de7a;
+      vertical-align: baseline;
+      border-block-end: calc(2 * var(--u)) dashed var(--color-orange);
+    }
+
+    .js .field::placeholder,
+    .js .field--state:has(option[value='']:checked) {
+      font-weight: 500;
+      color: rgb(241 238 231 / 36%);
+    }
+
+    .js .field--name {
+      inline-size: calc(300 * var(--u));
+    }
+
+    .js .field--detail {
+      inline-size: calc(190 * var(--u));
+    }
+
+    .js .field--date {
+      inline-size: calc(212 * var(--u));
+      font-size: calc(24 * var(--u));
+    }
+
+    .js .field--locality {
+      inline-size: calc(250 * var(--u));
+    }
+
+    .js .field--municipality {
+      inline-size: calc(262 * var(--u));
+    }
+
+    .js .field--state {
+      inline-size: calc(206 * var(--u));
+      padding-inline-end: calc(28 * var(--u));
+    }
+
+    .js .field--country {
+      inline-size: calc(270 * var(--u));
+    }
+
+    .js .field--phone {
+      inline-size: calc(220 * var(--u));
+    }
+
+    .js .field--message {
+      inline-size: calc(440 * var(--u));
+    }
+
+    .js .segment {
+      display: inline-flex;
+      gap: calc(4 * var(--u));
+      align-items: baseline;
+    }
+
+    .js .segment__label {
+      padding: 0 calc(10 * var(--u));
+      font-family: var(--font-display);
+      font-size: calc(28 * var(--u));
+      font-style: italic;
+      font-weight: 600;
+      line-height: calc(40 * var(--u));
+      color: rgb(241 238 231 / 45%);
+      border-radius: 2px;
+    }
+
+    .js .segment__input:checked + .segment__label {
+      color: #1c2c55;
+      background: #f6cd1f;
+    }
+
+    .js .segment__sep {
+      color: rgb(241 238 231 / 35%);
+    }
+
+    .js .letter__send {
+      position: absolute;
+      inset-block-end: calc(44 * var(--u));
+      inset-inline: calc(54 * var(--u));
+      display: flex;
+      gap: calc(22 * var(--u));
+      align-items: center;
+      margin: 0;
+    }
+
+    .js .letter__button {
+      flex: none;
+      gap: calc(10 * var(--u));
+      block-size: calc(48 * var(--u));
+      padding: 0 calc(26 * var(--u));
+      font-size: calc(12 * var(--u));
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: #1c2c55;
+      background: #f5a23a;
+      border: 0;
+      border-radius: 3px;
+    }
+
+    .js .letter__button:hover {
+      background: #fbb85c;
+    }
+
+    .js .letter__note {
+      margin: 0;
+      font-size: calc(11.5 * var(--u));
+      line-height: 1.5;
+      color: #c9cfe6;
+    }
+
+    /* Pie (prototipo `.ct-foot`): 86 px con la banda de rombos bordada arriba. */
+    .js .site-footer {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      block-size: calc(86 * var(--u));
+      padding: 0 calc(48 * var(--u)) calc(22 * var(--u));
+      font-size: calc(12 * var(--u));
+      font-weight: 500;
+      line-height: normal;
+      letter-spacing: 0.06em;
+      color: #c9cfe6;
+      background: #1c2c55;
+      border-block-start: calc(1.5 * var(--u)) dashed rgb(233 139 30 / 70%);
+    }
+
+    .js .site-footer__band--svg {
+      display: none;
+    }
+
+    .js .site-footer__band--canvas:not([hidden]) {
+      position: absolute;
+      inset-block-start: calc(6 * var(--u));
+      inset-inline-start: 0;
+      display: block;
+      margin: 0;
+    }
+
+    .js .site-footer__body {
+      display: flex;
+      flex: 1;
+      justify-content: space-between;
+      padding: 0;
+      font-size: inherit;
+      letter-spacing: inherit;
+    }
+
+    .js .site-footer__body p {
+      margin: 0;
+    }
+
+    .js .site-footer__brand {
+      margin-inline-end: calc(14 * var(--u));
+      font-size: calc(15 * var(--u));
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: #f1eee7;
+    }
+
+    .js .site-footer__credit a {
+      padding-block-end: 2px;
+      color: #f1eee7;
+      border-block-end: calc(1.5 * var(--u)) dashed #f5a23a;
     }
   }
 }

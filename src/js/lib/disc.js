@@ -75,41 +75,59 @@ export function arcSlot(d, { spacing, size }) {
   };
 }
 
-/** Altura (en discos) de cada vinilo del arco de escritorio según su distancia al centro. */
-const ARC_Y = [0.55, 0.44, 0.33, 0.22, 0.12, 0, -0.09, 0.02, 0.14, 0.27, 0.4];
+/** Altura (en discos) de cada vinilo según su distancia al centro (prototipo `pose`). */
+const POSE_Y = { '-5': 0.55, '-4': 0.44, '-3': 0.33, '-2': 0.22, '-1': 0.12, 0: 0, 1: -0.09, 2: 0.02, 3: 0.14, 4: 0.27, 5: 0.4 };
 
 /**
- * Tabla interpolada: `d` va de −5 a 5 y entre enteros se mezclan los dos vecinos.
- * @param {readonly number[]} table once valores, de d = −5 a d = 5
- * @param {number} d
+ * Distancia circular de un disco al actual: de −n/2 a n/2.
+ * @param {number} i
+ * @param {number} cur
+ * @param {number} n
  */
-function lookup(table, d) {
-  const x = clamp(d, -5, 5) + 5;
-  const i = Math.min(table.length - 2, Math.floor(x));
-  return table[i] + (table[i + 1] - table[i]) * (x - i);
+export function ringOffset(i, cur, n) {
+  let dx = (((i - cur) % n) + n) % n;
+  if (dx > n / 2) dx -= n;
+  return dx;
 }
 
 /**
- * Pose en perspectiva de un vinilo del arco de escritorio (DIS-1), como en el prototipo: la
- * hilera cruza la pantalla de lado a lado, los vecinos se inclinan sobre su eje y se traslapan.
- * Se compone con `perspective` en el contenedor.
- * @param {number} d disco − posición (negativo a la izquierda)
- * @param {{ size: number, vw: number }} frame `size` px del vinilo central; `vw` ancho de la pantalla
- * @returns {{ transform: string, opacity: number, z: number }}
+ * Pose en perspectiva de un vinilo de la galería de escritorio (prototipo `pose`): la hilera
+ * cruza la pantalla de lado a lado; con el tocadiscos encendido, el central se acuesta sobre él
+ * y los vecinos se hacen a un lado.
+ * @param {number} dx distancia al disco actual (entero)
+ * @param {boolean} deckOn
+ * @param {{ V: number, W: number }} frame `V` lado del escenario (389 a U = 1); `W` ancho de pantalla
+ * @returns {{ transform: string, z: number, opacity: number }}
  */
-export function arcPose(d, { size, vw }) {
-  const x = d * 0.74;
-  const y = lookup(ARC_Y, d);
-  const z = d <= 0 ? d * 0.3 : d <= 1 ? 0.12 * d : 0.12 - 0.18 * Math.min(1, d - 1);
-  const yaw = 22 - 9 * d;
-  // El centro del escenario está al 45 % del ancho; se muestra todo disco que aún toca la pantalla.
-  const cx = vw * 0.45 + x * size;
-  const reach = size * 0.59;
-  const opacity = clamp(Math.min(cx + reach, vw + reach - cx) / (size * 0.3));
+export function discPose(dx, deckOn, { V, W }) {
+  let x = dx * 0.74;
+  let y = POSE_Y[/** @type {keyof typeof POSE_Y} */ (String(dx))] ?? 0;
+  let z = dx <= 0 ? dx * 0.3 : dx === 1 ? 0.12 : -0.06;
+  let yaw = 22 - 9 * dx;
+  let rx = 8;
+  let zi = 100 + dx * 10;
+  // La hilera va de orilla a orilla: se muestra todo disco que aún toca la pantalla.
+  const cx = W * 0.45 + x * V;
+  let opacity = cx > (-230 * V) / 389 && cx < W + (230 * V) / 389 ? 1 : 0;
+  if (deckOn) {
+    if (dx === 0) {
+      x = 0;
+      y = -0.08;
+      z = -0.05;
+      yaw = -14;
+      rx = 50;
+      zi = 200;
+    } else {
+      x += Math.sign(dx) * 0.5;
+      z -= 0.35;
+      y += dx > 0 ? 0.16 : -0.02;
+      if (Math.abs(dx) > 2) opacity = 0;
+    }
+  }
   return {
-    transform: `translate3d(${(x * size).toFixed(1)}px, ${(y * size).toFixed(1)}px, ${(z * size).toFixed(1)}px) rotateZ(-6deg) rotateY(${yaw.toFixed(1)}deg) rotateX(8deg)`,
+    transform: `translate3d(${(x * V).toFixed(1)}px,${(y * V).toFixed(1)}px,${(z * V).toFixed(1)}px) rotateZ(-6deg) rotateY(${yaw}deg) rotateX(${rx}deg)`,
+    z: zi,
     opacity,
-    z: Math.round(100 + d * 10),
   };
 }
 

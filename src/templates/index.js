@@ -5,9 +5,7 @@ import { discography } from './discography.js';
 import { footer } from './footer.js';
 import { head } from './head.js';
 import { mascot } from './mascot.js';
-import { hero } from './hero.js';
-import { history } from './history.js';
-import { members } from './members.js';
+import { journey } from './journey.js';
 import { nav } from './nav.js';
 import { places } from './places.js';
 
@@ -20,9 +18,7 @@ export { robots, sitemap } from './head.js';
 export const SECTIONS = /** @type {const} */ ({
   head,
   nav,
-  hero,
-  history,
-  members,
+  journey,
   places,
   discography,
   contact,

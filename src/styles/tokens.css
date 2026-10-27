@@ -1,6 +1,10 @@
 /* Fuente de verdad: docs/DESIGN-TOKENS.md (valores del prototipo v108). */
 @layer tokens {
   :root {
+    /* Unidad del prototipo (ADR-010): 1px a 1536×800; escala con el alto y, si la pantalla es
+       angosta, con el ancho. Las medidas de escritorio son `N * var(--u)`. */
+    --u: min(calc(100svh / 800), calc(100vw / 1100));
+
     /* Color base */
     --color-navy: #1c2c55;
     --color-orange: #e98b1e;

@@ -12,9 +12,9 @@ import { createCurtain } from './features/transition.js';
 import { find } from './lib/dom.js';
 import { initContact } from './sections/contact.js';
 import { createDiscography } from './sections/discography.js';
-import { createHero } from './sections/hero.js';
+import { createJourney } from './sections/journey.js';
+import { drawHem, hemCell } from './stitch/hem.js';
 import { createMap } from './sections/map.js';
-import { createTrack } from './sections/track.js';
 import { loadDiscs, loadMap, loadMotifs, loadPatterns } from './stitch/data.js';
 
 // El CSS sin esta clase muestra el layout estático; con ella, las secciones pueden animarse.
@@ -50,6 +50,11 @@ if (form instanceof HTMLFormElement) {
   }
 }
 
+/** @type {ReturnType<typeof createJourney> | null} */
+let journey = null;
+/** @type {ReturnType<typeof createDiscography> | null} */
+let disco = null;
+
 // 2. Motor y medición: un solo loop para toda la página.
 const engine = createEngine({
   read: () => window.scrollY,
@@ -65,6 +70,8 @@ const layout = createLayout({
   win: window,
   doc: document,
   ids,
+  // Historia e Integrantes están dentro de la pista fija: su inicio lo da el recorrido.
+  resolve: (id, vh) => journey?.blockTop(id, vh) ?? null,
   // Una sección puede cambiar el layout al medirse (pista horizontal): se mide una vez más.
   onChange: () => {
     if (engine.measure()) layout.measure();
@@ -82,6 +89,9 @@ guard('nav', () => {
     bus,
     getMetrics,
     announce: text.dataset.announce ?? '{label}',
+    // Historia e Integrantes viven dentro de la pista: su scroll lo calcula el recorrido.
+    yFor: (id) => journey?.yFor(id) ?? null,
+    topFrom: () => disco?.topY() ?? null,
   });
   engine.watch((state) => nav.update(state));
 });
@@ -98,29 +108,41 @@ engine.start();
 // 4. El bordado necesita sus datos: se piden aparte, sin retrasar el primer pintado.
 Promise.all([loadPatterns(), loadMotifs(), loadMap(), loadDiscs()])
   .then(([patterns, motifs, map, discs]) => {
-    guard('hero', () => {
-      const root = find(document, '[data-hero]', HTMLElement);
-      const hero = createHero({ root, patterns, getMetrics, reduced });
-      engine.add(hero);
+    const ornamentData = {
+      pal: patterns.pal,
+      motifs: motifs.motifs,
+      bands: motifs.bands,
+      logo: patterns.logo,
+    };
+    guard('recorrido', () => {
+      const root = find(document, '[data-journey]', HTMLElement);
+      journey = createJourney({ root, patterns, data: ornamentData, getMetrics, reduced });
+      engine.add(journey);
     });
-    const ornamentData = { pal: patterns.pal, motifs: motifs.motifs, bands: motifs.bands };
-    // Historia e Integrantes son pistas horizontales en escritorio.
-    /** @type {Map<Element, { isTrack(): boolean }>} */
-    const tracks = new Map();
-    for (const root of document.querySelectorAll('[data-track]')) {
-      guard(`pista ${/** @type {HTMLElement} */ (root).dataset.track}`, () => {
-        const id = /** @type {HTMLElement} */ (root).dataset.track ?? '';
-        const section = createTrack({
-          id,
-          root: /** @type {HTMLElement} */ (root),
-          data: ornamentData,
-          getMetrics,
-          reduced,
-        });
-        tracks.set(root, section);
-        engine.add(section);
+    // Guirnaldas de Presencia, Discografía y Contacto: en escritorio, bordadas como en el prototipo.
+    guard('guirnaldas', () => {
+      const hems = [...document.querySelectorAll('canvas[data-hem]')];
+      engine.add({
+        id: 'guirnaldas',
+        start: 0,
+        end: 0,
+        measure() {
+          const { vw, vh, compact } = getMetrics();
+          for (const c of hems) {
+            const canvas = /** @type {HTMLCanvasElement} */ (c);
+            canvas.hidden = compact;
+            if (compact) continue;
+            // `data-hem="rombos"` es la banda del pie (celda fija de 6 px a 1536×800).
+            const band = canvas.dataset.hem ? motifs.bands[canvas.dataset.hem] : null;
+            const cell = band ? 6 * Math.min(vh / 800, vw / 1100) : hemCell(vw, vh);
+            drawHem(canvas, band ?? patterns.hem, patterns.pal, cell, { exact: Boolean(band) });
+            // La de Discografía se esconde media guirnalda bajo el borde (prototipo `drawHem`).
+            if (canvas.closest('[data-disco]')) canvas.style.marginTop = `${-6 * cell}px`;
+          }
+        },
+        update() {},
       });
-    }
+    });
     guard('mapa', () => {
       const root = find(document, '[data-presence]', HTMLElement);
       const uiText = JSON.parse(root.dataset.mapText ?? '{}');
@@ -155,6 +177,7 @@ Promise.all([loadPatterns(), loadMotifs(), loadMap(), loadDiscs()])
         getMetrics,
         reduced,
       });
+      disco = section;
       engine.add(section);
       // La barra va en <body>: así sigue activa cuando la ficha de detalle inhabilita <main>.
       const bar = find(document, '[data-player]', HTMLElement);
@@ -198,11 +221,8 @@ Promise.all([loadPatterns(), loadMotifs(), loadMap(), loadDiscs()])
           data: ornamentData,
           getMetrics,
           reduced,
-          // Los ornamentos dentro de una pista horizontal los borda la propia pista.
-          skip: (slot) => {
-            const root = slot.closest('[data-track]');
-            return Boolean(root && tracks.get(root)?.isTrack());
-          },
+          // Los ornamentos de la pista los borda la propia pista.
+          skip: (slot) => Boolean(slot.closest('[data-journey]') && journey?.isLive()),
         }),
       );
     });

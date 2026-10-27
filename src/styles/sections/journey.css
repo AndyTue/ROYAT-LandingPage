@@ -1,0 +1,967 @@
+/*
+ * Recorrido del prototipo (ADR-010): Hero + pista horizontal (Historia, Integrantes,
+ * ¡Preciosooo! y Vocalistas). Con `.journey--live` (escritorio con JS) es una copia del
+ * prototipo a 1536×800; todas las medidas son `N * --u`, y --u vale 1px en esa resolución.
+ * Las posiciones de cada pieza las pone `sections/journey.js` desde `data-at`.
+ * Sin JS, en móvil o al hacer zoom, las mismas piezas se leen en columna.
+ */
+@layer sections {
+  /* ---------- Columna (sin JS, móvil, zoom) ---------- */
+  .journey {
+    position: relative;
+  }
+
+  .j-track {
+    --bg: var(--tone-paper-bg);
+    --fg: var(--tone-paper-fg);
+    --fg2: var(--tone-paper-fg2);
+    --acc: var(--tone-paper-acc);
+    --acc2: var(--tone-paper-acc2);
+  }
+
+  .j-panel {
+    --bg: var(--tone-paper-bg);
+    --fg: var(--tone-paper-fg);
+    --fg2: var(--tone-paper-fg2);
+    --acc: var(--tone-paper-acc);
+    --acc2: var(--tone-paper-acc2);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 3rem clamp(1rem, 5vw, 3rem);
+    color: var(--fg);
+    background: var(--bg);
+  }
+
+  .j-panel[data-tone='navy'] {
+    --bg: var(--tone-navy-bg);
+    --fg: var(--tone-navy-fg);
+    --fg2: var(--tone-navy-fg2);
+    --acc: var(--tone-navy-acc);
+    --acc2: var(--tone-navy-acc2);
+  }
+
+  .j-panel[data-tone='sand'] {
+    --bg: var(--tone-sand-bg);
+    --fg: var(--tone-sand-fg);
+    --fg2: var(--tone-sand-fg2);
+    --acc: var(--tone-sand-acc);
+    --acc2: var(--tone-sand-acc2);
+  }
+
+  .j-panel[data-tone='red'] {
+    --bg: var(--tone-red-bg);
+    --fg: var(--tone-red-fg);
+    --fg2: var(--tone-red-fg2);
+    --acc: var(--tone-red-acc);
+    --acc2: var(--tone-red-acc2);
+  }
+
+  .j-panel[data-tone='cream'] {
+    --bg: var(--tone-cream-bg);
+    --fg: var(--tone-cream-fg);
+    --fg2: var(--tone-cream-fg2);
+    --acc: var(--tone-cream-acc);
+    --acc2: var(--tone-cream-acc2);
+  }
+
+  .j-xs,
+  .j-axis,
+  .j-mk svg,
+  .j-stitch {
+    display: none;
+  }
+
+  .j-split,
+  .j-word,
+  .j-vtw {
+    display: grid;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 18vw, 7rem);
+    font-weight: 500;
+    line-height: 0.85;
+    text-transform: uppercase;
+  }
+
+  .j-word,
+  .j-vtw {
+    font-size: clamp(2.5rem, 12vw, 4.5rem);
+    text-transform: none;
+    overflow-wrap: anywhere;
+  }
+
+  .j-oo--logo img {
+    display: inline-block;
+    inline-size: 0.48em;
+    block-size: 0.48em;
+  }
+
+  .j-klab,
+  .j-scount,
+  .j-index,
+  .j-tag,
+  .j-vcap {
+    margin: 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg2);
+  }
+
+  .j-index {
+    display: grid;
+    gap: 0.4rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .j-index a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .j-frame {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .j-frame__img img,
+  .j-vframe img,
+  .j-badge img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+  }
+
+  .j-fig,
+  .j-pf,
+  .j-vfig {
+    margin: 0;
+  }
+
+  .j-pf {
+    padding: 8px;
+    background: #f4f0e6;
+    border: 2px dashed var(--color-orange);
+  }
+
+  .j-fcap,
+  .j-pc {
+    display: block;
+    margin-block-start: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .j-cap {
+    display: flex;
+    gap: 0.875rem;
+    align-items: flex-end;
+    margin-block-start: 0.875rem;
+  }
+
+  .j-num,
+  .j-rn,
+  .j-yr {
+    margin: 0;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    line-height: 0.8;
+    color: var(--acc);
+  }
+
+  .j-num {
+    font-size: 3.75rem;
+  }
+
+  .j-rn {
+    font-size: 4rem;
+    color: var(--acc2);
+  }
+
+  .j-yr {
+    font-size: 4.5rem;
+    line-height: 1;
+  }
+
+  .j-cap b {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.3125rem;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+
+  .j-cap small {
+    display: block;
+    margin-block-start: 6px;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg2);
+  }
+
+  .j-timeline {
+    display: grid;
+    gap: 3rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .j-event {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .j-tt h3,
+  .j-sname,
+  .j-dname {
+    margin: 0 0 0.875rem;
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .j-tt p:last-child {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: 1.75;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--fg2);
+  }
+
+  .j-tag {
+    display: inline-block;
+    padding: 3px 7px;
+    margin-block-end: 0.875rem;
+    border: 1px solid currentcolor;
+  }
+
+  .j-tag--dt {
+    color: #8f4a0a;
+  }
+
+  .j-tag--sp {
+    color: var(--color-navy);
+  }
+
+  .j-mk {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--fg2);
+  }
+
+  .j-vin {
+    position: relative;
+    display: block;
+    inline-size: 12rem;
+    aspect-ratio: 1;
+    background:
+      radial-gradient(
+        circle closest-side,
+        transparent 0 63.4%,
+        rgb(255 255 255 / 8%) 63.6% 64.4%,
+        #050505 64.6% 67.4%,
+        transparent 67.6%
+      ),
+      radial-gradient(
+        circle closest-side,
+        transparent 0 93.6%,
+        #070707 93.8% 94.8%,
+        transparent 95%
+      ),
+      repeating-radial-gradient(circle, #171716 0 1px, #0c0c0c 1px 2.4px), #0d0d0d;
+    border-radius: 50%;
+    box-shadow: 0 26px 34px -22px rgb(20 18 14 / 60%);
+  }
+
+  .j-vin__lab {
+    position: absolute;
+    inset: 19%;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 50%);
+  }
+
+  .j-vin__lab img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .j-vin__hole {
+    position: absolute;
+    inset: 48.6%;
+    background: var(--bg);
+    border-radius: 50%;
+  }
+
+  .j-badge {
+    display: block;
+    inline-size: 9rem;
+  }
+
+  .j-glossary {
+    display: grid;
+    gap: 1.25rem;
+    margin: 0;
+  }
+
+  .j-card {
+    position: relative;
+    min-block-size: 10rem;
+    padding: 16px 18px;
+    border-radius: 2px;
+    box-shadow: 0 22px 32px -18px rgb(20 18 14 / 50%);
+  }
+
+  .j-card--w {
+    color: var(--color-navy);
+    background: #fffdf8;
+  }
+
+  .j-card--n {
+    color: #f1eee7;
+    background: var(--color-navy);
+  }
+
+  .j-card--o {
+    color: #151412;
+    background: var(--color-orange);
+  }
+
+  .j-card::after {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    content: '';
+    background: linear-gradient(
+      to top right,
+      transparent calc(50% - 0.5px),
+      currentcolor calc(50% - 0.5px),
+      currentcolor calc(50% + 0.5px),
+      transparent calc(50% + 0.5px)
+    );
+    opacity: 0.3;
+  }
+
+  .j-card dt {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-align: end;
+    text-transform: uppercase;
+  }
+
+  .j-card dt::after {
+    display: block;
+    inline-size: 18px;
+    block-size: 1.5px;
+    margin: 9px 0 0 auto;
+    content: '';
+    background: currentcolor;
+  }
+
+  .j-card dd {
+    margin: 1.5rem 0 0;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  /* ---------- Escritorio: copia del prototipo (1536×800) ---------- */
+  .journey--live {
+    /* 1px a 1536×800; escala con el alto y, en pantallas angostas, con el ancho. */
+    --u: min(calc(100svh / 800), calc(100vw / 1100));
+
+    /* Texto base del prototipo (`.w`): Montserrat 500 a 13px. */
+    font-size: calc(13 * var(--u));
+    font-weight: 500;
+    font-variant-numeric: lining-nums;
+    line-height: normal;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* El prototipo no equilibra renglones: se parten igual que en él. */
+  .journey--live :is(h2, h3, p) {
+    text-wrap: wrap;
+  }
+
+  .journey--live .journey__stick {
+    position: sticky;
+    inset-block-start: 0;
+    block-size: 100svh;
+    overflow: hidden;
+  }
+
+  .journey--live .hero {
+    position: absolute;
+    inset: 0;
+  }
+
+  .journey--live .j-track {
+    --bg: #1c2c55;
+    --fg: #f1eee7;
+    --fg2: #c9cfe6;
+    --acc: #f1eee7;
+    --acc2: #e98b1e;
+    --gl: rgb(255 255 255 / 3.5%);
+
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    z-index: 20;
+    display: flex;
+    block-size: 100%;
+    color: var(--fg);
+    will-change: transform;
+    transform: translate3d(100vw, 0, 0);
+  }
+
+  /* El color de toda la pista sigue al panel del centro: los paneles heredan sus tonos. */
+  .journey--live .j-panel,
+  .journey--live .j-panel[data-tone] {
+    --bg: inherit;
+    --fg: inherit;
+    --fg2: inherit;
+    --acc: inherit;
+    --acc2: inherit;
+
+    position: relative;
+    display: block;
+    flex: none;
+    block-size: 100%;
+    padding: 0;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 50%, rgb(80 70 50 / 8%) 0 0.9px, transparent 1.3px) 0 0 /
+        calc(6 * var(--u)) calc(6 * var(--u)),
+      linear-gradient(90deg, var(--gl) 1px, transparent 1px) 0 0 / calc(6 * var(--u))
+        calc(6 * var(--u)),
+      linear-gradient(var(--gl) 1px, transparent 1px) 0 0 / calc(6 * var(--u)) calc(6 * var(--u)),
+      var(--bg);
+  }
+
+  .journey--live .j-xs {
+    position: absolute;
+    display: block;
+    line-height: 0;
+    pointer-events: none;
+  }
+
+  .journey--live .j-xd,
+  .journey--live .j-xs[data-motif='seam'] {
+    opacity: var(--xo, 0.7);
+  }
+
+  .journey--live .j-xs canvas {
+    inline-size: auto;
+    block-size: auto;
+  }
+
+  .journey--live .j-panel > *,
+  .journey--live .j-event > *,
+  .journey--live .j-glossary > * {
+    position: absolute;
+    margin: 0;
+  }
+
+  .journey--live .j-timeline,
+  .journey--live .j-event,
+  .journey--live .j-glossary {
+    position: static;
+    display: block;
+  }
+
+  .journey--live .j-glossary {
+    margin: 0;
+  }
+
+  .journey--live .ch {
+    display: inline-block;
+    will-change: transform;
+  }
+
+  .journey--live .j-split {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 0.8;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--fg);
+  }
+
+  .journey--live .j-split__row {
+    position: relative;
+    display: block;
+    will-change: transform;
+  }
+
+  .journey--live .j-klab {
+    font-size: calc(12 * var(--u));
+    line-height: 1.5;
+    letter-spacing: 0.14em;
+    color: var(--fg2);
+  }
+
+  .journey--live .j-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(32 * var(--u));
+    font-size: calc(12 * var(--u));
+    line-height: 1.7;
+    color: var(--fg2);
+  }
+
+  .journey--live .j-cols p {
+    margin: 0;
+  }
+
+  .journey--live .j-frame {
+    position: relative;
+    overflow: hidden;
+    background: #d9d4c9;
+    box-shadow: 0 calc(26 * var(--u)) calc(40 * var(--u)) calc(-28 * var(--u)) rgb(20 18 14 / 60%);
+  }
+
+  .journey--live .j-frame__img {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: -8%;
+    display: block;
+    inline-size: 116%;
+    max-inline-size: none;
+    block-size: 100%;
+    will-change: transform;
+  }
+
+  .journey--live .j-frame--fl .j-frame__img {
+    inset-inline-start: 0;
+    inline-size: 100%;
+  }
+
+  .journey--live .j-frame__img img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .journey--live .j-fcap {
+    margin-block-start: calc(12 * var(--u));
+    font-size: calc(17 * var(--u));
+    color: var(--fg);
+  }
+
+  .journey--live .j-cap {
+    gap: calc(14 * var(--u));
+    margin-block-start: calc(14 * var(--u));
+  }
+
+  .journey--live .j-cap .j-num {
+    position: static;
+    font-size: calc(60 * var(--u));
+  }
+
+  .journey--live .j-cap b {
+    font-size: calc(21 * var(--u));
+  }
+
+  .journey--live .j-cap small {
+    margin-block-start: calc(6 * var(--u));
+    font-size: calc(11 * var(--u));
+  }
+
+  .journey--live .j-num--big {
+    font-size: calc(96 * var(--u));
+    line-height: 0.8;
+    color: var(--acc);
+  }
+
+  .journey--live .j-dname {
+    font-size: calc(74 * var(--u));
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  /* Línea de tiempo */
+  .journey--live .j-yr {
+    font-size: calc(124 * var(--u));
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--acc);
+    will-change: transform;
+  }
+
+  .journey--live .j-tt {
+    inline-size: calc(240 * var(--u));
+  }
+
+  .journey--live .j-tt h3 {
+    margin: 0 0 calc(14 * var(--u));
+    font-size: calc(28 * var(--u));
+  }
+
+  .journey--live .j-tt p:last-child {
+    font-size: calc(11 * var(--u));
+  }
+
+  .journey--live .j-tag {
+    padding: calc(3 * var(--u)) calc(7 * var(--u));
+    margin-block-end: calc(14 * var(--u));
+    font-size: calc(11 * var(--u));
+  }
+
+  .journey--live .j-axis {
+    inset-block-start: calc(712 * var(--u));
+    inset-inline: 0;
+    display: block;
+    block-size: 1px;
+    background: currentcolor;
+    opacity: 0.3;
+  }
+
+  .journey--live .j-mk {
+    inset-block-start: calc(700 * var(--u));
+    display: flex;
+    gap: calc(10 * var(--u));
+    align-items: center;
+    font-size: calc(11 * var(--u));
+    letter-spacing: 0.12em;
+  }
+
+  .journey--live .j-mk svg {
+    display: block;
+    inline-size: calc(24 * var(--u));
+    block-size: calc(24 * var(--u));
+  }
+
+  .journey--live .j-mk path {
+    fill: none;
+    stroke: var(--color-orange);
+    stroke-width: 4;
+    stroke-linecap: round;
+  }
+
+  .journey--live .j-pf {
+    padding: calc(8 * var(--u));
+    border-width: calc(2 * var(--u));
+    box-shadow: 0 calc(28 * var(--u)) calc(44 * var(--u)) calc(-30 * var(--u)) rgb(20 18 14 / 60%);
+  }
+
+  .journey--live .j-pf--sm {
+    padding: calc(6 * var(--u));
+    box-shadow: 0 calc(18 * var(--u)) calc(28 * var(--u)) calc(-18 * var(--u)) rgb(20 18 14 / 65%);
+  }
+
+  .journey--live .j-pf .j-frame {
+    background: #cfc8b8;
+    box-shadow: none;
+  }
+
+  .journey--live .j-pc {
+    margin: calc(7 * var(--u)) calc(2 * var(--u)) calc(1 * var(--u));
+    font-size: calc(15 * var(--u));
+    line-height: 1.1;
+    color: var(--color-navy);
+  }
+
+  /* Fotos cosidas a la tela: película de color que se aclara al pasar el cursor. */
+  .journey--live .j-frame--gr img {
+    filter: sepia(0.2) saturate(0.88) contrast(1.03) brightness(1.06);
+    transition: filter 0.7s;
+  }
+
+  .journey--live .j-frame--gr::before,
+  .journey--live .j-frame--gr::after {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    content: '';
+    transition: opacity 0.7s;
+  }
+
+  .journey--live .j-frame--gr::before {
+    z-index: 1;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1  0 0 0 0 .13  0 0 0 0 .3  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
+    opacity: 0.85;
+  }
+
+  .journey--live .j-frame--gr::after {
+    z-index: 2;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cpath d='M1 1l4 4M5 1L1 5' stroke='%231C2C55' stroke-opacity='.13' stroke-width='1' stroke-linecap='square' fill='none'/%3E%3C/svg%3E"),
+      radial-gradient(ellipse at 50% 46%, transparent 58%, rgb(28 44 85 / 28%) 100%),
+      linear-gradient(160deg, rgb(233 139 30 / 12%), rgb(28 44 85 / 8%));
+    mix-blend-mode: multiply;
+  }
+
+  .journey--live .j-pf:hover .j-frame--gr img {
+    filter: none;
+  }
+
+  .journey--live .j-pf:hover .j-frame--gr::before {
+    opacity: 0.25;
+  }
+
+  .journey--live .j-pf:hover .j-frame--gr::after {
+    opacity: 0.28;
+  }
+
+  .journey--live .j-vin {
+    inline-size: auto;
+    aspect-ratio: auto;
+    box-shadow: 0 calc(26 * var(--u)) calc(34 * var(--u)) calc(-22 * var(--u)) rgb(20 18 14 / 60%);
+  }
+
+  .journey--live .j-badge {
+    inline-size: auto;
+    filter: drop-shadow(0 calc(14 * var(--u)) calc(18 * var(--u)) rgb(20 18 14 / 30%));
+  }
+
+  .journey--live .j-badge img {
+    inline-size: 100%;
+    block-size: auto;
+  }
+
+  /* Integrantes */
+  .journey--live .j-index {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(6 * var(--u)) calc(32 * var(--u));
+    font-size: calc(12 * var(--u));
+    letter-spacing: 0.1em;
+  }
+
+  .journey--live .j-rn {
+    font-size: calc(96 * var(--u));
+    line-height: 1;
+  }
+
+  .journey--live .j-sname {
+    font-size: calc(44 * var(--u));
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+  }
+
+  .journey--live .j-scount {
+    font-size: calc(12 * var(--u));
+  }
+
+  .journey--live .j-stitch {
+    display: block;
+    block-size: calc(6 * var(--u));
+    background: repeating-linear-gradient(
+      90deg,
+      var(--color-orange) 0 calc(6 * var(--u)),
+      transparent calc(6 * var(--u)) calc(9 * var(--u))
+    );
+  }
+
+  /* ¡Preciosooo! */
+  .journey--live .j-word {
+    z-index: 2;
+    display: block;
+    font-size: calc(600 * var(--u));
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    white-space: nowrap;
+  }
+
+  .journey--live .j-oo {
+    display: inline-block;
+    will-change: transform;
+  }
+
+  .journey--live .j-oo--logo {
+    display: inline-block;
+    inline-size: 0.48em;
+    block-size: 0.48em;
+    margin-inline-start: 0.02em;
+    vertical-align: -0.012em;
+  }
+
+  .journey--live .j-oo--logo img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  .journey--live .j-card {
+    z-index: 3;
+    inline-size: calc(250 * var(--u));
+    block-size: calc(160 * var(--u));
+    min-block-size: 0;
+    padding: calc(16 * var(--u)) calc(18 * var(--u));
+    will-change: transform;
+  }
+
+  .journey--live .j-card--back {
+    z-index: 1;
+  }
+
+  .journey--live .j-card dt {
+    font-size: calc(13 * var(--u));
+  }
+
+  .journey--live .j-card dt::after {
+    inline-size: calc(18 * var(--u));
+    block-size: calc(1.5 * var(--u));
+    margin-block-start: calc(9 * var(--u));
+  }
+
+  .journey--live .j-card dd {
+    position: absolute;
+    inset-block-end: calc(14 * var(--u));
+    inset-inline-start: calc(18 * var(--u));
+    inline-size: calc(160 * var(--u));
+    margin: 0;
+    font-size: calc(11 * var(--u));
+  }
+
+  /* Vocalistas */
+  .journey--live .j-vtw {
+    inset: 0;
+    z-index: 2;
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    pointer-events: none;
+    transform-origin: calc(318 * var(--u)) calc(104 * var(--u));
+    will-change: transform;
+  }
+
+  .journey--live .j-vt {
+    position: absolute;
+    z-index: 2;
+    font-family: var(--font-display);
+    font-size: calc(156 * var(--u));
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    white-space: nowrap;
+  }
+
+  .journey--live .j-vt--it {
+    font-style: italic;
+  }
+
+  .journey--live .j-vcap {
+    z-index: 2;
+    font-size: calc(11 * var(--u));
+    line-height: 1.7;
+    text-align: end;
+    will-change: transform;
+  }
+
+  .journey--live .j-vfig {
+    inset-block-start: 0;
+    z-index: 4;
+    will-change: transform;
+    transform: translate3d(0, 900px, 0);
+  }
+
+  .journey--live .j-vframe {
+    position: relative;
+    overflow: hidden;
+    background: #2a3a66;
+    box-shadow: 0 calc(30 * var(--u)) calc(50 * var(--u)) calc(-26 * var(--u)) rgb(0 0 0 / 75%);
+  }
+
+  .journey--live .j-vframe picture {
+    position: absolute;
+    inset-block-start: -8%;
+    inset-inline-start: 0;
+    display: block;
+    inline-size: 100%;
+    max-inline-size: none;
+    block-size: 116%;
+    will-change: transform;
+  }
+
+  .journey--live .j-vframe img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  /* Hero dentro de la escena fija (prototipo `.heroWrap`). */
+  .journey--live .hero,
+  .journey--live .hero__stage {
+    position: absolute;
+    inset: 0;
+    block-size: 100%;
+  }
+
+  .journey--live .hero {
+    background:
+      radial-gradient(circle at 50% 50%, rgb(80 70 50 / 10%) 0 0.9px, transparent 1.3px) 0 0 /
+        calc(6 * var(--u)) calc(6 * var(--u)),
+      linear-gradient(90deg, rgb(255 255 255 / 38%) 1px, transparent 1px) 0 0 / calc(6 * var(--u))
+        calc(6 * var(--u)),
+      linear-gradient(rgb(255 255 255 / 38%) 1px, transparent 1px) 0 0 / calc(6 * var(--u))
+        calc(6 * var(--u)),
+      #eceae4;
+  }
+
+  .journey--live .hero__crew {
+    inset: 0 auto auto 50%;
+    margin: 0;
+    opacity: 0;
+    transform-origin: 50% 100%;
+  }
+
+  .journey--live .hero__crew img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+  }
+
+  .journey--live .hero__cue {
+    inset-block-end: calc(20 * var(--u));
+    inset-inline: 50% auto;
+    display: flex;
+    flex-direction: column;
+    gap: calc(8 * var(--u));
+    align-items: center;
+    font-size: calc(11 * var(--u));
+    color: #5f5b53;
+    transform: translateX(-50%);
+  }
+
+  .journey--live .hero__cue i {
+    block-size: calc(40 * var(--u));
+    animation-timing-function: cubic-bezier(0.6, 0, 0.2, 1);
+  }
+
+  .journey--live .hero__skip {
+    inset-block-start: calc(18 * var(--u));
+    inset-inline-end: calc(24 * var(--u));
+    z-index: 40;
+    min-block-size: 0;
+    padding: calc(10 * var(--u)) 0;
+    font-size: calc(11 * var(--u));
+    color: #5f5b53;
+  }
+
+  .journey--live .hero__skip:hover {
+    color: #151412;
+  }
+}

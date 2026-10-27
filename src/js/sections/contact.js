@@ -148,6 +148,31 @@ export function initContact(form, { now = () => new Date(), open = openInNewTab 
     if (!state || data.peninsula.includes(state))
       input('municipality').setAttribute('list', 'ct-municipalities');
     else input('municipality').removeAttribute('list');
+    fitPlace();
+  }
+
+  /**
+   * Escritorio (prototipo `ctPlace`): el estado abraza el texto elegido y el municipio toma el
+   * resto del renglón. En la carta fluida (móvil) los anchos los pone el CSS.
+   */
+  function fitPlace() {
+    const select = /** @type {HTMLSelectElement} */ (fields.state);
+    const mun = input('municipality');
+    if (!window.matchMedia('(width >= 48em)').matches || !document.documentElement.classList.contains('js')) {
+      select.style.width = '';
+      mun.style.width = '';
+      return;
+    }
+    const cs = getComputedStyle(select);
+    const u = parseFloat(cs.fontSize) / 28;
+    const ctx = document.createElement('canvas').getContext('2d');
+    if (!ctx) return;
+    ctx.font = `italic 600 ${cs.fontSize} ${cs.fontFamily}`;
+    const option = select.selectedIndex > 0 ? select.options[select.selectedIndex].text : select.options[0].text;
+    const sw = Math.ceil(ctx.measureText(option).width) + 48 * u;
+    select.style.width = `${sw}px`;
+    const pw = mun.parentElement?.clientWidth ?? 0;
+    if (pw) mun.style.width = `${Math.max(150 * u, pw - sw - 36 * u)}px`;
   }
 
   /** @param {HTMLInputElement | HTMLSelectElement} el */
@@ -245,6 +270,8 @@ export function initContact(form, { now = () => new Date(), open = openInNewTab 
   input('date').min = todayISO(now());
   updateEventType();
   updatePlace();
+  document.fonts?.ready.then(fitPlace);
+  window.addEventListener('resize', fitPlace);
 
   for (const radio of radios) radio.addEventListener('change', updateEventType);
   fields.municipality.addEventListener('input', syncStateFromMunicipality);

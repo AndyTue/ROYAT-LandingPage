@@ -16,9 +16,12 @@ export const COMPACT_QUERY = '(width < 48em)';
  *   doc: Document,
  *   ids: readonly string[],
  *   onChange: (metrics: Metrics) => void,
+ *   resolve?: (id: string, vh: number) => number | null,
  * }} options
+ *   `resolve` da el inicio de una sección que no se puede medir en el documento (p. ej. una
+ *   que vive dentro de una escena fija); si devuelve null, se mide su caja.
  */
-export function createLayout({ win, doc, ids, onChange }) {
+export function createLayout({ win, doc, ids, onChange, resolve }) {
   /** @type {Metrics} */
   let metrics = { vw: 0, vh: 0, total: 0, compact: false, blocks: [] };
   let timer = 0;
@@ -29,7 +32,8 @@ export function createLayout({ win, doc, ids, onChange }) {
       const el = doc.getElementById(id);
       if (!el) return [];
       const rect = el.getBoundingClientRect();
-      return [{ id, top: rect.top + scroll, bottom: rect.bottom + scroll, height: rect.height }];
+      const top = resolve?.(id, win.innerHeight) ?? rect.top + scroll;
+      return [{ id, top, bottom: top + rect.height, height: rect.height }];
     });
     metrics = {
       vw: doc.documentElement.clientWidth,

@@ -10,7 +10,7 @@ import { createStitchLayer, setupCanvas } from '../stitch/renderer.js';
  * @typedef {import('../core/engine.js').ScrollState} ScrollState
  * @typedef {import('../core/layout.js').Metrics} Metrics
  * @typedef {import('../stitch/order.js').OrderMode} OrderMode
- * @typedef {{ pal: string[], motifs: Record<string, string[]>, bands: Record<string, string[]> }} OrnamentData
+ * @typedef {{ pal: string[], motifs: Record<string, string[]>, bands: Record<string, string[]>, logo?: string[] }} OrnamentData
  * @typedef {{ slot: HTMLElement, layer: import('../stitch/renderer.js').StitchLayer, progress: number }} Ornament
  */
 
@@ -35,12 +35,16 @@ export const cellFor = (/** @type {boolean} */ compact) => (compact ? CELL.compa
  * @returns {Ornament | null}
  */
 export function mountOrnament(slot, index, data, cell) {
-  const { motif, band, order = 'out', flip = '', map = '' } = slot.dataset;
+  const { motif, band, order = 'out', flip = '', map = '', pattern: named = '', cell: scale = '' } = slot.dataset;
+  // `data-cell` es un factor sobre la celda (el logo de Contacto se borda a 0.4 de la celda).
+  if (scale) cell *= Number(scale);
   /** @type {import('../stitch/patterns.js').Pattern | undefined} */
   let pattern;
   if (band) {
     const cols = Math.max(1, Math.floor(slot.clientWidth / cell));
     pattern = tileBand(data.bands[band] ?? [], data.pal, cols);
+  } else if (named === 'logo' && data.logo) {
+    pattern = parsePattern(data.logo, data.pal);
   } else if (motif && data.motifs[motif]) {
     pattern = parsePattern(flipRows(data.motifs[motif], flip), data.pal, {
       colorMap: parseColorMap(map),
@@ -83,7 +87,9 @@ export function createOrnaments({ root, data, getMetrics, reduced, skip = () => 
   function measure() {
     const { compact, vh, total } = getMetrics();
     const scroll = window.scrollY;
-    const cell = cellFor(compact);
+    // En escritorio la celda escala con la pantalla como el resto del prototipo (6 px a 1536×800).
+    const { vw } = getMetrics();
+    const cell = compact ? cellFor(true) : cellFor(false) * Math.min(vh / 800, vw / 1100);
     items = slots.flatMap((slot, index) => {
       if (skip(slot)) return [];
       const ornament = mountOrnament(slot, index, data, cell);

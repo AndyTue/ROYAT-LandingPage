@@ -2,14 +2,12 @@
 import { find, findAll } from '../lib/dom.js';
 import { fill, formatDuration, pad2 } from '../lib/format.js';
 import {
-  arcPosition,
-  arcPose,
   arcSlot,
+  discPose,
   discSeconds,
   guestCount,
-  idleProgress,
   minutesLabel,
-  scrollForIndex,
+  ringOffset,
   wrapIndex,
 } from '../lib/disc.js';
 
@@ -20,15 +18,21 @@ import {
  * @typedef {import('../features/player.js').PlayerState} PlayerState
  */
 
-/** Espera sin tocar nada antes de pasar al siguiente disco (DIS-2). */
-const IDLE_MS = 7000;
+/** Avance automático: un disco cada 3.8 s sin tocar nada; 6 s de pausa tras un cambio a mano. */
+const EVERY = 3.8;
+const PAUSE = 6;
+/** Scroll que gira un disco dentro de la sección fija (px a U = 1). */
+const DSTEP = 200;
 /** Distancia mínima de un arrastre para contarlo como deslizamiento (px). */
-const SWIPE_PX = 40;
+const SWIPE_PX = 45;
+/** Disco con el que abre la galería (prototipo `g.cur`). */
+const START = 1;
 const SPOTIFY = 'https://open.spotify.com/album/';
 
 /**
- * Discografía (DIS-1…6): galería de vinilos en arco movida por el scroll, el deslizamiento y
- * las flechas, ficha de detalle en un `<dialog>` y reproducción con el reproductor.
+ * Discografía (DIS-1…6), port de la galería del prototipo: vinilos en perspectiva que cruzan la
+ * pantalla, un paso de scroll por disco, avance automático, tocadiscos al reproducir y la ficha
+ * de detalle con cortina.
  * @param {{
  *   root: HTMLElement,
  *   discs: Disc[],
@@ -38,12 +42,15 @@ const SPOTIFY = 'https://open.spotify.com/album/';
  *   getMetrics: () => Metrics,
  *   reduced: boolean,
  * }} options
- * @returns {import('../core/engine.js').Section & { goTo(index: number): void, openDetail(index: number): void, covers: Element[] }}
+ * @returns {import('../core/engine.js').Section & { goTo(index: number): void, openDetail(index: number): void, covers: Element[], topY(): number | null }}
  */
 export function createDiscography({ root, discs, player, curtain, text, getMetrics, reduced }) {
+  const stage = find(root, '[data-disco-stage]', HTMLElement);
   const gallery = find(root, '[data-gallery]', HTMLElement);
-  const buttons = findAll(root, '[data-g-discs] [data-i]', HTMLButtonElement);
-  const deckEls = findAll(root, '[data-g-layer]', HTMLElement);
+  const buttons = findAll(root, '[data-g-discs] button[data-i]', HTMLButtonElement);
+  const rolls = buttons.map((b) => find(b, '[data-g-roll]', HTMLElement));
+  const deck = find(root, '[data-g-deck]', HTMLElement);
+  const arm = find(root, '[data-g-arm]', HTMLElement);
   const titleEl = find(root, '[data-g-title]', HTMLElement);
   const countEl = find(root, '[data-g-n]', HTMLElement);
   const timer = find(root, '[data-g-timer]', HTMLElement);
@@ -53,24 +60,29 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
   document.body.append(dialog);
   const template = find(root, '[data-detail-template]', HTMLTemplateElement);
   const meta = {
+    firstK: find(root, '[data-g-first-k]', HTMLElement),
     first: find(root, '[data-g-first]', HTMLElement),
     year: find(root, '[data-g-year]', HTMLElement),
     type: find(root, '[data-g-type]', HTMLElement),
+    tracksK: find(root, '[data-g-tracks-k]', HTMLElement),
     tracks: find(root, '[data-g-tracks]', HTMLElement),
     duration: find(root, '[data-g-duration]', HTMLElement),
   };
   const covers = buttons.map((b) => find(b, 'picture', HTMLElement));
+  for (const lab of findAll(root, '[data-color]', HTMLElement)) lab.style.background = lab.dataset.color ?? '';
   const count = discs.length;
 
-  let pinned = false;
-  let step = 1;
-  let pos = 0;
-  let current = -1;
-  let drawnPos = NaN;
-  let frame = { spacing: 280, size: 320, vw: 1536, compact: false };
-  let deckOn = false;
-  let lastInput = performance.now();
-  let autoDone = false;
+  let live = false;
+  let cur = START;
+  let shownTitle = '';
+  let U = 1;
+  let W = 1536;
+  let yDisco = 0;
+  let dIdx = -1;
+  let idle = 0;
+  let pause = 0;
+  let last = 0;
+  let pointerDown = false;
   let dragFrom = 0;
   let dragged = false;
   let detailIndex = -1;
@@ -78,156 +90,178 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
   /** @type {HTMLElement | null} */
   let opener = null;
   let lastTimer = '';
+  let compactPos = START;
 
-  const clampIndex = (/** @type {number} */ i) => Math.min(count - 1, Math.max(0, i));
+  /** Disco en el tocadiscos (sonando o en pausa) o null. */
+  const onDeck = () => (player.state.disc === null ? null : player.state.disc);
 
-  /** Lleva la galería al disco `index`: con la pantalla fija mueve el scroll; si no, la posición. */
-  function goTo(/** @type {number} */ index) {
-    const target = clampIndex(index);
-    if (pinned) {
-      window.scrollTo({
-        top: scrollForIndex(target, section.start, step),
-        behavior: reduced ? 'auto' : 'smooth',
-      });
-    } else {
-      pos = target;
-      render();
+  /**
+   * Título que entra letra por letra (prototipo `setLetters`).
+   * @param {string} value
+   * @param {boolean} animate
+   */
+  function setTitle(value, animate) {
+    if (!animate || reduced) {
+      titleEl.textContent = value;
+      return;
     }
-  }
-
-  function renderDiscs() {
-    // El tocadiscos comparte la pose del disco central (en escritorio, en perspectiva).
-    const deckPose = frame.compact ? '' : arcPose(0, frame).transform;
-    for (const el of deckEls) el.style.transform = deckPose;
-    buttons.forEach((button, i) => {
-      if (!frame.compact) {
-        const pose = arcPose(i - pos, frame);
-        button.style.transform = pose.transform;
-        button.style.opacity = pose.opacity.toFixed(2);
-        button.style.zIndex = String(pose.z);
-        button.style.setProperty('--roll', `${((i - pos) * 110).toFixed(1)}deg`);
-        return;
+    titleEl.textContent = '';
+    let n = 0;
+    value.split(' ').forEach((word, wi) => {
+      if (wi) titleEl.append(' ');
+      const w = document.createElement('span');
+      w.className = 'wd';
+      for (const c of word) {
+        const l = document.createElement('span');
+        l.className = 'lt';
+        l.textContent = c;
+        l.style.animationDelay = `${n++ * 28}ms`;
+        w.append(l);
       }
-      const slot = arcSlot(i - pos, frame);
-      if (deckOn) {
-        // Suena el disco central: se achica sobre el tocadiscos y los vecinos se hacen a un lado.
-        if (i === current) slot.scale *= 0.8;
-        else slot.x *= 1.3;
-      }
-      button.style.transform = `translate3d(${slot.x.toFixed(1)}px, ${slot.y.toFixed(1)}px, 0) scale(${slot.scale.toFixed(3)}) rotate(${slot.rotate.toFixed(2)}deg)`;
-      button.style.opacity = slot.opacity.toFixed(2);
-      button.style.zIndex = String(slot.z);
+      titleEl.append(w);
     });
   }
 
-  /** @param {number} index */
-  function showInfo(index) {
-    const disc = discs[index];
-    titleEl.textContent = disc.title;
-    countEl.textContent = pad2(index + 1);
-    meta.first.textContent = `“${disc.tracks[0].title}”`;
+  /** Aplica el estado: poses, tocadiscos, título y datos (prototipo `applyGal`). */
+  function apply(first = false) {
+    const disc = discs[cur];
+    const state = player.state;
+    const deckOn = onDeck() === cur;
+    const playing = deckOn && state.playing;
+    const frame = { V: 389 * U, W };
+    buttons.forEach((el, i) => {
+      const here = i === cur;
+      if (live) {
+        const dx = ringOffset(i, cur, count);
+        const p = discPose(dx, deckOn, frame);
+        el.style.transform = p.transform;
+        el.style.zIndex = String(p.z);
+        el.style.opacity = String(p.opacity);
+        el.style.pointerEvents = p.opacity ? '' : 'none';
+        rolls[i].style.transform = `rotate(${here ? 0 : dx * 110}deg)`;
+      }
+      el.tabIndex = here ? 0 : -1;
+      el.classList.toggle('cur', here);
+      el.classList.toggle('deck-on', here && deckOn);
+      el.classList.toggle('playing', here && playing);
+      if (here) el.setAttribute('aria-current', 'true');
+      else el.removeAttribute('aria-current');
+    });
+    if (live) {
+      const center = discPose(0, true, frame).transform;
+      deck.style.transform = center;
+      arm.style.transform = center;
+    }
+    deck.classList.toggle('on', deckOn);
+    deck.classList.toggle('playing', playing);
+    arm.classList.toggle('on', deckOn);
+    arm.classList.toggle('playing', playing);
+    if (shownTitle !== disc.title) {
+      setTitle(disc.title, !first);
+      shownTitle = disc.title;
+    }
+    countEl.textContent = pad2(cur + 1);
     meta.year.textContent = String(disc.year);
     meta.type.textContent = disc.type;
-    meta.tracks.textContent = String(disc.tracks.length);
     meta.duration.textContent = formatDuration(discSeconds(disc));
-    buttons.forEach((b, i) => {
-      if (i === index) b.setAttribute('aria-current', 'true');
-      else b.removeAttribute('aria-current');
-    });
-    syncSpin(player.state);
-  }
-
-  /** @param {PlayerState} state */
-  function syncSpin(state) {
-    const wasOn = deckOn;
-    deckOn = state.playing && state.disc === current;
-    gallery.classList.toggle('gal--deck', deckOn);
-    if (deckOn !== wasOn) drawnPos = NaN;
-    buttons.forEach((button, i) => {
-      const vinyl = find(button, '[data-vinyl]', HTMLElement);
-      vinyl.classList.toggle('is-spinning', state.playing && state.disc === i);
-    });
-  }
-
-  function render() {
-    if (pos !== drawnPos) {
-      drawnPos = pos;
-      renderDiscs();
-    }
-    const index = clampIndex(Math.round(pos));
-    if (index !== current) {
-      current = index;
-      showInfo(index);
+    if (deckOn) {
+      meta.firstK.textContent = state.playing ? text.player.playing ?? '' : text.player.paused ?? '';
+      meta.first.textContent = `“${disc.tracks[state.track]?.title ?? ''}”`;
+      meta.tracksK.textContent = text.player.track ?? '';
+      meta.tracks.textContent = fill(text.player.trackOf ?? '{n} / {total}', { n: state.track + 1, total: disc.tracks.length });
+    } else {
+      meta.firstK.textContent = text.meta?.firstTrack ?? meta.firstK.textContent;
+      meta.first.textContent = `“${disc.tracks[0].title}”`;
+      meta.tracksK.textContent = text.meta?.tracks ?? meta.tracksK.textContent;
+      meta.tracks.textContent = String(disc.tracks.length);
     }
   }
 
   /**
-   * Cuenta el tiempo sin tocar nada y, cumplido, pasa al siguiente disco una vez.
-   * Solo corre con la galería a la vista: si no, el avance movería el scroll desde otra sección.
-   * @param {number} now
-   * @param {boolean} inView
+   * Gira la galería al disco `i` (con vuelta). `auto` no reinicia la espera del avance.
+   * @param {number} i
+   * @param {boolean} [auto]
    */
-  function autoAdvance(now, inView) {
-    if (!inView) lastInput = now;
-    const blocked = !inView || reduced || autoDone || player.state.playing || isOpen;
-    const p = blocked ? 0 : idleProgress(now - lastInput, IDLE_MS);
-    const value = `scaleX(${p.toFixed(2)})`;
+  function galGo(i, auto = false) {
+    if (!auto) {
+      idle = 0;
+      pause = PAUSE;
+    }
+    cur = ((i % count) + count) % count;
+    compactPos = cur;
+    apply();
+  }
+
+  /** Avance automático mientras la sección está a la vista y nada suena en el disco actual. */
+  function galAuto(/** @type {number} */ dt, /** @type {number} */ y) {
+    const d = Math.min(dt, 0.25);
+    const seen = live && y > yDisco - 420 * U;
+    if (pause > 0) pause -= d;
+    const run = !reduced && seen && !isOpen && onDeck() !== cur && !pointerDown && !(pause > 0) && !curtain.busy;
+    if (run) {
+      idle += d;
+      if (idle >= EVERY) {
+        idle = 0;
+        galGo(cur + 1, true);
+      }
+    }
+    const value = `${run ? Math.min(100, (idle / EVERY) * 100) : 0}%`;
     if (value !== lastTimer) {
       lastTimer = value;
-      timer.style.transform = value;
-    }
-    if (blocked) return;
-    if (p >= 1) {
-      lastInput = now;
-      if (current < count - 1) goTo(current + 1);
-      else autoDone = true;
+      timer.style.width = value;
     }
   }
 
+  /** Clic en un vinilo: un vecino pasa al centro y suena; el central suena o se pausa. */
+  function tap(/** @type {number} */ i) {
+    if (dragged) return;
+    if (i !== cur) {
+      cur = i;
+      player.play(i, 0);
+      apply();
+      return;
+    }
+    playCurrent();
+  }
+
+  function playCurrent() {
+    if (player.state.disc === cur) player.toggle();
+    else player.play(cur, 0);
+  }
+
   // --- entrada del usuario ---
-  const touch = () => {
-    lastInput = performance.now();
-  };
   gallery.addEventListener('pointerdown', (event) => {
-    touch();
+    pointerDown = true;
     dragFrom = event.clientX;
     dragged = false;
   });
-  gallery.addEventListener('pointerup', (event) => {
+  const release = (/** @type {PointerEvent} */ event) => {
+    if (!pointerDown) return;
+    pointerDown = false;
     const dx = event.clientX - dragFrom;
     if (Math.abs(dx) > SWIPE_PX) {
       dragged = true;
-      goTo(current + (dx < 0 ? 1 : -1));
+      galGo(cur + (dx < 0 ? 1 : -1));
+      setTimeout(() => (dragged = false), 0);
     }
-  });
+  };
+  gallery.addEventListener('pointerup', release);
+  gallery.addEventListener('pointercancel', () => (pointerDown = false));
   gallery.addEventListener('keydown', (event) => {
-    touch();
-    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') goTo(current + 1);
-    else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') goTo(current - 1);
-    else if (event.key === 'Home') goTo(0);
-    else if (event.key === 'End') goTo(count - 1);
-    else if (event.key === 'Enter' || event.key === ' ') playCurrent();
+    if (event.key === 'ArrowRight') galGo(cur + 1);
+    else if (event.key === 'ArrowLeft') galGo(cur - 1);
+    else if ((event.key === 'Enter' || event.key === ' ') && event.target === gallery) tap(cur);
     else return;
     event.preventDefault();
   });
-  window.addEventListener('wheel', touch, { passive: true });
-  window.addEventListener('touchstart', touch, { passive: true });
-  find(root, '[data-g-prev]', HTMLButtonElement).addEventListener('click', () => goTo(current - 1));
-  find(root, '[data-g-next]', HTMLButtonElement).addEventListener('click', () => goTo(current + 1));
-  more.addEventListener('click', () => openDetail(current));
-  buttons.forEach((button, i) =>
-    button.addEventListener('click', () => {
-      if (dragged) return;
-      // Un vecino se trae al centro; el central suena (o se pausa).
-      if (i === current) playCurrent();
-      else goTo(i);
-    }),
-  );
+  find(root, '[data-g-prev]', HTMLButtonElement).addEventListener('click', () => galGo(cur - 1));
+  find(root, '[data-g-next]', HTMLButtonElement).addEventListener('click', () => galGo(cur + 1));
+  more.addEventListener('click', () => openDetail(cur));
+  buttons.forEach((button, i) => button.addEventListener('click', () => tap(i)));
 
-  function playCurrent() {
-    const state = player.state;
-    if (state.disc === current) player.toggle();
-    else player.play(current, 0);
+  /** Lleva la galería a un disco (barra del reproductor, ficha). */
+  function goTo(/** @type {number} */ index) {
+    galGo(index);
   }
 
   // --- ficha de detalle ---
@@ -251,8 +285,12 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
     cover.className = '';
     const img = cover.querySelector('img');
     if (img) img.alt = fill(text.coverAlt, { title: disc.title });
-    sleeve.replaceChildren(cover);
-    find(dialog, '[data-d-vinyl]', HTMLElement).replaceChildren(covers[index].cloneNode(true));
+    const wear = document.createElement('span');
+    wear.className = 'detail__wear';
+    sleeve.replaceChildren(cover, wear);
+    const label = find(dialog, '[data-d-label]', HTMLElement);
+    label.style.background = disc.color;
+    label.replaceChildren(covers[index].cloneNode(true));
     const spotify = find(dialog, '[data-d-spotify]', HTMLAnchorElement);
     spotify.href = `${SPOTIFY}${disc.spotifyId}`;
     const list = el('tracks');
@@ -296,7 +334,7 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
     });
     syncDetail(player.state);
     dialog.scrollTop = 0;
-    goTo(index);
+    galGo(index);
   }
 
   /** @param {PlayerState} state */
@@ -355,7 +393,6 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
     document.documentElement.classList.remove('detail-open');
     for (const el of document.querySelectorAll(BACKGROUND)) el.removeAttribute('inert');
     opener?.focus();
-    touch();
   }
 
   // Esc cierra y Tab queda dentro de la ficha (el fondo está inhabilitado con `inert`).
@@ -380,12 +417,25 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
   });
 
   player.subscribe((state) => {
-    syncSpin(state);
+    apply();
     syncDetail(state);
   });
 
   // La galería ya no es una lista estática: se activa (la lista queda para lectores de pantalla).
   root.classList.add('disco--live');
+
+  /** Móvil: arco plano (se porta con el recorrido móvil). */
+  function renderCompact() {
+    const { vw, vh } = getMetrics();
+    const size = Math.min(vw * 0.78, vh * 0.36);
+    gallery.style.setProperty('--disc-size', `${size.toFixed(0)}px`);
+    buttons.forEach((button, i) => {
+      const slot = arcSlot(ringOffset(i, Math.round(compactPos), count), { size, spacing: size * 0.88 });
+      button.style.transform = `translate3d(${slot.x.toFixed(1)}px, ${slot.y.toFixed(1)}px, 0) scale(${slot.scale.toFixed(3)}) rotate(${slot.rotate.toFixed(2)}deg)`;
+      button.style.opacity = slot.opacity.toFixed(2);
+      button.style.zIndex = String(slot.z);
+    });
+  }
 
   const section = {
     id: 'discografia',
@@ -394,30 +444,53 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
     covers,
     goTo,
     openDetail,
+    /** Scroll en que la galería queda en su lugar (prototipo `yDisco`). */
+    topY: () => (live ? yDisco : null),
     measure() {
-      const { vh, vw, blocks } = getMetrics();
+      const { vh, vw, blocks, compact } = getMetrics();
       const block = blocks.find((b) => b.id === 'discografia');
-      const before = pinned;
-      pinned = !reduced;
-      root.classList.toggle('disco--pinned', pinned);
+      const before = live;
+      live = !compact;
+      W = vw;
+      U = Math.min(vh / 800, vw / 1100);
+      root.classList.toggle('disco--pinned', live);
       section.start = block?.top ?? 0;
-      section.end = block?.bottom ?? 0;
-      step = Math.max(1, (section.end - section.start - vh) / Math.max(1, count - 1));
-      const compact = vw < 768;
-      // Escritorio: el vinilo central mide 389 px a 800 de alto (el prototipo).
-      const size = compact ? Math.min(vw * 0.78, vh * 0.36) : Math.min(vh * 0.486, vw * 0.253);
-      frame = { size, spacing: size * (compact ? 0.88 : 0.86), vw, compact };
-      gallery.style.setProperty('--disc-size', `${size.toFixed(0)}px`);
-      drawnPos = NaN;
-      render();
-      return before !== pinned;
+      let changed = before !== live;
+      if (live) {
+        // La galería se fija a 64 px del borde, con la guirnalda asomando (prototipo `layout`).
+        const gTop = gallery.offsetTop;
+        stage.style.setProperty('--disco-top', `${64 * U - gTop}px`);
+        const height = `${Math.round(stage.offsetHeight + DSTEP * U * (count - 1) + (DSTEP * U) / 2)}px`;
+        if (root.style.height !== height) changed = true;
+        root.style.height = height;
+        const y0 = section.start + gTop - 64 * U;
+        // Si la galería cambió de lugar, el paso actual se recalcula sin girar discos.
+        if (y0 !== yDisco) dIdx = -1;
+        yDisco = y0;
+      } else {
+        root.style.height = '';
+        stage.style.removeProperty('--disco-top');
+      }
+      section.end = section.start + root.offsetHeight;
+      apply(true);
+      if (!live) renderCompact();
+      return changed;
     },
     alwaysTick: true,
     /** @param {ScrollState} state */
     update(state) {
-      if (pinned) pos = arcPosition(state.y, section.start, step, count);
-      render();
-      autoAdvance(state.now, state.y >= section.start - state.vh * 0.25 && state.y < section.end);
+      const dt = last ? (state.now - last) / 1000 : 0;
+      last = state.now;
+      if (live) {
+        // Dentro de la sección fija, cada paso de scroll gira un disco.
+        const step = DSTEP * U;
+        const di = state.y >= yDisco - 1 ? Math.floor((state.y - yDisco + step / 2) / step) : -1;
+        if (di !== dIdx) {
+          if (di >= 0 && dIdx >= 0 && !isOpen) galGo(cur + (di - dIdx));
+          dIdx = di;
+        }
+      }
+      galAuto(dt, state.y);
     },
   };
   return section;

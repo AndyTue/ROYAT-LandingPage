@@ -187,6 +187,35 @@
     }
   }
 
+  /* Escritorio: medidas del prototipo (`.wipe`). */
+  @media (width >= 48em) {
+    .curtain {
+      gap: 0;
+      padding: 0;
+    }
+
+    .curtain__title {
+      font-size: calc(116 * var(--u));
+    }
+
+    .curtain--cover .curtain__title {
+      max-inline-size: 11ch;
+      font-size: calc(92 * var(--u));
+    }
+
+    .curtain__cover {
+      padding: calc(10 * var(--u));
+      margin: 0 calc(72 * var(--u)) 0 0;
+      border-width: calc(2 * var(--u));
+      box-shadow: 0 calc(30 * var(--u)) calc(50 * var(--u)) calc(-24 * var(--u)) rgb(0 0 0 / 75%);
+    }
+
+    .curtain__cover img {
+      inline-size: calc(320 * var(--u));
+      block-size: calc(320 * var(--u));
+    }
+  }
+
   /* Vinilo: surcos, borde y el arte del disco como etiqueta. */
   .vinyl {
     position: relative;

@@ -82,3 +82,6 @@ $RECYCLE.BIN/
 .idea/
 *.swp
 *~
+
+# Paridad con el prototipo (depende de reference/, solo local)
+reference-check/

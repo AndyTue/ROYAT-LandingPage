@@ -26,6 +26,10 @@
   }
 
   .presence__eyebrow {
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
     color: var(--acc2);
   }
 
@@ -445,63 +449,165 @@
     }
   }
 
-  /* Escritorio: texto a la izquierda y el mapa a la derecha, centrado en la pantalla. */
+  /* Escritorio: copia del prototipo (`.mapa`, ADR-010). Medidas = N × --u (1px a 1536×800). */
   @media (width >= 48em) {
+    .presence--pinned {
+      --presence-run: calc(1200 * var(--u));
+    }
+
     .presence--live .presence__stage {
-      grid-template-columns: minmax(18rem, 30rem) minmax(0, 58.125rem);
-      grid-template-rows: auto 1fr;
-      column-gap: 1.625rem;
-      align-items: start;
-      padding-inline-end: 2.25rem;
+      display: block;
+      padding: 0;
+      font-size: calc(13 * var(--u));
+      font-weight: 500;
+      line-height: normal;
+      color: #f1eee7;
+      background:
+        radial-gradient(circle at 50% 50%, rgb(0 0 0 / 10%) 0 0.9px, transparent 1.3px) 0 0 /
+          calc(6 * var(--u)) calc(6 * var(--u)),
+        linear-gradient(90deg, rgb(255 255 255 / 3.5%) 1px, transparent 1px) 0 0 /
+          calc(6 * var(--u)) calc(6 * var(--u)),
+        linear-gradient(rgb(255 255 255 / 3.5%) 1px, transparent 1px) 0 0 / calc(6 * var(--u))
+          calc(6 * var(--u)),
+        #1c2c55;
     }
 
     .presence--live .presence__hem {
-      grid-column: 1 / -1;
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      z-index: 2;
+      inline-size: 100%;
+      margin: 0;
+      filter: drop-shadow(0 calc(8 * var(--u)) calc(10 * var(--u)) rgb(6 12 30 / 45%));
     }
 
     .presence--live .presence__text {
-      align-self: start;
-      padding-block-start: 2.75rem;
+      position: absolute;
+      inset-block-start: calc(114 * var(--u));
+      inset-inline-start: calc(64 * var(--u));
+      inline-size: calc(480 * var(--u));
+      padding: 0;
+    }
+
+    .presence--live .presence__eyebrow {
+      margin: 0 0 calc(20 * var(--u));
+      font-size: calc(11 * var(--u));
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      color: #c9cfe6;
     }
 
     .presence--live .presence__title {
-      margin-block: 0.5rem 1.25rem;
-      font-size: clamp(3rem, 5.7vw, 5.5rem);
+      margin: 0;
+      font-size: calc(88 * var(--u));
+      font-weight: 500;
+      line-height: 0.9;
+      letter-spacing: -0.01em;
+      text-wrap: wrap;
     }
 
-    .presence--live .counter {
-      gap: 0.25rem;
-      min-inline-size: 7.375rem;
-      padding-block-start: 0.625rem;
+    .presence--live .presence__title em {
+      color: #f5a23a;
     }
 
     .presence--live .presence__counters {
-      grid-template-columns: repeat(3, auto);
-      gap: 1.625rem;
-      justify-content: start;
+      display: flex;
+      gap: calc(26 * var(--u));
+      margin-block-start: calc(44 * var(--u));
+    }
+
+    .presence--live .counter {
+      display: flex;
+      flex-direction: column;
+      gap: calc(8 * var(--u));
+      align-items: flex-start;
+      inline-size: auto;
+      min-inline-size: calc(118 * var(--u));
+      padding: calc(12 * var(--u)) 0 calc(6 * var(--u));
+      border-block-start: calc(1.5 * var(--u)) dashed rgb(233 139 30 / 70%);
     }
 
     .presence--live .counter__n {
-      font-size: clamp(2.5rem, 4.3vw, 4.125rem);
+      font-size: calc(66 * var(--u));
       line-height: 0.85;
     }
 
+    .presence--live .counter__label {
+      display: flex;
+      gap: calc(8 * var(--u));
+      align-items: flex-start;
+      max-inline-size: calc(130 * var(--u));
+      font-size: calc(11 * var(--u));
+      line-height: 1.5;
+      letter-spacing: 0.12em;
+      color: #c9cfe6;
+    }
+
+    .presence--live .counter__x {
+      flex: none;
+      margin-block-start: calc(2 * var(--u));
+    }
+
     .presence--live .presence__tour {
-      margin-block-start: 1rem;
+      margin: calc(34 * var(--u)) 0 0;
+      font-family: var(--font-display);
+      font-size: calc(24 * var(--u));
+      line-height: 1.1;
+      color: #f1eee7;
+    }
+
+    .presence--live .presence__tour em {
+      font-size: inherit;
+      color: #f5a23a;
     }
 
     .presence--live .presence__hint {
-      margin-block-start: 0.5rem;
+      max-inline-size: calc(420 * var(--u));
+      margin: calc(12 * var(--u)) 0 0;
+      font-size: calc(11.5 * var(--u));
+      line-height: 1.7;
+      letter-spacing: 0.04em;
+      color: #c9cfe6;
     }
 
     .presence--live .presence__map {
-      inline-size: min(100%, calc((100svh - 7rem) * 930 / 624));
-      margin-block-start: 0.875rem;
-      justify-self: start;
+      position: absolute;
+      inset-block-start: calc(84 * var(--u));
+      inset-inline-start: calc(570 * var(--u));
+      inline-size: calc(930 * var(--u));
+      block-size: calc(624 * var(--u));
+      margin: 0;
+    }
+
+    .presence--live .presence__map canvas {
+      position: absolute;
+      inset: 0;
+      inline-size: 100%;
+      block-size: 100%;
     }
 
     .presence--live .presence__list {
-      grid-column: 1 / -1;
+      grid-column: auto;
+    }
+
+    .presence--live .mp-state {
+      font-size: calc(12 * var(--u));
+      font-weight: 500;
+      letter-spacing: 0.55em;
+      color: rgb(241 238 231 / 42%);
+      white-space: nowrap;
+      transform: translate(-50%, -50%);
+    }
+
+    .presence--live .mp-state--qroo {
+      writing-mode: horizontal-tb;
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    /* Con JS la guirnalda es un canvas bordado como el del prototipo (`js/stitch/hem.js`). */
+    .presence--live .presence__hem--svg {
+      display: none;
     }
 
     .mp-card {

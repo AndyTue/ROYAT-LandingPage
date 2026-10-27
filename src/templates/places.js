@@ -52,13 +52,14 @@ export function places(ctx) {
   const hem = stitchBandSvg(patterns.hem, patterns.pal, {
     id: 'presence-hem',
     cell: 6,
-    className: 'presence__hem',
+    className: 'presence__hem presence__hem--svg',
   });
   return html`<section id="presencia" class="presence" aria-labelledby="presencia-titulo" data-presence data-map-text="${JSON.stringify(t.map)}" data-tone="navy">
     <div class="presence__stage" data-presence-stage>
       ${raw(hem)}
+      <canvas class="presence__hem" data-hem aria-hidden="true" hidden></canvas>
       <div class="presence__text">
-        <p class="presence__eyebrow label">${t.eyebrow}</p>
+        <p class="presence__eyebrow">${t.eyebrow}</p>
         <h2 class="presence__title" id="presencia-titulo">
           ${t.titleLines[0]} <em>${t.titleLines.slice(1).join(' ')}</em>
         </h2>
@@ -73,7 +74,7 @@ export function places(ctx) {
                   <b class="counter__n" data-count>${presenceCount(list, c.state, c.cap)}</b>
                   <span class="counter__label">
                     <svg class="counter__x" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false"><path d="M2.2 2.2l7.6 7.6M9.8 2.2l-7.6 7.6"/></svg>
-                    ${c.label}
+                    <span>${c.label.split(' ')[0]}<br>${c.label.split(' ').slice(1).join(' ')}</span>
                   </span>
                 </button>
               </li>`,

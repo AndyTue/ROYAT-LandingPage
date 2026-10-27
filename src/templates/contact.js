@@ -80,7 +80,7 @@ function letter(ctx) {
       ${field({ id: 'ct-name', label: N.name, field: 'name', input: { autocomplete: 'name', maxlength: 80, placeholder: P.name } })}
     </p>
     <p class="letter__line">
-      <span>${L.invite}</span><span data-article>${L.articleFeminine}</span>
+      <span>${L.invite}</span> <span data-article>${L.articleFeminine}</span>
     </p>
     <fieldset class="letter__line letter__type">
       <legend class="sr-only">${L.eventTypeLabel}</legend>
@@ -147,7 +147,7 @@ export function contact(ctx) {
   const hem = stitchBandSvg(patterns.hem, patterns.pal, {
     id: 'contact-hem',
     cell: 6,
-    className: 'contact__hem',
+    className: 'contact__hem contact__hem--svg',
   });
   return html`<section
     id="contacto"
@@ -155,10 +155,15 @@ export function contact(ctx) {
     aria-labelledby="contacto-titulo"
   >
     ${raw(hem)}
+    <canvas class="contact__hem" data-hem aria-hidden="true" hidden></canvas>
+    <span class="ornament contact__orn contact__orn--a" data-ornament data-motif="flor5" data-order="out" aria-hidden="true"></span>
+    <span class="ornament contact__orn contact__orn--b" data-ornament data-motif="star5" data-order="out" aria-hidden="true"></span>
+    <span class="ornament contact__orn contact__orn--c" data-ornament data-motif="rombo" data-order="out" aria-hidden="true"></span>
     <div class="contact__brand">
       <span class="ornament contact__bird" data-ornament data-motif="bird" data-order="out" aria-hidden="true"></span>
       ${raw(logo)}
-      <p class="contact__social-title label">${t.socialTitle}</p>
+      <span class="ornament contact__stitched" data-ornament data-pattern="logo" data-cell="0.4" data-order="lr" aria-hidden="true"></span>
+      <p class="contact__social-title">${t.socialTitle}</p>
       <ul class="social">
         ${site.social.map(
           (/** @type {{ label: string, url: string, icon: string }} */ s) =>
@@ -181,7 +186,7 @@ export function contact(ctx) {
       <span class="ornament letter__ornament letter__ornament--tl" data-ornament data-motif="star5" data-order="out" aria-hidden="true"></span>
       <span class="ornament letter__ornament letter__ornament--tr" data-ornament data-motif="star5" data-order="out" aria-hidden="true"></span>
       <span class="ornament letter__ornament letter__ornament--br" data-ornament data-motif="flor5" data-order="out" aria-hidden="true"></span>
-      <p class="letter__eyebrow label">${site.contact.eyebrow}</p>
+      <p class="letter__eyebrow">${site.contact.eyebrow}</p>
       <h2 class="letter__title" id="contacto-titulo">${emphasizeLast(site.contact.formTitle)}</h2>
       <form
         class="letter__form"
