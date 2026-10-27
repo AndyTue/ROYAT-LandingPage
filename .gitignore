@@ -85,3 +85,7 @@ $RECYCLE.BIN/
 
 # Paridad con el prototipo (depende de reference/, solo local)
 reference-check/
+
+# --- Documentación de proceso (no necesaria para producción; se conserva en local) ---
+CHANGELOG.md
+.github/pull_request_template.md
