@@ -99,6 +99,45 @@
     display: none;
   }
 
+  /* Móvil (MOV-2): una estrella bordada sobre el hilo y el número a su lado. */
+  @media (width < 48em) {
+    .event__marker {
+      inset-block-start: 0.55rem;
+      inset-inline-start: calc(-2.5rem + 0.75rem);
+      inline-size: auto;
+      block-size: auto;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--fg2);
+      background: none;
+      border-radius: 0;
+    }
+
+    .event__ornament {
+      inset-block: 0.3rem auto;
+      inset-inline-start: calc(-2.5rem - 1.1rem + 1.5px);
+    }
+
+    .history__intro {
+      position: relative;
+    }
+
+    .history__intro .history__bird {
+      position: absolute;
+      inset-block-start: calc(clamp(3rem, 9vw, 6.5rem) + 3 * 0.82 * min(27vw, 9rem) + 1.25rem);
+      inset-inline-end: 1.5rem;
+      display: block;
+    }
+
+    .history__intro .history__corner {
+      position: absolute;
+      inset-block-start: 0.5rem;
+      inset-inline-end: 0.5rem;
+      display: block;
+    }
+  }
+
   .event__year {
     font-family: var(--font-display);
     font-size: var(--text-year);

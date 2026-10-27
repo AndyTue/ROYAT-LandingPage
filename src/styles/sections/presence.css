@@ -448,10 +448,11 @@
   /* Escritorio: texto a la izquierda y el mapa a la derecha, centrado en la pantalla. */
   @media (width >= 48em) {
     .presence--live .presence__stage {
-      grid-template-columns: minmax(18rem, 30rem) minmax(0, 1fr);
+      grid-template-columns: minmax(18rem, 30rem) minmax(0, 58.125rem);
       grid-template-rows: auto 1fr;
-      column-gap: 2vw;
-      align-items: center;
+      column-gap: 1.625rem;
+      align-items: start;
+      padding-inline-end: 2.25rem;
     }
 
     .presence--live .presence__hem {
@@ -459,12 +460,36 @@
     }
 
     .presence--live .presence__text {
-      align-self: center;
+      align-self: start;
+      padding-block-start: 2.75rem;
+    }
+
+    .presence--live .presence__title {
+      margin-block: 0.5rem 1.25rem;
+      font-size: clamp(3rem, 5.7vw, 5.5rem);
+    }
+
+    .presence--live .counter {
+      gap: 0.25rem;
+      padding-block-start: 0.625rem;
+    }
+
+    .presence--live .counter__n {
+      font-size: clamp(2.5rem, 3.6vw, 3.5rem);
+    }
+
+    .presence--live .presence__tour {
+      margin-block-start: 1rem;
+    }
+
+    .presence--live .presence__hint {
+      margin-block-start: 0.5rem;
     }
 
     .presence--live .presence__map {
       inline-size: min(100%, calc((100svh - 7rem) * 930 / 624));
-      justify-self: center;
+      margin-block-start: 0.875rem;
+      justify-self: start;
     }
 
     .presence--live .presence__list {

@@ -157,7 +157,10 @@ export function members(ctx) {
     <div class="track__stage" data-track-stage>
       <div class="track__rail" data-track-rail>
         <header class="members__intro" data-tone="navy">
+          ${ornament('seam', 'down', 'members__seam')}
           ${ornament('dzig', 'lr', 'members__deco')}
+          ${ornament('drombos', 'lr', 'members__deco-b')}
+          ${ornament('dflor', 'lr', 'members__deco-c')}
           <h2 class="members__title" id="integrantes-titulo">
             <span class="sr-only">${data.title}</span>
             <span class="members__word" aria-hidden="true">

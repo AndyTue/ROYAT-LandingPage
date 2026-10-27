@@ -56,6 +56,9 @@
   .members__bird,
   .members__corner,
   .members__deco,
+  .members__deco-b,
+  .members__deco-c,
+  .members__seam,
   .band__deco,
   .band__seam {
     display: none;
@@ -356,6 +359,99 @@
     }
   }
 
+  /* Móvil (MOV-3): director con el «01» grande y secciones con numeral, nombre en mayúsculas y
+     músicos con el número junto al nombre. */
+  @media (width < 48em) {
+    .members__bird {
+      display: block;
+      justify-self: end;
+      margin-block: -1.5rem 0;
+    }
+
+    .director {
+      justify-items: stretch;
+      padding: 3rem 1.125rem 2.5rem;
+    }
+
+    .director .member {
+      grid-template-areas:
+        'photo num'
+        'name name'
+        'role role';
+      grid-template-columns: minmax(0, 62%) 1fr;
+      gap: 1.5rem 0.5rem;
+      align-items: start;
+      inline-size: 100%;
+    }
+
+    .director .member__photo {
+      grid-area: photo;
+    }
+
+    .director .member__caption {
+      display: contents;
+    }
+
+    .director .member__n {
+      grid-area: num;
+      justify-self: end;
+      font-size: 4.5rem;
+      font-weight: 500;
+      line-height: 1;
+      color: var(--color-gold);
+    }
+
+    .director .member__name {
+      grid-area: name;
+      font-size: clamp(2.5rem, 13vw, 3.25rem);
+      font-weight: 500;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    .director .member__role {
+      grid-area: role;
+    }
+
+    .director .member__role::after {
+      display: block;
+      inline-size: 9rem;
+      margin-block-start: 1rem;
+      content: '';
+      border-block-end: 4px dotted var(--color-gold);
+    }
+
+    .band__numeral {
+      font-size: 4rem;
+    }
+
+    .band__display {
+      font-size: clamp(2.25rem, 10vw, 2.75rem);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .band .member__caption {
+      grid-template-columns: auto 1fr;
+      column-gap: 0.5rem;
+      align-items: end;
+    }
+
+    .band .member__n {
+      grid-row: 1 / span 2;
+      font-size: 2.25rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .band .member__name {
+      font-size: 1.1875rem;
+      font-style: italic;
+      font-weight: 500;
+    }
+  }
+
   /* ---------- Pista horizontal fija ---------- */
   .members.track--on .members__intro {
     flex: none;
@@ -391,7 +487,9 @@
   }
 
   .members.track--on .members__photo img {
-    max-block-size: 46svh;
+    inline-size: min(100%, 35.2vw);
+    block-size: auto;
+    aspect-ratio: 3 / 2;
     object-fit: cover;
   }
 
@@ -418,6 +516,9 @@
   .members.track--on .members__bird,
   .members.track--on .members__corner,
   .members.track--on .members__deco,
+  .members.track--on .members__deco-b,
+  .members.track--on .members__deco-c,
+  .members.track--on .members__seam,
   .members.track--on .band__deco,
   .members.track--on .band__seam,
   .members.track--on .band__sprig {
@@ -436,8 +537,23 @@
   }
 
   .members.track--on .members__deco {
-    inset-block-start: 4svh;
-    inset-inline-start: 46%;
+    inset-block-start: 3.75svh;
+    inset-inline-start: 20%;
+  }
+
+  .members.track--on .members__deco-b {
+    inset-block-end: 1svh;
+    inset-inline-start: 50%;
+  }
+
+  .members.track--on .members__deco-c {
+    inset-block-start: 3.75svh;
+    inset-inline-start: 80%;
+  }
+
+  .members.track--on .members__seam {
+    inset-block-start: 12.75svh;
+    inset-inline-start: 2%;
   }
 
   .members.track--on .band {
@@ -523,9 +639,11 @@
   }
 
   .members.track--on .member__photo img {
-    inline-size: auto;
-    block-size: 52svh;
+    inline-size: 35svh;
+    block-size: 52.5svh;
     max-inline-size: none;
+    object-fit: cover;
+    object-position: 50% 15%;
   }
 
   .members.track--on .member__caption {
@@ -562,8 +680,8 @@
   }
 
   .members.track--on .director .member__photo img {
-    inline-size: auto;
-    block-size: 74svh;
+    inline-size: 50svh;
+    block-size: 75svh;
   }
 
   .members.track--on .director .member__caption {

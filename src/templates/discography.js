@@ -184,6 +184,7 @@ export function discography(ctx) {
       <h2 class="section-title disco__title" id="discografia-titulo">${t.title}</h2>
       <div class="gal js-only" data-gallery role="group" tabindex="0" aria-label="${t.galleryLabel}">
         <div class="gal__head">
+          <p class="gal__eyebrow label">${fill(t.eyebrow, { n: discs.length })}</p>
           <p class="gal__title" data-g-title aria-live="polite"></p>
           <button class="button" type="button" data-g-more>${t.moreInfo}</button>
           <p class="gal__hint">${t.hint}</p>
@@ -200,6 +201,8 @@ export function discography(ctx) {
           </dl>
         </div>
         <div class="gal__discs" data-g-discs>
+          <span class="gal__layer gal__layer--under" data-g-layer aria-hidden="true"><span class="gal__deck"><span class="gal__deck-brand">ROYAT</span></span></span>
+          <span class="gal__layer gal__layer--over" data-g-layer aria-hidden="true"><img class="gal__arm" alt="" width="20" height="102" src="${ctx.asset('assets-src/ui/tonearm.svg')}"></span>
           ${discs.map((d, i) => galleryDisc(ctx, d, i))}
         </div>
         <button class="gal__arrow gal__arrow--prev" type="button" data-g-prev aria-label="${t.prev}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">${raw(ARROW.prev)}</svg></button>

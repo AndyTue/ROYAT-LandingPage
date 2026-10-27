@@ -92,6 +92,7 @@
     "galleryLabel": "Discografía. Usa las flechas para recorrer y Enter para escuchar.",
     "hint": "Desliza para cambiar de disco · clic en el vinilo para escucharlo",
     "moreInfo": "Más información",
+    "eyebrow": "Discografía · {n} lanzamientos",
     "meta": {
       "firstTrack": "Primera pista",
       "year": "Año",

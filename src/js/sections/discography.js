@@ -43,6 +43,7 @@ const SPOTIFY = 'https://open.spotify.com/album/';
 export function createDiscography({ root, discs, player, curtain, text, getMetrics, reduced }) {
   const gallery = find(root, '[data-gallery]', HTMLElement);
   const buttons = findAll(root, '[data-g-discs] [data-i]', HTMLButtonElement);
+  const deckEls = findAll(root, '[data-g-layer]', HTMLElement);
   const titleEl = find(root, '[data-g-title]', HTMLElement);
   const countEl = find(root, '[data-g-n]', HTMLElement);
   const timer = find(root, '[data-g-timer]', HTMLElement);
@@ -67,6 +68,7 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
   let current = -1;
   let drawnPos = NaN;
   let frame = { spacing: 280, size: 320, vw: 1536, compact: false };
+  let deckOn = false;
   let lastInput = performance.now();
   let autoDone = false;
   let dragFrom = 0;
@@ -94,6 +96,9 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
   }
 
   function renderDiscs() {
+    // El tocadiscos comparte la pose del disco central (en escritorio, en perspectiva).
+    const deckPose = frame.compact ? '' : arcPose(0, frame).transform;
+    for (const el of deckEls) el.style.transform = deckPose;
     buttons.forEach((button, i) => {
       if (!frame.compact) {
         const pose = arcPose(i - pos, frame);
@@ -103,6 +108,11 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
         return;
       }
       const slot = arcSlot(i - pos, frame);
+      if (deckOn) {
+        // Suena el disco central: se achica sobre el tocadiscos y los vecinos se hacen a un lado.
+        if (i === current) slot.scale *= 0.8;
+        else slot.x *= 1.3;
+      }
       button.style.transform = `translate3d(${slot.x.toFixed(1)}px, ${slot.y.toFixed(1)}px, 0) scale(${slot.scale.toFixed(3)}) rotate(${slot.rotate.toFixed(2)}deg)`;
       button.style.opacity = slot.opacity.toFixed(2);
       button.style.zIndex = String(slot.z);
@@ -128,6 +138,10 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
 
   /** @param {PlayerState} state */
   function syncSpin(state) {
+    const wasOn = deckOn;
+    deckOn = state.playing && state.disc === current;
+    gallery.classList.toggle('gal--deck', deckOn);
+    if (deckOn !== wasOn) drawnPos = NaN;
     buttons.forEach((button, i) => {
       const vinyl = find(button, '[data-vinyl]', HTMLElement);
       vinyl.classList.toggle('is-spinning', state.playing && state.disc === i);
@@ -148,10 +162,13 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
 
   /**
    * Cuenta el tiempo sin tocar nada y, cumplido, pasa al siguiente disco una vez.
+   * Solo corre con la galería a la vista: si no, el avance movería el scroll desde otra sección.
    * @param {number} now
+   * @param {boolean} inView
    */
-  function autoAdvance(now) {
-    const blocked = reduced || autoDone || player.state.playing || isOpen;
+  function autoAdvance(now, inView) {
+    if (!inView) lastInput = now;
+    const blocked = !inView || reduced || autoDone || player.state.playing || isOpen;
     const p = blocked ? 0 : idleProgress(now - lastInput, IDLE_MS);
     const value = `scaleX(${p.toFixed(2)})`;
     if (value !== lastTimer) {
@@ -387,8 +404,8 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
       step = Math.max(1, (section.end - section.start - vh) / Math.max(1, count - 1));
       const compact = vw < 768;
       // Escritorio: el vinilo central mide 389 px a 800 de alto (el prototipo).
-      const size = compact ? Math.min(vh * 0.4, vw * 0.36) : Math.min(vh * 0.486, vw * 0.253);
-      frame = { size, spacing: size * (compact ? 0.62 : 0.86), vw, compact };
+      const size = compact ? Math.min(vw * 0.78, vh * 0.36) : Math.min(vh * 0.486, vw * 0.253);
+      frame = { size, spacing: size * (compact ? 0.88 : 0.86), vw, compact };
       gallery.style.setProperty('--disc-size', `${size.toFixed(0)}px`);
       drawnPos = NaN;
       render();
@@ -399,7 +416,7 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
     update(state) {
       if (pinned) pos = arcPosition(state.y, section.start, step, count);
       render();
-      autoAdvance(state.now);
+      autoAdvance(state.now, state.y >= section.start - state.vh * 0.25 && state.y < section.end);
     },
   };
   return section;

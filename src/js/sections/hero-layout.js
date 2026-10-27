@@ -59,17 +59,17 @@ export function heroGeometry({ W, H, compact, crewAspect }) {
   const show = Math.min(fw, (W - lw) / 2 - S * 2);
   const inset = W * 0.055;
   const y = snap((H - fh) / 2);
-  const crewH = Math.min(H * 0.6, (W * 0.9) / crewAspect);
+  // El grupo mide 984×633 a 1536×800 (el prototipo) y tapa la parte baja del logo.
+  const crewH = Math.min(H * 0.79, (W * 0.66) / crewAspect);
   const crew = { w: crewH * crewAspect, h: crewH, bottom: H * 0.015 };
-  const endTop = H * 0.045;
-  const room = H - crewH - crew.bottom - endTop - H * 0.03;
   return {
     mode: 'roses',
     logo,
     left: { x: snap(show - fw + inset), y, cell: S, w: fw, h: fh },
     right: { x: snap(W - show - inset), y, cell: S, w: fw, h: fh },
     crew,
-    end: { shiftY: endTop - logo.y, scale: clamp(room / lh, 0.3, 1) },
+    // Al final el logo sube un poco y casi no se encoge: lo cubre el grupo, no se aparta.
+    end: { shiftY: -H * 0.09, scale: 0.95 },
   };
 }
 
@@ -127,7 +127,8 @@ export function heroFrame(geo, { t, s }) {
   const e = EASE.inOut(s);
   const crewIn = EASE.out(range(s, 0.05, 0.85));
   const H = geo.crew.h + geo.crew.bottom;
-  const shift = geo.mode === 'roses' ? 0.35 : 0;
+  // En escritorio las rosas se quedan en su lugar; en móvil la guirnalda de arriba se retira.
+  const fade = geo.mode === 'roses' ? 0.1 : 0.5;
   const frame = {
     stitch: heroProgress(range(t, TIMELINE.stitch[0], TIMELINE.stitch[1])),
     pop,
@@ -137,8 +138,8 @@ export function heroFrame(geo, { t, s }) {
       ty: (1 - fly) * geo.logo.h * 0.12 + geo.end.shiftY * e,
       scale: 1 + (geo.end.scale - 1) * e,
     },
-    left: { tx: -e * (geo.left?.w ?? 0) * shift, opacity: pop * (1 - 0.5 * e) },
-    right: { tx: e * (geo.right?.w ?? 0) * shift, opacity: pop * (1 - 0.5 * e) },
+    left: { tx: 0, opacity: pop * (1 - fade * e) },
+    right: { tx: 0, opacity: pop * (1 - fade * e) },
     top: { ty: -e * (geo.top?.h ?? 0) * 0.7 },
     crew: { ty: (1 - crewIn) * (H + 24), opacity: clamp(crewIn * 4) },
   };

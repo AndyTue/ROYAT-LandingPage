@@ -1,7 +1,7 @@
 // @ts-check
 import { ABROAD } from '../js/lib/contact.js';
 import { fill } from '../js/lib/format.js';
-import { stitchSvg } from '../js/stitch/svg.js';
+import { stitchBandSvg, stitchSvg } from '../js/stitch/svg.js';
 import { attrs, html, raw } from './html.js';
 import { icon } from './partials/picture.js';
 
@@ -144,11 +144,17 @@ export function contact(ctx) {
     label: t.logoLabel,
     className: 'contact__logo',
   });
+  const hem = stitchBandSvg(patterns.hem, patterns.pal, {
+    id: 'contact-hem',
+    cell: 6,
+    className: 'contact__hem',
+  });
   return html`<section
     id="contacto"
     class="contact tone tone--cream"
     aria-labelledby="contacto-titulo"
   >
+    ${raw(hem)}
     <div class="contact__brand">
       <span class="ornament contact__bird" data-ornament data-motif="bird" data-order="out" aria-hidden="true"></span>
       ${raw(logo)}
