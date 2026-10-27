@@ -192,6 +192,11 @@
     outline-offset: 6px;
   }
 
+  /* La carátula gira con la distancia al centro (`--roll`, en grados; ver `renderDiscs`). */
+  .gal__disc .event__cover {
+    rotate: var(--roll, 0deg);
+  }
+
   .gal__arrow {
     position: absolute;
     inset-block-start: 64%;
@@ -993,9 +998,12 @@
 
   .detail__nav {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     justify-content: space-between;
-    padding: 1rem clamp(1rem, 6vw, 8rem) 2.5rem;
+    max-inline-size: 77.5rem;
+    padding: 1.75rem 1.5rem 9.375rem;
+    margin: 3rem auto 0;
+    border-block-start: 1px solid var(--color-ink);
   }
 
   .detail__nav button {

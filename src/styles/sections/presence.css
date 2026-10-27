@@ -471,11 +471,19 @@
 
     .presence--live .counter {
       gap: 0.25rem;
+      min-inline-size: 7.375rem;
       padding-block-start: 0.625rem;
     }
 
+    .presence--live .presence__counters {
+      grid-template-columns: repeat(3, auto);
+      gap: 1.625rem;
+      justify-content: start;
+    }
+
     .presence--live .counter__n {
-      font-size: clamp(2.5rem, 3.6vw, 3.5rem);
+      font-size: clamp(2.5rem, 4.3vw, 4.125rem);
+      line-height: 0.85;
     }
 
     .presence--live .presence__tour {

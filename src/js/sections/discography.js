@@ -105,6 +105,7 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
         button.style.transform = pose.transform;
         button.style.opacity = pose.opacity.toFixed(2);
         button.style.zIndex = String(pose.z);
+        button.style.setProperty('--roll', `${((i - pos) * 110).toFixed(1)}deg`);
         return;
       }
       const slot = arcSlot(i - pos, frame);

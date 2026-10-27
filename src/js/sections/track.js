@@ -54,6 +54,12 @@ export function createTrack({ id, root, data, getMetrics, reduced }) {
   const lineEls = findAll(root, '[data-letters]', HTMLElement);
   const letters = reduced ? [] : splitLetters(lineEls);
   const offsets = letters.map((_, i) => scatterOf(i));
+  // Las letras del glosario entran con su propio avance (móvil: desde los costados, al llegar).
+  const inGlossary = letters.map((l) => Boolean(glossaryEl?.contains(l)));
+  const titleLetters = letters.filter((_, i) => !inGlossary[i]);
+  const titleOffsets = offsets.filter((_, i) => !inGlossary[i]);
+  const glossLetters = letters.filter((_, i) => inGlossary[i]);
+  const glossOffsets = glossLetters.map((_, i) => ({ ...scatterOf(i, 11), y: 0 }));
 
   let trackMode = false;
   let length = -1;
@@ -209,15 +215,30 @@ export function createTrack({ id, root, data, getMetrics, reduced }) {
           : `${((rollerX[i] - x) * ROLL).toFixed(1)}deg`;
     });
     // Las letras del título se juntan al llegar a la sección.
-    applyLetters(letters, offsets, range(state.y, section.start - state.vh * 0.85, section.start));
+    applyLetters(
+      titleLetters,
+      titleOffsets,
+      range(state.y, section.start - state.vh * 0.85, section.start),
+    );
+    // La palabra del glosario se junta al entrar por la derecha.
+    applyLetters(
+      glossLetters,
+      glossOffsets,
+      rollerX.length ? range(rollerX[0] - x, vw * 1.5, vw * 0.8) : 1,
+    );
   }
 
   /** @param {ScrollState} state */
   function updateVertical(state) {
     applyLetters(
-      letters,
-      offsets,
+      titleLetters,
+      titleOffsets,
       range(state.y, lettersTop - state.vh * 0.9, lettersTop - state.vh * 0.45),
+    );
+    applyLetters(
+      glossLetters,
+      glossOffsets,
+      range(state.y, glossaryTop - state.vh * 0.6, glossaryTop + state.vh * 0.2),
     );
     for (const d of drifts) {
       const dy = -(d.cy - (state.y + state.vh / 2)) * d.k * 0.35;
