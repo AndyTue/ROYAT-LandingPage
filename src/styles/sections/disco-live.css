@@ -1012,6 +1012,7 @@
     block-size: var(--d);
     border-radius: 50%;
     transform: translateZ(3px);
+    transform-style: flat;
   }
 
   .turntable__rec .vinyl {
@@ -1181,6 +1182,64 @@
     color: #5f5b53;
   }
 
+  .trk__n {
+    display: flex;
+    align-items: center;
+    block-size: calc(16 * var(--u));
+  }
+
+  .trk__eq {
+    display: none;
+    gap: 2px;
+    align-items: flex-end;
+    block-size: calc(12 * var(--u));
+  }
+
+  .trk__eq i {
+    inline-size: 3px;
+    block-size: 30%;
+    background: #2b43b0;
+    animation: w-eq 0.9s ease-in-out infinite paused;
+  }
+
+  .trk__eq i:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+
+  .trk__eq i:nth-child(3) {
+    animation-delay: -0.6s;
+  }
+
+  .trk.is-active .trk__no {
+    display: none;
+  }
+
+  .trk.is-active .trk__eq {
+    display: flex;
+  }
+
+  .trk.is-playing .trk__eq i {
+    animation-play-state: running;
+  }
+
+  @keyframes w-eq {
+    0%,
+    100% {
+      block-size: 25%;
+    }
+
+    50% {
+      block-size: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trk__eq i {
+      animation: none;
+      block-size: 60%;
+    }
+  }
+
   .trk.is-active .trk__name {
     font-style: italic;
     color: #2b43b0;
@@ -1250,6 +1309,8 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .turntable.is-playing .g-spin {
+      /* will-change: Safari iOS no anima hijos de un plano 3D inclinado sin capa propia. */
+      will-change: transform;
       animation: w-spin 1.8s linear infinite;
     }
   }

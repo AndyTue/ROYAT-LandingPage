@@ -397,6 +397,11 @@
       margin: calc(18 * var(--um)) 0 calc(24 * var(--um));
     }
 
+    /* En móvil el reproductor fijo ya pausa/reanuda; la ficha solo deja «Escuchar en Spotify». */
+    .detail__acts [data-d-play] {
+      display: none;
+    }
+
     .detail__acts .btnl {
       justify-content: center;
       inline-size: 100%;
@@ -411,6 +416,27 @@
       grid-template-columns: calc(30 * var(--um)) minmax(0, 1fr) auto;
       gap: calc(10 * var(--um));
       padding: calc(12 * var(--um)) 2px;
+    }
+
+    .trk__n,
+    .trk__time {
+      font-size: calc(11 * var(--um));
+    }
+
+    .trk__n {
+      block-size: calc(16 * var(--um));
+    }
+
+    .trk__eq {
+      block-size: calc(12 * var(--um));
+    }
+
+    .trk__name {
+      font-size: calc(18 * var(--um));
+    }
+
+    .trk__name small {
+      font-size: calc(11 * var(--um));
     }
 
     .detail__sleeve {

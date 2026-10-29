@@ -303,6 +303,10 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
     const label = find(dialog, '[data-d-label]', HTMLElement);
     label.style.background = disc.color;
     label.replaceChildren(covers[index].cloneNode(true));
+    // Safari no dispara la carga diferida de una imagen clonada dentro del tocadiscos en 3D.
+    for (const image of [...label.querySelectorAll('img'), ...sleeve.querySelectorAll('img')]) {
+      image.loading = 'eager';
+    }
     const spotify = find(dialog, '[data-d-spotify]', HTMLAnchorElement);
     spotify.href = `${SPOTIFY}${disc.spotifyId}`;
     const list = el('tracks');
@@ -314,13 +318,24 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
       row.dataset.t = String(n);
       const number = document.createElement('span');
       number.className = 'trk__n';
-      number.textContent = pad2(n + 1);
+      const numeral = document.createElement('span');
+      numeral.className = 'trk__no';
+      numeral.textContent = pad2(n + 1);
+      const bars = document.createElement('span');
+      bars.className = 'trk__eq';
+      bars.setAttribute('aria-hidden', 'true');
+      bars.append(
+        document.createElement('i'),
+        document.createElement('i'),
+        document.createElement('i'),
+      );
+      number.append(numeral, bars);
       const name = document.createElement('span');
       name.className = 'trk__name';
       name.textContent = track.title;
       if (track.guest) {
         const guest = document.createElement('small');
-        guest.textContent = track.guest;
+        guest.textContent = fill(t.featuring, { name: track.guest });
         name.append(guest);
       }
       const time = document.createElement('span');

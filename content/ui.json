@@ -120,6 +120,7 @@
       "playAlbum": "Reproducir álbum",
       "pause": "Pausar",
       "prevDisc": "Disco anterior",
+      "featuring": "feat. {name}",
       "nextDisc": "Disco siguiente",
       "minutes": "{n} min",
       "trackCount": "{n} pistas",
