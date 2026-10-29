@@ -12,7 +12,7 @@ const PUBLIC = join(ROOT, 'public');
 const OUT = join(PUBLIC, 'img');
 const MANIFEST = join(ROOT, 'images-manifest.json');
 const RASTER = /\.(webp|png|jpe?g)$/i;
-const OG = { src: 'assets-src/photos/g1.webp', width: 1200, height: 630 };
+const OG = { src: 'assets-src/brand/og-royat.png', width: 1200, height: 630 };
 
 /** @type {Record<'avif' | 'webp', (s: import('sharp').Sharp) => import('sharp').Sharp>} */
 const ENCODERS = {

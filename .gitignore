@@ -17,8 +17,7 @@ node_modules/
 dist/
 dist-ssr/
 public/img/
-# Audio de la discografía (ADR-007): ~180 MB, se sube al bucket de audio, no a git.
-public/audio/
+# public/audio/ SÍ se versiona: Cloudflare Pages construye desde GitHub y sin él no hay audio.
 images-manifest.json
 *.tsbuildinfo
 .vite/

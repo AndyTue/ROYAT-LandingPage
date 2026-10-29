@@ -77,7 +77,7 @@ export function head(ctx) {
     <meta property="og:image" content="${absolute(site.url, og.src)}" />
     <meta property="og:image:width" content="${og.width}" />
     <meta property="og:image:height" content="${og.height}" />
-    <meta property="og:image:alt" content="${history.intro.photo.alt}" />
+    <meta property="og:image:alt" content="Logo de ${site.name}" />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json">
       ${raw(json)}
