@@ -405,6 +405,7 @@
   /* Móvil: copia del prototipo (`movil.html`, `.mapa`). Medidas = N × --um (1px a 390 de ancho). */
   @media (width < 48em) {
     .presence--live {
+      --um: min(calc(100vw / 390), calc(100svh / 800), 1.5px);
       --presence-run: calc(1000 * var(--um));
 
       block-size: calc(100svh + var(--presence-run));
@@ -414,7 +415,7 @@
       position: sticky;
       inset-block-start: 0;
       display: block;
-      block-size: 100svh;
+      block-size: 100dvh;
       padding: 0;
       overflow: hidden;
       font-size: calc(13 * var(--um));

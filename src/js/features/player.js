@@ -63,13 +63,22 @@ export function createPlayer({ audio, baseUrl, discs, bus }) {
     });
   }
 
+  // Cada arranque lleva un número: un `play()` viejo que se rechaza tarde no debe marcar error
+  // sobre la pista que ya está cargando.
+  let attempt = 0;
+
   async function start() {
+    const mine = ++attempt;
     state.loading = true;
     state.error = false;
     notify();
     try {
       await audio.play();
-    } catch {
+    } catch (reason) {
+      // Cambiar de pista o pausar a media carga aborta el `play()` anterior: no es un fallo de audio.
+      if (mine !== attempt || (reason instanceof DOMException && reason.name === 'AbortError')) {
+        return;
+      }
       state.loading = false;
       state.playing = false;
       state.error = true;

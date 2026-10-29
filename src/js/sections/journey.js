@@ -121,7 +121,6 @@ export function createJourney({ root, patterns, data, getMetrics, reduced }) {
   const roseR = find(hero, '[data-hero-rose="right"]', HTMLCanvasElement);
   const crew = find(hero, '[data-hero-crew]', HTMLElement);
   const cue = find(hero, '[data-hero-cue]', HTMLElement);
-  const skip = find(hero, '[data-hero-skip]', HTMLButtonElement);
   const panelsEl = findAll(track, '.j-panel', HTMLElement);
   const placed = findAll(root, '[data-at]', HTMLElement);
   const vtw = track.querySelector('[data-vtw]');
@@ -560,7 +559,6 @@ export function createJourney({ root, patterns, data, getMetrics, reduced }) {
     intro.done = true;
     intro.t = INTRO.end;
     section.alwaysTick = false;
-    skip.hidden = true;
     bus.emit('intro:done');
   }
 
@@ -588,6 +586,8 @@ export function createJourney({ root, patterns, data, getMetrics, reduced }) {
       if (!live) return null;
       if (name === 'inicio') return section.start;
       if (name === 'vocalistas') return section.start + A.t0 + (A.sHold + A.hold) / SPEED;
+      // Solo Historia e Integrantes viven en la pista; el resto de destinos se mide en el documento.
+      if (name !== 'historia' && name !== 'integrantes') return null;
       const L = name === 'historia' ? A.secH : A.secI;
       return section.start + A.t0 + (W + L) / SPEED;
     },
@@ -610,8 +610,6 @@ export function createJourney({ root, patterns, data, getMetrics, reduced }) {
     isLive: () => live,
   };
 
-  skip.hidden = reduced;
-  skip.addEventListener('click', finishIntro);
   if (window.scrollY > window.innerHeight * 0.5) finishIntro();
   hero.classList.add('hero--live');
   if (intro.done) queueMicrotask(() => bus.emit('intro:done'));

@@ -55,6 +55,8 @@ if (form instanceof HTMLFormElement) {
 let journey = null;
 /** @type {ReturnType<typeof createDiscography> | null} */
 let disco = null;
+/** @type {ReturnType<typeof createMap> | null} */
+let presence = null;
 
 // 2. Motor y medición: un solo loop para toda la página.
 const engine = createEngine({
@@ -91,7 +93,7 @@ guard('nav', () => {
     getMetrics,
     announce: text.dataset.announce ?? '{label}',
     // Historia e Integrantes viven dentro de la pista: su scroll lo calcula el recorrido.
-    yFor: (id) => journey?.yFor(id) ?? null,
+    yFor: (id) => journey?.yFor(id) ?? presence?.yFor(id) ?? null,
     topFrom: () => disco?.topY() ?? null,
   });
   engine.watch((state) => nav.update(state));
@@ -100,6 +102,22 @@ guard('nav', () => {
 let curtain = null;
 /** @type {ReturnType<typeof createPlayer> | null} */
 let player = null;
+// Botón del pie: sube al Hero (sin JS funciona como ancla a #inicio).
+guard('toTop', () => {
+  const link = find(document, '[data-to-top]', HTMLAnchorElement);
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    history.replaceState(null, '', window.location.pathname);
+  });
+  // Solo se muestra mientras el pie está a la vista.
+  const footer = document.querySelector('.site-footer');
+  if (footer && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) =>
+      link.classList.toggle('is-shown', entry.isIntersecting),
+    ).observe(footer);
+  }
+});
 guard('curtain', () => {
   curtain = createCurtain(find(document, '[data-curtain]', HTMLElement), { reduced });
 });
@@ -161,17 +179,16 @@ Promise.all([loadPatterns(), loadMotifs(), loadMap(), loadDiscs()])
     guard('mapa', () => {
       const root = find(document, '[data-presence]', HTMLElement);
       const uiText = JSON.parse(root.dataset.mapText ?? '{}');
-      engine.add(
-        createMap({
-          root,
-          grid: map.grid,
-          places: map.places,
-          states: map.states,
-          text: uiText,
-          getMetrics,
-          reduced,
-        }),
-      );
+      presence = createMap({
+        root,
+        grid: map.grid,
+        places: map.places,
+        states: map.states,
+        text: uiText,
+        getMetrics,
+        reduced,
+      });
+      engine.add(presence);
     });
     guard('discografia', () => {
       const root = find(document, '[data-disco]', HTMLElement);

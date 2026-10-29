@@ -51,7 +51,7 @@ const FLOWER = {
  *   getMetrics: () => Metrics,
  *   reduced: boolean,
  * }} options
- * @returns {import('../core/engine.js').Section}
+ * @returns {import('../core/engine.js').Section & { yFor: (id: string) => number | null }}
  */
 export function createMap({ root, grid: data, places, states, text, getMetrics, reduced }) {
   const stage = find(root, '[data-presence-stage]', HTMLElement);
@@ -439,6 +439,20 @@ export function createMap({ root, grid: data, places, states, text, getMetrics, 
       section.start = block?.top ?? 0;
       section.end = block?.bottom ?? 0;
       return before !== pinned;
+    },
+    /**
+     * Scroll de destino para la navegación: donde el mapa ya está bordado completo, con todos
+     * los lugares y los datos a la vista (al final de la pantalla fija).
+     * @param {string} id
+     * @returns {number | null}
+     */
+    yFor(id) {
+      if (id !== 'presencia') return null;
+      const { vh } = getMetrics();
+      const span = Math.max(1, section.end - section.start);
+      if (pinned) return section.start + Math.max(1, span - vh);
+      // Sin pantalla fija se borda al entrar: se llega al punto donde ya está completo.
+      return Math.min(section.start - vh * 0.3 + span * 0.72, section.end - vh);
     },
     /** @param {ScrollState} state */
     update(state) {

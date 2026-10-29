@@ -354,6 +354,7 @@
 
   /* Pie navy con banda de rombos bordada (FOO-1). */
   .site-footer {
+    position: relative;
     color: var(--color-light-2);
     background: var(--color-navy);
     border-block-start: 1.5px dashed rgb(233 139 30 / 70%);
@@ -362,6 +363,64 @@
   .site-footer__band {
     display: block;
     margin-block-start: 0.375rem;
+  }
+
+  /* Botón para volver al Hero. Sin JS cabalga sobre el borde del pie; con JS queda fijo abajo a la
+     izquierda y solo se muestra al llegar al pie (`is-shown`, ver main.js). */
+  .site-footer__top {
+    position: absolute;
+    inset-block-start: -1.375rem;
+    inset-inline-start: 1rem;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    color: var(--color-navy);
+    background: var(--color-amber);
+    border-radius: 50%;
+    box-shadow: 0 8px 18px -8px rgb(20 18 14 / 55%);
+  }
+
+  .js .site-footer__top {
+    position: fixed;
+    inset-block: auto 1rem;
+    inset-inline: 1rem auto;
+    z-index: 45;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity 0.3s var(--ease-standard),
+      visibility 0s 0.3s;
+  }
+
+  .js .site-footer__top.is-shown {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+  }
+
+  .site-footer__top svg {
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .site-footer__top:focus-visible {
+    outline: 3px solid var(--focus-color);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .site-footer__top {
+      transition: transform 0.25s var(--ease-standard);
+    }
+
+    .site-footer__top:hover {
+      transform: translateY(-3px);
+    }
   }
 
   .site-footer__body {
@@ -794,6 +853,11 @@
       display: none;
     }
 
+    /* Sobre el pie: queda justo encima de su banda, sin tapar el texto. */
+    .js .site-footer__top {
+      inset-block-end: calc(86 * var(--u) + 1rem);
+    }
+
     .js .site-footer__band--canvas:not([hidden]) {
       position: absolute;
       inset-block-start: calc(6 * var(--u));
@@ -835,7 +899,9 @@
     .js .contact {
       position: relative;
       display: block;
-      padding: calc(58 * var(--um)) 0 0;
+
+      /* El pie queda separado de la carta (prototipo `.ct-foot`: 56 px). */
+      padding: calc(58 * var(--um)) 0 calc(56 * var(--um));
       font-size: calc(13 * var(--um));
       font-weight: 500;
       line-height: normal;
@@ -1117,7 +1183,7 @@
     /* Pie (prototipo `.ct-foot` móvil). */
     .js .site-footer {
       position: relative;
-      padding: calc(34 * var(--um)) calc(20 * var(--um)) calc(64 * var(--um));
+      padding: calc(34 * var(--um)) calc(20 * var(--um)) calc(24 * var(--um));
       margin-block-start: 0;
       font-size: calc(12 * var(--um));
       font-weight: 500;
@@ -1126,6 +1192,12 @@
       color: #c9cfe6;
       background: #1c2c55;
       border-block-start: 1.5px dashed rgb(233 139 30 / 70%);
+    }
+
+    /* Sobre el botón del menú (3 rem, a 1 rem de las orillas), centrado con él. */
+    .js .site-footer__top {
+      inset-block-end: 4.75rem;
+      inset-inline: auto 1.125rem;
     }
 
     .js .site-footer__band--canvas:not([hidden]) {

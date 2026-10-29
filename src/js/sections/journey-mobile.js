@@ -22,6 +22,9 @@ const lerp = (a, b, k) => a + (b - a) * k;
 /** @param {number} x @param {number} a @param {number} b */
 const seg = (x, a, b) => clamp((x - a) / (b - a));
 
+/** Franja de la foto principal que tapa la secundaria (px a 390 de ancho). */
+const COVER = 42;
+
 /** Alto del Hero móvil del prototipo (px a 390 de ancho). */
 export const HERO_H = 1800;
 
@@ -243,6 +246,20 @@ export function createMobileJourney({ root, track, hero, patterns, tones, reduce
     A.heroY = docY(hero);
   }
 
+  /**
+   * La foto secundaria debe tapar solo una franja inferior de la principal: se reserva bajo la
+   * principal todo su alto menos esa franja (el alto de cada una depende de su proporción).
+   */
+  function fitSecondaryPhotos() {
+    for (const li of events) {
+      const small = li.querySelector('.j-pf--sm');
+      const main = li.querySelector('.j-pf:not(.j-pf--sm)');
+      if (!(small instanceof HTMLElement) || !(main instanceof HTMLElement)) continue;
+      main.style.marginBlockEnd = '0px';
+      main.style.marginBlockEnd = `${Math.max(0, small.offsetHeight - COVER * UM).toFixed(1)}px`;
+    }
+  }
+
   function measure(/** @type {number} */ vw, /** @type {number} */ vh) {
     W = vw;
     H = vh;
@@ -250,6 +267,7 @@ export function createMobileJourney({ root, track, hero, patterns, tones, reduce
     UM = Math.min(W / 390, 1.5);
     root.style.setProperty('--um', `${UM}px`);
     applyTable();
+    fitSecondaryPhotos();
     buildHero();
     chs = findAll(track, '[data-lt] .ch', HTMLElement).map((e) => {
       e.style.transform = 'none';
@@ -341,7 +359,8 @@ export function createMobileJourney({ root, track, hero, patterns, tones, reduce
     crew.style.transform = `translate(-50%,${lerp(H + 30 * UM, A.crewEnd, rise)}px) scale(${lerp(1.08, 1, rise)})`;
     crew.style.opacity = String(clamp(rise * 4));
     cue.style.opacity = String(seg(t, 4300, 4900) * (1 - clamp(p / 0.06)));
-    cue.style.bottom = `${A.fw + 8 * UM}px`;
+    // Siempre al pie de la pantalla (sobre las flores de abajo), no sobre el logo.
+    cue.style.bottom = `${14 * UM}px`;
   }
 
   /** @param {number} y suavizado @param {number} yr real */

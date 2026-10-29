@@ -19,6 +19,9 @@ export function footer(ctx) {
   return html`<footer class="site-footer">
     ${raw(band)}
     <canvas class="site-footer__band site-footer__band--canvas" data-hem="rombos" aria-hidden="true" hidden></canvas>
+    <a class="site-footer__top" href="#inicio" data-to-top aria-label="${ui.footer.toTop}">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg>
+    </a>
     <div class="site-footer__body">
       <p class="site-footer__line"><b class="site-footer__brand">${ui.footer.brand}</b>${site.footer.line}</p>
       <p class="site-footer__credit">

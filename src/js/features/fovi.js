@@ -35,9 +35,11 @@ const PROFILES = {
 const SIZE = { width: 140, height: 108 };
 const SVG = 'http://www.w3.org/2000/svg';
 const HEART = 'M8 14.2S1 9.7 1 5.1A3.6 3.6 0 0 1 8 3.6a3.6 3.6 0 0 1 7 1.5c0 4.6-7 9.1-7 9.1z';
-/** Altura del suelo en móvil sobre el borde inferior: libre el botón del menú y la barra del reproductor (px). */
-const MOBILE_GROUND = 76;
-const MOBILE_PLAYER = 98;
+/** Altura del suelo en móvil sobre el borde inferior (px): el gato va pegado abajo; con el reproductor, sobre su barra. */
+const MOBILE_GROUND = 14;
+const MOBILE_PLAYER = 132;
+/** Ancho que se reserva a la derecha en móvil para el botón del menú (px). */
+const MOBILE_MENU = 64;
 /** El anuncio a lectores de pantalla es poco frecuente: un dato cada 30 s como máximo. */
 const LIVE_EVERY = 30000;
 
@@ -296,6 +298,8 @@ export function createFovi({
     const compact = metrics.compact;
     const profile = compact ? PROFILES.mobile : PROFILES.desktop;
     const W = vw || metrics.vw;
+    // En móvil el botón del menú ocupa la esquina inferior derecha: el gato camina sin pisarlo.
+    const Wm = compact ? W - MOBILE_MENU : W;
     const H = state.vh;
     const y = state.y;
     const now = state.now;
@@ -316,7 +320,7 @@ export function createFovi({
       if (!visible) bubble.classList.remove('is-on');
     }
     if (f.x === null) {
-      f.x = compact ? W - profile.edge : Math.round(W * 0.3);
+      f.x = compact ? Wm - profile.edge : Math.round(W * 0.3);
       f.face = -1;
     }
     if (!visible) {
@@ -351,7 +355,7 @@ export function createFovi({
     if (reduced) {
       // Con reduced-motion Fovi duerme quieto en su esquina (FOV-4).
       f.state = 'sleep';
-      x = f.x = compact ? W - profile.edge : bed;
+      x = f.x = compact ? Wm - profile.edge : bed;
     } else if (compact) {
       // Móvil: cada sección nueva lo despierta; cruza a la otra orilla y cuenta un dato.
       const inContact = f.sectionId === 'contacto';
@@ -364,7 +368,7 @@ export function createFovi({
           f.state = 'waking';
           f.wakeAt = now;
         }
-        f.target = inContact ? profile.edge : otherSide(x, W, profile.edge);
+        f.target = inContact ? profile.edge : otherSide(x, Wm, profile.edge);
         f.message = first ? lines('greetingTouch') : null;
       }
       if (now < f.petUntil && f.state === 'sleep') {
@@ -476,7 +480,7 @@ export function createFovi({
         root.classList.add('is-awake');
         // Se pone bajo el cursor, pero nunca detrás del listón ni del reproductor.
         let target = f.goBed ? bed : (f.mouse ?? x);
-        target = aside(clamp(target, profile.edge, W - profile.edge));
+        target = aside(clamp(target, profile.edge, Wm - profile.edge));
         if (f.hover || now < f.petUntil) target = x;
         f.target = target;
         const dx = target - x;

@@ -7,8 +7,14 @@
  */
 @layer sections {
   @media (width < 48em) {
+    /* La escena es de 844 px de alto: si la pantalla es más baja se encoge entera (misma
+       fórmula en discography.js) en lugar de recortar el texto de abajo. */
+    .disco--live {
+      --um: min(calc(100vw / 390), calc(100svh / 800), 1.5px);
+    }
+
     .disco--live .disco__stage {
-      block-size: 100svh;
+      block-size: 100dvh;
       padding: 0;
       background:
         radial-gradient(circle at 50% 50%, rgb(80 70 50 / 9%) 0 0.8px, transparent 1.1px) 0 0 /
@@ -324,6 +330,9 @@
     .detail__body {
       display: flex;
       flex-direction: column;
+      align-items: stretch;
+      inline-size: 100%;
+      margin: 0;
       gap: 0;
       max-inline-size: none;
       padding: calc(22 * var(--um)) calc(18 * var(--um)) 0;

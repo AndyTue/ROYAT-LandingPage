@@ -28,7 +28,7 @@
   .journey--m .hero__stage {
     position: sticky;
     inset-block-start: 0;
-    block-size: 100svh;
+    block-size: 100dvh;
     overflow: hidden;
     background:
       radial-gradient(circle at 50% 50%, rgb(80 70 50 / 10%) 0 0.7px, transparent 1px) 0 0 /
@@ -73,25 +73,16 @@
     flex-direction: column;
     gap: calc(8 * var(--um));
     align-items: center;
+    padding: calc(6 * var(--um)) calc(12 * var(--um)) calc(4 * var(--um));
     font-size: calc(11 * var(--um));
     color: #5f5b53;
+    background: rgb(236 234 228 / 85%);
+    border-radius: 999px;
     transform: translateX(-50%);
   }
 
   .journey--m .hero__cue i {
     block-size: calc(26 * var(--um));
-  }
-
-  .journey--m .hero__skip {
-    inset-block-start: calc(10 * var(--um));
-    inset-inline-end: calc(12 * var(--um));
-    z-index: 40;
-    min-block-size: 0;
-    padding: calc(14 * var(--um)) calc(10 * var(--um));
-    font-size: calc(11 * var(--um));
-    color: #5f5b53;
-    background: rgb(236 234 228 / 90%);
-    border-radius: 2px;
   }
 
   /* ---------- Paneles: la tela toma el tono que mezcla el JS (`--bg`…) ---------- */
@@ -319,12 +310,15 @@
   }
 
   /* ---------- Historia: apertura ---------- */
-  .journey--m [id='historia'],
-  .journey--m [id='integrantes'] {
+
+  /* `.j-panel[data-tone]` fija padding 0 con más especificidad: sin `.j-panel` aquí los títulos
+     y textos quedaban pegados a los bordes. */
+  .journey--m .j-panel[id='historia'],
+  .journey--m .j-panel[id='integrantes'] {
     padding: calc(64 * var(--um)) calc(18 * var(--um)) calc(76 * var(--um));
   }
 
-  .journey--m [id='integrantes'] {
+  .journey--m .j-panel[id='integrantes'] {
     padding-block-end: calc(70 * var(--um));
   }
 
@@ -463,7 +457,7 @@
   }
 
   .journey--m .j-event--sm .j-pf:not(.j-pf--sm) {
-    margin-block-end: calc(64 * var(--um));
+    margin-block-end: calc(100 * var(--um));
   }
 
   .journey--m .j-pf .j-frame {
@@ -471,10 +465,11 @@
     box-shadow: none;
   }
 
+  /* La foto secundaria es grande y solo tapa una franja inferior de la principal (su alto sobra por el margen de la principal). */
   .journey--m .j-pf--sm {
     z-index: 2;
     place-self: end end;
-    inline-size: calc(var(--mw, 128) * var(--um));
+    inline-size: calc(var(--mw, 128) * 1.4 * var(--um));
     padding: calc(5 * var(--um));
     margin: 0 calc(var(--mright, 0) * var(--um)) 0 0;
     box-shadow: 0 calc(16 * var(--um)) calc(24 * var(--um)) calc(-16 * var(--um))
@@ -568,7 +563,7 @@
     font-family: var(--font-display);
     font-size: calc(60 * var(--um));
     font-weight: 500;
-    line-height: 0.92;
+    line-height: 0.95;
     letter-spacing: -0.01em;
     text-transform: uppercase;
   }
@@ -610,7 +605,7 @@
     font-family: var(--font-display);
     font-size: calc(40 * var(--um));
     font-weight: 500;
-    line-height: 0.95;
+    line-height: 1;
     letter-spacing: -0.01em;
     text-transform: uppercase;
   }
@@ -669,18 +664,22 @@
     justify-self: center;
     margin: 0 auto;
     font-family: var(--font-display);
-    font-size: calc(104 * var(--um));
+
+    /* ~15 em de alto: la palabra entera debe caber en la pantalla fija. */
+    font-size: min(calc(54 * var(--um)), calc((100svh - 130px) / 15.5));
     font-weight: 500;
-    line-height: 0.92;
-    letter-spacing: -0.02em;
+    line-height: 1;
+    letter-spacing: 0;
     color: var(--fg);
     white-space: nowrap;
     text-transform: none;
+    text-orientation: upright;
     writing-mode: vertical-rl;
   }
 
   .journey--m .j-oo {
     display: inline-block;
+    text-orientation: upright;
     transform-origin: 50% 50%;
     will-change: transform;
   }

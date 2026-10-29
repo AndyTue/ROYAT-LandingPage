@@ -952,18 +952,4 @@
     block-size: calc(40 * var(--u));
     animation-timing-function: cubic-bezier(0.6, 0, 0.2, 1);
   }
-
-  .journey--live .hero__skip {
-    inset-block-start: calc(18 * var(--u));
-    inset-inline-end: calc(24 * var(--u));
-    z-index: 40;
-    min-block-size: 0;
-    padding: calc(10 * var(--u)) 0;
-    font-size: calc(11 * var(--u));
-    color: #5f5b53;
-  }
-
-  .journey--live .hero__skip:hover {
-    color: #151412;
-  }
 }

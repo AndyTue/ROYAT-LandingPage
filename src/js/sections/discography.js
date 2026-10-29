@@ -452,7 +452,7 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
       live = !compact;
       W = vw;
       U = Math.min(vh / 800, vw / 1100);
-      UM = Math.min(vw / 390, 1.5);
+      UM = Math.min(vw / 390, vh / 800, 1.5);
       // El prototipo abre en el disco 02 en escritorio y en el 01 en móvil.
       if (dIdx < 0 && (!measured || before !== live)) cur = live ? START : 0;
       measured = true;

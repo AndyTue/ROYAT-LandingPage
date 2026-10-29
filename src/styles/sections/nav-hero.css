@@ -198,13 +198,19 @@
       pointer-events: none;
     }
 
+    /* Hilo del prototipo (`.rl`), bajado al suelo del gato (patas a 14 px del borde) y sin pasar bajo el botón del menú. */
     .js .nav__thread {
       position: fixed;
-      inset-block-end: 0;
-      inset-inline: 0;
+      inset-block-end: 10px;
+      inset-inline: 16px 64px;
       display: block;
       block-size: 2px;
       overflow: hidden;
+      background: repeating-linear-gradient(
+        90deg,
+        rgb(233 139 30 / 32%) 0 5px,
+        transparent 5px 8px
+      );
     }
 
     .js .nav__toggle {
@@ -487,24 +493,5 @@
       opacity: 0;
       transform: scaleY(1);
     }
-  }
-
-  .hero__skip {
-    position: absolute;
-    inset-block-start: 0.75rem;
-    inset-inline-end: 1.25rem;
-    z-index: 2;
-    min-block-size: 2.75rem;
-    padding-inline: 0.5rem;
-    font-size: var(--text-label);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-muted);
-    background: transparent;
-    border: 0;
-  }
-
-  .hero__skip:hover {
-    color: var(--color-ink);
   }
 }

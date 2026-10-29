@@ -10,8 +10,7 @@
   },
   "hero": {
     "logoLabel": "ROYAT · Real Orquesta Yucateca de Arturo Turriza, logo bordado en punto de cruz",
-    "scrollCue": "Desliza",
-    "skipIntro": "Saltar intro"
+    "scrollCue": "Desliza"
   },
   "history": {
     "timelineLabel": "Línea de tiempo",
@@ -275,7 +274,8 @@
     }
   },
   "footer": {
-    "brand": "ROYAT"
+    "brand": "ROYAT",
+    "toTop": "Volver al inicio"
   },
   "mascot": {
     "label": "Fovi Rodríguez, la mascota de la orquesta. Ir al formulario de contrataciones"

@@ -99,7 +99,10 @@ export function createNav({
     if (!link) return;
     closeMenu({ restoreFocus: false });
     const id = /** @type {HTMLElement} */ (link).dataset.navLink ?? '';
-    const top = yFor(id);
+    // El salto nativo del ancla se queda corto con la pista fija y el scroll suave: siempre
+    // se calcula el destino (la pista da el suyo; las demás secciones, su posición en el documento).
+    const target = document.getElementById(id);
+    const top = yFor(id) ?? (target ? target.getBoundingClientRect().top + window.scrollY : null);
     if (top === null) return;
     event.preventDefault();
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -142,7 +145,8 @@ export function createNav({
         ready = true;
         root.classList.add('nav--ready');
       }
-      // El listón aparece al salir del Hero (prototipo: de 360 a 520 px de scroll a 1536×800).
+      // En escritorio el listón no aparece dentro del Hero: sale al terminar de recorrerlo
+      // (prototipo: de 360 a 520 px de scroll a 1536×800).
       const u = vh / 800;
       const shown = compact ? 1 : clamp((state.y - 360 * u) / (160 * u));
       if (shown !== reveal) {

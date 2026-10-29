@@ -63,7 +63,12 @@ function lines(/** @type {string} */ text, /** @type {string[] | undefined} */ h
           ? `${html`${l.slice(0, -1)}`}<span class="j-hy">-</span>`
           : String(html`${l}`),
       )
-      .join('<br>'),
+      .reduce((acc, l, i) => {
+        if (i === 0) return l;
+        // «Percu-» + «siones» se une sin hueco; el resto lleva un espacio tras el <br> para que
+        // las palabras no se peguen cuando el móvil oculta el salto de línea.
+        return acc.endsWith('</span>') ? acc + l : `${acc}<br> ${l}`;
+      }, ''),
   );
 }
 
@@ -242,7 +247,7 @@ function director(ctx, panel) {
     if (kind === 'num')
       return html`<p class="j-num j-num--big"${at(p)} aria-hidden="true">${pad2(m.n)}</p>`;
     if (p.tag === 'h3')
-      return html`<h3 class="j-dname"${at(p)}><span class="sr-only">${ui.members.directorLabel}: ${m.name}</span><span aria-hidden="true">${first}<br>${rest.join(' ')}</span></h3>`;
+      return html`<h3 class="j-dname"${at(p)}><span class="sr-only">${ui.members.directorLabel}: ${m.name}</span><span aria-hidden="true">${first}<br> ${rest.join(' ')}</span></h3>`;
     if (kind === 'klab') return html`<p class="j-klab j-klab--fg2"${at(p)}>${m.role}</p>`;
     if (kind === 'stitch') return html`<span class="j-stitch" aria-hidden="true"${at(p)}></span>`;
     return '';
@@ -379,7 +384,6 @@ function hero(ctx) {
         data: { 'data-hero-crew': '' },
       })}
       <p class="hero__cue" data-hero-cue aria-hidden="true">${ui.hero.scrollCue}<i></i></p>
-      <button class="hero__skip" type="button" data-hero-skip hidden>${ui.hero.skipIntro}</button>
     </div>
   </section>`;
 }

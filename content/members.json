@@ -15,12 +15,12 @@
   },
   "sections": [
     {
-      "name": "Saxofones y clarinetes",
+      "name": "Maderas",
       "numeral": "I.",
       "count": "4 músicos",
       "groupPhoto": {
         "src": "assets-src/members/s-saxofones-y-clarinetes.webp",
-        "alt": "Sección de saxofones y clarinetes"
+        "alt": "Sección de Maderas"
       },
       "members": [
         {
@@ -44,12 +44,12 @@
       ]
     },
     {
-      "name": "Trompetas y trombón",
+      "name": "Metales",
       "numeral": "II.",
       "count": "3 músicos",
       "groupPhoto": {
         "src": "assets-src/members/s-trompetas-y-trombon.webp",
-        "alt": "Sección de trompetas y trombón"
+        "alt": "Sección de Metales"
       },
       "members": [
         {
