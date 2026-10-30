@@ -1,0 +1,211 @@
+{
+  "$comment": "English overlay of content/ui.json (merged over the Spanish base at build time; see scripts/content/load.js). Proper names and terms are kept in Spanish on purpose: ROYAT, ¡Preciosooo!, Jarana, Vaquería, Terno, Bomba, El Torito, place names, record and song titles, Fovi Rodríguez. The WhatsApp message (contact.message) stays in Spanish: it is read by the orchestra, not by the visitor.",
+  "nav": {
+    "label": "Sections",
+    "menu": "Menu",
+    "goTo": "Go to",
+    "close": "Close",
+    "home": "Home",
+    "announce": "Current section: {label}"
+  },
+  "hero": {
+    "logoLabel": "ROYAT · Real Orquesta Yucateca de Arturo Turriza, logo embroidered in cross-stitch",
+    "scrollCue": "Scroll",
+    "lang": {
+      "label": "Language",
+      "menu": "Choose a language"
+    }
+  },
+  "history": {
+    "timelineLabel": "Timeline",
+    "coverAlt": "Cover of {title}",
+    "titleLines": ["HIS", "TO", "RY"],
+    "disc": "Record: {title}"
+  },
+  "preciosooo": {
+    "region": "¡Preciosooo! Vocabulary of the jarana. Scroll down to explore it.",
+    "voices": "The vocalists"
+  },
+  "members": {
+    "directorLabel": "Director",
+    "vocalists": {
+      "titleLines": ["The voices", "of the", "Jarana"],
+      "caption": "(V. Vocalists · three voices for every jarana)",
+      "groupTitle": "The three voices",
+      "groupRole": "Vocalists"
+    },
+    "titleLines": ["MUS", "ICI", "ANS"]
+  },
+  "presence": {
+    "eyebrow": "Presence · 2018 – 2026",
+    "titleLines": ["From Tizimín", "to the whole", "peninsula"],
+    "counters": [
+      { "label": "municipalities in Yucatán" },
+      { "label": "in Quintana Roo" },
+      { "label": "in Campeche" }
+    ],
+    "tourPrefix": "And on tour:",
+    "hint": "Hover over the map to see each town and its comisarías. Don't see yours? Click it and invite us.",
+    "listTitle": "Municipalities where ROYAT has played",
+    "comisariasLabel": "Comisarías",
+    "hintTouch": "Tap the map to see each town and its comisarías. Don't see yours? Tap it and invite us.",
+    "map": {
+      "label": "Map of the Yucatán Peninsula with the municipalities where ROYAT has played",
+      "cradle": "Cradle · 2018",
+      "cradleSub": "Yucatán · Cradle of ROYAT, 2018",
+      "comisarias": "Comisarías: {list}.",
+      "comisaria": "Comisaría: {list}.",
+      "port": "And its port, {name}.",
+      "playedHere": "We've already danced jarana here.",
+      "inviteAgain": "Click to invite us again.",
+      "notYet": "We haven't played here yet. Click and invite us.",
+      "notYetTouch": "We haven't played here yet. Invite us!",
+      "reveal": "Scroll a little more…",
+      "revealTouch": "Scroll a little more to see it stitched.",
+      "inviteHere": "Invite ROYAT here",
+      "inviteAgainButton": "Invite us again",
+      "close": "Close"
+    }
+  },
+  "discography": {
+    "title": "Discography",
+    "galleryLabel": "Discography. Use the arrow keys to browse and Enter to listen.",
+    "hint": "Swipe to change record · click the vinyl to listen",
+    "hintTouch": "Swipe to change record · tap the vinyl to listen",
+    "moreInfo": "More info",
+    "eyebrow": "Discography · {n} releases",
+    "types": {
+      "Sencillo": "Single",
+      "Álbum": "Album",
+      "Álbum en vivo": "Live album"
+    },
+    "meta": {
+      "firstTrack": "First track",
+      "year": "Year",
+      "type": "Type",
+      "tracks": "Tracks",
+      "duration": "Duration",
+      "guests": "Guests"
+    },
+    "back": "Back to the discography",
+    "play": "Play",
+    "spotify": "Listen on Spotify",
+    "prev": "Previous record",
+    "next": "Next record",
+    "coverAlt": "Cover of {title}",
+    "detail": {
+      "label": "Record information",
+      "facts": {
+        "tracks": "Tracks",
+        "duration": "Duration",
+        "year": "Year",
+        "guests": "Guests"
+      },
+      "playSingle": "Play single",
+      "playAlbum": "Play album",
+      "pause": "Pause",
+      "prevDisc": "Previous record",
+      "featuring": "feat. {name}",
+      "nextDisc": "Next record",
+      "minutes": "{n} min",
+      "trackCount": "{n} tracks",
+      "oneTrack": "1 track"
+    },
+    "player": {
+      "label": "Player",
+      "prev": "Previous song",
+      "play": "Play",
+      "pause": "Pause",
+      "next": "Next song",
+      "close": "Close player",
+      "info": "More info about the record playing",
+      "goNow": "Go to the record playing",
+      "error": "The audio could not be loaded. Please try again.",
+      "loading": "Loading…",
+      "playing": "Playing",
+      "paused": "Paused",
+      "track": "Track",
+      "trackOf": "{n} of {total}"
+    }
+  },
+  "contact": {
+    "socialTitle": "Follow us",
+    "socialLabel": "ROYAT on {label}",
+    "newTab": "(opens in a new tab)",
+    "send": "Send via WhatsApp",
+    "note": "WhatsApp will open with your invitation ready to send.",
+    "fallback": {
+      "label": "Write your invitation",
+      "template": "Hi, my name is … and I'd like to invite ROYAT to a vaquería (or private event: …) on … in …, …, …. You can reach me at …."
+    },
+    "letter": {
+      "greeting": "Hi, my name is",
+      "invite": "and I'd like to invite ROYAT to",
+      "articleFeminine": "a",
+      "articleMasculine": "a",
+      "eventTypeLabel": "Event type",
+      "vaqueria": "vaquería",
+      "privado": "private event",
+      "on": "on",
+      "in": "in",
+      "countryPrefix": "in the country of",
+      "phonePrefix": "You can reach me at",
+      "postscript": "P.S."
+    },
+    "placeholders": {
+      "name": "your name",
+      "detail": "which one? wedding, quinceañera…",
+      "locality": "town or comisaría",
+      "localityAbroad": "place or address",
+      "municipality": "municipality",
+      "alcaldia": "borough (alcaldía)",
+      "city": "city",
+      "state": "state",
+      "country": "country",
+      "message": "schedule, guests, questions… (optional)"
+    },
+    "labels": {
+      "name": "Name",
+      "detail": "Specify the type of private event",
+      "date": "Event date",
+      "locality": "Town or comisaría (optional)",
+      "localityAbroad": "Place or address (optional)",
+      "municipality": "Municipality",
+      "alcaldia": "Borough (alcaldía)",
+      "city": "City",
+      "state": "State",
+      "country": "Country",
+      "phone": "Phone number",
+      "message": "Message (optional)"
+    },
+    "states": {
+      "peninsulaLabel": "Yucatán Peninsula",
+      "restLabel": "Rest of Mexico",
+      "otherLabel": "Other",
+      "abroad": "Outside Mexico"
+    },
+    "sent": {
+      "ok": "Done! WhatsApp opened; just press send. Didn't it open?",
+      "again": "Open it here"
+    },
+    "errors": {
+      "name": "Please enter your name.",
+      "detail": "Tell us which private event it is.",
+      "date": "Choose the event date.",
+      "datePast": "The event date can't be earlier than today.",
+      "municipality": "Enter the municipality.",
+      "alcaldia": "Enter the borough (alcaldía).",
+      "city": "Enter the city.",
+      "state": "Choose the state.",
+      "country": "Enter the country.",
+      "phone": "Enter a number with at least 10 digits.",
+      "phoneAbroad": "Enter your number with the country code (at least 8 digits)."
+    }
+  },
+  "footer": {
+    "toTop": "Back to top"
+  },
+  "mascot": {
+    "label": "Fovi Rodríguez, the orchestra's mascot. Go to the booking form"
+  }
+}

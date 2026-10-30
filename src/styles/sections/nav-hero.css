@@ -559,3 +559,110 @@
     }
   }
 }
+
+@layer sections {
+  /* ---------- Selector de idioma del Hero ---------- */
+  .lang {
+    position: absolute;
+    inset-block-end: max(1rem, env(safe-area-inset-bottom));
+    inset-inline-end: max(1rem, env(safe-area-inset-right));
+    z-index: var(--z-content);
+  }
+
+  .lang__btn {
+    display: inline-flex;
+    gap: 0.4rem;
+    align-items: center;
+    min-block-size: 2.75rem;
+    padding-inline: 0.8rem;
+    font-family: var(--font-ui);
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    color: var(--color-light);
+    cursor: pointer;
+    background: var(--color-navy);
+    border: 2px solid var(--color-orange);
+    border-radius: 999px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .lang__btn svg {
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+  }
+
+  .lang__menu {
+    position: absolute;
+    inset-block-end: calc(100% + 0.5rem);
+    inset-inline-end: 0;
+    min-inline-size: 9.5rem;
+    padding: 0.35rem;
+    margin: 0;
+    list-style: none;
+    background: var(--color-light);
+    border: 2px solid var(--color-navy);
+    border-radius: 0.9rem;
+    box-shadow: 0 0.5rem 1.5rem rgb(28 44 85 / 25%);
+  }
+
+  .lang__menu[hidden] {
+    display: none;
+  }
+
+  .lang__opt {
+    display: block;
+    padding: 0.7rem 0.9rem;
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--color-navy);
+    text-decoration: none;
+    border-radius: 0.6rem;
+  }
+
+  .lang__opt[aria-current='true'] {
+    font-weight: 700;
+    color: var(--color-light);
+    background: var(--color-navy);
+  }
+
+  /* Sin JS el menú no se puede abrir con el botón: las dos opciones quedan a la vista. */
+  html:not(.js) .lang__btn {
+    display: none;
+  }
+
+  html:not(.js) .lang__menu {
+    position: static;
+    display: flex;
+  }
+
+  /* Móvil: hoja inferior con opciones grandes, al alcance del pulgar. */
+  @media (max-width: 47.99em), (orientation: portrait) {
+    .lang__menu {
+      position: fixed;
+
+      /* Por encima de la barra de progreso y del botón de menú de abajo. */
+      inset-block-end: calc(4.5rem + env(safe-area-inset-bottom));
+      inset-inline: 0.75rem;
+      display: grid;
+      gap: 0.25rem;
+      padding: 0.5rem;
+      border-radius: 1.25rem;
+    }
+
+    .lang__menu[hidden] {
+      display: none;
+    }
+
+    .lang__opt {
+      min-block-size: 3.25rem;
+      padding-block: 0;
+      font-size: 1.05rem;
+      line-height: 3.25rem;
+      text-align: center;
+    }
+  }
+}

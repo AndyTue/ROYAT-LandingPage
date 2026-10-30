@@ -37,7 +37,7 @@ function discCard(ctx, disc) {
         className: 'disc__cover',
       })}
       <div class="disc__info">
-        <p class="disc__eyebrow label">${disc.type} · ${disc.year}</p>
+        <p class="disc__eyebrow label">${t.types?.[disc.type] ?? disc.type} · ${disc.year}</p>
         <h3 class="disc__title" id="${id}-titulo">${disc.title}</h3>
         <dl class="disc__meta">
           <div><dt>${t.meta.tracks}</dt><dd>${disc.tracks.length}</dd></div>
@@ -79,7 +79,8 @@ export const deckParts = () =>
  * @param {number} index
  */
 function galleryDisc(ctx, disc, index) {
-  return html`<button class="g-disc" type="button" data-i="${index}" aria-label="${disc.title}${disc.type === 'Sencillo' ? '' : ` · ${disc.type}`}">
+  const { ui } = ctx.content;
+  return html`<button class="g-disc" type="button" data-i="${index}" aria-label="${disc.title}${disc.type === 'Sencillo' ? '' : ` · ${ui.discography.types?.[disc.type] ?? disc.type}`}">
     <span class="g-lift"><span class="g-cast"></span><span class="g-edge"></span><span class="g-vwrap"><span class="g-vinyl"><span class="g-roll" data-g-roll><span class="g-spin"><span class="g-face"><span class="g-label" data-color="${disc.color}">${picture(ctx, { src: disc.cover, alt: '', sizes: '(min-width: 48em) and (orientation: landscape) 22svh, 36vw', className: 'g-cover' })}</span><span class="g-hole"></span></span></span></span><span class="g-sheen"></span></span></span></span>
   </button>`;
 }
@@ -173,7 +174,7 @@ export function discography(ctx) {
     cell: 6,
     className: 'disco__hem disco__hem--svg',
   });
-  return html`<section id="discografia" class="discography" data-tone="paper" aria-labelledby="discografia-titulo" data-disco data-audio-base="${site.audio.baseUrl}" data-disco-text="${JSON.stringify({ detail: t.detail, coverAlt: t.coverAlt, player: t.player, meta: t.meta })}">
+  return html`<section id="discografia" class="discography" data-tone="paper" aria-labelledby="discografia-titulo" data-disco data-audio-base="${site.audio.baseUrl}" data-disco-text="${JSON.stringify({ detail: t.detail, coverAlt: t.coverAlt, player: t.player, meta: t.meta, types: t.types })}">
     <div class="disco__stage" data-disco-stage>
       ${raw(hem)}
       <h2 class="section-title disco__title" id="discografia-titulo">${t.title}</h2>

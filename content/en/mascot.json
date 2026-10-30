@@ -1,0 +1,54 @@
+{
+  "$comment": "English overlay of content/mascot.json.",
+  "generic": [
+    ["Pet me"],
+    ["Click me and I'll take you to the form", "Bookings"],
+    ["The pride of Yucatán"],
+    ["I'm the boss"]
+  ],
+  "facts": {
+    "orquesta": [
+      "ROYAT was born in Tizimín in 2018.",
+      "Our first vaquería was at the Sucilá Fair.",
+      "We are sixteen musicians in five sections.",
+      "Arturo Turriza conducts… and plays the baritone sax.",
+      "In 2026 we reached the Palacio de la Música.",
+      "We have ten releases on Spotify.",
+      "Three voices sing every jarana: Erik, Gabriel and Josué."
+    ],
+    "jarana": [
+      "The jarana is danced in 6×8 and in 3×4.",
+      "At the vaquería someone shouts ¡Bomba! and throws out a verse.",
+      "The terno is the mestiza's gala dress.",
+      "«El Torito» imitates a bullfight."
+    ],
+    "mapa": [
+      "More than 50 municipalities in Yucatán!",
+      "It all started in Tizimín, in 2018.",
+      "Don't see your town? Click it and invite us.",
+      "We also play in Quintana Roo and Campeche."
+    ],
+    "contacto": [
+      "Follow us on social media and don't miss a single vaquería.",
+      "All the records are on Spotify and Apple Music.",
+      "The videos are on TikTok and YouTube."
+    ],
+    "discos": [
+      "«La Fiesta de Yucatán» has twenty pieces.",
+      "«¡A Bailar en Tizimín!» was recorded live at the Tizimín Vaquería 2024.",
+      "«Jubileo de Oro» features Manuel Castillo, Irbin Castillo and Joss Novelo.",
+      "Scroll and I'll show you the records. Click one and it plays."
+    ]
+  },
+  "lines": {
+    "greeting": ["Hi! I'm Fovi Rodríguez"],
+    "greetingTouch": ["Hi! I'm Fovi Rodríguez", "Tap me and I'll take you to Bookings"],
+    "followUp": ["I mean… meow."],
+    "wake": ["Meow… did you miss me?"],
+    "hover": ["Click me and I'll take you to the form", "Bookings"],
+    "click": ["Off to the form!"],
+    "pet": ["Purrr… ♡", "Right there… ♡", "More, more! ♡"],
+    "discs": ["Scroll and I'll show you the records.", "Click one and it plays"],
+    "playing": ["I know this one!", "Playing: {title}"]
+  }
+}

@@ -7,7 +7,8 @@ import { html, raw } from './html.js';
  * @typedef {{ i: number, municipio: string, label: string, state: string, presence: boolean, comisarias: string[] }} Place
  */
 
-const LIST = new Intl.ListFormat('es', { type: 'conjunction' });
+/** @param {string} locale */
+const listFormat = (locale) => new Intl.ListFormat(locale, { type: 'conjunction' });
 
 /**
  * Cuenta de municipios con presencia por estado, con tope: 52 con tope 50 → "+50" (MAP-2).
@@ -25,15 +26,16 @@ export function presenceCount(places, state, cap) {
  * difiere), y comisarías. "Puerto: Sisal" y similares ya traen su propia etiqueta.
  * @param {Place} place
  * @param {string} comisariasLabel
+ * @param {string} [locale]
  */
-export function placeText(place, comisariasLabel) {
+export function placeText(place, comisariasLabel, locale = 'es') {
   const name =
     place.label === place.municipio ? place.label : `${place.label} (${place.municipio})`;
   const labelled = place.comisarias.filter((c) => c.includes(':'));
   const plain = place.comisarias.filter((c) => !c.includes(':'));
   const extras = [
     ...labelled,
-    ...(plain.length ? [`${comisariasLabel}: ${LIST.format(plain)}`] : []),
+    ...(plain.length ? [`${comisariasLabel}: ${listFormat(locale).format(plain)}`] : []),
   ];
   return extras.length ? `${name}. ${extras.join('. ')}` : name;
 }
@@ -106,7 +108,7 @@ export function places(ctx) {
             <ul class="presence__places">
               ${list
                 .filter((p) => p.presence && p.state === state)
-                .map((p) => html`<li>${placeText(p, t.comisariasLabel)}</li>`)}
+                .map((p) => html`<li>${placeText(p, t.comisariasLabel, ctx.content.site.lang)}</li>`)}
             </ul>`,
         )}
       </div>

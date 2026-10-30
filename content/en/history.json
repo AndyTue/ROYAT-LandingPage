@@ -1,0 +1,123 @@
+{
+  "$comment": "English overlay of content/history.json. Years, ids and photo paths are inherited. Record, song and place names stay as they are.",
+  "title": "History",
+  "kicker": "The orchestra through time",
+  "intro": {
+    "photo": {
+      "alt": "The full orchestra posing in front of a cathedral",
+      "caption": "Group portrait"
+    },
+    "paragraphs": [
+      "From small-town vaquerías to the great stages, the Real Orquesta Yucateca de Arturo Turriza brings the jarana to every party.",
+      "Founded in Tizimín in 2018 by Arturo Turriza and young musicians from Tizimín and Espita. Today it plays in more than 50 municipalities of Yucatán, in Quintana Roo and in Campeche."
+    ]
+  },
+  "events": [
+    {
+      "tag": "Founding",
+      "title": "ROYAT is born",
+      "text": "Arturo Turriza founds the Real Orquesta Yucateca in Tizimín with young musicians from Tizimín and Espita.",
+      "photos": [{ "alt": "The first four ROYAT musicians with their saxophones and trumpet beside a cenote" }],
+      "badge": { "alt": "El Orgullo de Yucatán seal" }
+    },
+    {
+      "tag": "September 4",
+      "title": "The first vaquería",
+      "text": "The orchestra's first vaquería, at the Sucilá Fair. Our godfather: maestro Eufrasio Pech Santana.",
+      "photos": [
+        { "alt": "The orchestra playing at night at its first vaquería, at the Sucilá Fair" },
+        { "alt": "A young member next to maestro Eufrasio Pech, wearing a hat", "caption": "With maestro Eufrasio" }
+      ]
+    },
+    {
+      "tag": "Until the pandemic",
+      "title": "From town to town",
+      "text": "Vaquerías in Tinum, Valladolid, Sucilá and the comisarías of Tizimín.",
+      "photos": [{ "alt": "Seven orchestra members in front of an altar with papel picado" }]
+    },
+    {
+      "tag": "December 30",
+      "title": "La Alborada de Tizimín",
+      "text": "First time at the Alborada vaquería, with a new look and new members alongside the founders.",
+      "photos": [
+        { "alt": "The orchestra on the Alborada de Tizimín stage, with their ROYAT music stands" },
+        { "alt": "A trumpeter behind the music stand with the orchestra's logo" }
+      ]
+    },
+    {
+      "tag": "New stages",
+      "title": "Beyond the vaquería",
+      "text": "They reach Mocochá, San Felipe and Baca, and also accompany folk ballets.",
+      "photos": [
+        { "alt": "The orchestra playing in front of the church of Mocochá, at night" },
+        { "alt": "The orchestra on the stage of the Alborada de San Felipe" }
+      ]
+    },
+    {
+      "tag": "Yucatán · Q. Roo · Campeche",
+      "title": "Consolidation",
+      "text": "Vaquerías in Panabá, Cenotillo, Conkal, Chemax, Sanahcat, Río Lagartos and Espita, and in Quintana Roo and Campeche. Their arrangers and composers put their jaranas in the public's taste.",
+      "photos": [
+        { "alt": "Orchestra members standing under pennant banners, in Chemax" },
+        { "alt": "The orchestra on a large stage with fireworks" }
+      ]
+    },
+    {
+      "tag": "December · On Spotify",
+      "title": "First singles",
+      "text": "«La Flor del Oriente» and «Linda Elizabeth» arrive on digital platforms.",
+      "photos": []
+    },
+    {
+      "tag": "January · Single",
+      "title": "¡A Bailar en Tizimín!",
+      "text": "The single arrives on digital platforms.",
+      "photos": [],
+      "discs": [{ "label": "¡A Bailar en Tizimín! (single)" }]
+    },
+    {
+      "tag": "February · Live album",
+      "title": "First album",
+      "text": "«¡A Bailar en Tizimín!»: 15 jaranas recorded live at the Tizimín vaquería 2024.",
+      "photos": [],
+      "discs": [{ "label": "¡A Bailar en Tizimín! (live)" }]
+    },
+    {
+      "tag": "August · Studio album",
+      "title": "Jubileo de Oro",
+      "text": "Twelve jaranas from days gone by with timbales legend Manuel Castillo, his son Irbin and Joss Novelo, of the Trovadoras del Mayab.",
+      "photos": []
+    },
+    {
+      "tag": "April · Studio album",
+      "title": "La Fiesta de Yucatán",
+      "text": "Twenty tracks with Felipe de la Cruz, Joss Novelo and Julio Ortiz. It was presented with a vaquería at the Gran Museo del Mundo Maya, one of the largest in Mérida.",
+      "photos": [{ "alt": "The orchestra and jarana dancers posing in front of the Gran Museo del Mundo Maya" }]
+    },
+    {
+      "tag": "April",
+      "title": "Palacio de la Música",
+      "text": "The orchestra's first performance at the Palacio de la Música in Mérida.",
+      "photos": [
+        { "alt": "Jarana dancers fill the Palacio de la Música while the orchestra plays in the back, under papel picado pennants" },
+        { "alt": "A singer with a microphone in front of the orchestra and its ROYAT music stands at the Palacio de la Música" }
+      ]
+    },
+    {
+      "tag": "July · On tour",
+      "title": "Hidalgo and Oaxaca",
+      "text": "ROYAT travels accompanying the Ensamble Folklórico de Quintana Roo.",
+      "photos": [
+        { "alt": "Poster of the Ensamble Folklórico Peninsular, Hidalgo–Oaxaca, with the Ensamble Folklórico de Quintana Roo and ROYAT: July 24 and 25, 6:00 p.m., Galera Municipal de Atlapexco, Hidalgo. Three dancers with rebozos and Oaxacan costumes" }
+      ]
+    },
+    {
+      "tag": "November",
+      "title": "Parque Xcaret",
+      "text": "At the Festival de Tradiciones de Vida y Muerte at Parque Xcaret.",
+      "photos": [
+        { "alt": "Invitation from the Ensamble Folklórico de Quintana Roo to ROYAT for the 20th edition of the Festival de Tradiciones de Vida y Muerte 2026, at Parque Xcaret: October 29, 30 and 31 and November 1, 2 and 3, 2026" }
+      ]
+    }
+  ]
+}

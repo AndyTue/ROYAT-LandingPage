@@ -16,6 +16,7 @@
   "sections": [
     {
       "name": "Maderas",
+      "slug": "maderas",
       "numeral": "I.",
       "count": "4 músicos",
       "groupPhoto": {
@@ -45,6 +46,7 @@
     },
     {
       "name": "Metales",
+      "slug": "metales",
       "numeral": "II.",
       "count": "3 músicos",
       "groupPhoto": {
@@ -74,6 +76,7 @@
     },
     {
       "name": "Percusiones",
+      "slug": "percusiones",
       "numeral": "III.",
       "count": "3 músicos",
       "groupPhoto": {
@@ -103,6 +106,7 @@
     },
     {
       "name": "Armonías",
+      "slug": "armonias",
       "numeral": "IV.",
       "count": "3 músicos",
       "groupPhoto": {
@@ -132,6 +136,7 @@
     },
     {
       "name": "Vocalistas",
+      "slug": "vocalistas",
       "numeral": "V.",
       "count": null,
       "groupPhoto": {

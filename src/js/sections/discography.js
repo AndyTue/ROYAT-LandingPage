@@ -163,7 +163,7 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
     }
     countEl.textContent = pad2(cur + 1);
     meta.year.textContent = String(disc.year);
-    meta.type.textContent = disc.type;
+    meta.type.textContent = text.types?.[disc.type] ?? disc.type;
     meta.duration.textContent = formatDuration(discSeconds(disc));
     if (deckOn) {
       meta.firstK.textContent = state.playing
@@ -285,7 +285,7 @@ export function createDiscography({ root, discs, player, curtain, text, getMetri
     dialog.replaceChildren(template.content.cloneNode(true));
     /** @param {string} name */
     const el = (name) => find(dialog, `[data-d-${name}]`, HTMLElement);
-    el('eyebrow').textContent = `${disc.type} · ${disc.year}`;
+    el('eyebrow').textContent = `${text.types?.[disc.type] ?? disc.type} · ${disc.year}`;
     el('title').textContent = disc.title;
     el('tracks-n').textContent = pad2(disc.tracks.length);
     el('duration').textContent = minutesLabel(disc, t.minutes);

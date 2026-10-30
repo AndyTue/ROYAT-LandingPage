@@ -264,6 +264,13 @@ const slug = (name) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
 
+/**
+ * Id estable de la sección: sale del nombre en español (`slug`) para que el recorrido y los
+ * enlaces no cambien con el idioma.
+ * @param {{ slug?: string, name: string }} section
+ */
+const sectionSlug = (section) => section.slug ?? slug(section.name);
+
 /** @param {RenderContext} ctx @param {Panel} panel @param {any} section */
 function band(ctx, panel, section) {
   let m = -1;
@@ -273,7 +280,7 @@ function band(ctx, panel, section) {
     if (kind === 'rn')
       return html`<p class="j-rn" aria-hidden="true"${at(p)}>${section.numeral}</p>`;
     if (kind === 'sname')
-      return html`<h3 class="j-sname" id="seccion-${slug(section.name)}-titulo"${at(p)}><span class="sr-only">${section.numeral} ${section.name}</span><span aria-hidden="true">${lines(section.name, p.lines)}</span></h3>`;
+      return html`<h3 class="j-sname" id="seccion-${sectionSlug(section)}-titulo"${at(p)}><span class="sr-only">${section.numeral} ${section.name}</span><span aria-hidden="true">${lines(section.name, p.lines)}</span></h3>`;
     if (kind === 'scount') return html`<p class="j-scount"${at(p)}>${section.count}</p>`;
     if (kind === 'stitch') return html`<span class="j-stitch" aria-hidden="true"${at(p)}></span>`;
     if (kind === 'fig') {
@@ -336,7 +343,7 @@ function vocalists(ctx, panel, section) {
     if (kind === 'rn')
       return html`<p class="j-rn" aria-hidden="true"${at(p)}>${section.numeral}</p>`;
     if (kind === 'vtw')
-      return html`<h3 class="j-vtw" id="seccion-${slug(section.name)}-titulo" data-vtw><span class="sr-only">${section.numeral} ${section.name}</span>${(p.kids ?? []).map((/** @type {any} */ k, /** @type {number} */ i) => html`<span class="j-vt${k.cls.includes('it') ? ' j-vt--it' : ''}" aria-hidden="true"${at(k)}>${v.titleLines[i] ?? ''}</span>`)}</h3>`;
+      return html`<h3 class="j-vtw" id="seccion-${sectionSlug(section)}-titulo" data-vtw><span class="sr-only">${section.numeral} ${section.name}</span>${(p.kids ?? []).map((/** @type {any} */ k, /** @type {number} */ i) => html`<span class="j-vt${k.cls.includes('it') ? ' j-vt--it' : ''}" aria-hidden="true"${at(k)}>${v.titleLines[i] ?? ''}</span>`)}</h3>`;
     if (kind === 'vcap')
       return html`<p class="j-vcap" data-vcap${at(p)}>${lines(v.caption, p.lines)}</p>`;
     if (kind === 'vfig') {
@@ -355,6 +362,31 @@ function vocalists(ctx, panel, section) {
     }
     return '';
   });
+}
+
+/**
+ * Selector de idioma del Hero. Son enlaces reales a cada versión (`/` y `/en/`), así que
+ * funciona sin JS; `features/lang.js` solo recuerda la elección y maneja el menú.
+ * @param {RenderContext} ctx
+ */
+function langSwitch(ctx) {
+  const { site, ui } = ctx.content;
+  const current = site.lang === 'en' ? 'en' : 'es';
+  const options = [
+    { code: 'es', label: 'Español', href: '/' },
+    { code: 'en', label: 'English', href: '/en/' },
+  ];
+  return html`<div class="lang" data-lang-switch>
+    <button class="lang__btn" type="button" data-lang-toggle aria-expanded="false" aria-controls="lang-menu" aria-label="${ui.hero.lang.label}: ${options.find((o) => o.code === current)?.label}">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>
+      <span class="lang__code" aria-hidden="true">${current.toUpperCase()}</span>
+    </button>
+    <ul class="lang__menu" id="lang-menu" aria-label="${ui.hero.lang.menu}" data-lang-menu>
+      ${options.map(
+        (o) => html`<li><a class="lang__opt" href="${o.href}" lang="${o.code}" hreflang="${o.code}" data-lang-opt="${o.code}"${o.code === current ? raw(' aria-current="true"') : ''}>${o.label}</a></li>`,
+      )}
+    </ul>
+  </div>`;
 }
 
 /** @param {RenderContext} ctx */
@@ -385,6 +417,7 @@ function hero(ctx) {
         data: { 'data-hero-crew': '' },
       })}
       <p class="hero__cue" data-hero-cue aria-hidden="true">${ui.hero.scrollCue}<i></i></p>
+      ${langSwitch(ctx)}
     </div>
   </section>`;
 }
@@ -409,8 +442,8 @@ export function journey(ctx) {
   };
   const bands = sections.slice(0, 4).map((s, i) =>
     wrap(panel(4 + i), band(ctx, panel(4 + i), s), {
-      id: `seccion-${slug(s.name)}`,
-      labelledby: `seccion-${slug(s.name)}-titulo`,
+      id: `seccion-${sectionSlug(s)}`,
+      labelledby: `seccion-${sectionSlug(s)}-titulo`,
     }),
   );
   const vocals = sections[4];
@@ -424,7 +457,7 @@ export function journey(ctx) {
         ${wrap(panel(3), director(ctx, panel(3)), { tag: 'article' })}
         ${bands}
         ${wrap(panel(8), glossary(ctx, panel(8)), { tag: 'aside', labelledby: 'glosario-titulo', deskOnly: true })}
-        ${wrap(panel(9), vocalists(ctx, panel(9), vocals), { id: `seccion-${slug(vocals.name)}`, labelledby: `seccion-${slug(vocals.name)}-titulo`, deskOnly: true })}
+        ${wrap(panel(9), vocalists(ctx, panel(9), vocals), { id: `seccion-${sectionSlug(vocals)}`, labelledby: `seccion-${sectionSlug(vocals)}-titulo`, deskOnly: true })}
       </div>
     </div>
   </div>

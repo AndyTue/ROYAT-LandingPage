@@ -116,7 +116,7 @@ export function initContact(form, { now = () => new Date(), open = openInNewTab 
   function fillCountries() {
     if (countryList.childElementCount) return;
     try {
-      const names = new Intl.DisplayNames(['es'], { type: 'region', fallback: 'none' });
+      const names = new Intl.DisplayNames([document.documentElement.lang || 'es'], { type: 'region', fallback: 'none' });
       for (const name of countryNames((code) => names.of(code))) {
         const option = document.createElement('option');
         option.value = name;

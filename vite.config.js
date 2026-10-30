@@ -45,7 +45,7 @@ function contentPages() {
     name: 'royat-content',
     configureServer(devServer) {
       server = devServer;
-      devServer.watcher.add(['content', MANIFEST, PATTERNS, MOTIFS]);
+      devServer.watcher.add(['content', 'en', MANIFEST, PATTERNS, MOTIFS]);
       devServer.watcher.on('change', (file) => {
         if (/[\\/](content|templates)[\\/]|images-manifest\.json$/.test(file)) {
           devServer.ws.send({ type: 'full-reload' });
@@ -54,10 +54,15 @@ function contentPages() {
     },
     transformIndexHtml: {
       order: 'pre',
-      async handler(html) {
+      async handler(html, { path }) {
         if (!html.includes(MARKER)) return html;
         const { createContext, renderPage } = await templates();
-        return renderPage(html, createContext(loadContent(), readManifest(), readPatterns()));
+        // `/en/` es la misma página con el overlay de `content/en/` (ver loadContent).
+        const lang = path.startsWith('/en/') ? 'en' : 'es';
+        return renderPage(
+          html,
+          createContext(loadContent(process.cwd(), lang), readManifest(), readPatterns()),
+        );
       },
     },
     async generateBundle() {
@@ -167,7 +172,11 @@ export default defineConfig({
       plugins: [viewportFallback(), logicalFallback(), cascadeLayers()],
     },
   },
-  build: { target: LEGACY, cssTarget: LEGACY, cssMinify: 'lightningcss' },
+  build: {
+    rollupOptions: { input: { main: resolve('index.html'), en: resolve('en/index.html') } },
+    target: LEGACY, cssTarget: LEGACY,
+    cssMinify: 'lightningcss',
+  },
   // `vite preview` sirve dist/ con los encabezados de producción: así las pruebas e2e
   // detectan cualquier violación de la CSP antes de llegar a Cloudflare.
   preview: { headers: headersFor(headerRules, '/') },

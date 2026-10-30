@@ -61,7 +61,8 @@ export function head(ctx) {
   const { site, history } = ctx.content;
   const title = `${site.shortName} · ${site.name}`;
   const description = history.intro.paragraphs[0];
-  const url = absolute(site.url, '/');
+  const english = site.lang === 'en';
+  const url = absolute(site.url, english ? '/en/' : '/');
   const og = ctx.ogImage;
   // `<` escapado: el JSON no puede cerrar el <script> aunque un texto lo contenga.
   const json = JSON.stringify(structuredData(ctx)).replace(/</g, '\\u003c');
@@ -69,7 +70,10 @@ export function head(ctx) {
     <meta name="description" content="${description}" />
     <link rel="canonical" href="${url}" />
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_MX" />
+    <meta property="og:locale" content="${english ? 'en_US' : 'es_MX'}" />
+    <link rel="alternate" hreflang="es-MX" href="${absolute(site.url, '/')}" />
+    <link rel="alternate" hreflang="en" href="${absolute(site.url, '/en/')}" />
+    <link rel="alternate" hreflang="x-default" href="${absolute(site.url, '/')}" />
     <meta property="og:site_name" content="${site.shortName}" />
     <meta property="og:title" content="${title}" />
     <meta property="og:description" content="${description}" />
@@ -77,7 +81,7 @@ export function head(ctx) {
     <meta property="og:image" content="${absolute(site.url, og.src)}" />
     <meta property="og:image:width" content="${og.width}" />
     <meta property="og:image:height" content="${og.height}" />
-    <meta property="og:image:alt" content="Logo de ${site.name}" />
+    <meta property="og:image:alt" content="${english ? 'Logo of' : 'Logo de'} ${site.name}" />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json">
       ${raw(json)}
@@ -85,15 +89,16 @@ export function head(ctx) {
 }
 
 /**
- * `sitemap.xml` de una sola URL.
+ * `sitemap.xml`: la página en español y su versión en inglés.
  * @param {RenderContext} ctx
  * @param {Date} lastModified
  */
 export function sitemap(ctx, lastModified) {
-  const url = absolute(ctx.content.site.url, '/');
+  const day = lastModified.toISOString().slice(0, 10);
+  const urls = ['/', '/en/'].map((path) => absolute(ctx.content.site.url, path));
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>${url}</loc><lastmod>${lastModified.toISOString().slice(0, 10)}</lastmod></url>
+${urls.map((url) => `  <url><loc>${url}</loc><lastmod>${day}</lastmod></url>`).join('\n')}
 </urlset>
 `;
 }

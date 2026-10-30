@@ -10,7 +10,11 @@
   },
   "hero": {
     "logoLabel": "ROYAT · Real Orquesta Yucateca de Arturo Turriza, logo bordado en punto de cruz",
-    "scrollCue": "Desliza"
+    "scrollCue": "Desliza",
+    "lang": {
+      "label": "Idioma",
+      "menu": "Elegir idioma"
+    }
   },
   "history": {
     "timelineLabel": "Línea de tiempo",

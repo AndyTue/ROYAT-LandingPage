@@ -1,0 +1,24 @@
+{
+  "$comment": "English overlay of content/site.json. Names, URLs, ids and the WhatsApp number are inherited.",
+  "lang": "en",
+  "nav": [
+    { "label": "Home" },
+    { "label": "History" },
+    { "label": "Members" },
+    { "label": "Presence" },
+    { "label": "Discography" },
+    { "label": "Contact" }
+  ],
+  "contact": {
+    "formTitle": "Bring the jarana to your party",
+    "eyebrow": "Contact · Bookings"
+  },
+  "footer": {
+    "credit": {
+      "label": "Designed by: Andrés Turriza"
+    }
+  },
+  "heroPhoto": {
+    "alt": "The members of ROYAT standing in white guayabera shirts with a golden stripe, and hats; in the center, a member wearing an embroidered terno"
+  }
+}

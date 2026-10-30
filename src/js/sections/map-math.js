@@ -172,7 +172,7 @@ function bodyText({ place, shown, touch, text, list }) {
 export function tipTexts({ place, shown, isCradle, touch, text }) {
   const named = place.label !== place.municipio ? `${place.municipio} · ` : '';
   const sub = isCradle ? text.cradleSub : `${named}${place.state}`;
-  const list = new Intl.ListFormat('es', { type: 'conjunction' });
+  const list = new Intl.ListFormat(globalThis.document?.documentElement.lang || 'es', { type: 'conjunction' });
   const body = bodyText({ place, shown, touch, text, list });
   return {
     title: place.label,

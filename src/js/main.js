@@ -4,6 +4,7 @@ import { bus } from './core/events.js';
 import { createLayout, mobileUnit } from './core/layout.js';
 import { prefersReducedMotion } from './core/motion.js';
 import { createFovi } from './features/fovi.js';
+import { createLangSwitch, redirectToSavedLang } from './features/lang.js';
 import { createNav } from './features/nav.js';
 import { createPlayer } from './features/player.js';
 import { createPlayerBar } from './features/player-bar.js';
@@ -37,6 +38,16 @@ function guard(name, start) {
 }
 
 const reduced = prefersReducedMotion();
+
+// 0. Idioma: recuerda la elección y lleva a `/en/` a quien ya la hizo.
+redirectToSavedLang({
+  lang: document.documentElement.lang,
+  pathname: window.location.pathname,
+  go: (path) => window.location.replace(path + window.location.hash),
+});
+guard('lang', () => {
+  createLangSwitch({ root: find(document, '[data-lang-switch]', HTMLElement) });
+});
 
 // 1. El formulario es lo más importante para el cliente: se activa de inmediato.
 const form = document.querySelector('[data-contact-form]');

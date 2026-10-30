@@ -1,0 +1,47 @@
+{
+  "$comment": "English overlay of content/members.json. Names and photos are inherited; only roles, section names and captions change.",
+  "title": "Members",
+  "kicker": "Sixteen musicians, five sections",
+  "groupPhoto": {
+    "alt": "The full orchestra, dressed in white with hats, standing in a tree-lined plaza",
+    "caption": "The full orchestra"
+  },
+  "director": {
+    "role": "Director and baritone saxophone"
+  },
+  "sections": [
+    {
+      "name": "Woodwinds",
+      "count": "4 musicians",
+      "groupPhoto": { "alt": "Woodwinds section" },
+      "members": [
+        { "role": "Alto saxophone and clarinet" },
+        { "role": "Alto saxophone and clarinet" },
+        { "role": "Alto saxophone and clarinet" }
+      ]
+    },
+    {
+      "name": "Brass",
+      "count": "3 musicians",
+      "groupPhoto": { "alt": "Brass section" },
+      "members": [{ "role": "Trumpet" }, { "role": "Trumpet" }, { "role": "Trombone" }]
+    },
+    {
+      "name": "Percussion",
+      "count": "3 musicians",
+      "groupPhoto": { "alt": "Percussion section with timbales" },
+      "members": [{ "role": "Percussion" }, { "role": "Percussion" }, { "role": "Percussion" }]
+    },
+    {
+      "name": "Harmony",
+      "count": "3 musicians",
+      "groupPhoto": { "alt": "Harmony section: bass, keyboard and guitar" },
+      "members": [{ "role": "Keyboard" }, { "role": "Bass" }, { "role": "Guitar" }]
+    },
+    {
+      "name": "Vocalists",
+      "groupPhoto": { "alt": "The three voices" },
+      "members": [{ "role": "Vocalist" }, { "role": "Vocalist" }, { "role": "Vocalist" }]
+    }
+  ]
+}

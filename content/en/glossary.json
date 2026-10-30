@@ -1,0 +1,11 @@
+{
+  "$comment": "English overlay of content/glossary.json. The terms (Bomba, Jarana, Vaquería, Terno, El Torito) stay in Spanish; only their explanations and 'Tres voces' are translated.",
+  "items": [
+    { "text": "The music stops and someone shouts ¡Bomba! to throw out a cheeky verse." },
+    { "text": "Danced in 6×8 and 3×4 time, with footwork and spins." },
+    { "text": "The town's grand party: jaranas from start to finish." },
+    { "text": "The mestiza's gala dress: hipil, fustán and doble." },
+    { "text": "The jarana that imitates a bullfight. It plays on «La Fiesta de Yucatán»." },
+    { "term": "Three voices", "text": "Erik, Gabriel and Josué give voice to every jarana." }
+  ]
+}
