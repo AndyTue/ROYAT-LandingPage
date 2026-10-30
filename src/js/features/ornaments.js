@@ -1,4 +1,5 @@
 // @ts-check
+import { mobileUnit } from '../core/layout.js';
 import { range } from '../core/motion.js';
 import { findAll } from '../lib/dom.js';
 import { createRng } from '../lib/random.js';
@@ -102,7 +103,7 @@ export function createOrnaments({ root, data, getMetrics, reduced, skip = () => 
         slot,
         index,
         data,
-        compact ? cell * Math.min(vw / 390, 1.5) : cell,
+        compact ? cell * mobileUnit(vw, vh) : cell,
         compact,
       );
       if (!ornament) return [];

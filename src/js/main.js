@@ -1,7 +1,7 @@
 // @ts-check
 import { createEngine } from './core/engine.js';
 import { bus } from './core/events.js';
-import { createLayout } from './core/layout.js';
+import { createLayout, mobileUnit } from './core/layout.js';
 import { prefersReducedMotion } from './core/motion.js';
 import { createFovi } from './features/fovi.js';
 import { createNav } from './features/nav.js';
@@ -154,7 +154,7 @@ Promise.all([loadPatterns(), loadMotifs(), loadMap(), loadDiscs()])
         end: 0,
         measure() {
           const { vw, vh, compact } = getMetrics();
-          const um = Math.min(vw / 390, 1.5);
+          const um = mobileUnit(vw, vh);
           for (const c of mobileHems) {
             const canvas = /** @type {HTMLCanvasElement} */ (c);
             canvas.hidden = !compact;

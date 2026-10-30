@@ -1,7 +1,8 @@
 // @ts-check
 // ¡Preciosooo! móvil vertical (MOV-3b): port de `layout()` y `render()` de
 // reference/prototype/preciosooo-vertical.html, con sus mismas fórmulas. Las longitudes del
-// prototipo (390×844) se multiplican por `f = min(ancho / 390, 1.2)`.
+// prototipo (390×844) se multiplican por `f = mobileUnit(ancho, alto)` (core/layout.js).
+import { mobileUnit } from '../core/layout.js';
 import { clamp, lerp } from '../core/motion.js';
 import { find, findAll } from '../lib/dom.js';
 import { createRng } from '../lib/random.js';
@@ -26,8 +27,6 @@ import { createStitchLayer, setupCanvas } from '../stitch/renderer.js';
  * @typedef {{ spec: StitchSpec, canvas: HTMLCanvasElement, layer: import('../stitch/renderer.js').StitchLayer, w: number, h: number, y: number, p: number }} Stitched
  */
 
-/** Tope del factor de escala (spec: `f = min(ancho / 390, 1.2)`). */
-const MAX_SCALE = 1.2;
 /** Suma máxima de avance por fotograma al bordar (prototipo). */
 const SEW_STEP = 0.025;
 
@@ -177,7 +176,8 @@ export function createPreciosooo({ root, data, reduced }) {
     section.start = section.end = Number.MAX_SAFE_INTEGER;
     if (!active) return false;
 
-    const f = Math.min(root.clientWidth / 390, MAX_SCALE);
+    // En tableta la tira crece como el resto de la columna móvil y se centra (preciosooo.css).
+    const f = mobileUnit(root.clientWidth, window.innerHeight);
     root.style.setProperty('--f', `${f}px`);
     stage.classList.add('prec--tn');
 

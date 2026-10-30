@@ -7,8 +7,23 @@
  * @typedef {{ vw: number, vh: number, total: number, compact: boolean, blocks: Block[] }} Metrics
  */
 
-/** Ancho por debajo del cual el recorrido usa el diseño móvil (tokens: 48em). */
-export const COMPACT_QUERY = '(width < 48em)';
+/**
+ * Diseño móvil: pantallas angostas (tokens: 48em) y cualquier pantalla vertical. El escritorio es
+ * un escenario de 1536×800: en una tableta vertical se encogía al ancho y dejaba media pantalla
+ * vacía. Debe coincidir con los `@media` del CSS. Sin rangos (`width < 48em`): los navegadores
+ * viejos (Safari < 16.4, el de la Nintendo Switch) no los entienden.
+ */
+export const COMPACT_QUERY = '(max-width: 47.99em), (orientation: portrait)';
+export const DESKTOP_QUERY = '(min-width: 48em) and (orientation: landscape)';
+
+/**
+ * Unidad del diseño móvil (1 = 1px a 390 de ancho). En teléfonos crece con el ancho; en una
+ * tableta vertical la columna de 390 se agranda hasta que su alto equivale a 700 px del
+ * prototipo (nunca menos que el tope anterior de 1.5): así texto, fotos, mapa y gato guardan
+ * la proporción del teléfono y la columna se centra. Igual que `--um` en `tokens.css`.
+ * @param {number} vw @param {number} vh
+ */
+export const mobileUnit = (vw, vh) => Math.min(vw / 390, Math.max(vh / 700, 1.5));
 
 /**
  * @param {{

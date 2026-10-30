@@ -1,5 +1,5 @@
 // @ts-check
-import { activeSection } from '../core/layout.js';
+import { activeSection, DESKTOP_QUERY } from '../core/layout.js';
 import { clamp } from '../core/motion.js';
 import { find, findAll } from '../lib/dom.js';
 import { fill } from '../lib/format.js';
@@ -152,9 +152,14 @@ export function createNav({
     }
   });
   // Al pasar a escritorio con el menú abierto, se cierra.
-  window.matchMedia('(width >= 48em)').addEventListener('change', (event) => {
+  const desktop = window.matchMedia(DESKTOP_QUERY);
+  /** @param {{ matches: boolean }} event */
+  const onDesktop = (event) => {
     if (event.matches) closeMenu({ restoreFocus: false });
-  });
+  };
+  // Safari < 14 (y el navegador de la Switch) solo tienen `addListener`.
+  if (desktop.addEventListener) desktop.addEventListener('change', onDesktop);
+  else desktop.addListener(onDesktop);
   bus.on('intro:done', () => {
     ready = true;
     root.classList.add('nav--ready');

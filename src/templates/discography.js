@@ -33,7 +33,7 @@ function discCard(ctx, disc) {
       ${picture(ctx, {
         src: disc.cover,
         alt: fill(t.coverAlt, { title: disc.title }),
-        sizes: '(width >= 48em) 14rem, 40vw',
+        sizes: '(min-width: 48em) and (orientation: landscape) 14rem, 40vw',
         className: 'disc__cover',
       })}
       <div class="disc__info">
@@ -80,7 +80,7 @@ export const deckParts = () =>
  */
 function galleryDisc(ctx, disc, index) {
   return html`<button class="g-disc" type="button" data-i="${index}" aria-label="${disc.title}${disc.type === 'Sencillo' ? '' : ` · ${disc.type}`}">
-    <span class="g-lift"><span class="g-cast"></span><span class="g-edge"></span><span class="g-vwrap"><span class="g-vinyl"><span class="g-roll" data-g-roll><span class="g-spin"><span class="g-face"><span class="g-label" data-color="${disc.color}">${picture(ctx, { src: disc.cover, alt: '', sizes: '(width >= 48em) 22svh, 36vw', className: 'g-cover' })}</span><span class="g-hole"></span></span></span></span><span class="g-sheen"></span></span></span></span>
+    <span class="g-lift"><span class="g-cast"></span><span class="g-edge"></span><span class="g-vwrap"><span class="g-vinyl"><span class="g-roll" data-g-roll><span class="g-spin"><span class="g-face"><span class="g-label" data-color="${disc.color}">${picture(ctx, { src: disc.cover, alt: '', sizes: '(min-width: 48em) and (orientation: landscape) 22svh, 36vw', className: 'g-cover' })}</span><span class="g-hole"></span></span></span></span><span class="g-sheen"></span></span></span></span>
   </button>`;
 }
 

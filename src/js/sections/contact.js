@@ -1,4 +1,5 @@
 // @ts-check
+import { DESKTOP_QUERY } from '../core/layout.js';
 import { placeMode, todayISO, trimContact } from '../lib/contact.js';
 import { countryNames, createStateLookup } from '../lib/places.js';
 import { validateContact } from '../lib/validate.js';
@@ -159,7 +160,7 @@ export function initContact(form, { now = () => new Date(), open = openInNewTab 
     const select = /** @type {HTMLSelectElement} */ (fields.state);
     const mun = input('municipality');
     if (
-      !window.matchMedia('(width >= 48em)').matches ||
+      !window.matchMedia(DESKTOP_QUERY).matches ||
       !document.documentElement.classList.contains('js')
     ) {
       select.style.width = '';

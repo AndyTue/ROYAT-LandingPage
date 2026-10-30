@@ -8,7 +8,7 @@
  */
 @layer sections {
   .journey--m {
-    --um: min(calc(100vw / 390), 1.5px);
+    --um: min(calc(100vw / 390), max(calc(100dvh / 700), 1.5px));
 
     font-size: calc(13 * var(--um));
     font-weight: 500;
@@ -96,6 +96,9 @@
     --xo: 0.85;
 
     color: var(--fg);
+
+    /* En tableta la columna (390 × --um) va al centro y la tela del tono llena los lados. */
+    background-color: var(--bg);
   }
 
   .journey--m .j-panel,
@@ -109,7 +112,9 @@
     position: relative;
     display: block;
     gap: 0;
+    max-inline-size: calc(390 * var(--um));
     padding: 0;
+    margin-inline: auto;
     overflow: hidden;
     background:
       radial-gradient(circle at 50% 50%, rgb(80 70 50 / 9%) 0 0.8px, transparent 1.1px) 0 0 /

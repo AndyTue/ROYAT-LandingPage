@@ -181,14 +181,14 @@
     object-fit: cover;
   }
 
-  @media (width < 48em) {
+  @media (max-width: 47.99em), (orientation: portrait) {
     .curtain {
       flex-direction: column;
     }
   }
 
   /* Escritorio: medidas del prototipo (`.wipe`). */
-  @media (width >= 48em) {
+  @media (min-width: 48em) and (orientation: landscape) {
     .curtain {
       gap: 0;
       padding: 0;

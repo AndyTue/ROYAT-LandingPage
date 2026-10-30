@@ -13,6 +13,7 @@ import {
   stayAside,
   stepToward,
 } from "../lib/fovi.js";
+import { mobileUnit } from "../core/layout.js";
 import { clamp } from "../core/motion.js";
 
 /**
@@ -328,7 +329,10 @@ export function createFovi({
     const now = state.now;
     const dt = Math.min(0.05, f.last ? (now - f.last) / 1000 : 0);
     f.last = now;
-    const K = profile.scale;
+    // En móvil el gato crece con la columna (tableta vertical): misma proporción que en teléfono.
+    const um = compact ? mobileUnit(W, H) : 1;
+    const K = profile.scale * um;
+    const edge = profile.edge * um;
     // Mientras hay scroll el gato está despierto; solo se duerme tras un rato sin moverse.
     if (f.lastY !== null && Math.abs(y - f.lastY) > 0.5) f.scrollAt = now;
     f.lastY = y;
@@ -337,7 +341,7 @@ export function createFovi({
     // ¿Se ve? Entra al terminar la intro; en móvil, pasando el Hero y antes de la carta.
     const hasPlayer = html.classList.contains("has-player");
     const groundY = compact
-      ? H - (hasPlayer ? MOBILE_PLAYER : MOBILE_GROUND)
+      ? H - (hasPlayer ? MOBILE_PLAYER * um : MOBILE_GROUND)
       : H;
     const visible =
       f.introDone &&
@@ -349,7 +353,7 @@ export function createFovi({
       if (!visible) bubble.classList.remove("is-on");
     }
     if (f.x === null) {
-      f.x = compact ? Wm - profile.edge : Math.round(W * 0.3);
+      f.x = compact ? Wm - edge : Math.round(W * 0.3);
       f.face = -1;
     }
     if (!visible) {
@@ -370,7 +374,7 @@ export function createFovi({
         zones.push({ left: letterLeft, right: W + 300 });
     }
     const zone = joinZones(zones);
-    const frame = { gap: profile.gap, margin: profile.edge, width: W };
+    const frame = { gap: profile.gap, margin: edge, width: W };
     const aside = (/** @type {number} */ x) =>
       compact ? x : stayAside(x, zone, frame);
     const bed = aside(Math.round(W * 0.3));
@@ -387,7 +391,7 @@ export function createFovi({
     if (reduced) {
       // Con reduced-motion Fovi duerme quieto en su esquina (FOV-4).
       f.state = "sleep";
-      x = f.x = compact ? Wm - profile.edge : bed;
+      x = f.x = compact ? Wm - edge : bed;
     } else if (compact) {
       // Móvil: cada sección nueva lo despierta; cruza a la otra orilla y cuenta un dato.
       const inContact = f.sectionId === "contacto";
@@ -403,7 +407,7 @@ export function createFovi({
           f.state = "waking";
           f.wakeAt = now;
         }
-        f.target = inContact ? profile.edge : otherSide(x, Wm, profile.edge);
+        f.target = inContact ? edge : otherSide(x, Wm, edge);
         f.message = first ? lines("greetingTouch") : null;
       }
       if ((now < f.petUntil || scrolling) && f.state === "sleep") {
@@ -522,7 +526,7 @@ export function createFovi({
         root.classList.add("is-awake");
         // Se pone bajo el cursor, pero nunca detrás del listón ni del reproductor.
         let target = f.goBed ? bed : (f.mouse ?? x);
-        target = aside(clamp(target, profile.edge, Wm - profile.edge));
+        target = aside(clamp(target, edge, Wm - edge));
         if (f.hover || now < f.petUntil) target = x;
         f.target = target;
         const dx = target - x;

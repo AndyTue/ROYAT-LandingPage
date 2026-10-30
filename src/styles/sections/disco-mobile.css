@@ -6,11 +6,11 @@
  * (1px a 390 de ancho). La ficha, el reproductor y la cortina móviles también van aquí.
  */
 @layer sections {
-  @media (width < 48em) {
+  @media (max-width: 47.99em), (orientation: portrait) {
     /* La escena es de 844 px de alto: si la pantalla es más baja se encoge entera (misma
        fórmula en discography.js) en lugar de recortar el texto de abajo. */
     .disco--live {
-      --um: min(calc(100vw / 390), calc(100svh / 800), 1.5px);
+      --um: min(calc(100vw / 390), calc(100svh / 800));
     }
 
     .disco--live .disco__stage {
@@ -482,9 +482,13 @@
 
     /* Reproductor móvil (prototipo `.pbar`, 62 px sobre el hilo del menú). */
     .pbar {
-      inset: auto calc(10 * var(--um)) calc(60 * var(--um));
+      inset: auto 0 calc(60 * var(--um));
       gap: calc(8 * var(--um));
-      inline-size: auto;
+
+      /* El ancho del teléfono (370 de 390): en tableta queda al centro, no estirado. */
+      inline-size: calc(370 * var(--um));
+      max-inline-size: calc(100% - 20 * var(--um));
+      margin-inline: auto;
       min-block-size: 0;
       block-size: calc(62 * var(--um));
       padding: 0 calc(8 * var(--um)) 0 calc(6 * var(--um));
@@ -499,6 +503,38 @@
       content: '';
       border: 1.5px dashed var(--color-orange);
       border-radius: 2px;
+    }
+
+    /* El contenido crece con la barra (en teléfono, las mismas medidas en px que antes). */
+    .pbar__disc {
+      gap: calc(14 * var(--um));
+    }
+
+    .pbar .vinyl--mini {
+      inline-size: calc(48 * var(--um));
+    }
+
+    .pbar__text b {
+      font-size: calc(18 * var(--um));
+    }
+
+    .pbar__text small {
+      font-size: calc(11 * var(--um));
+    }
+
+    .pbar .pbtn {
+      inline-size: calc(44 * var(--um));
+      block-size: calc(44 * var(--um));
+    }
+
+    .pbar .pbtn svg {
+      inline-size: calc(16 * var(--um));
+      block-size: calc(16 * var(--um));
+    }
+
+    .pbar .pbtn--main svg {
+      inline-size: calc(18 * var(--um));
+      block-size: calc(18 * var(--um));
     }
 
     /* Cortina móvil (prototipo `.wipe`). */

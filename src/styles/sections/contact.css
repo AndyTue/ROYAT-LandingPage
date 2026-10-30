@@ -453,7 +453,7 @@
     color: var(--color-amber);
   }
 
-  @media (width >= 48em) {
+  @media (min-width: 48em) and (orientation: landscape) {
     .letter__send {
       grid-template-columns: auto 1fr;
       gap: 1.5rem;
@@ -461,13 +461,13 @@
   }
 
   /* Escritorio: contacto y pie caben juntos en una pantalla (carta de 696 px, como el prototipo). */
-  @media (width >= 64em) {
+  @media (min-width: 64em) and (orientation: landscape) {
     .contact {
       grid-template-columns: minmax(0, 37.5rem) minmax(0, 43.5rem);
       gap: 3rem;
       align-items: center;
       justify-content: center;
-      min-block-size: calc(100svh - 6rem);
+      min-block-size: calc(100dvh - 6rem);
       padding: 5.5rem 6.25vw 1rem;
     }
 
@@ -503,11 +503,11 @@
 
   /* ---------- Escritorio: copia del prototipo (`.contacto`, ADR-010). N × --u. ----------
    * La sección y el pie miden juntos una pantalla (el pie del prototipo va dentro de ella). */
-  @media (width >= 48em) {
+  @media (min-width: 48em) and (orientation: landscape) {
     .js .contact {
       position: relative;
       display: block;
-      block-size: calc(100svh - 86 * var(--u));
+      block-size: calc(100dvh - 86 * var(--u));
       min-block-size: 0;
       padding: 0;
       overflow: clip;
@@ -895,7 +895,7 @@
   }
 
   /* ---------- Móvil: copia del prototipo (`movil.html` `.contacto`). N × --um ---------- */
-  @media (width < 48em) {
+  @media (max-width: 47.99em), (orientation: portrait) {
     .js .contact {
       position: relative;
       display: block;

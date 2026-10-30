@@ -2,6 +2,7 @@
 // Recorrido móvil del prototipo (ADR-010): port de `layout()`, `render2()` y `heroRender()` de
 // reference/prototype/source/Recorrido-movil.dc.html. Todo se mide en px del prototipo (390 de
 // ancho) y se escala con UM = ancho / 390.
+import { mobileUnit } from "../core/layout.js";
 import { clamp } from "../core/motion.js";
 import { findAll } from "../lib/dom.js";
 import { createRng } from "../lib/random.js";
@@ -255,7 +256,7 @@ export function createMobileJourney({
       ? Number(crewImg.getAttribute("height")) /
         Number(crewImg.getAttribute("width"))
       : 1286 / 2000;
-    const crewH = W * AR;
+    const crewH = heroWidth() * AR;
     A.crewEnd = Math.round(H - A.fw + 22 * UM - crewH);
     A.lyEnd = Math.max(
       Math.round(A.fw * 0.38 + 12 * UM),
@@ -263,13 +264,21 @@ export function createMobileJourney({
     );
   }
 
+  /**
+   * Ancho del Hero: el de la pantalla en teléfono. En tableta vertical las flores, que se
+   * escalan con este ancho, taparían el logo (la pantalla es más ancha en proporción al alto):
+   * se limita a 0.58 del alto y el bordado queda centrado.
+   */
+  const heroWidth = () => Math.min(W, H * 0.58);
+
   function buildHero() {
     const S = Math.min(3, W / 150);
+    const HW = heroWidth();
     root.style.setProperty("--s", `${S}px`);
     const rose = parsePattern(patterns.left, patterns.pal);
     const logo = parsePattern(patterns.logo, patterns.pal);
-    const roseCell = W / rose.h;
-    const logoCell = (W * 0.92) / logo.w;
+    const roseCell = HW / rose.h;
+    const logoCell = (HW * 0.92) / logo.w;
     /**
      * @param {HTMLCanvasElement} c @param {string[]} rows @param {number} cell
      * @param {import('../stitch/order.js').OrderFn} order @param {number} seed
@@ -309,7 +318,7 @@ export function createMobileJourney({
       lsEnd: 0.9,
     };
     heroTargets();
-    crew.style.width = `${W}px`;
+    crew.style.width = `${HW}px`;
     A.heroH = hero.offsetHeight;
     A.heroY = docY(hero);
   }
@@ -332,8 +341,9 @@ export function createMobileJourney({
   function measure(/** @type {number} */ vw, /** @type {number} */ vh) {
     W = vw;
     H = vh;
-    // En pantallas anchas sin escena de escritorio (zoom, poca altura) la columna no crece más.
-    UM = Math.min(W / 390, 1.5);
+    // En pantallas anchas sin escena de escritorio (tableta vertical, zoom) la columna crece
+    // con tope por alto y se centra (journey-mobile.css).
+    UM = mobileUnit(W, H);
     root.style.setProperty("--um", `${UM}px`);
     applyTable();
     fitSecondaryPhotos();

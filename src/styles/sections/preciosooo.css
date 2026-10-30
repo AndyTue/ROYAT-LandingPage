@@ -87,10 +87,12 @@
     --gl: rgb(255 255 255 / 3.5%);
   }
 
+  /* En tableta la tira mide 390 × --f y va al centro; el fondo del escenario llena los lados. */
   .prec__track {
     position: absolute;
-    inset: 0 auto auto 0;
-    inline-size: 100%;
+    inset-block-start: 0;
+    inset-inline-start: max(0px, calc((100% - 390 * var(--f)) / 2));
+    inline-size: min(100%, calc(390 * var(--f)));
     will-change: transform;
   }
 
@@ -378,6 +380,7 @@
     --gl: rgb(255 255 255 / 3.5%);
 
     padding: calc(56 * var(--f)) calc(24 * var(--f)) calc(84 * var(--f));
+    padding-inline: max(calc(24 * var(--f)), calc((100% - 342 * var(--f)) / 2));
   }
 
   .prec .mem {

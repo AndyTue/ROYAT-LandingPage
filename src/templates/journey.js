@@ -131,7 +131,7 @@ function historyIntro(ctx, panel) {
         ctx,
         p,
         data.intro.photo,
-        '(width >= 48em) 37vw, 92vw',
+        '(min-width: 48em) and (orientation: landscape) 37vw, 92vw',
         html`<figcaption class="j-fcap">${data.intro.photo.caption}</figcaption>`,
       );
     if (kind === 'cols')
@@ -183,7 +183,7 @@ function timeline(ctx, panel) {
             ctx,
             p,
             ph,
-            p.cls.includes('sm') ? '16rem' : '(width >= 48em) 30vw, 92vw',
+            p.cls.includes('sm') ? '16rem' : '(min-width: 48em) and (orientation: landscape) 30vw, 92vw',
             ph.caption ? html`<figcaption class="j-pc">${ph.caption}</figcaption>` : '',
           ),
         );
@@ -226,7 +226,7 @@ function membersIntro(ctx, panel) {
         ctx,
         p,
         data.groupPhoto,
-        '(width >= 48em) 36vw, 92vw',
+        '(min-width: 48em) and (orientation: landscape) 36vw, 92vw',
         html`<figcaption class="j-fcap">${data.groupPhoto.caption}</figcaption>`,
       );
     if (p.tag === 'ol')
@@ -244,7 +244,7 @@ function director(ctx, panel) {
     const kind = p.cls.split(' ')[0];
     if (p.tag === 'canvas') return stitch(p);
     if (kind === 'fig')
-      return frame(ctx, p, { src: m.photo, alt: m.name }, '(width >= 48em) 26svh, 80vw');
+      return frame(ctx, p, { src: m.photo, alt: m.name }, '(min-width: 48em) and (orientation: landscape) 26svh, 80vw');
     if (kind === 'num')
       return html`<p class="j-num j-num--big"${at(p)} aria-hidden="true">${pad2(m.n)}</p>`;
     if (p.tag === 'h3')
@@ -279,7 +279,7 @@ function band(ctx, panel, section) {
     if (kind === 'fig') {
       if (m < 0) {
         m++;
-        return frame(ctx, p, section.groupPhoto, '(width >= 48em) 25svh, 92vw');
+        return frame(ctx, p, section.groupPhoto, '(min-width: 48em) and (orientation: landscape) 25svh, 92vw');
       }
       const member = /** @type {Member} */ (section.members[m++]);
       if (!member) return '';
@@ -287,7 +287,7 @@ function band(ctx, panel, section) {
         ctx,
         p,
         { src: member.photo, alt: member.name },
-        '(width >= 48em) 18svh, 46vw',
+        '(min-width: 48em) and (orientation: landscape) 18svh, 46vw',
         memberCap(pad2(member.n), member.name, member.role),
       );
     }
@@ -349,7 +349,7 @@ function vocalists(ctx, panel, section) {
         : { src: member?.photo ?? '', alt: member?.name ?? '' };
       if (!photo.src) return '';
       return html`<figure class="j-vfig j-rv" data-vfig data-vfig-y="${p.vy0 ?? 0}"${at({ x: p.x, w: p.w })}>
-        <div class="j-vframe"${at({ h: fr.h })}>${picture(ctx, { src: photo.src, alt: photo.alt, sizes: '(width >= 48em) 20svh, 46vw' })}</div>
+        <div class="j-vframe"${at({ h: fr.h })}>${picture(ctx, { src: photo.src, alt: photo.alt, sizes: '(min-width: 48em) and (orientation: landscape) 20svh, 46vw' })}</div>
         ${isGroup ? memberCap(section.numeral, v.groupTitle, v.groupRole) : memberCap(pad2(member?.n ?? 0), member?.name ?? '', member?.role ?? '')}
       </figure>`;
     }
@@ -379,7 +379,7 @@ function hero(ctx) {
       ${picture(ctx, {
         src: site.heroPhoto.src,
         alt: site.heroPhoto.alt,
-        sizes: '(width >= 48em) 66vw, 100vw',
+        sizes: '(min-width: 48em) and (orientation: landscape) 66vw, 100vw',
         eager: true,
         className: 'hero__crew',
         data: { 'data-hero-crew': '' },

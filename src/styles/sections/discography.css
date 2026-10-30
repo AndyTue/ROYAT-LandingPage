@@ -120,13 +120,13 @@
     color: var(--fg2);
   }
 
-  @media (width >= 48em) {
+  @media (min-width: 48em) and (orientation: landscape) {
     .disc__body {
       grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
     }
   }
 
-  @media (width >= 64em) {
+  @media (min-width: 64em) and (orientation: landscape) {
     .discography__list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 3rem;

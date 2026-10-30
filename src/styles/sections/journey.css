@@ -388,7 +388,7 @@
   /* ---------- Escritorio: copia del prototipo (1536×800) ---------- */
   .journey--live {
     /* 1px a 1536×800; escala con el alto y, en pantallas angostas, con el ancho. */
-    --u: min(calc(100svh / 800), calc(100vw / 1100));
+    --u: min(calc(100dvh / 800), calc(100vw / 1100));
 
     /* Texto base del prototipo (`.w`): Montserrat 500 a 13px. */
     font-size: calc(13 * var(--u));
@@ -406,7 +406,7 @@
   .journey--live .journey__stick {
     position: sticky;
     inset-block-start: 0;
-    block-size: 100svh;
+    block-size: 100dvh;
     overflow: hidden;
   }
 

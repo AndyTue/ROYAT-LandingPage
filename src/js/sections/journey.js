@@ -35,8 +35,8 @@ export const SPEED = 1.3;
 export const HOLD = 2600;
 /** La escena del prototipo mide 1536×800. */
 export const REF = { w: 1536, h: 800 };
-/** Ancho mínimo para la escena de escritorio (más angosto, o con poca altura, va en columna). */
-const MIN = { w: 768, h: 560 };
+/** Alto mínimo para la escena de escritorio (con poca altura, o en `compact`, va en columna). */
+const MIN = { h: 560 };
 
 const SEED = 2018;
 
@@ -407,10 +407,10 @@ export function createJourney({ root, patterns, data, getMetrics, reduced }) {
   }
 
   function measure() {
-    const { vw, vh } = getMetrics();
+    const { vw, vh, compact } = getMetrics();
     W = vw;
     H = vh;
-    const want = W >= MIN.w && H >= MIN.h;
+    const want = !compact && H >= MIN.h;
     const changed = want !== live;
     live = want;
     root.classList.toggle('journey--live', live);
