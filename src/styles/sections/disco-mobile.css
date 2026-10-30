@@ -405,7 +405,13 @@
     .detail__acts .btnl {
       justify-content: center;
       inline-size: 100%;
-      block-size: calc(44 * var(--um));
+      block-size: calc(48 * var(--um));
+      font-size: calc(17 * var(--um));
+    }
+
+    /* Sin la flecha ↗ en móvil. */
+    .detail__acts [data-d-spotify] > [aria-hidden='true'] {
+      display: none;
     }
 
     .detail__tracks {

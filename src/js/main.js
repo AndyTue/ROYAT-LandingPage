@@ -13,6 +13,7 @@ import { find } from './lib/dom.js';
 import { initContact } from './sections/contact.js';
 import { createDiscography } from './sections/discography.js';
 import { createJourney } from './sections/journey.js';
+import { createPreciosooo } from './sections/preciosooo.js';
 import { drawMobileHem } from './sections/journey-mobile.js';
 import { drawHem, hemCell } from './features/hem.js';
 import { createMap } from './sections/map.js';
@@ -137,6 +138,11 @@ Promise.all([loadPatterns(), loadMotifs(), loadMap(), loadDiscs()])
       const root = find(document, '[data-journey]', HTMLElement);
       journey = createJourney({ root, patterns, data: ornamentData, getMetrics, reduced });
       engine.add(journey);
+    });
+    // ¡Preciosooo! vertical: reemplaza al glosario y a Vocalistas de la pista en móvil.
+    guard('preciosooo', () => {
+      const root = find(document, '[data-prec]', HTMLElement);
+      engine.add(createPreciosooo({ root, data: ornamentData, reduced }));
     });
     // Guirnaldas de Presencia, Discografía y Contacto: en escritorio, bordadas como en el prototipo.
     guard('guirnaldas', () => {

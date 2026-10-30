@@ -1,0 +1,467 @@
+/*
+ * ¡Preciosooo! móvil vertical (MOV-3b, prototipo preciosooo-vertical.html a 390×844).
+ * Solo se muestra cuando el recorrido está en modo columna (`.journey--m ~ .prec`). Las medidas
+ * son `N * --f`, con `--f = min(ancho / 390, 1.2) px` que pone `sections/preciosooo.js`.
+ */
+@layer sections {
+  .prec {
+    --f: 1px;
+
+    display: none;
+    font-family: var(--font-ui);
+    font-size: calc(13 * var(--f));
+    font-weight: 500;
+    font-variant-numeric: lining-nums;
+    color: #151412;
+    background: #1c2c55;
+  }
+
+  .journey--m ~ .prec {
+    display: block;
+  }
+
+  .prec,
+  .prec * {
+    box-sizing: border-box;
+  }
+
+  .prec :is(h3, p, dl, dd, dt, figure) {
+    margin: 0;
+  }
+
+  .prec button {
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    background: none;
+    border: 0;
+  }
+
+  .prec__pin {
+    position: relative;
+  }
+
+  .prec__stage {
+    --bg: #f4efe4;
+    --fg: #1c2c55;
+    --fg2: #5f5b53;
+    --acc: #1c2c55;
+    --acc2: #b8620f;
+    --gl: rgb(255 255 255 / 40%);
+    --xo: 0.75;
+
+    position: sticky;
+    inset-block-start: 0;
+    block-size: 100dvh;
+    overflow: hidden;
+    color: var(--fg);
+    background: var(--bg);
+  }
+
+  .prec__stage:focus-visible::after {
+    position: absolute;
+    inset: 3px;
+    z-index: 9;
+    pointer-events: none;
+    content: '';
+    border: 2px solid #e98b1e;
+  }
+
+  /* Antes de que el JS mezcle los tonos, cada panel trae el suyo. */
+  .prec__stage:not(.prec--tn) [data-tone='cream'] {
+    --bg: #f4efe4;
+    --fg: #1c2c55;
+    --fg2: #5f5b53;
+    --acc: #1c2c55;
+    --acc2: #b8620f;
+    --gl: rgb(255 255 255 / 40%);
+  }
+
+  .prec__stage:not(.prec--tn) [data-tone='navy'] {
+    --bg: #1c2c55;
+    --fg: #f1eee7;
+    --fg2: #c9cfe6;
+    --acc: #f1eee7;
+    --acc2: #e98b1e;
+    --gl: rgb(255 255 255 / 3.5%);
+  }
+
+  .prec__track {
+    position: absolute;
+    inset: 0 auto auto 0;
+    inline-size: 100%;
+    will-change: transform;
+  }
+
+  .prec__panel,
+  .prec__after {
+    position: relative;
+    inline-size: 100%;
+    overflow: hidden;
+    color: var(--fg);
+    background:
+      radial-gradient(circle at 50% 50%, rgb(80 70 50 / 9%) 0 0.8px, transparent 1.1px) 0 0 / 5px
+        5px,
+      linear-gradient(90deg, var(--gl) 1px, transparent 1px) 0 0 / 5px 5px,
+      linear-gradient(var(--gl) 1px, transparent 1px) 0 0 / 5px 5px,
+      var(--bg);
+  }
+
+  .prec__cx {
+    position: absolute;
+    display: block;
+    pointer-events: none;
+    opacity: var(--xo, 0.75);
+  }
+
+  .prec .ch {
+    display: inline-block;
+    will-change: transform;
+  }
+
+  /* ---------- la palabra: letras derechas, una debajo de otra ---------- */
+  .prec .wbox {
+    position: absolute;
+    inset: calc(140 * var(--f)) auto auto 0;
+    z-index: 2;
+    inline-size: 100%;
+  }
+
+  .prec__word {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--font-display);
+    font-size: calc(112 * var(--f));
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--fg);
+  }
+
+  .prec__word :is(.ch, .oo) {
+    position: relative;
+    inset-block-start: -0.115em;
+    display: block;
+    block-size: calc(82 * var(--f));
+    line-height: calc(82 * var(--f));
+    transform-origin: 50% 50%;
+    will-change: transform;
+  }
+
+  .prec__word .cap {
+    inset-block-start: 0;
+    block-size: calc(100 * var(--f));
+    line-height: calc(100 * var(--f));
+  }
+
+  .prec__word .ti {
+    block-size: calc(92 * var(--f));
+    line-height: calc(92 * var(--f));
+  }
+
+  .prec__word .logo {
+    inset-block-start: 0;
+    inline-size: 0.72em;
+    block-size: 0.72em;
+    margin: calc(12 * var(--f)) auto 0;
+    line-height: 0;
+  }
+
+  .prec__word .logo img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: contain;
+  }
+
+  /* ---------- tarjetas del vocabulario ---------- */
+  .prec .card {
+    position: absolute;
+    inset: 0 auto auto 0;
+    z-index: 3;
+    inline-size: calc(112 * var(--f));
+    block-size: calc(178 * var(--f));
+    padding: calc(12 * var(--f)) calc(11 * var(--f));
+    border-radius: 2px;
+    box-shadow: 0 calc(16 * var(--f)) calc(24 * var(--f)) calc(-14 * var(--f)) rgb(20 18 14 / 50%);
+    will-change: transform;
+  }
+
+  .prec .card::after {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    content: '';
+    background: linear-gradient(
+      to top right,
+      transparent calc(50% - 0.5px),
+      currentcolor calc(50% - 0.5px),
+      currentcolor calc(50% + 0.5px),
+      transparent calc(50% + 0.5px)
+    );
+    opacity: 0.26;
+  }
+
+  .prec .card dt {
+    display: block;
+    font-size: calc(11 * var(--f));
+    font-weight: 600;
+    text-align: end;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .prec .card dt::after {
+    display: block;
+    inline-size: calc(16 * var(--f));
+    block-size: 1.5px;
+    margin: calc(8 * var(--f)) 0 0 auto;
+    content: '';
+    background: currentcolor;
+  }
+
+  .prec .card dd {
+    position: absolute;
+    inset: auto auto calc(12 * var(--f)) calc(11 * var(--f));
+    inline-size: calc(92 * var(--f));
+    font-size: calc(10.5 * var(--f));
+    line-height: 1.4;
+  }
+
+  .prec .cw {
+    color: #1c2c55;
+    background: #fffdf8;
+  }
+
+  .prec .cn {
+    color: #f1eee7;
+    background: #1c2c55;
+  }
+
+  .prec .co {
+    color: #151412;
+    background: #e98b1e;
+  }
+
+  /* ---------- llegada a Vocalistas ---------- */
+  .prec .rn {
+    position: absolute;
+    inset: calc(92 * var(--f)) auto auto calc(52 * var(--f));
+    font-family: var(--font-display);
+    font-size: calc(84 * var(--f));
+    font-style: italic;
+    font-weight: 500;
+    line-height: 0.9;
+    color: var(--acc2);
+  }
+
+  .prec .vt {
+    position: absolute;
+    inset: calc(196 * var(--f)) auto auto calc(50 * var(--f));
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+  }
+
+  .prec .vt__lines > span {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .prec .vt .a {
+    font-size: calc(62 * var(--f));
+  }
+
+  .prec .vt .b {
+    padding-inline-start: calc(150 * var(--f));
+    font-size: calc(44 * var(--f));
+    font-style: italic;
+  }
+
+  .prec .vt .c {
+    font-size: calc(104 * var(--f));
+    font-style: italic;
+  }
+
+  .prec .vcap {
+    position: absolute;
+    inset: var(--cap-y, calc(612 * var(--f))) auto auto calc(24 * var(--f));
+    inline-size: calc(136 * var(--f));
+    font-size: calc(10 * var(--f));
+    line-height: 1.7;
+    text-align: end;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--fg2);
+  }
+
+  .prec .vfig {
+    position: absolute;
+    inset: var(--trio-y, calc(452 * var(--f))) auto auto calc(176 * var(--f));
+    z-index: 4;
+    inline-size: calc(184 * var(--f));
+    will-change: transform;
+  }
+
+  .prec .vframe {
+    position: relative;
+    block-size: calc(276 * var(--f));
+    overflow: hidden;
+    background: #2a3a66;
+    box-shadow: 0 calc(26 * var(--f)) calc(40 * var(--f)) calc(-22 * var(--f)) rgb(0 0 0 / 75%);
+  }
+
+  .prec .vframe picture {
+    position: absolute;
+    inset: -6% 0 auto;
+    display: block;
+    block-size: 112%;
+    will-change: transform;
+  }
+
+  .prec .vframe img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .prec .hint {
+    position: absolute;
+    inset: auto calc(28 * var(--f)) calc(28 * var(--f)) auto;
+    z-index: 6;
+    display: flex;
+    flex-direction: column;
+    gap: calc(8 * var(--f));
+    align-items: center;
+    font-size: calc(10.5 * var(--f));
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    color: var(--fg2);
+    pointer-events: none;
+  }
+
+  .prec .hint i {
+    display: block;
+    inline-size: 1.5px;
+    block-size: calc(38 * var(--f));
+    background: linear-gradient(#e98b1e, transparent);
+    transform-origin: 50% 0;
+    animation: prec-thread 1.8s cubic-bezier(0.6, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes prec-thread {
+    0% {
+      transform: scaleY(0);
+    }
+
+    50% {
+      transform: scaleY(1);
+    }
+
+    100% {
+      opacity: 0;
+      transform: scaleY(1);
+    }
+  }
+
+  /* ---------- continúa en vertical: los tres retratos ---------- */
+  .prec__after {
+    --bg: #1c2c55;
+    --fg: #f1eee7;
+    --fg2: #c9cfe6;
+    --acc: #f1eee7;
+    --acc2: #e98b1e;
+    --gl: rgb(255 255 255 / 3.5%);
+
+    padding: calc(56 * var(--f)) calc(24 * var(--f)) calc(84 * var(--f));
+  }
+
+  .prec .mem {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(28 * var(--f)) calc(14 * var(--f));
+  }
+
+  .prec .mem .fig:nth-child(2n) {
+    margin-block-start: calc(46 * var(--f));
+  }
+
+  .prec .mem .vframe {
+    block-size: auto;
+    aspect-ratio: 2 / 3;
+  }
+
+  .prec .mem .vframe picture {
+    inset: 0;
+    block-size: 100%;
+  }
+
+  .prec .pcap {
+    display: flex;
+    gap: calc(10 * var(--f));
+    align-items: flex-end;
+    margin-block-start: calc(10 * var(--f));
+  }
+
+  .prec .num {
+    font-family: var(--font-display);
+    font-size: calc(44 * var(--f));
+    font-style: italic;
+    font-weight: 500;
+    line-height: 0.8;
+    color: var(--acc);
+  }
+
+  .prec .pcap b {
+    display: block;
+    font-family: var(--font-display);
+    font-size: calc(18 * var(--f));
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  .prec .pcap small {
+    display: block;
+    margin-block-start: calc(5 * var(--f));
+    font-size: calc(10 * var(--f));
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg2);
+  }
+
+  .prec .rv {
+    opacity: 0;
+    transition:
+      opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transform: translate3d(0, calc(26 * var(--f)), 0);
+  }
+
+  .prec .rv.in {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .prec .hint i {
+      animation: none;
+    }
+
+    .prec .rv {
+      opacity: 1;
+      transition: none;
+      transform: none;
+    }
+  }
+
+  /* ---------- el glosario y Vocalistas de la pista, solo en escritorio ----------
+     (la especificidad le gana a `.j-panel[id^='seccion-']:has(.j-vtw)` del recorrido móvil) */
+  .journey--m .j-panel[data-desk-only][data-tone][data-at]:not(#_) {
+    display: none;
+  }
+}

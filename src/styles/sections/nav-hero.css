@@ -52,7 +52,8 @@
   .nav__home,
   .nav__close,
   .nav__toggle,
-  .nav__thread {
+  .nav__thread,
+  .nav__prog {
     display: none;
   }
 
@@ -198,19 +199,82 @@
       pointer-events: none;
     }
 
-    /* Hilo del prototipo (`.rl`), bajado al suelo del gato (patas a 14 px del borde) y sin pasar bajo el botón del menú. */
-    .js .nav__thread {
+    /* Hilo de progreso de la página (diseño del hilo de ¡Preciosooo!): línea punteada con su
+       avance y un rombo por sección que lleva a ella. Se detiene
+       antes del botón del menú. */
+    .js .nav__prog {
       position: fixed;
-      inset-block-end: 10px;
+      inset-block-end: 0;
       inset-inline: 16px 64px;
       display: block;
-      block-size: 2px;
-      overflow: hidden;
-      background: repeating-linear-gradient(
-        90deg,
-        rgb(233 139 30 / 32%) 0 5px,
-        transparent 5px 8px
-      );
+      pointer-events: none;
+    }
+
+    .js .nav--open .nav__prog {
+      visibility: hidden;
+    }
+
+    .js .nav__prog-line {
+      position: relative;
+      block-size: 32px;
+    }
+
+    .js .nav__prog-line::before {
+      position: absolute;
+      inset: 15px 0 auto;
+      content: '';
+      border-block-start: 1.5px dashed rgb(233 139 30 / 60%);
+    }
+
+    .js .nav__prog-fill {
+      position: absolute;
+      inset: 15px auto auto 0;
+      inline-size: 100%;
+      block-size: 1.5px;
+      background: #b8620f;
+      transform: scaleX(0);
+      transform-origin: 0 0;
+    }
+
+    .js .nav__pin {
+      position: absolute;
+      inset-block-start: 0;
+      inline-size: 32px;
+      block-size: 32px;
+      padding: 0;
+      margin-inline-start: -16px;
+      pointer-events: auto;
+      cursor: pointer;
+      background: none;
+      border: 0;
+    }
+
+    .js .nav__pin::before {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      inline-size: 8px;
+      block-size: 8px;
+      margin: -4px 0 0 -4px;
+      content: '';
+      background: var(--color-cream);
+      border: 1.5px solid #b8620f;
+      transition:
+        background-color 0.25s,
+        transform 0.25s;
+      transform: rotate(45deg);
+    }
+
+    .js .nav__pin.is-lit::before {
+      background: #b8620f;
+    }
+
+    .js .nav__pin.is-current::before {
+      transform: rotate(45deg) scale(1.5);
+    }
+
+    .js .nav__pin:focus-visible {
+      outline: 2px solid var(--color-orange);
+      outline-offset: -6px;
     }
 
     .js .nav__toggle {

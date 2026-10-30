@@ -36,6 +36,12 @@ export function nav({ content }) {
       </button>
     </nav>
     <span class="nav__thread" aria-hidden="true"><i class="nav__fill" data-nav-fill></i></span>
+    <div class="nav__prog" data-nav-prog>
+      <div class="nav__prog-line"><span class="nav__prog-fill" data-nav-prog-fill></span>${site.nav.map(
+        (/** @type {{ id: string, label: string }} */ item, /** @type {number} */ index) =>
+          html`<button type="button" class="nav__pin" data-nav-pin="${item.id}" aria-label="${ui.nav.goTo} ${index === 0 ? ui.nav.home : item.label}"></button>`,
+      )}</div>
+    </div>
     <button class="nav__toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-menu" aria-label="${ui.nav.menu}">
       <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M5 8h14M5 12h14M5 16h9" stroke-dasharray="2 3"/></svg>
     </button>

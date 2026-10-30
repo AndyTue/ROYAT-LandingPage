@@ -45,9 +45,14 @@ export function createNav({
   const status = find(root, '[data-nav-status]', HTMLElement);
   const links = findAll(root, '[data-nav-link]', HTMLAnchorElement);
   const background = [...document.querySelectorAll(BACKGROUND)];
+  // Hilo de progreso de móvil: línea con su avance y un rombo por sección.
+  const pins = findAll(root, '[data-nav-pin]', HTMLButtonElement);
+  const progFill = find(root, '[data-nav-prog-fill]', HTMLElement);
 
   /** @type {string | null} */
   let active = null;
+  /** @type {Metrics['blocks'] | null} */
+  let placed = null;
   let progress = -1;
   let reveal = -1;
   let ready = false;
@@ -65,6 +70,15 @@ export function createNav({
     if (topFrom() === null) root.classList.toggle('nav--top', TOP_SECTIONS.has(id));
     const label = links.find((l) => l.dataset.navLink === id)?.dataset.label ?? id;
     status.textContent = fill(announce, { label });
+    const at = Math.max(
+      0,
+      pins.findIndex((p) => p.dataset.navPin === id),
+    );
+    pins.forEach((pin, i) => {
+      pin.classList.toggle('is-lit', i <= at);
+      pin.classList.toggle('is-current', i === at);
+      pin.setAttribute('aria-current', i === at ? 'true' : 'false');
+    });
     bus.emit('section:change', { id });
   }
 
@@ -87,6 +101,23 @@ export function createNav({
     if (restoreFocus) toggle.focus();
   }
 
+  /**
+   * Lleva a una sección. El salto nativo del ancla se queda corto con la pista fija y el scroll
+   * suave: siempre se calcula el destino (la pista da el suyo; las demás secciones, su posición
+   * en el documento).
+   * @param {string} id
+   * @returns {boolean} `false` si no hay destino y conviene el salto nativo del ancla
+   */
+  function goTo(id) {
+    const target = document.getElementById(id);
+    const top = yFor(id) ?? (target ? target.getBoundingClientRect().top + window.scrollY : null);
+    if (top === null) return false;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
+    history.replaceState(null, '', `#${id}`);
+    return true;
+  }
+
   toggle.addEventListener('click', () => (isOpen ? closeMenu() : open()));
   close.addEventListener('click', () => closeMenu());
   // Un clic en el fondo oscuro (fuera de la hoja) cierra el menú.
@@ -98,17 +129,9 @@ export function createNav({
     const link = event.target instanceof Element ? event.target.closest('a') : null;
     if (!link) return;
     closeMenu({ restoreFocus: false });
-    const id = /** @type {HTMLElement} */ (link).dataset.navLink ?? '';
-    // El salto nativo del ancla se queda corto con la pista fija y el scroll suave: siempre
-    // se calcula el destino (la pista da el suyo; las demás secciones, su posición en el documento).
-    const target = document.getElementById(id);
-    const top = yFor(id) ?? (target ? target.getBoundingClientRect().top + window.scrollY : null);
-    if (top === null) return;
-    event.preventDefault();
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
-    history.replaceState(null, '', `#${id}`);
+    if (goTo(/** @type {HTMLElement} */ (link).dataset.navLink ?? '')) event.preventDefault();
   });
+  for (const pin of pins) pin.addEventListener('click', () => goTo(pin.dataset.navPin ?? ''));
   root.addEventListener('keydown', (event) => {
     if (!isOpen) return;
     if (event.key === 'Escape') {
@@ -160,10 +183,20 @@ export function createNav({
       const id = activeSection(blocks, state.y, vh);
       if (id && id !== active) setActive(id);
       const max = Math.max(1, total - vh);
+      if (blocks !== placed) {
+        placed = blocks;
+        // Cada rombo va donde su sección pasa a ser la activa (a 40 % de la pantalla).
+        for (const pin of pins) {
+          const block = blocks.find((b) => b.id === pin.dataset.navPin);
+          const at = block ? clamp((block.top - vh * 0.4) / max) : 0;
+          pin.style.left = `${(at * 100).toFixed(2)}%`;
+        }
+      }
       const p = clamp(state.y / max);
       if (p !== progress) {
         progress = p;
         thread.style.transform = `translate3d(${(p - 1) * 100}%, 0, 0)`;
+        progFill.style.transform = `scaleX(${p.toFixed(4)})`;
       }
     },
     open,

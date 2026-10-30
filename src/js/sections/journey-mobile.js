@@ -34,6 +34,14 @@ const COVER = 42;
 /** Alto del Hero móvil del prototipo (px a 390 de ancho). */
 export const HERO_H = 1800;
 
+/**
+ * Como `findAll`, sin las piezas que solo se ven en escritorio.
+ * @template {Element} T
+ * @param {ParentNode} root @param {string} selector @param {new () => T} type
+ */
+const findLive = (root, selector, type) =>
+  findAll(root, selector, type).filter((e) => !e.closest("[data-desk-only]"));
+
 /** Posición de un elemento en el documento (sin transformaciones). */
 const docY = (/** @type {Element} */ e) =>
   e.getBoundingClientRect().top + window.scrollY;
@@ -74,8 +82,10 @@ export function createMobileJourney({
     hero.querySelector("[data-hero-cue]")
   );
   const events = findAll(track, ".j-event", HTMLElement);
-  const panelsEl = findAll(track, ".j-panel", HTMLElement);
-  const word = track.querySelector(".j-word");
+  const panelsEl = findLive(track, ".j-panel", HTMLElement);
+  // El glosario y Vocalistas de la pista son de escritorio: en móvil los reemplaza ¡Preciosooo!
+  // vertical (`sections/preciosooo.js`).
+  const word = track.querySelector(".j-word:not([data-desk-only] .j-word)");
   const glossaryPanel = word?.closest(".j-panel");
 
   let W = 390;
@@ -328,7 +338,7 @@ export function createMobileJourney({
     applyTable();
     fitSecondaryPhotos();
     buildHero();
-    chs = findAll(track, "[data-lt] .ch", HTMLElement).map((e) => {
+    chs = findLive(track, "[data-lt] .ch", HTMLElement).map((e) => {
       e.style.transform = "none";
       const grp = /** @type {HTMLElement} */ (e.closest("[data-lt]"));
       const i = [...grp.querySelectorAll(".ch")].indexOf(e);
@@ -342,11 +352,11 @@ export function createMobileJourney({
         s: "",
       };
     });
-    rvs = findAll(track, ".j-rv:not(.in)", HTMLElement).map((e) => ({
+    rvs = findLive(track, ".j-rv:not(.in)", HTMLElement).map((e) => ({
       e,
       y: docY(e),
     }));
-    frs = findAll(track, ".j-frame, .j-vframe", HTMLElement).map((e, i) => {
+    frs = findLive(track, ".j-frame, .j-vframe", HTMLElement).map((e, i) => {
       e.style.clipPath = "none";
       return {
         e,
@@ -359,7 +369,7 @@ export function createMobileJourney({
         lit: false,
       };
     });
-    px = findAll(track, "[data-m-py], [data-m-spin]", HTMLElement).map((e) => {
+    px = findLive(track, "[data-m-py], [data-m-spin]", HTMLElement).map((e) => {
       e.style.transform = "";
       return {
         e,
@@ -377,7 +387,7 @@ export function createMobileJourney({
       t: tones[p.dataset.tone ?? "paper"] ?? tones.paper,
     }));
     toneKey = "";
-    oos = findAll(track, ".j-oo", HTMLElement);
+    oos = findLive(track, ".j-oo", HTMLElement);
     if (word instanceof HTMLElement && glossaryPanel instanceof HTMLElement) {
       word.style.top = `${Math.max(16, Math.round((H - word.offsetHeight) / 2))}px`;
       A.preY = docY(glossaryPanel);

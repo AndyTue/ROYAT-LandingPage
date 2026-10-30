@@ -4,6 +4,7 @@ import { fill, pad2 } from '../js/lib/format.js';
 import { stitchSvg } from '../js/stitch/svg.js';
 import { html, raw } from './html.js';
 import { picture } from './partials/picture.js';
+import { preciosooo } from './preciosooo.js';
 
 /**
  * Recorrido del prototipo (ADR-010): el Hero y una sola pista horizontal con Historia,
@@ -398,13 +399,13 @@ export function journey(ctx) {
   /**
    * @param {Panel} p
    * @param {any} body
-   * @param {{ id?: string, labelledby?: string, tag?: string }} [o]
+   * @param {{ id?: string, labelledby?: string, tag?: string, deskOnly?: boolean }} [o]
    */
   const wrap = (p, body, o = {}) => {
     const tag = o.tag ?? 'section';
     const id = o.id ? ` id="${o.id}"` : '';
     const label = o.labelledby ? ` aria-labelledby="${o.labelledby}"` : ` aria-label="${p.label}"`;
-    return html`<${raw(tag)} class="j-panel"${raw(id)} data-tone="${p.tone}" data-at="0 0 ${p.w}"${raw(label)}>${body}</${raw(tag)}>`;
+    return html`<${raw(tag)} class="j-panel"${raw(id)}${raw(o.deskOnly ? ' data-desk-only' : '')} data-tone="${p.tone}" data-at="0 0 ${p.w}"${raw(label)}>${body}</${raw(tag)}>`;
   };
   const bands = sections.slice(0, 4).map((s, i) =>
     wrap(panel(4 + i), band(ctx, panel(4 + i), s), {
@@ -422,9 +423,10 @@ export function journey(ctx) {
         ${wrap(panel(2), html`<canvas class="j-mhem" data-hem-m aria-hidden="true" hidden></canvas>${membersIntro(ctx, panel(2))}`, { id: 'integrantes', labelledby: 'integrantes-titulo' })}
         ${wrap(panel(3), director(ctx, panel(3)), { tag: 'article' })}
         ${bands}
-        ${wrap(panel(8), glossary(ctx, panel(8)), { tag: 'aside', labelledby: 'glosario-titulo' })}
-        ${wrap(panel(9), vocalists(ctx, panel(9), vocals), { id: `seccion-${slug(vocals.name)}`, labelledby: `seccion-${slug(vocals.name)}-titulo` })}
+        ${wrap(panel(8), glossary(ctx, panel(8)), { tag: 'aside', labelledby: 'glosario-titulo', deskOnly: true })}
+        ${wrap(panel(9), vocalists(ctx, panel(9), vocals), { id: `seccion-${slug(vocals.name)}`, labelledby: `seccion-${slug(vocals.name)}-titulo`, deskOnly: true })}
       </div>
     </div>
-  </div>`;
+  </div>
+  ${preciosooo(ctx)}`;
 }

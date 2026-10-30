@@ -1,5 +1,5 @@
 {
-  "$comment": "Textos de interfaz extraídos del prototipo v108 (Recorrido.dc.html). Textos NUEVOS que no existen en el prototipo y debe revisar Andrés: presence.listTitle, contact.fallback.label, contact.fallback.template, contact.errors (excepto phone y phoneAbroad, que vienen del prototipo). '{x}' se reemplaza con datos. Textos NUEVOS de F5 que debe revisar Andrés: nav.menu, nav.announce, nav.close (el prototipo solo trae 'Ir a', 'Cerrar' e 'Inicio' en el menú móvil). Textos del mapa tomados de los prototipos de escritorio y móvil (Recorrido.dc.html y Recorrido-movil.dc.html); presence.map.close y presence.map.label son nuevos. Textos NUEVOS de F9 que debe revisar Andrés: discography.player.error, discography.player.loading, discography.detail.label (el resto viene del prototipo). Texto NUEVO de F10 que debe revisar Andrés: mascot.label (viene del prototipo, adaptado).",
+  "$comment": "Textos de interfaz extraídos del prototipo v108 (Recorrido.dc.html). Textos NUEVOS que no existen en el prototipo y debe revisar Andrés: presence.listTitle, contact.fallback.label, contact.fallback.template, contact.errors (excepto phone y phoneAbroad, que vienen del prototipo). '{x}' se reemplaza con datos. Textos NUEVOS de F5 que debe revisar Andrés: nav.menu, nav.announce, nav.close (el prototipo solo trae 'Ir a', 'Cerrar' e 'Inicio' en el menú móvil). Textos del mapa tomados de los prototipos de escritorio y móvil (Recorrido.dc.html y Recorrido-movil.dc.html); presence.map.close y presence.map.label son nuevos. Textos NUEVOS de F9 que debe revisar Andrés: discography.player.error, discography.player.loading, discography.detail.label (el resto viene del prototipo). Texto NUEVO de F10 que debe revisar Andrés: mascot.label (viene del prototipo, adaptado). Textos de ¡Preciosooo! móvil vertical (MOV-3b): preciosooo.* vienen del prototipo preciosooo-vertical.html.",
   "nav": {
     "label": "Secciones",
     "menu": "Menú",
@@ -21,6 +21,10 @@
       "RIA"
     ],
     "disc": "Disco: {title}"
+  },
+  "preciosooo": {
+    "region": "¡Preciosooo! Vocabulario de la jarana. Desliza hacia abajo para recorrerlo.",
+    "voices": "Los vocalistas"
   },
   "members": {
     "directorLabel": "Director",
