@@ -561,108 +561,112 @@
 }
 
 @layer sections {
-  /* ---------- Selector de idioma del Hero ---------- */
+  /* ---------- Selector de idioma del Hero ----------
+   * Listón pequeño como el de la navegación: papel carta, pespunte naranja y el rombo naranja
+   * sobre la opción activa. */
   .lang {
     position: absolute;
-    inset-block-end: max(1rem, env(safe-area-inset-bottom));
+    inset-block-start: max(1rem, env(safe-area-inset-top));
     inset-inline-end: max(1rem, env(safe-area-inset-right));
     z-index: var(--z-content);
+    padding: 0.25rem;
+    background: var(--color-letter);
+    border-radius: 3px;
+    box-shadow: 0 10px 24px -12px rgb(20 18 14 / 45%);
   }
 
-  .lang__btn {
-    display: inline-flex;
-    gap: 0.4rem;
-    align-items: center;
-    min-block-size: 2.75rem;
-    padding-inline: 0.8rem;
-    font-family: var(--font-ui);
-    font-size: var(--text-label);
-    font-weight: 600;
-    letter-spacing: var(--tracking-label);
-    color: var(--color-light);
-    cursor: pointer;
-    background: var(--color-navy);
-    border: 2px solid var(--color-orange);
-    border-radius: 999px;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-  }
-
-  .lang__btn svg {
-    fill: none;
-    stroke: currentcolor;
-    stroke-width: 1.6;
-    stroke-linecap: round;
-  }
-
-  .lang__menu {
+  .lang::before {
     position: absolute;
-    inset-block-end: calc(100% + 0.5rem);
-    inset-inline-end: 0;
-    min-inline-size: 9.5rem;
-    padding: 0.35rem;
+    inset: 0.25rem;
+    pointer-events: none;
+    content: '';
+    border: 1.4px dashed rgb(233 139 30 / 75%);
+    border-radius: 2px;
+  }
+
+  .lang__list {
+    display: flex;
+    align-items: center;
+    padding: 0;
     margin: 0;
     list-style: none;
-    background: var(--color-light);
-    border: 2px solid var(--color-navy);
-    border-radius: 0.9rem;
-    box-shadow: 0 0.5rem 1.5rem rgb(28 44 85 / 25%);
   }
 
-  .lang__menu[hidden] {
-    display: none;
+  .lang__list li + li::before {
+    display: block;
+    inline-size: 1px;
+    block-size: 0.875rem;
+    content: '';
+    background: rgb(21 20 18 / 18%);
+  }
+
+  .lang__list li {
+    display: flex;
+    align-items: center;
   }
 
   .lang__opt {
-    display: block;
-    padding: 0.7rem 0.9rem;
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-inline-size: 2.75rem;
+    min-block-size: 2.75rem;
+    padding-inline: 0.75rem;
     font-family: var(--font-ui);
-    font-size: 0.9rem;
-    color: var(--color-navy);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--color-muted);
     text-decoration: none;
-    border-radius: 0.6rem;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .lang__opt:hover,
+  .lang__opt:focus-visible {
+    color: var(--color-navy);
   }
 
   .lang__opt[aria-current='true'] {
     font-weight: 700;
-    color: var(--color-light);
-    background: var(--color-navy);
+    color: var(--color-navy);
   }
 
-  /* Sin JS el menú no se puede abrir con el botón: las dos opciones quedan a la vista. */
-  html:not(.js) .lang__btn {
-    display: none;
+  .lang__opt[aria-current='true']::before {
+    position: absolute;
+    inset-block-start: 0.5rem;
+    inset-inline-start: 50%;
+    inline-size: 4px;
+    block-size: 4px;
+    margin-inline-start: -2px;
+    content: '';
+    background: var(--color-orange);
+    transform: rotate(45deg);
   }
 
-  html:not(.js) .lang__menu {
-    position: static;
-    display: flex;
-  }
-
-  /* Móvil: hoja inferior con opciones grandes, al alcance del pulgar. */
-  @media (max-width: 47.99em), (orientation: portrait) {
-    .lang__menu {
-      position: fixed;
-
-      /* Por encima de la barra de progreso y del botón de menú de abajo. */
-      inset-block-end: calc(4.5rem + env(safe-area-inset-bottom));
-      inset-inline: 0.75rem;
-      display: grid;
-      gap: 0.25rem;
-      padding: 0.5rem;
-      border-radius: 1.25rem;
+  /* Escritorio: escala con la unidad del prototipo, como el listón de la navegación. */
+  @media (min-width: 48em) and (orientation: landscape) {
+    .lang {
+      inset-block-start: calc(20 * var(--u));
+      inset-inline-end: calc(24 * var(--u));
+      padding: calc(4 * var(--u));
     }
 
-    .lang__menu[hidden] {
-      display: none;
+    .lang::before {
+      inset: calc(4 * var(--u));
+      border-width: calc(1.4 * var(--u));
     }
 
     .lang__opt {
-      min-block-size: 3.25rem;
-      padding-block: 0;
-      font-size: 1.05rem;
-      line-height: 3.25rem;
-      text-align: center;
+      min-inline-size: calc(44 * var(--u));
+      min-block-size: calc(36 * var(--u));
+      padding-inline: calc(10 * var(--u));
+      font-size: calc(11 * var(--u));
+    }
+
+    .lang__opt[aria-current='true']::before {
+      inset-block-start: calc(7 * var(--u));
     }
   }
 }

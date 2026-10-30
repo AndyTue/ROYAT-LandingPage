@@ -365,8 +365,9 @@ function vocalists(ctx, panel, section) {
 }
 
 /**
- * Selector de idioma del Hero. Son enlaces reales a cada versión (`/` y `/en/`), así que
- * funciona sin JS; `features/lang.js` solo recuerda la elección y maneja el menú.
+ * Selector de idioma del Hero: un listón como el de la navegación, con las dos opciones a la
+ * vista. Son enlaces reales a cada versión (`/` y `/en/`), así que funciona sin JS;
+ * `features/lang.js` solo recuerda la elección.
  * @param {RenderContext} ctx
  */
 function langSwitch(ctx) {
@@ -376,17 +377,13 @@ function langSwitch(ctx) {
     { code: 'es', label: 'Español', href: '/' },
     { code: 'en', label: 'English', href: '/en/' },
   ];
-  return html`<div class="lang" data-lang-switch>
-    <button class="lang__btn" type="button" data-lang-toggle aria-expanded="false" aria-controls="lang-menu" aria-label="${ui.hero.lang.label}: ${options.find((o) => o.code === current)?.label}">
-      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>
-      <span class="lang__code" aria-hidden="true">${current.toUpperCase()}</span>
-    </button>
-    <ul class="lang__menu" id="lang-menu" aria-label="${ui.hero.lang.menu}" data-lang-menu>
+  return html`<nav class="lang" aria-label="${ui.hero.lang.label}" data-lang-switch>
+    <ul class="lang__list">
       ${options.map(
-        (o) => html`<li><a class="lang__opt" href="${o.href}" lang="${o.code}" hreflang="${o.code}" data-lang-opt="${o.code}"${o.code === current ? raw(' aria-current="true"') : ''}>${o.label}</a></li>`,
+        (o) => html`<li><a class="lang__opt" href="${o.href}" lang="${o.code}" hreflang="${o.code}" data-lang-opt="${o.code}"${o.code === current ? raw(' aria-current="true"') : ''}><span aria-hidden="true">${o.code.toUpperCase()}</span><span class="sr-only">${o.label}</span></a></li>`,
       )}
     </ul>
-  </div>`;
+  </nav>`;
 }
 
 /** @param {RenderContext} ctx */
